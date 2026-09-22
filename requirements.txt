@@ -1,0 +1,12 @@
+numpy
+pandas
+scikit-learn
+matplotlib
+pillow
+tqdm
+pydicom
+pylibjpeg
+pylibjpeg-libjpeg
+torch
+torchvision
+PyYAML

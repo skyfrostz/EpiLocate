@@ -1,0 +1,54 @@
+seed: 42
+data:
+  manifest: data/data_manifest.csv
+  selected_manifest: outputs/data/selected_manifest.csv
+  eligibility_index: outputs/data/baseline_eligibility.csv
+  train_csv: data/splits/train.csv
+  val_csv: data/splits/val.csv
+  test_csv: data/splits/test.csv
+
+# Same rule for both classes. Stop unless exactly one candidate per patient.
+# No files are removed; outputs/data/series_summary.csv records every exclusion.
+series_selection:
+  required_image_types: [ORIGINAL, PRIMARY, AXIAL]
+  convolution_kernel: STANDARD
+  slice_thickness: 1.25
+  axial_normal_tolerance: 0.01
+
+splits:
+  mode: smoke
+  counts_per_class: [3, 1, 1]
+  ratios: [0.70, 0.15, 0.15]
+
+preprocessing:
+  image_size: 224
+  window_center: -600
+  window_width: 1500
+
+qc:
+  slice_fractions: [0.3, 0.5, 0.7]
+  saturation_fraction: 0.99
+  aspect_ratio_tolerance: 0.1
+
+model:
+  name: resnet18
+  pretrained: true
+  num_classes: 2
+training:
+  batch_size: 8
+  epochs: 10
+  learning_rate: 0.0001
+  optimizer: adamw
+  weight_decay: 0.01
+  num_workers: 0
+  checkpoint_metric: val_loss
+  device: auto
+
+tiny_overfit:
+  slice_count: 32
+  batch_size: 32
+  epochs: 50
+  learning_rate: 0.001
+  min_accuracy: 0.95
+  max_final_loss: 0.20
+  min_loss_reduction_fraction: 0.50

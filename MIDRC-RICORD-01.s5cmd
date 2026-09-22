@@ -1,0 +1,43 @@
+# To obtain these images, install the idc-index (https://github.com/ImagingDataCommons/idc-index) python package:
+# pip install --upgrade idc-index
+# then run the following command:
+# idc download <manifest file name>
+# IDC Data Version(s):
+# Total manifest size on disk: 1.43 GB
+cp s3://idc-open-data-cr/5d708fe5-6fb0-4ee7-b331-ab7e1ad1e84e/* .
+cp s3://idc-open-data-cr/1756f251-10ed-45da-a7e4-054c221ac2eb/* .
+cp s3://idc-open-data-cr/3675ede4-ac4e-4b72-9f47-e1017a1f7a55/* .
+cp s3://idc-open-data-cr/7c2155db-788d-43e0-ae6a-1b693c7bd63c/* .
+cp s3://idc-open-data-cr/21240355-081b-435d-8fc0-5df1fc90d7f9/* .
+cp s3://idc-open-data-cr/88cbb30e-1e1a-405f-a049-7f2ac57b317f/* .
+cp s3://idc-open-data-cr/fe3ebb95-e7c0-4a38-ba2a-197d441796d7/* .
+cp s3://idc-open-data-cr/032c105b-3cc8-475b-883b-e490519e18bf/* .
+cp s3://idc-open-data-cr/c9315304-9168-45dc-9087-92a80af39d2d/* .
+cp s3://idc-open-data-cr/b20e1292-2d73-42d9-82a2-a8e2a8c9eb9e/* .
+cp s3://idc-open-data-cr/be8c9546-8f1d-4ec1-aa81-b941e0ff9d21/* .
+cp s3://idc-open-data-cr/61414fd2-7fe3-4423-a3cc-17c387939688/* .
+cp s3://idc-open-data-cr/dd647e17-18ce-44b8-acb7-604b64cf129c/* .
+cp s3://idc-open-data-cr/611d936f-88cd-4562-bffe-6e5381bf4df5/* .
+cp s3://idc-open-data-cr/79355bae-c3d0-4ebc-976e-882a97d9492d/* .
+cp s3://idc-open-data-cr/62d244a3-1104-43b0-8de5-816b5a522ced/* .
+cp s3://idc-open-data-cr/cf8f6e1b-819d-449b-a47c-eb39066f1c77/* .
+cp s3://idc-open-data-cr/00b2331f-b7e6-49bb-abee-de97d5d94d6a/* .
+cp s3://idc-open-data-cr/e76b3ab1-e302-483b-b82c-b02bf9dd9912/* .
+cp s3://idc-open-data-cr/46c525ac-1267-4eb6-b464-613661005001/* .
+cp s3://idc-open-data-cr/c4acc27b-364d-4020-9287-3dcf58844478/* .
+cp s3://idc-open-data-cr/f1ddb2d8-be1f-42f6-886e-aae6c28b7a7a/* .
+cp s3://idc-open-data-cr/ef44843c-1535-419d-aed4-d907ad52981b/* .
+cp s3://idc-open-data-cr/b221cbcf-c4f9-44c5-858f-e752c258083c/* .
+cp s3://idc-open-data-cr/1b1d28f0-c5b4-48c3-a990-0b559a239c98/* .
+cp s3://idc-open-data-cr/93a57103-c52c-486b-884c-93260b4b7575/* .
+cp s3://idc-open-data-cr/0fd6cc33-5ba1-4c29-ac0e-b780fcf77446/* .
+cp s3://idc-open-data-cr/c7769980-8aba-4958-8c27-819c22a3ebc1/* .
+cp s3://idc-open-data-cr/523d060f-b35a-4782-b7d1-9eeb94bd361e/* .
+cp s3://idc-open-data-cr/01bac696-beba-4eee-a103-c475f3f95873/* .
+cp s3://idc-open-data-cr/ec7fb5f1-b18e-4d1c-ad90-b473dd8c1ef9/* .
+cp s3://idc-open-data-cr/fbcdedef-ec4f-4ef5-89ae-0780bdae46c1/* .
+cp s3://idc-open-data-cr/d6291d21-f5d0-4944-8ea1-90f23a4b0f00/* .
+cp s3://idc-open-data-cr/67b90fc5-c31e-419e-beec-4b8ca4682f00/* .
+cp s3://idc-open-data-cr/0dc12dfb-ec94-4127-bbd9-581555e8ae77/* .
+cp s3://idc-open-data-cr/63c33434-db28-4836-b8ac-692468d1d486/* .
+cp s3://idc-open-data-cr/ecdaaddc-98aa-4ec2-b00b-2f5dc5f62866/* .

@@ -1,0 +1,29 @@
+# Python and local environments
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# macOS
+.DS_Store
+
+# Internal project material must stay local.
+*.docx
+*.pdf
+
+# Never commit raw medical images or locally generated patient manifests
+*.dcm
+data/raw/
+data/full_raw/
+data/data_manifest.csv
+data/organize_log.csv
+data/splits/*.csv
+
+# Training artifacts
+checkpoints/*
+outputs/*
+logs/
+*.ckpt
+*.pt
+*.pth
