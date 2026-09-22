@@ -130,6 +130,19 @@ Tiny overfit 固定抽取 32 张平衡 train 切片，预先门槛为 accuracy >
 
 患者划分 CSV 和 QC 图也只在本地保存，由 `.gitignore` 排除。
 
+## 正式 Series 选择协议
+
+完整数据的 Series 选择采用冻结的 `formal-series-selection-rule-b-v1`：在满足 CT、轴位、诊断用途及排除 Scout/Localizer、明确重建和 bone-only Series 等硬条件后，先保留覆盖达到患者最大覆盖 95% 的 Series，再依次按较小层厚、较小 PixelSpacing 和较大覆盖排序。规则不读取 label、collection、UID 顺序或模型结果。
+
+正式协议保存在 `configs/formal_series_selection_rule_b_v1.json`。人工复核材料通过以下命令在本地生成：
+
+```bash
+python scripts/prepare_series_manual_review.py
+python scripts/validate_manual_series_decisions.py
+```
+
+患者级清单、代表性切片 montage 和人工决定文件写入 `outputs/`，不会提交到 Git。当前仍有技术平局和诊断类型不确定病例待人工记录理由，正式 cohort 尚未确认，未生成 full split。
+
 ## IDC 全量下载
 
 全量数据单独保存于 `data/full_raw/`，不会覆盖开发集 `data/raw/`。当前 IDC v22 index 使用的官方 collection_id 是 `midrc_ricord_1a` 和 `midrc_ricord_1b`（对应显示名称 MIDRC-RICORD-1A/1B）。下载日志位于 `logs/download_ricord_1a.log` 和 `logs/download_ricord_1b.log`，Header 审计报告位于 `outputs/data/full_download_report.json`。

@@ -9,8 +9,18 @@ __pycache__/
 .DS_Store
 
 # Internal project material must stay local.
+*.doc
 *.docx
 *.pdf
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+*.odt
+*.ods
+*.pages
+*.numbers
+*.key
 
 # Never commit raw medical images or locally generated patient manifests
 *.dcm
