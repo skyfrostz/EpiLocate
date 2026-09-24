@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}复核任务 | EpiLocate Review{% endblock %}
+{% block content %}
+<main class="page-shell dashboard-page">
+  <header class="page-heading dashboard-heading">
+    <div>
+      <p class="eyebrow">INDEPENDENT REVIEW</p>
+      <h1>Series 复核任务</h1>
+      <p>请独立完成全部 13 例。其他复核者的进度与答案不会显示。</p>
+    </div>
+    <div class="progress-block" aria-label="任务进度">
+      <span><b>{{ progress.submitted|default(0) }}</b> / {{ progress.total|default(13) }}</span>
+      <progress class="progress-track" max="{{ progress.total|default(13) }}" value="{{ progress.submitted|default(0) }}">{{ progress.percent|default(0) }}%</progress>
+      <small>{{ progress.drafts|default(0) }} 例有草稿</small>
+    </div>
+  </header>
+
+  <section class="scope-note">
+    <b>复核边界</b>
+    <span>比较图像质量、胸部覆盖与研究适用性。无法形成稳定证据时，选择 DEFER。</span>
+  </section>
+
+  <section class="case-table-wrap" aria-labelledby="case-list-title">
+    <div class="section-bar">
+      <div>
+        <p class="eyebrow">CASE QUEUE</p>
+        <h2 id="case-list-title">病例队列</h2>
+      </div>
+      <span class="table-note">按固定任务顺序显示</span>
+    </div>
+    <div class="case-table" role="list">
+      {% for item in cases %}
+      <a class="case-row{% if item.status == 'SUBMITTED' %} case-row-complete{% endif %}" href="/review/{{ item.case_id }}" role="listitem">
+        <span class="case-sequence">{{ "%02d"|format(loop.index) }}</span>
+        <span class="case-identity">
+          <b>{{ item.case_id }}</b>
+          <small>{{ '两套候选对比' if item.case_type == 'technical_tie' else '诊断用途确认' }}</small>
+        </span>
+        <span class="case-kind">{{ item.case_type|replace('_', ' ') }}</span>
+        <span class="status-chip status-{{ item.status|default('PENDING')|lower }}">
+          {% if item.status == 'SUBMITTED' %}已提交{% elif item.status == 'DRAFT' %}草稿{% elif item.status == 'READ_ONLY' %}已定稿{% else %}待开始{% endif %}
+        </span>
+        <span class="row-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      {% else %}
+      <div class="empty-state">当前没有分配给你的复核任务。</div>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ case.case_id }} 裁决 | EpiLocate Review{% endblock %}
+{% block body_class %}admin-case-page{% endblock %}
+{% block content %}
+<main class="page-shell admin-case-shell">
+  <nav class="case-nav"><a class="button button-quiet button-small" href="/admin">&larr; 返回裁决列表</a><a class="button button-secondary button-small" href="/admin/cases/{{ case.case_id }}/viewer">打开完整 Series</a></nav>
+  <header class="review-heading admin-case-heading">
+    <div><p class="eyebrow">FINAL DECISION</p><h1>{{ case.case_id }}</h1></div>
+    <span class="status-chip status-{{ consensus.status|default('WAITING')|lower }}">{{ consensus.status|default('WAITING') }}</span>
+  </header>
+
+  <section class="comparison-band">
+    {% for review_item in reviews %}
+    <article>
+      <header><span>Reviewer {{ loop.index }}</span><b>{{ '已提交' if review_item.status == 'SUBMITTED' else '未提交' }}</b></header>
+      {% if review_item.status == 'SUBMITTED' %}
+      <dl><div><dt>决定</dt><dd>{{ review_item.decision }}</dd></div><div><dt>Series</dt><dd><code>{{ review_item.selected_series_uid|default('—', true) }}</code></dd></div><div><dt>理由</dt><dd>{{ review_item.reason }}</dd></div><div><dt>提交时间</dt><dd>{{ review_item.submitted_at_utc }}</dd></div></dl>
+      {% else %}<p class="subtle">等待该复核者提交。</p>{% endif %}
+    </article>
+    {% endfor %}
+  </section>
+
+  {% if consensus.status == 'CONSENSUS' %}
+  <div class="message message-success"><b>两位复核者结论一致。</b>下方已预填决定，但最终理由仍需管理员核对并明确确认。</div>
+  {% elif consensus.status == 'CONFLICT' %}
+  <div class="message message-warning"><b>两位复核者结论存在冲突。</b>请查看完整 Series 与双方理由后独立裁决。</div>
+  {% else %}
+  <div class="message message-info">两位复核者尚未全部提交。管理员仍可查看材料，但不应提前定稿。</div>
+  {% endif %}
+
+  <form class="admin-final-form" id="admin-final-form" data-case-id="{{ case.case_id }}" data-submit-url="/api/admin/final-decisions/{{ case.case_id }}" data-existing="{{ 'true' if final_decision else 'false' }}" data-version="{{ final_decision.version|default('') }}">
+    <section class="review-step">
+      <div class="step-heading"><span>F</span><div><h2>管理员最终记录</h2><p>决定和 Series UID 将写入审计记录。预填内容不会自动定稿。</p></div></div>
+      <fieldset class="final-options"><legend>最终决定</legend>
+        {% for candidate in candidates %}{% if candidate.selectable != false %}
+        <label><input type="radio" name="final-decision" value="{{ 'INCLUDE_REVIEW_SERIES' if case.case_type == 'diagnostic_type_uncertain' else 'SELECT_ONE_CANDIDATE' }}" data-series-uid="{{ candidate.series_uid }}" {% if (final_decision or prefill).selected_series_uid == candidate.series_uid %}checked{% endif %}><span>{{ '纳入' if case.case_type == 'diagnostic_type_uncertain' else '选择 ' ~ candidate.alias|default('候选') }}</span></label>
+        {% endif %}{% endfor %}
+        <label><input type="radio" name="final-decision" value="EXCLUDE_PATIENT" {% if (final_decision or prefill).decision == 'EXCLUDE_PATIENT' %}checked{% endif %}><span>排除患者</span></label>
+        <label><input type="radio" name="final-decision" value="DEFER" {% if (final_decision or prefill).decision == 'DEFER' %}checked{% endif %}><span>DEFER</span></label>
+      </fieldset>
+      <label class="field reason-field"><span>最终理由</span><textarea name="reason" rows="6" minlength="20" required>{{ final_decision.reason|default(prefill.reason|default('')) }}</textarea><small>必须由管理员显式核对并确认，不能仅沿用“共识”标签。</small></label>
+      <div class="evidence-checks">
+        <label><input type="checkbox" name="image_evidence_reviewed" {% if final_decision.image_evidence_reviewed %}checked{% endif %}><span>已查看图像证据</span></label>
+        <label><input type="checkbox" name="metadata_evidence_reviewed" {% if final_decision.metadata_evidence_reviewed %}checked{% endif %}><span>已核对 metadata</span></label>
+      </div>
+    </section>
+    <footer class="submit-dock"><div><b>{{ '更新最终记录' if final_decision else '尚未定稿' }}</b><span>提交后会记录管理员身份与 UTC 时间。</span></div><button class="button button-primary" type="submit" {% if consensus.status == 'WAITING' %}disabled title="需要两位复核者均提交后才能定稿"{% endif %}>确认最终决定</button></footer>
+  </form>
+</main>
+{% endblock %}
+{% block scripts %}<script src="/static/admin.js?v=1" defer></script>{% endblock %}
