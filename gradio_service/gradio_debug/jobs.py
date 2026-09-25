@@ -10,7 +10,7 @@ from datetime import UTC, datetime
 from .contracts import CaseInput, JobStatus
 from .inference import InferenceAdapter
 from .storage import Storage
-from algorithm.service import FrozenBaseline, MODEL_SHA, MODEL_ID, PREPROCESSING_VERSION, PROTOCOL_ID, reserved_module
+from algorithm.service import FrozenBaseline, MODEL_SHA, MODEL_ID, PREPROCESSING_VERSION, PROTOCOL_ID, BASELINE_CONFIG_SHA, reserved_module
 
 
 def utc_now() -> str:
@@ -145,7 +145,8 @@ class JobManager:
                     "coarse_localization": reserved_module(), "lime": reserved_module(),
                     "clinical_explanation": {"status": "NOT_IMPLEMENTED", "method_version": None, "summary": None, "evidence_region_ids": []},
                     "paired_model_results": [], "qa_status": "NOT_RUN",
-                    "provenance": {"checkpoint_sha256": MODEL_SHA, "checkpoint_epoch": 2},
+                    "provenance": {"checkpoint_sha256": MODEL_SHA, "checkpoint_epoch": 2,
+                                   "baseline_config_sha256": BASELINE_CONFIG_SHA},
                 }
             relative = self.storage.write_analysis_result(job.job_id, result)
             self.storage.update_job(job.job_id, status="success", stage="complete", progress=100,

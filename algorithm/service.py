@@ -31,6 +31,7 @@ from src.preprocessing import preprocess_dicom
 MODEL_SHA = "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734"
 PROTOCOL_SHA = "204e34ae2474ab91076cbe3d2fb8ba5ad6f5affb631274c3feed57ed2da7160b"
 CONFIG_SHA = "6a9d1b011250e59956f443add621e786e04ceb6716a8329bc08df1e1e12f2b8a"
+BASELINE_CONFIG_SHA = "7c456065fbff126d25417ad4580c8f8ac58a2b80f5e8fde1356bd6d92a021e17"
 PREPROCESSING_VERSION = "formal-resnet18-baseline-rule-b-v1"
 PROTOCOL_ID = "stage1-occlusion-instability-v1"
 MODEL_ID = "baseline_resnet18"
@@ -86,7 +87,8 @@ class FrozenBaseline:
                 return self._model
             checkpoint_path, protocol_path, stage_path, baseline_path = self._paths()
             try:
-                if (file_hash(checkpoint_path), file_hash(protocol_path), file_hash(stage_path)) != (MODEL_SHA, PROTOCOL_SHA, CONFIG_SHA):
+                if (file_hash(checkpoint_path), file_hash(protocol_path), file_hash(stage_path),
+                    file_hash(baseline_path)) != (MODEL_SHA, PROTOCOL_SHA, CONFIG_SHA, BASELINE_CONFIG_SHA):
                     raise ModelUnavailable("Frozen baseline hash verification failed.")
                 baseline = yaml.safe_load(baseline_path.read_text(encoding="utf-8"))
                 stage = yaml.safe_load(stage_path.read_text(encoding="utf-8"))
@@ -212,7 +214,8 @@ class FrozenBaseline:
                 "clinical_explanation": {"status": "NOT_IMPLEMENTED", "method_version": None, "summary": None, "evidence_region_ids": []},
                 "paired_model_results": [], "qa_status": "NOT_RUN",
                 "provenance": {"checkpoint_sha256": MODEL_SHA, "checkpoint_epoch": 2,
-                               "protocol_sha256": PROTOCOL_SHA, "config_sha256": CONFIG_SHA},
+                               "protocol_sha256": PROTOCOL_SHA, "config_sha256": CONFIG_SHA,
+                               "baseline_config_sha256": BASELINE_CONFIG_SHA},
             }
 
 
