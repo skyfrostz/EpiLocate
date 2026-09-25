@@ -1,0 +1,29 @@
+[Unit]
+Description=Aid imaging research presentation site
+After=network.target
+
+[Service]
+Type=simple
+User=aid-site
+Group=aid-site
+WorkingDirectory=/opt/aid-site/current
+Environment=AID_DATABASE_PATH=/var/lib/aid-site/aid-site.sqlite3
+ExecStart=/opt/aid-site/.venv/bin/uvicorn aid_site.main:app --host 127.0.0.1 --port 8766 --workers 1 --proxy-headers --forwarded-allow-ips=127.0.0.1
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadOnlyPaths=/opt/aid-site
+ReadWritePaths=/var/lib/aid-site
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=true
+RestrictRealtime=true
+SystemCallArchitectures=native
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

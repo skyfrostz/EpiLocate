@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111713"><title>登录 · 辅助诊断研究计划</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/site.css') }}">
+</head>
+<body class="login-body">
+  <main class="login-layout">
+    <section class="login-story" aria-label="项目介绍">
+      <div class="login-topline"><span class="tiny-cross">✳</span> MEDICAL IMAGING RESEARCH <span>2026 / 09</span></div>
+      <div class="login-story-main">
+        <div class="eyebrow"><span class="eyebrow-line"></span> PRIVATE RESEARCH SPACE</div>
+        <h1>让每一步定位<br><em>都有依据。</em></h1>
+        <p>面向基层医院的新发传染病影像智能辅助诊断系统。围绕弱监督病灶定位、局部解释与临床反馈展开的研究计划。</p>
+        <div class="login-route"><span>分块掩码</span><b>→</b><span>LIME 精细化</span><b>→</b><span>临床解释</span></div>
+      </div>
+      <div class="login-bottomline"><span>PROJECT XB / AID</span><span>研究展示 · 不提供诊断结果</span></div>
+      <div class="login-orbit" aria-hidden="true"><div class="orbit-one"></div><div class="orbit-two"></div><div class="orbit-three"></div><div class="orbit-core">✳</div></div>
+    </section>
+    <section class="login-panel">
+      <div class="login-panel-top"><span class="panel-mark">✳</span><span>ACCESS PORTAL / 01</span></div>
+      <div class="login-box">
+        <div class="login-count">01 <span>/ 01</span></div>
+        <h2>欢迎回来</h2>
+        <p>该站点仅向受邀项目成员开放。请使用管理员创建的账号访问。</p>
+        {% if error %}<div class="form-error" role="alert">{{ error }}</div>{% endif %}
+        <form method="post" action="/login" class="login-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <input type="hidden" name="next" value="{{ next }}">
+          <label for="username">账号 <span>ACCOUNT</span></label>
+          <input id="username" name="username" type="text" autocomplete="username" maxlength="64" required autofocus placeholder="请输入账号">
+          <label for="password">密码 <span>PASSWORD</span></label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="请输入密码">
+          <button type="submit">进入项目网站 <span>↗</span></button>
+        </form>
+        <div class="login-note"><span class="note-dot"></span>无自助注册 · 账号由管理员创建</div>
+      </div>
+      <div class="login-panel-bottom">ACCESS RESTRICTED <span>© 2026</span></div>
+    </section>
+  </main>
+</body>
+</html>
