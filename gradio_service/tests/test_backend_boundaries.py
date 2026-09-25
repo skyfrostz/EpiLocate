@@ -84,6 +84,31 @@ def test_imaging_api_requires_configured_token(monkeypatch):
         assert authorized.json()["code"] == "RESULT_NOT_FOUND"
 
 
+def test_gradio_file_route_cannot_bypass_protected_asset_api(monkeypatch):
+    from gradio_debug.app import app, storage
+
+    monkeypatch.setenv("EPILOCATE_API_TOKEN", "test-local-token")
+    asset = storage.results / "CASE-test" / "RESULT-test" / "response-16.png"
+    asset.parent.mkdir(parents=True, exist_ok=True)
+    asset.write_bytes(b"synthetic asset route check")
+    route = f"/gradio/gradio_api/file={asset}"
+    with TestClient(app) as client:
+        assert client.get(route).status_code == 401
+        with_token = client.get(route, headers={"Authorization": "Bearer test-local-token"})
+        assert with_token.status_code in {403, 404}
+        assert with_token.content != asset.read_bytes()
+
+
+def test_without_token_external_client_is_forbidden(monkeypatch):
+    from gradio_debug.app import app
+
+    monkeypatch.delenv("EPILOCATE_API_TOKEN", raising=False)
+    with TestClient(app, client=("192.0.2.10", 50000)) as client:
+        response = client.get("/api/v1/assets/response-16.png", params={"result_id": "unknown"})
+        assert response.status_code == 403
+        assert response.json()["code"] == "FORBIDDEN"
+
+
 def test_result_ownership_mismatch_is_rejected(tmp_path):
     from gradio_debug.contracts import JobStatus
 

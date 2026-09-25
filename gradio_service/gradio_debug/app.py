@@ -434,12 +434,13 @@ blocked = [
     str(Path(__file__).resolve().parents[1] / ".git"),
     str(Path(__file__).resolve().parents[1] / ".env"),
     str(storage.uploads),
+    str(storage.results),
 ]
 app = gr.mount_gradio_app(
     api,
     ui,
     path="/gradio",
-    allowed_paths=[str(storage.results), str(storage.temp)],
+    allowed_paths=[str(storage.temp)],
     blocked_paths=blocked,
     max_file_size=f"{os.getenv('APP_MAX_UPLOAD_MIB', '20')}mb",
 )

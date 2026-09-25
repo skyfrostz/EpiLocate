@@ -8,6 +8,8 @@ import argparse
 import hashlib
 import io
 import json
+import os
+import subprocess
 import time
 import uuid
 from pathlib import Path
@@ -43,14 +45,18 @@ def main() -> None:
     args = parser.parse_args()
     data = FIXTURE.read_bytes()
     assert hashlib.sha256(data).hexdigest() == VECTOR["dicom_sha256"]
-    evidence: dict = {"commit": "3b3c270869663293769f99ab3cbc180904185a1f",
+    token = os.getenv("EPILOCATE_API_BEARER_TOKEN")
+    current_head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    evidence: dict = {"tested_worktree_head": current_head,
+                      "token_mode": bool(token),
                       "fixture_sha256": VECTOR["dicom_sha256"], "checks": {}}
 
     def record(name: str, observed, expected) -> None:
         evidence["checks"][name] = {"observed": observed, "expected": expected,
                                      "status": "PASS" if observed == expected else "FAIL"}
 
-    with httpx.Client(base_url=args.url, timeout=60, trust_env=False) as client:
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
+    with httpx.Client(base_url=args.url, timeout=60, trust_env=False, headers=headers) as client:
         health = client.get("/api/health").json()
         record("real_health", [health["mode"], health["real_ready"]], ["real", True])
         capabilities = client.get("/api/v1/capabilities").json()["capabilities"]
@@ -205,9 +211,11 @@ def main() -> None:
         traversal = client.get("/api/v1/assets/%2e%2e%2f%2e%2e%2fetc%2fpasswd",
                                params={"result_id": result["result_id"]})
         record("asset_traversal_rejected", traversal.status_code, 404)
-        no_auth_asset = client.get(f"/api/v1/assets/{result['scale_summaries'][0]['response_layer']['asset_id']}",
-                                   params={"result_id": result["result_id"]})
-        record("asset_requires_authorization", no_auth_asset.status_code, 401)
+        with httpx.Client(base_url=args.url, timeout=60, trust_env=False) as anonymous:
+            no_auth_asset = anonymous.get(
+                f"/api/v1/assets/{result['scale_summaries'][0]['response_layer']['asset_id']}",
+                params={"result_id": result["result_id"]})
+        record("asset_access_boundary", no_auth_asset.status_code, 401 if token else 200)
         evidence["asset_without_auth_status"] = no_auth_asset.status_code
         evidence["observed_probability"] = probability
     evidence["summary"] = {status: sum(item["status"] == status for item in evidence["checks"].values())

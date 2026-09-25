@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import time
 import uuid
+import shutil
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -56,6 +57,10 @@ def build_ui(storage: Storage, adapter: InferenceAdapter, jobs: JobManager, base
         result_file = jobs.result_file(job.job_id)
         if result.status == "failed":
             raise gr.Error(result.error.message if result.error else "推理失败。")
+        download_file = None
+        if result_file:
+            download_file = storage.temp / f"result-{job.job_id}.json"
+            shutil.copyfile(result_file, download_file)
         return (
             result.prediction.predicted_class,
             result.prediction.probability,
@@ -63,7 +68,7 @@ def build_ui(storage: Storage, adapter: InferenceAdapter, jobs: JobManager, base
             result.runtime_ms,
             "\n".join(result.warnings),
             payload,
-            str(result_file) if result_file else None,
+            str(download_file) if download_file else None,
         )
 
     def run_dicom(path: str | None, with_occlusion: bool, progress=gr.Progress()):
