@@ -1,0 +1,19 @@
+{
+  "health": {
+    "status": "degraded",
+    "mode": "real",
+    "contract_version": "0.1",
+    "real_ready": false
+  },
+  "baseline_capability": "unavailable",
+  "upload_status": 503,
+  "upload_error": "MODEL_UNAVAILABLE",
+  "mock_compat_status_in_real_mode": 503,
+  "mock_compat_response": {
+    "detail": {
+      "code": "REAL_PIPELINE_UNAVAILABLE",
+      "message": "Real inference pipeline is not available."
+    }
+  },
+  "status": "PASS"
+}
