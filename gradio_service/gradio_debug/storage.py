@@ -178,12 +178,35 @@ class Storage:
             return None
         if row["request_digest"] != digest:
             raise InputError("IDEMPOTENCY_CONFLICT", "Idempotency key was used for another request.", 409)
-        return json.loads(row["response_json"])
+        response = json.loads(row["response_json"])
+        if response == {"_pending": True}:
+            raise InputError("IDEMPOTENCY_CONFLICT", "The same request is still being submitted.", 409)
+        return response
+
+    def reserve_idempotency(self, key: str, digest: str):
+        """Claim a key before creating a case or job, including across processes."""
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute("SELECT request_digest,response_json FROM idempotency WHERE key=?", (key,)).fetchone()
+            if row is None:
+                conn.execute("INSERT INTO idempotency VALUES (?,?,?)",
+                             (key, digest, '{"_pending": true}'))
+                return None
+            if row["request_digest"] != digest or row["response_json"] == '{"_pending": true}':
+                raise InputError("IDEMPOTENCY_CONFLICT", "Idempotency key is occupied by another or pending request.", 409)
+            return json.loads(row["response_json"])
 
     def store_idempotent_response(self, key: str, digest: str, response: dict) -> None:
         with self._connect() as conn:
-            conn.execute("INSERT INTO idempotency VALUES (?,?,?)",
-                         (key, digest, json.dumps(response, sort_keys=True)))
+            cursor = conn.execute("UPDATE idempotency SET response_json=? WHERE key=? AND request_digest=? AND response_json=?",
+                                  (json.dumps(response, sort_keys=True), key, digest, '{"_pending": true}'))
+            if cursor.rowcount != 1:
+                raise ValueError("idempotency reservation was lost")
+
+    def release_idempotency(self, key: str, digest: str) -> None:
+        with self._connect() as conn:
+            conn.execute("DELETE FROM idempotency WHERE key=? AND request_digest=? AND response_json=?",
+                         (key, digest, '{"_pending": true}'))
 
     def create_job(self, job: JobStatus) -> None:
         with self._connect() as conn:
@@ -249,13 +272,23 @@ class Storage:
 
     def get_analysis_result(self, result_id: str):
         with self._connect() as conn:
-            row = conn.execute("SELECT result_path FROM analysis_results WHERE result_id=?", (result_id,)).fetchone()
+            row = conn.execute("""SELECT r.case_id, r.job_id, r.result_path, j.status
+                                  FROM analysis_results r JOIN jobs j ON j.job_id=r.job_id
+                                  WHERE r.result_id=?""", (result_id,)).fetchone()
         if row is None:
             return None
+        if row["status"] != "success":
+            return None
         path = (self.root / row["result_path"]).resolve()
-        if self.results not in path.parents:
-            raise ValueError("result path escapes results directory")
-        return json.loads(path.read_text(encoding="utf-8"))
+        if self.results not in path.parents or not path.is_file():
+            return None
+        result = json.loads(path.read_text(encoding="utf-8"))
+        case = self.get_case(case_id=row["case_id"])
+        if (case is None or result.get("result_id") != result_id or
+                result.get("case_id") != row["case_id"] or
+                result.get("slice_id") != case["slice_id"]):
+            return None
+        return result
 
     def read_result(self, relative_path: str) -> InferenceResult:
         path = (self.root / relative_path).resolve()

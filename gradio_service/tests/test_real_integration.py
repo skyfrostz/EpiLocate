@@ -80,7 +80,12 @@ def test_mock_source_is_explicit(tmp_path, monkeypatch):
 def test_real_dicom_http_prediction_occlusion_geometry_and_idempotency():
     key = uuid.uuid4().hex
     with TestClient(app) as client:
-        assert client.get("/api/v1/capabilities").json()["capabilities"]["baseline_slice_prediction"]["state"] == "available"
+        capabilities = client.get("/api/v1/capabilities").json()
+        check_schema("CapabilityReport", capabilities)
+        assert capabilities["capabilities"]["baseline_slice_prediction"]["state"] == "available"
+        for name in ("nifti", "multi_slice", "patient_summary", "frozen_validation_summary",
+                     "robust", "coarse_localization", "lime", "doctor_feedback"):
+            assert capabilities["capabilities"][name]["state"] == "planned"
         files = {"files": ("synthetic.dcm", FIXTURE.read_bytes(), "application/dicom")}
         upload = client.post("/api/v1/cases", headers={"Idempotency-Key": key},
                              data={"input_kind": "dicom_series"}, files=files)
@@ -109,7 +114,10 @@ def test_real_dicom_http_prediction_occlusion_geometry_and_idempotency():
         conflict = client.post("/api/v1/predictions", headers={"Idempotency-Key": pred_key},
                                json={**pred_body, "slice_id": "OTHER"})
         assert conflict.status_code == 409 and conflict.json()["code"] == "IDEMPOTENCY_CONFLICT"
-        assert completed(client, accepted.json()["job_id"])["status"] == "COMPLETED"
+        check_schema("JobAccepted", accepted.json())
+        prediction_job = completed(client, accepted.json()["job_id"])
+        assert prediction_job["status"] == "COMPLETED"
+        check_schema("Job", prediction_job)
         prediction_result = client.get(f"/api/v1/jobs/{accepted.json()['job_id']}/result").json()
         check_schema("AnalysisResult", prediction_result)
         prediction = prediction_result["prediction"]
@@ -132,6 +140,8 @@ def test_real_dicom_http_prediction_occlusion_geometry_and_idempotency():
         assert positions[0]["candidate_response"] == max(positions[0]["decision_confidence_drop"], 0)
         image = client.get("/api/v1/assets/response-16.png", params={"result_id": result["result_id"]})
         assert image.status_code == 200 and Image.open(io.BytesIO(image.content)).size == (224, 224)
+        assert client.get("/api/v1/assets/response-16.png", params={"result_id": "RESULT-unknown"}).status_code == 404
+        assert client.get("/api/v1/assets/comparison-32.json", params={"result_id": result["result_id"]}).status_code == 404
         response_map = rasterize_block_scores(pd.DataFrame(positions).rename(columns={"candidate_response": "score"}), "score")
         display = np.asarray(Image.open(io.BytesIO(image.content)), dtype=float)
         expected_display = np.rint(response_map / max(float(response_map.max()), 1e-6) * 255)

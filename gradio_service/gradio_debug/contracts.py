@@ -116,7 +116,7 @@ class InferenceResult(StrictModel):
 class JobStatus(StrictModel):
     job_id: str
     case_id: str
-    status: Literal["queued", "running", "success", "failed"]
+    status: Literal["queued", "running", "success", "failed", "cancelled"]
     stage: str
     progress: int = Field(ge=0, le=100)
     created_at: str

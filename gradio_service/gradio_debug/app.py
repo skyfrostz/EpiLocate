@@ -6,6 +6,7 @@ import io
 import json
 import uuid
 import hashlib
+import secrets
 from datetime import UTC, datetime
 from contextlib import asynccontextmanager
 from logging.handlers import RotatingFileHandler
@@ -17,7 +18,7 @@ DATA_ROOT = Path(os.getenv("APP_DATA_ROOT", PROJECT_ROOT)).resolve()
 os.environ.setdefault("GRADIO_TEMP_DIR", str(DATA_ROOT / "storage" / "temp"))
 
 import gradio as gr
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile, Header
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile, Header, Request
 from fastapi.responses import RedirectResponse, FileResponse, Response, JSONResponse
 from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel
@@ -70,6 +71,26 @@ api = FastAPI(
 )
 
 
+@api.middleware("http")
+async def protect_imaging_data(request: Request, call_next):
+    path = request.url.path
+    protected = (path.startswith("/api/v1/") and path not in
+                 {"/api/v1/capabilities", "/api/v1/contract"}) or path.startswith("/gradio")
+    if protected:
+        token = os.getenv("EPILOCATE_API_TOKEN")
+        if token:
+            supplied = request.headers.get("authorization", "")
+            if not secrets.compare_digest(supplied, f"Bearer {token}"):
+                return JSONResponse(status_code=401, content={"code": "UNAUTHENTICATED",
+                    "message": "An API token is required.", "retryable": False,
+                    "request_id": uuid.uuid4().hex, "details": {}})
+        elif request.client is None or request.client.host not in {"127.0.0.1", "::1", "localhost", "testclient"}:
+            return JSONResponse(status_code=403, content={"code": "FORBIDDEN",
+                "message": "This P0 service is restricted to loopback access.", "retryable": False,
+                "request_id": uuid.uuid4().hex, "details": {}})
+    return await call_next(request)
+
+
 @api.exception_handler(HTTPException)
 async def api_http_error(_request, exc: HTTPException):
     if isinstance(exc.detail, dict) and "request_id" in exc.detail:
@@ -113,7 +134,7 @@ def capabilities():
                 "mock_prediction": item("available" if adapter.mode == "mock" else "unavailable", "PNG/JPG mock v0.1; result source=MOCK"),
                 "baseline_slice_prediction": item("available" if ready else "unavailable", "frozen checkpoint SHA-256 and epoch verified" if ready else "frozen checkpoint unavailable", "LIVE_CASE" if ready else None),
                 "single_slice_occlusion": item("available" if ready else "unavailable", "frozen Stage 1 functions and checkpoint verified" if ready else "frozen checkpoint unavailable", "LIVE_CASE" if ready else None),
-                **{name: item("planned", "not connected") for name in ("nifti", "robust", "coarse_localization", "lime", "doctor_feedback")},
+                **{name: item("planned", "not connected") for name in ("nifti", "multi_slice", "patient_summary", "frozen_validation_summary", "robust", "coarse_localization", "lime", "doctor_feedback")},
             }}
 
 
@@ -127,7 +148,7 @@ def check_idempotency(key: str | None, digest: str):
     if key is None or not 8 <= len(key) <= 128:
         error("INVALID_REQUEST", "Idempotency-Key must contain 8–128 characters.", 422)
     try:
-        return storage.idempotent_response(key, digest)
+        return storage.reserve_idempotency(key, digest)
     except InputError:
         error("IDEMPOTENCY_CONFLICT", "Idempotency key was used for another request.", 409)
 
@@ -167,25 +188,27 @@ async def create_case(files: list[UploadFile] = File(...), input_kind: str = For
     if existing is not None:
         return existing
     try:
-        rows, columns = validate_dicom(data, storage.max_image_pixels)
-    except ValueError:
-        error("IMAGE_PARSE_FAILED", "Invalid or identifiable CT DICOM slice.", 422)
-    case_id, slice_id, job_id = "CASE-" + uuid.uuid4().hex[:16], "SLICE-" + uuid.uuid4().hex[:16], str(uuid.uuid4())
-    storage.save_dicom_bytes(data, case_id, slice_id, rows, columns, datetime.now(UTC).isoformat())
-    try:
-        baseline.stages(storage.absolute_input_path(storage.get_case(case_id=case_id)["input_path"]))
-    except Exception:
-        # Reject unsupported pixel encodings before exposing a ready case.
-        storage.delete_case(case_id)
-        error("PREPROCESSING_FAILED", "CT pixel preprocessing failed.", 422)
-    from .jobs import utc_now
-    job = JobStatus(job_id=job_id, case_id=case_id, status="success", stage="complete",
-                    progress=100, created_at=utc_now(), finished_at=utc_now())
-    storage.create_job(job)
-    storage.mark_analysis_job(job_id, "CASE_PARSE")
-    response = {"case_id": case_id, "job_id": job_id, "status": "PENDING"}
-    storage.store_idempotent_response(idempotency_key, digest, response)
-    return response
+        try:
+            rows, columns = validate_dicom(data, storage.max_image_pixels)
+        except ValueError:
+            error("IMAGE_PARSE_FAILED", "Invalid or identifiable CT DICOM slice.", 422)
+        case_id, slice_id, job_id = "CASE-" + uuid.uuid4().hex[:16], "SLICE-" + uuid.uuid4().hex[:16], str(uuid.uuid4())
+        storage.save_dicom_bytes(data, case_id, slice_id, rows, columns, datetime.now(UTC).isoformat())
+        try:
+            baseline.stages(storage.absolute_input_path(storage.get_case(case_id=case_id)["input_path"]))
+        except Exception:
+            storage.delete_case(case_id)
+            error("PREPROCESSING_FAILED", "CT pixel preprocessing failed.", 422)
+        from .jobs import utc_now
+        job = JobStatus(job_id=job_id, case_id=case_id, status="success", stage="complete",
+                        progress=100, created_at=utc_now(), finished_at=utc_now())
+        storage.create_job(job)
+        storage.mark_analysis_job(job_id, "CASE_PARSE")
+        response = {"case_id": case_id, "job_id": job_id, "status": "PENDING"}
+        storage.store_idempotent_response(idempotency_key, digest, response)
+        return response
+    finally:
+        storage.release_idempotency(idempotency_key, digest)
 
 
 @api.get("/api/v1/cases/{case_id}")
@@ -236,23 +259,26 @@ def submit_v1(request, kind: str, scales=None, idempotency_key=None):
     existing = check_idempotency(idempotency_key, digest)
     if existing is not None:
         return existing
-    record = storage.get_case(case_id=request.case_id)
-    if record is None or record["slice_id"] != request.slice_id:
-        error("RESULT_NOT_FOUND", "Case or slice not found.", 404)
-    if request.model_id != MODEL_ID or (kind == "prediction" and request.unit != "slice"):
-        error("INVALID_REQUEST", "Only Baseline single-slice analysis is supported.", 422)
-    if kind == "occlusion" and (request.protocol_id != PROTOCOL_ID or not scales or len(set(scales)) != len(scales) or any(scale not in (16, 32, 64) for scale in scales)):
-        error("INVALID_REQUEST", "Invalid Stage 1 occlusion settings.", 422)
-    if not baseline.ready():
-        error("MODEL_UNAVAILABLE", "Frozen baseline is unavailable.", 503)
     try:
-        job = jobs.submit_analysis(request.case_id, request.slice_id, kind, scales)
-    except QueueFullError:
-        error("INVALID_REQUEST", "Analysis queue is full.", 429)
-    response = {"job_id": job.job_id, "case_id": job.case_id, "status": "PENDING",
-                "status_url": f"/api/v1/jobs/{job.job_id}"}
-    storage.store_idempotent_response(idempotency_key, digest, response)
-    return response
+        record = storage.get_case(case_id=request.case_id)
+        if record is None or record["slice_id"] != request.slice_id:
+            error("RESULT_NOT_FOUND", "Case or slice not found.", 404)
+        if request.model_id != MODEL_ID or (kind == "prediction" and request.unit != "slice"):
+            error("INVALID_REQUEST", "Only Baseline single-slice analysis is supported.", 422)
+        if kind == "occlusion" and (request.protocol_id != PROTOCOL_ID or not scales or len(set(scales)) != len(scales) or any(scale not in (16, 32, 64) for scale in scales)):
+            error("INVALID_REQUEST", "Invalid Stage 1 occlusion settings.", 422)
+        if not baseline.ready():
+            error("MODEL_UNAVAILABLE", "Frozen baseline is unavailable.", 503)
+        try:
+            job = jobs.submit_analysis(request.case_id, request.slice_id, kind, scales)
+        except QueueFullError:
+            error("INVALID_REQUEST", "Analysis queue is full.", 429)
+        response = {"job_id": job.job_id, "case_id": job.case_id, "status": "PENDING",
+                    "status_url": f"/api/v1/jobs/{job.job_id}"}
+        storage.store_idempotent_response(idempotency_key, digest, response)
+        return response
+    finally:
+        storage.release_idempotency(idempotency_key, digest)
 
 
 @api.post("/api/v1/predictions", status_code=202)
@@ -303,7 +329,16 @@ def reserved_future_endpoint():
 
 @api.post("/api/v1/jobs/{job_id}/cancel")
 def cancel_job(job_id: str):
-    error("NOT_IMPLEMENTED", "P0 jobs cannot be cancelled safely.", 501)
+    job = jobs.get(job_id)
+    if job is None:
+        error("RESULT_NOT_FOUND", "Job not found.", 404)
+    if storage.analysis_job_type(job_id) not in {"PREDICTION", "OCCLUSION"}:
+        error("INVALID_REQUEST", "Only analysis jobs can be cancelled.", 409)
+    if job.status == "cancelled":
+        return get_job(job_id)
+    if jobs.cancel_analysis(job_id) != "cancelled":
+        error("INVALID_REQUEST", "This job has started or already finished and cannot be interrupted safely.", 409)
+    return get_job(job_id)
 
 
 @api.get("/api/v1/contract")
@@ -360,7 +395,7 @@ def get_job(job_id: str):
         error("RESULT_NOT_FOUND", "Job not found.", 404)
     kind = storage.analysis_job_type(job_id)
     if kind:
-        status = {"queued": "PENDING", "running": "RUNNING", "success": "COMPLETED", "failed": "FAILED"}[job.status]
+        status = {"queued": "PENDING", "running": "RUNNING", "success": "COMPLETED", "failed": "FAILED", "cancelled": "CANCELLED"}[job.status]
         start = datetime.fromisoformat(job.started_at or job.created_at)
         end = datetime.fromisoformat(job.finished_at) if job.finished_at else datetime.now(UTC)
         return {"job_id": job_id, "job_type": kind, "case_id": job.case_id,
@@ -384,6 +419,8 @@ def get_job_result(job_id: str):
             error("RESULT_NOT_FOUND", "Case not found.", 404)
         return public_case(record)
     if result is None:
+        if job.status == "cancelled":
+            error("JOB_CANCELLED", "Job was cancelled before execution.", 409)
         if job.status == "failed" and storage.analysis_job_type(job_id):
             error("INFERENCE_FAILED", "Analysis failed; inspect protected server logs.", 500)
         error("INVALID_REQUEST", "Job is not finished.", 409)
