@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "upload_status": 202,
+    "job_status": "success",
+    "source": "MOCK",
+    "mode": "mock"
+  },
+  "expected": {
+    "upload_status": 202,
+    "job_status": "success",
+    "source": "MOCK",
+    "mode": "mock"
+  },
+  "status": "PASS"
+}

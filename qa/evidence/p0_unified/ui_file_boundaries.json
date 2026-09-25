@@ -1,0 +1,9 @@
+{
+  "checks": {
+    "p0_synthetic_ct.dcm-bee42bd9": 401,
+    "image.webp-ba447cce": 401,
+    "image.webp-b2939980": 401,
+    "image.webp-4a51655a": 401
+  },
+  "status": "PASS"
+}

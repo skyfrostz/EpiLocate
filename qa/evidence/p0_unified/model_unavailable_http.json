@@ -1,0 +1,17 @@
+{
+  "checks": {
+    "health_status": "degraded",
+    "real_ready": false,
+    "baseline_capability": "unavailable",
+    "upload_status": 503,
+    "upload_code": "MODEL_UNAVAILABLE"
+  },
+  "expected": {
+    "health_status": "degraded",
+    "real_ready": false,
+    "baseline_capability": "unavailable",
+    "upload_status": 503,
+    "upload_code": "MODEL_UNAVAILABLE"
+  },
+  "status": "PASS"
+}

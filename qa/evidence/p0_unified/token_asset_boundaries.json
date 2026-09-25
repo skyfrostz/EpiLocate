@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "api_asset_no_token": 401,
+    "api_asset_invalid_token": 401,
+    "api_asset_valid_token": 200,
+    "api_gradio_asset_no_token": 401,
+    "api_gradio_asset_valid_token": 403,
+    "ui_gradio_uploaded_dicom_no_login": 401
+  },
+  "expected": {
+    "api_asset_no_token": 401,
+    "api_asset_invalid_token": 401,
+    "api_asset_valid_token": 200,
+    "api_gradio_asset_no_token": 401,
+    "api_gradio_asset_valid_token": 403,
+    "ui_gradio_uploaded_dicom_no_login": 401
+  },
+  "status": "PASS"
+}

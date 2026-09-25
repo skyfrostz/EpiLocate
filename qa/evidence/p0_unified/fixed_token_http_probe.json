@@ -1,0 +1,313 @@
+{
+  "tested_worktree_head": "a15159768fc621b9fe606b08427cc08581d6c4ac",
+  "token_mode": true,
+  "fixture_sha256": "8e73851ac16215180f7a3e17d72c85814886fa25ef62fbfbc618686dc8df54ee",
+  "checks": {
+    "real_health": {
+      "observed": [
+        "real",
+        true
+      ],
+      "expected": [
+        "real",
+        true
+      ],
+      "status": "PASS"
+    },
+    "real_capabilities": {
+      "observed": [
+        "available",
+        "available"
+      ],
+      "expected": [
+        "available",
+        "available"
+      ],
+      "status": "PASS"
+    },
+    "planned_capabilities": {
+      "observed": [
+        "planned",
+        "planned",
+        "planned",
+        "planned",
+        "planned"
+      ],
+      "expected": [
+        "planned",
+        "planned",
+        "planned",
+        "planned",
+        "planned"
+      ],
+      "status": "PASS"
+    },
+    "upload_http": {
+      "observed": 202,
+      "expected": 202,
+      "status": "PASS"
+    },
+    "upload_idempotency": {
+      "observed": true,
+      "expected": true,
+      "status": "PASS"
+    },
+    "case_parse_job": {
+      "observed": "COMPLETED",
+      "expected": "COMPLETED",
+      "status": "PASS"
+    },
+    "case_source": {
+      "observed": "LIVE_CASE",
+      "expected": "LIVE_CASE",
+      "status": "PASS"
+    },
+    "single_slice": {
+      "observed": 1,
+      "expected": 1,
+      "status": "PASS"
+    },
+    "geometry": {
+      "observed": {
+        "raw_width": 112,
+        "raw_height": 80,
+        "algorithm_width": 224,
+        "algorithm_height": 224,
+        "raw_to_algorithm_edge_affine": [
+          2.0,
+          0,
+          0,
+          0,
+          2.8,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "expected": {
+        "raw_width": 112,
+        "raw_height": 80,
+        "algorithm_width": 224,
+        "algorithm_height": 224,
+        "raw_to_algorithm_edge_affine": [
+          2.0,
+          0,
+          0,
+          0,
+          2.8,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "status": "PASS"
+    },
+    "preview_size": {
+      "observed": [
+        112,
+        80
+      ],
+      "expected": [
+        112,
+        80
+      ],
+      "status": "PASS"
+    },
+    "prediction_submit": {
+      "observed": 202,
+      "expected": 202,
+      "status": "PASS"
+    },
+    "prediction_idempotency": {
+      "observed": true,
+      "expected": true,
+      "status": "PASS"
+    },
+    "idempotency_conflict": {
+      "observed": [
+        409,
+        "IDEMPOTENCY_CONFLICT"
+      ],
+      "expected": [
+        409,
+        "IDEMPOTENCY_CONFLICT"
+      ],
+      "status": "PASS"
+    },
+    "prediction_job": {
+      "observed": "COMPLETED",
+      "expected": "COMPLETED",
+      "status": "PASS"
+    },
+    "prediction_source_unit": {
+      "observed": [
+        "LIVE_CASE",
+        "slice",
+        "LIVE_CASE"
+      ],
+      "expected": [
+        "LIVE_CASE",
+        "slice",
+        "LIVE_CASE"
+      ],
+      "status": "PASS"
+    },
+    "golden_probability_within_declared_tolerance": {
+      "observed": true,
+      "expected": true,
+      "status": "PASS"
+    },
+    "model_identity": {
+      "observed": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "expected": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "status": "PASS"
+    },
+    "occlusion_submit": {
+      "observed": 202,
+      "expected": 202,
+      "status": "PASS"
+    },
+    "occlusion_job": {
+      "observed": "COMPLETED",
+      "expected": "COMPLETED",
+      "status": "PASS"
+    },
+    "occlusion_source_slice": {
+      "observed": [
+        "LIVE_CASE",
+        "SLICE-fcc37d7da4b84193"
+      ],
+      "expected": [
+        "LIVE_CASE",
+        "SLICE-fcc37d7da4b84193"
+      ],
+      "status": "PASS"
+    },
+    "future_modules": {
+      "observed": [
+        "NOT_IMPLEMENTED",
+        "NOT_IMPLEMENTED"
+      ],
+      "expected": [
+        "NOT_IMPLEMENTED",
+        "NOT_IMPLEMENTED"
+      ],
+      "status": "PASS"
+    },
+    "mask_position_counts": {
+      "observed": {
+        "16": 729,
+        "32": 169,
+        "64": 36
+      },
+      "expected": {
+        "16": 729,
+        "32": 169,
+        "64": 36
+      },
+      "status": "PASS"
+    },
+    "fixed_decision_class_q0_qg_formula": {
+      "observed": true,
+      "expected": true,
+      "status": "PASS"
+    },
+    "independent_heatmap_pixels_all_scales": {
+      "observed": true,
+      "expected": true,
+      "status": "PASS"
+    },
+    "independent_14x14_grid_all_scales": {
+      "observed": true,
+      "expected": true,
+      "status": "PASS"
+    },
+    "invalid_dicom": {
+      "observed": [
+        422,
+        "IMAGE_PARSE_FAILED"
+      ],
+      "expected": [
+        422,
+        "IMAGE_PARSE_FAILED"
+      ],
+      "status": "PASS"
+    },
+    "unsupported_format": {
+      "observed": [
+        415,
+        "UNSUPPORTED_FORMAT"
+      ],
+      "expected": [
+        415,
+        "UNSUPPORTED_FORMAT"
+      ],
+      "status": "PASS"
+    },
+    "missing_idempotency_key": {
+      "observed": [
+        422,
+        "INVALID_REQUEST"
+      ],
+      "expected": [
+        422,
+        "INVALID_REQUEST"
+      ],
+      "status": "PASS"
+    },
+    "identity_field_rejected": {
+      "observed": [
+        422,
+        "IMAGE_PARSE_FAILED"
+      ],
+      "expected": [
+        422,
+        "IMAGE_PARSE_FAILED"
+      ],
+      "status": "PASS"
+    },
+    "missing_result": {
+      "observed": [
+        404,
+        "RESULT_NOT_FOUND"
+      ],
+      "expected": [
+        404,
+        "RESULT_NOT_FOUND"
+      ],
+      "status": "PASS"
+    },
+    "asset_traversal_rejected": {
+      "observed": 404,
+      "expected": 404,
+      "status": "PASS"
+    },
+    "asset_access_boundary": {
+      "observed": 401,
+      "expected": 401,
+      "status": "PASS"
+    }
+  },
+  "job_status_histories": {
+    "parse": [
+      "COMPLETED"
+    ],
+    "prediction": [
+      "RUNNING",
+      "COMPLETED"
+    ],
+    "occlusion": [
+      "PENDING",
+      "RUNNING",
+      "COMPLETED"
+    ]
+  },
+  "asset_without_auth_status": 401,
+  "observed_probability": 0.025618407875299454,
+  "summary": {
+    "PASS": 32,
+    "FAIL": 0
+  }
+}

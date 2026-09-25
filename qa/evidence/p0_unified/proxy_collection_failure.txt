@@ -1,0 +1,47 @@
+
+==================================== ERRORS ====================================
+_________ ERROR collecting gradio_service/tests/test_frontend_real.py __________
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/httpx/_urlparse.py:409: in normalize_port
+    port_as_int = int(port)
+                  ^^^^^^^^^
+E   ValueError: invalid literal for int() with base 10: ':1'
+
+During handling of the above exception, another exception occurred:
+gradio_service/tests/test_frontend_real.py:11: in <module>
+    from gradio_service.gradio_debug.real_ct_ui import RealCTController, _source
+gradio_service/gradio_debug/real_ct_ui.py:8: in <module>
+    import gradio as gr
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/gradio/__init__.py:3: in <module>
+    import gradio._simple_templates
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/gradio/_simple_templates/__init__.py:1: in <module>
+    from .simpledropdown import SimpleDropdown
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/gradio/_simple_templates/simpledropdown.py:7: in <module>
+    from gradio.components.base import Component, FormComponent
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/gradio/components/__init__.py:1: in <module>
+    from gradio.components.annotated_image import AnnotatedImage
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/gradio/components/annotated_image.py:14: in <module>
+    from gradio import processing_utils, utils
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/gradio/processing_utils.py:46: in <module>
+    sync_client = httpx.Client(transport=sync_transport)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/httpx/_client.py:697: in __init__
+    self._mounts: dict[URLPattern, BaseTransport | None] = {
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/httpx/_client.py:698: in <dictcomp>
+    URLPattern(key): None
+    ^^^^^^^^^^^^^^^
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/httpx/_utils.py:172: in __init__
+    url = URL(pattern)
+          ^^^^^^^^^^^^
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/httpx/_urls.py:117: in __init__
+    self._uri_reference = urlparse(url, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/httpx/_urlparse.py:321: in urlparse
+    parsed_port: int | None = normalize_port(port, scheme)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../infectious-ct-ai-p0/.venv-p0/lib/python3.11/site-packages/httpx/_urlparse.py:411: in normalize_port
+    raise InvalidURL(f"Invalid port: {port!r}")
+E   httpx.InvalidURL: Invalid port: ':1'
+=========================== short test summary info ============================
+ERROR gradio_service/tests/test_frontend_real.py - httpx.InvalidURL: Invalid ...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.25s
