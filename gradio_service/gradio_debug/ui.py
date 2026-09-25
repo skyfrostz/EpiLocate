@@ -12,6 +12,7 @@ from .inference import InferenceAdapter
 from .jobs import JobManager, QueueFullError
 from .storage import InputError, Storage
 from algorithm.service import FrozenBaseline, validate_dicom
+from .real_ct_ui import build_real_ct_tab
 
 
 def build_ui(storage: Storage, adapter: InferenceAdapter, jobs: JobManager, baseline: FrozenBaseline | None = None) -> gr.Blocks:
@@ -101,10 +102,11 @@ def build_ui(storage: Storage, adapter: InferenceAdapter, jobs: JobManager, base
     with gr.Blocks(title="新发传染病影像智能辅助诊断系统") as demo:
         gr.Markdown("# 新发传染病影像智能辅助诊断系统\n弱监督可解释病灶定位研究原型")
         gr.Markdown(
-            f"**MODE:** {mode_label}　 **Contract:** 0.1　 **API:** `/api/health`",
+            f"**MODE:** {mode_label}　 **Contract:** REAL 1.0 / MOCK 0.1　 **API:** `/api/health`",
         )
         gr.Markdown(mode_notice)
-        with gr.Tab("DICOM / Frozen Baseline"):
+        restore_real_ct = build_real_ct_tab()
+        with gr.Tab("DICOM / Frozen Baseline · legacy"):
             gr.Markdown("**真实冻结 Baseline：仅接受已去标识的单切片 CT DICOM。** 结果来源为 `LIVE_CASE`，候选图是模型遮挡响应假设。")
             dicom_input = gr.File(label="单切片 DICOM", file_types=[".dcm"], type="filepath")
             occlusion_toggle = gr.Checkbox(label="同时运行冻结 Stage 1 三尺度遮挡（耗时）", value=False)
@@ -114,46 +116,27 @@ def build_ui(storage: Storage, adapter: InferenceAdapter, jobs: JobManager, base
             dicom_json = gr.JSON(label="真实算法结果")
             dicom_button.click(run_dicom, inputs=[dicom_input, occlusion_toggle],
                                outputs=[dicom_preview, dicom_json, dicom_source], api_name="run_dicom")
-        with gr.Row():
-            with gr.Column(scale=1):
-                image_input = gr.Image(
-                    label="上传 PNG/JPG",
-                    type="filepath",
-                    sources=["upload"],
-                    height=420,
-                )
-                with gr.Row():
-                    run_button = gr.Button("运行分析", variant="primary")
-                    clear_button = gr.ClearButton(value="清空", components=[image_input])
-            with gr.Column(scale=1):
-                predicted_class = gr.Textbox(label="Class", interactive=False)
-                probability = gr.Number(label="Probability", interactive=False)
-                model_version = gr.Textbox(label="Model Version", interactive=False)
-                runtime_ms = gr.Number(label="Runtime (ms)", interactive=False)
-                warnings = gr.Textbox(label="Warnings", lines=4, interactive=False)
-
-        with gr.Tabs():
-            with gr.Tab("Classification"):
-                gr.Markdown("分类结果显示在右侧结果区。")
-            with gr.Tab("Occlusion Analysis"):
-                gr.Markdown("真实 DICOM 单切片的 16/32/64 遮挡已接入；请在 DICOM 页勾选运行。PNG/JPG Mock 不产生遮挡结果。")
-            with gr.Tab("Progressive Coarse Localization"):
-                gr.Markdown("模块尚未接入（unavailable）。")
-            with gr.Tab("LIME"):
-                gr.Markdown("模块尚未接入（unavailable）。")
-            with gr.Tab("Technical / JSON"):
-                result_json = gr.JSON(label="InferenceResult v0.1")
-                result_download = gr.File(label="下载 result.json", interactive=False)
-
-        outputs = [
-            predicted_class,
-            probability,
-            model_version,
-            runtime_ms,
-            warnings,
-            result_json,
-            result_download,
-        ]
-        run_button.click(run_image, inputs=[image_input], outputs=outputs, api_name="run_inference")
-        clear_button.add(outputs)
+        with gr.Tab("PNG/JPG Mock · legacy"):
+            gr.Markdown("**MOCK RESULT：仅用于旧接口调试，不是 CT 真实推理。**")
+            with gr.Row():
+                with gr.Column(scale=1):
+                    image_input = gr.Image(
+                        label="上传 PNG/JPG", type="filepath", sources=["upload"], height=420,
+                    )
+                    with gr.Row():
+                        run_button = gr.Button("运行 Mock 分析", variant="primary")
+                        clear_button = gr.ClearButton(value="清空", components=[image_input])
+                with gr.Column(scale=1):
+                    predicted_class = gr.Textbox(label="Class", interactive=False)
+                    probability = gr.Number(label="Probability", interactive=False)
+                    model_version = gr.Textbox(label="Model Version", interactive=False)
+                    runtime_ms = gr.Number(label="Runtime (ms)", interactive=False)
+                    warnings = gr.Textbox(label="Warnings", lines=4, interactive=False)
+            result_json = gr.JSON(label="InferenceResult v0.1")
+            result_download = gr.File(label="下载 result.json", interactive=False)
+            outputs = [predicted_class, probability, model_version, runtime_ms,
+                       warnings, result_json, result_download]
+            run_button.click(run_image, inputs=[image_input], outputs=outputs, api_name="run_inference")
+            clear_button.add(outputs)
+        demo.load(fn=restore_real_ct[0], inputs=restore_real_ct[1], outputs=restore_real_ct[2])
     return demo
