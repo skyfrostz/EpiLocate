@@ -30,6 +30,8 @@ class JobManager:
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="inference")
         # ponytail: one process and one worker are deliberate; replace with an external queue only when measured demand requires it.
         self.capacity = threading.BoundedSemaphore(queue_limit + 1)
+        self._analysis_futures = {}
+        self._analysis_lock = threading.Lock()
         self.log = logging.getLogger("inference")
         self.error_log = logging.getLogger("errors")
         self.storage.recover_interrupted(utc_now())
@@ -116,7 +118,9 @@ class JobManager:
         try:
             self.storage.create_job(job)
             self.storage.mark_analysis_job(job.job_id, kind.upper())
-            self.executor.submit(self._run_analysis, job, slice_id, kind, scales or [])
+            with self._analysis_lock:
+                self._analysis_futures[job.job_id] = self.executor.submit(
+                    self._run_analysis, job, slice_id, kind, scales or [])
             return job
         except Exception:
             self.capacity.release()
@@ -159,7 +163,22 @@ class JobManager:
             self.error_log.error("analysis_failed case_id=%s job_id=%s\n%s",
                                  job.case_id, job.job_id, traceback.format_exc())
         finally:
+            with self._analysis_lock:
+                self._analysis_futures.pop(job.job_id, None)
             self.capacity.release()
+
+    def cancel_analysis(self, job_id: str) -> str:
+        """Cancel only work that has not entered the non-interruptible algorithm."""
+        with self._analysis_lock:
+            future = self._analysis_futures.get(job_id)
+            if future is None or not future.cancel():
+                return "not_queued"
+            self._analysis_futures.pop(job_id, None)
+            self.storage.update_job(job_id, status="cancelled", stage="cancelled",
+                                    finished_at=utc_now(), error_code="JOB_CANCELLED",
+                                    error_message="Job was cancelled before execution.")
+            self.capacity.release()
+            return "cancelled"
 
     def get(self, job_id: str) -> JobStatus | None:
         return self.storage.get_job(job_id)

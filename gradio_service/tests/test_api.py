@@ -76,3 +76,8 @@ def test_real_mode_missing_checkpoint_is_degraded(tmp_path, monkeypatch):
         )
         assert response.status_code == 503
         assert response.json()["detail"]["code"] == "REAL_PIPELINE_UNAVAILABLE"
+        dicom = client.post("/api/v1/cases", headers={"Idempotency-Key": "missing-model-001"},
+                            data={"input_kind": "dicom_series"},
+                            files={"files": ("synthetic.dcm", b"example", "application/dicom")})
+        assert dicom.status_code == 503
+        assert dicom.json()["code"] == "MODEL_UNAVAILABLE"
