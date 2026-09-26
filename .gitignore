@@ -38,3 +38,4 @@ logs/
 *.pt
 *.pth
 .venv-p0/
+backend_v2/.local/

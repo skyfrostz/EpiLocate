@@ -300,6 +300,8 @@ def result_asset(result_id: str, asset_id: str, db: Session = Depends(get_db), u
     data, media = ObjectStore().read(asset["object_key"])
     if media != "image/png":
         fail("ASSET_TYPE_INVALID", 503)
+    if len(data) != asset["size_bytes"] or not hmac.compare_digest(hashlib.sha256(data).hexdigest(), asset["sha256"]):
+        fail("ASSET_INTEGRITY_FAILURE", 503)
     return Response(data, media_type="image/png", headers={"Cache-Control": "private,no-store", "X-Content-Type-Options": "nosniff"})
 
 
