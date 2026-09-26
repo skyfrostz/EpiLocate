@@ -37,7 +37,7 @@ EPILOCATE_V2_DATABASE_URL='postgresql+psycopg://...' .venv/bin/python -m backend
 
 将 `worker.env` 安全地送达 Worker 主机，加载后在 Worker 仓库运行 `python -m worker`。节点先 Register、发空闲 Heartbeat，再 Claim；Claim 将 `QUEUED` 原子改为 `RUNNING`。运行中的 Heartbeat 续租。Worker 将完整数值结果与 PNG 图层一同提交；Backend 的 `inference_results.result_json` 长期保存原始 `positions/scale_summaries/cross_scale/prediction`，`asset_manifest` 保存每个资产的私有键、SHA-256、尺寸、坐标系、MIME 和大小。公开 Result API 通过 `/positions` 分页读取原始数值，通过 `/assets/{asset_id}` 授权读取 PNG；读取时复验资产大小和 SHA-256。
 
-本地真实 Worker 联调测试：设置 `EPILOCATE_WORKER_ROOT`（必须指向 SHA `24d4fbf8674ce4f34070daebe006ea31ab13f647`）、`EPILOCATE_WORKER_PYTHON`（已安装冻结算法依赖的 Python）和 `EPILOCATE_FROZEN_ROOT`（只读冻结模型目录），运行 `.venv/bin/pytest -q backend_v2/tests/test_worker_v1_integration.py`。测试使用隔离的 SQLite 与内存对象存储，不写 Worker 工作区、不使用患者数据，也不代表 PostgreSQL/S3/公网 HTTPS 已验收。
+本地真实 Worker 联调测试：设置 `EPILOCATE_WORKER_ROOT`（当前 HEAD 必须从固定基线 `24d4fbf8674ce4f34070daebe006ea31ab13f647` 派生）、`EPILOCATE_WORKER_PYTHON`（已安装冻结算法依赖的 Python）和 `EPILOCATE_FROZEN_ROOT`（只读冻结模型目录），运行 `.venv/bin/pytest -q backend_v2/tests/test_worker_v1_integration.py`。测试使用隔离的 SQLite 与内存对象存储，不写 Worker 工作区、不使用患者数据，也不代表 PostgreSQL/S3/公网 HTTPS 已验收。
 
 ## PostgreSQL + MinIO production-like 环境
 

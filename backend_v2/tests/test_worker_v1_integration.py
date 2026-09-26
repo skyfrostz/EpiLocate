@@ -61,8 +61,9 @@ def worker_root_or_skip():
         pytest.skip("Set EPILOCATE_WORKER_ROOT, EPILOCATE_WORKER_PYTHON and EPILOCATE_FROZEN_ROOT for real Worker integration")
     root = Path(raw).resolve()
     actual_sha = subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip()
-    if actual_sha != WORKER_SHA:
-        pytest.skip(f"Worker HEAD differs from pinned {WORKER_SHA}")
+    baseline = subprocess.run(["git", "-C", str(root), "merge-base", "--is-ancestor", WORKER_SHA, actual_sha], check=False)
+    if baseline.returncode != 0:
+        pytest.skip(f"Worker HEAD {actual_sha} does not descend from pinned baseline {WORKER_SHA}")
     return root, Path(worker_python), Path(frozen_root)
 
 
