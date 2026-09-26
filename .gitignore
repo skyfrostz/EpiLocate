@@ -38,3 +38,13 @@ logs/
 *.pt
 *.pth
 .venv-p0/
+
+# Vue Frontend v1 build and local tooling
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+frontend/.vite/
+frontend/.env.local
+frontend/.env.*.local
+frontend/.playwright-cli/
+.playwright-cli/

@@ -1,0 +1,68 @@
+<template>
+  <div class="app-shell">
+    <button
+      v-if="ui.sidebarOpen"
+      class="mobile-scrim"
+      type="button"
+      aria-label="关闭导航"
+      @click="ui.closeSidebar"
+    />
+    <aside class="sidebar" :class="{ 'sidebar-open': ui.sidebarOpen }" aria-label="主导航">
+      <RouterLink class="brand" to="/" @click="ui.closeSidebar">
+        <span class="brand-symbol" aria-hidden="true"><span /></span>
+        <span class="brand-wordmark"><strong>EpiLocate</strong><small>医学影像研究系统</small></span>
+      </RouterLink>
+
+      <div class="sidebar-caption">WORKSPACE / 工作区</div>
+      <nav class="nav-list" aria-label="工作区页面">
+        <RouterLink to="/" class="nav-item" active-class="nav-active" exact-active-class="nav-active" @click="ui.closeSidebar">
+          <span class="nav-icon nav-icon-dashboard" aria-hidden="true" />
+          <span>Dashboard</span>
+          <span class="nav-index">01</span>
+        </RouterLink>
+        <RouterLink to="/cases" class="nav-item" active-class="nav-active" @click="ui.closeSidebar">
+          <span class="nav-icon nav-icon-cases" aria-hidden="true" />
+          <span>病例中心</span>
+          <span class="nav-index">02</span>
+        </RouterLink>
+      </nav>
+
+      <div class="sidebar-caption secondary-caption">CONTEXT / 当前范围</div>
+      <div class="sidebar-context">
+        <span class="context-dot" />
+        <span>单切片 CT · 研究用途</span>
+      </div>
+      <p class="sidebar-guidance">任务和结果页面由对应的匿名 ID 进入。页面不会生成示例诊断。</p>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-rule" />
+        <span>WEB SYSTEM</span>
+        <strong>V1.0</strong>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" type="button" aria-label="打开导航" @click="ui.toggleSidebar">☰</button>
+        <div class="breadcrumb"><span>EPILOCATE</span><b>/</b><strong>{{ title }}</strong></div>
+        <div class="topbar-right">
+          <span class="api-label"><i />API v2</span>
+          <span class="topbar-divider" />
+          <span class="research-label">仅供研究</span>
+        </div>
+      </header>
+      <main class="content"><slot /></main>
+      <footer class="page-footer"><span>EpiLocate · 医学影像研究系统</span><span>所有结果以服务端返回为准</span></footer>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
+import { useUiStore } from '../stores/ui'
+
+const route = useRoute()
+const ui = useUiStore()
+const title = computed(() => String(route.meta.title ?? '工作台'))
+</script>
