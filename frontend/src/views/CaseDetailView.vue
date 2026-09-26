@@ -66,6 +66,16 @@ const jobKeys = new Map<string, string>()
 const canSubmit = computed(() => cases.selected?.status === 'READY' && slices.value.length > 0 && modelId.value.length > 0)
 
 watch(caseId, id => { selectedFile.value = null; previewFile.value = null; uploadKey.value = null; jobKeys.clear(); void cases.loadCase(id) }, { immediate: true })
+watch(slices, async value => {
+  if (!value.length || previewFile.value) return
+  try {
+    const blob = await apiClient.getCaseDicom(caseId.value)
+    previewFile.value = new File([blob], `${caseId.value}.dcm`, { type: 'application/dicom' })
+  } catch {
+    // The metadata remains useful when an expired input cannot be restored.
+    previewFile.value = null
+  }
+})
 onBeforeUnmount(() => { previewFile.value = null })
 
 function chooseFile(event: Event) {

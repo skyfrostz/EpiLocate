@@ -25,6 +25,17 @@ describe('Backend API v2 client', () => {
     }))
   })
 
+  it('reads a retained Case DICOM as a private binary response', async () => {
+    const fetcher = vi.fn(async () => new Response(new Blob(['dicom']), {
+      status: 200, headers: { 'Content-Type': 'application/dicom' },
+    }))
+    const client = new ApiClient({ baseUrl: '/api/v2', fetcher: fetcher as typeof fetch })
+    const blob = await client.getCaseDicom('case_1')
+    expect(blob.type).toBe('application/dicom')
+    expect(blob.size).toBeGreaterThan(0)
+    expect(fetcher).toHaveBeenCalledWith('/api/v2/cases/case_1/dicom', expect.anything())
+  })
+
   it('surfaces the frozen API error object without a Mock fallback', async () => {
     const fetcher = vi.fn(async () => json({
       code: 'CASE_NOT_FOUND', message: 'Case not found.', retryable: false,

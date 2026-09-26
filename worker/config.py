@@ -20,6 +20,7 @@ class WorkerConfig:
     frozen_root: Path
     data_root: Path
     model_hash: str
+    tls_ca_file: Path | None = None
     poll_seconds: float = 5.0
 
     def __post_init__(self) -> None:
@@ -37,6 +38,10 @@ class WorkerConfig:
             raise ValueError("MODEL_VERSION must equal MODEL_HASH under Worker Protocol v1")
         if not math.isfinite(self.poll_seconds) or self.poll_seconds <= 0:
             raise ValueError("WORKER_POLL_SECONDS must be positive")
+        if self.tls_ca_file is not None:
+            ca_file = self.tls_ca_file.expanduser().resolve()
+            if not ca_file.is_file():
+                raise ValueError("WORKER_CA_CERT must point to a readable CA certificate file")
         frozen = self.frozen_root.resolve()
         data = self.data_root.resolve()
         if data == frozen or data.is_relative_to(frozen) or frozen.is_relative_to(data):
@@ -57,4 +62,5 @@ class WorkerConfig:
             data_root=Path(os.environ["WORKER_DATA_ROOT"]),
             poll_seconds=float(os.getenv("WORKER_POLL_SECONDS", "5")),
             model_hash=os.environ["MODEL_HASH"],
+            tls_ca_file=Path(os.environ["WORKER_CA_CERT"]) if os.getenv("WORKER_CA_CERT") else None,
         )

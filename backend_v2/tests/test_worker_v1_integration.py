@@ -25,7 +25,14 @@ from backend_v2.services.retention import expire_inputs
 from backend_v2.workers.provision import provision, write_worker_env
 
 
-WORKER_SHA = "24d4fbf8674ce4f34070daebe006ea31ab13f647"
+# Approved Worker v1 protocol implementations. The Phase 2 hardening commit
+# is accepted alongside the original protocol baseline so integration evidence
+# cannot be skipped merely because the checkout advanced within the same
+# frozen protocol.
+SUPPORTED_WORKER_SHAS = {
+    "24d4fbf8674ce4f34070daebe006ea31ab13f647",
+    "1f90321b7b6af9e2a69992c4259fd2dcf32944ed",
+}
 MODEL_SHA = "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734"
 PREPROCESSING = "formal-resnet18-baseline-rule-b-v1"
 PROTOCOL = "stage1-occlusion-instability-v1"
@@ -58,8 +65,8 @@ def worker_root_or_skip():
         pytest.skip("Set EPILOCATE_WORKER_ROOT, EPILOCATE_WORKER_PYTHON and EPILOCATE_FROZEN_ROOT for real Worker integration")
     root = Path(raw).resolve()
     actual_sha = subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip()
-    if actual_sha != WORKER_SHA:
-        pytest.skip(f"Worker HEAD differs from pinned {WORKER_SHA}")
+    if actual_sha not in SUPPORTED_WORKER_SHAS:
+        pytest.skip(f"Worker HEAD differs from approved v1 SHAs: {sorted(SUPPORTED_WORKER_SHAS)}")
     return root, Path(worker_python), Path(frozen_root)
 
 

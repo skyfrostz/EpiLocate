@@ -203,6 +203,19 @@ def case_detail(case_id: str, db: Session = Depends(get_db), user: User = Depend
     return case_service.case_payload(db, case_service.get_case(db, user.id, case_id))
 
 
+@app.get("/api/v2/cases/{case_id}/dicom")
+def case_dicom(case_id: str, db: Session = Depends(get_db), user: User = Depends(current_user)):
+    """Read the still-retained original DICOM for an owned Case."""
+    case = case_service.get_case(db, user.id, case_id)
+    sl = db.scalar(select(Slice).where(Slice.case_id == case.id).order_by(Slice.ordinal))
+    if not sl or not sl.staging_object_key or not sl.staging_expires_at or aware(sl.staging_expires_at) <= now():
+        fail("INPUT_EXPIRED", 410)
+    data, media = ObjectStore().read(sl.staging_object_key)
+    if media != "application/dicom" or not hmac.compare_digest(hashlib.sha256(data).hexdigest(), sl.source_sha256):
+        fail("INPUT_INTEGRITY_FAILURE", 503)
+    return Response(data, media_type="application/dicom", headers={"Cache-Control": "private,no-store", "X-Content-Type-Options": "nosniff"})
+
+
 @app.post("/api/v2/cases/{case_id}/upload", status_code=201)
 async def case_upload(case_id: str, input_kind: str = Form(...), file: UploadFile = File(...), idempotency_key: str | None = Header(None), db: Session = Depends(get_db), user: User = Depends(current_user)):
     if input_kind != "dicom_series":

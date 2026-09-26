@@ -39,6 +39,9 @@ class FakeStore:
     def signed_get(self, _slice):
         return "https://private.invalid/test-signed-url"
 
+    def read(self, key):
+        return self.objects[key], "application/dicom"
+
 
 @pytest.fixture
 def ctx(monkeypatch):
@@ -107,6 +110,25 @@ def test_case_create_and_idempotency(ctx):
     assert client.get("/api/v2/cases", headers=headers).json()["items"][0]["case_id"] == first.json()["case_id"]
     with factory() as db:
         assert db.scalar(select(Case).where(Case.anonymous_id == first.json()["case_id"])).owner_user_id == ids[0]
+
+
+def test_case_dicom_read_is_owned_and_integrity_checked(ctx):
+    factory, store, ids = ctx
+    raw = b"local-dicom-bytes"
+    case_id, slice_id = seeded_case(factory, ids)
+    with factory.begin() as db:
+        sl = db.scalar(select(Slice).where(Slice.slice_ref == slice_id))
+        sl.source_sha256 = hashlib.sha256(raw).hexdigest()
+        store.objects[sl.staging_object_key] = raw
+    client = TestClient(app)
+    response = client.get(f"/api/v2/cases/{case_id}/dicom", headers={"Authorization": f"Bearer {USER_TOKEN}"})
+    assert response.status_code == 200
+    assert response.content == raw
+    assert response.headers["content-type"].startswith("application/dicom")
+    store.objects["input/test"] = raw + b"corrupt"
+    corrupted = client.get(f"/api/v2/cases/{case_id}/dicom", headers={"Authorization": f"Bearer {USER_TOKEN}"})
+    assert corrupted.status_code == 503
+    assert corrupted.json()["code"] == "INPUT_INTEGRITY_FAILURE"
 
 
 def test_case_cursor_and_owner_scope(ctx):

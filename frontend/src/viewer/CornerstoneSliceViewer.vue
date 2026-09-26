@@ -1,10 +1,10 @@
 <template>
   <div class="cornerstone-viewer">
     <div v-if="file" ref="viewportElement" class="cornerstone-viewport" aria-label="单切片 DICOM 查看器" />
-    <div v-else class="viewer-placeholder"><span class="viewer-corner corner-tl"/><span class="viewer-corner corner-tr"/><span class="viewer-corner corner-bl"/><span class="viewer-corner corner-br"/><span class="viewer-cross"/><p>当前无法从 API 读取原始 DICOM</p><small>Backend v2 暂无授权 DICOM 读取端点。上传后可预览本次本地文件。</small></div>
+    <div v-else class="viewer-placeholder"><span class="viewer-corner corner-tl"/><span class="viewer-corner corner-tr"/><span class="viewer-corner corner-bl"/><span class="viewer-corner corner-br"/><span class="viewer-cross"/><p>当前无法读取原始 DICOM</p><small>病例输入可能已过期，或 API 暂时不可用。</small></div>
     <p v-if="loading" class="viewer-note" role="status">正在解码本地 DICOM…</p>
     <p v-if="error" class="notice notice-error" role="alert">{{ error }}</p>
-    <p v-if="file && !loading && !error" class="viewer-note">本次上传的本地单切片预览；页面刷新后不再保留影像像素。</p>
+    <p v-if="file && !loading && !error" class="viewer-note">单切片 DICOM 已从本次上传或授权 API 恢复。</p>
     <p v-if="overlay && !overlayCompatible(overlay, sliceId, sliceWidth, sliceHeight)" class="viewer-note">图层与当前 Slice 或坐标空间不一致，已禁用叠加。</p>
     <p v-else-if="overlay" class="viewer-note">图层空间元数据已匹配；画布映射和实际叠加留待 Viewer 后续阶段。</p>
   </div>

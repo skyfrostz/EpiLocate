@@ -21,12 +21,14 @@ class WorkerAPIError(RuntimeError):
 
 
 class WorkerClient:
-    def __init__(self, base_url: str, token: str, transport: httpx.BaseTransport | None = None):
+    def __init__(self, base_url: str, token: str, transport: httpx.BaseTransport | None = None,
+                 verify: bool | str = True):
         if urlsplit(base_url).scheme != "https":
             raise ValueError("Worker API requires HTTPS")
         self.base_url = base_url.rstrip("/")
         self.token = token
         self.transport = transport
+        self.verify = verify
 
     def _request(self, path: str, *, key: str | None = None, **kwargs) -> httpx.Response:
         headers = {"Authorization": f"Bearer {self.token}", "X-Request-ID": str(uuid.uuid4())}
@@ -34,7 +36,7 @@ class WorkerClient:
             headers["Idempotency-Key"] = key
         try:
             with httpx.Client(base_url=self.base_url, transport=self.transport, timeout=30,
-                              trust_env=False, follow_redirects=False) as client:
+                              trust_env=False, follow_redirects=False, verify=self.verify) as client:
                 response = client.post(path, headers=headers, **kwargs)
         except httpx.RequestError as exc:
             raise BackendUnavailable("Backend connection unavailable") from exc

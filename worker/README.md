@@ -15,6 +15,7 @@ Set these variables in the Worker process environment:
 | `MODEL_VERSION` | Set to the same SHA-256 as `MODEL_HASH`; Worker Protocol v1 freezes `model_version` to the checkpoint hash |
 | `EPILOCATE_FROZEN_ROOT` | Read-only experiment root containing the checkpoint and frozen protocol/configuration |
 | `WORKER_DATA_ROOT` | Private writable directory outside the frozen root, unique to this Worker |
+| `WORKER_CA_CERT` | Optional local CA certificate for a self-signed HTTPS integration runtime; omit in production to use normal certificate validation |
 | `WORKER_POLL_SECONDS` | Optional polling interval, default 5 seconds |
 
 On a local GPU node, mount the frozen experiment root read-only and provision a private Worker data directory on a separate volume. Install the repository's root `requirements.txt` and `gradio_service/requirements-gradio.txt` in that node's Python environment. Load the Backend-provisioned secret environment file outside Git, then run from this repository:

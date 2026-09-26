@@ -46,7 +46,8 @@ class WorkerAgent:
     def __init__(self, config: WorkerConfig, *, client: WorkerClient | None = None,
                  runner: FrozenRunner | None = None, download_transport: httpx.BaseTransport | None = None):
         self.config = config
-        self.client = client or WorkerClient(config.backend_url, config.token)
+        self.client = client or WorkerClient(config.backend_url, config.token,
+                                             verify=str(config.tls_ca_file) if config.tls_ca_file else True)
         self.runner = runner or FrozenRunner(config.frozen_root, config.model_hash)
         self.download_transport = download_transport
         self.stop_event = threading.Event()
@@ -217,7 +218,8 @@ class WorkerAgent:
         size = 0
         try:
             with httpx.Client(transport=self.download_transport, timeout=30, trust_env=False,
-                              follow_redirects=False) as client:
+                              follow_redirects=False,
+                              verify=str(self.config.tls_ca_file) if self.config.tls_ca_file else True) as client:
                 with client.stream("GET", url, headers={"Cache-Control": "no-store"}) as response:
                     if response.status_code != 200:
                         raise InputDownloadFailed("Input transfer failed")

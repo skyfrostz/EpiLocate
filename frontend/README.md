@@ -6,7 +6,7 @@ Vue 3 + TypeScript + Vite + Pinia + Vue Router + Ant Design Vue. This is the for
 
 The app reads Case, Job and Result records from the frozen Backend v2 `/api/v2` routes. Case creation and single de-identified DICOM upload are separate operations. From a READY Case, the user can create a slice-level Baseline prediction Job or a 16/32/64 px occlusion Job. The Job page polls by its public ID, survives a page refresh, stops at `COMPLETED` or `FAILED`, and reports network, 401 and timeout errors. Only a completed `LIVE_CASE` Result can be displayed. Positive-class probability and predicted-class confidence are shown separately. Response PNGs come from the Result-owned asset endpoint and are labelled as model decision response, never as lesion annotation.
 
-The `CornerstoneSliceViewer` component loads a DICOM `File` through Cornerstone3D's local file manager after a successful upload. Its overlay input is guarded by slice ID, coordinate space, dimensions and axis metadata. Actual CT/heatmap overlay is deferred because the current Backend v2 contract provides no authorized original-DICOM read route or raw-to-algorithm transform for this page. After refresh, only the Case metadata remains; the browser does not retain the local DICOM file.
+The `CornerstoneSliceViewer` component loads a DICOM `File` through Cornerstone3D's local file manager after upload or a retained `GET /api/v2/cases/{case_id}/dicom` read on refresh. Its overlay input is guarded by slice ID, coordinate space, dimensions and axis metadata. Actual CT/heatmap overlay is deferred because raw-to-algorithm transform metadata is not part of this page contract.
 
 ## Local commands
 

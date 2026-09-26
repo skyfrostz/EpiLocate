@@ -107,6 +107,15 @@ export class ApiClient {
     return this.request(`/cases/${encodeURIComponent(caseId)}`, { signal })
   }
 
+  async getCaseDicom(caseId: string, signal?: AbortSignal): Promise<Blob> {
+    const response = await this.send(`/cases/${encodeURIComponent(caseId)}/dicom`, { signal })
+    await this.assertOk(response)
+    if (!(response.headers.get('content-type') ?? '').includes('application/dicom')) {
+      throw new ApiRequestError(response.status, 'INVALID_DICOM', 'API 返回的影像格式无效。', false, null)
+    }
+    return response.blob()
+  }
+
   createCase(patientId: string | null, idempotencyKey: string): Promise<CreatedCase> {
     return this.request('/cases', {
       method: 'POST',
