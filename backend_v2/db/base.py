@@ -20,7 +20,10 @@ def make_engine(url: str | None = None):
     url = url or os.environ["EPILOCATE_V2_DATABASE_URL"]
     if not (url.startswith("postgresql+psycopg://") or url.startswith("sqlite://")):
         raise ValueError("Unsupported database URL")
-    return create_engine(url, pool_pre_ping=True)
+    kwargs = {"pool_pre_ping": True, "future": True}
+    if url.startswith("postgresql+"):
+        kwargs.update(pool_size=int(os.environ.get("EPILOCATE_V2_DB_POOL_SIZE", "5")), max_overflow=int(os.environ.get("EPILOCATE_V2_DB_MAX_OVERFLOW", "10")), pool_recycle=int(os.environ.get("EPILOCATE_V2_DB_POOL_RECYCLE_SECONDS", "1800")))
+    return create_engine(url, **kwargs)
 
 
 def make_session_factory(engine):

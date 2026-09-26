@@ -18,7 +18,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from backend_v2.db.base import make_engine, make_session_factory
-from backend_v2.models.entities import Case, InferenceJob, InferenceResult, JobAttempt, ModelVersion, Slice, User, WorkerNode
+from backend_v2.models.entities import Asset, Case, InferenceJob, InferenceResult, JobAttempt, ModelVersion, Slice, User, WorkerNode
 from backend_v2.services import cases as case_service
 from backend_v2.services import jobs as job_service
 from backend_v2.services.common import aware, fail, iso, now, valid_key
@@ -278,7 +278,9 @@ def result_detail(result_id: str, db: Session = Depends(get_db), user: User = De
     result, job = _owned_result(db, user, result_id)
     body = {k: v for k, v in result.result_json.items() if k != "positions"}
     sl = db.get(Slice, job.slice_id)
-    body.update({"result_id": result_id, "job_id": job.public_id, "status": "COMPLETED", "created_at": iso(result.created_at), "provenance": {"input_sha256": sl.source_sha256, "checkpoint_sha256": result.result_json["model_version"], "preprocessing_version": result.result_json["preprocessing_version"], "protocol_id": result.result_json["protocol_id"]}, "scale_summaries": result.result_json.get("scale_summaries", []), "cross_scale": result.result_json.get("cross_scale", []), "assets": [{k: x[k] for k in ("asset_id", "layer_kind", "width", "height", "coordinate_space", "media_type") if k in x} for x in result.asset_manifest]})
+    asset_rows = db.scalars(select(Asset).where(Asset.result_id == result.id).order_by(Asset.asset_id)).all()
+    store = ObjectStore() if asset_rows else None
+    body.update({"result_id": result_id, "job_id": job.public_id, "status": "COMPLETED", "created_at": iso(result.created_at), "provenance": {"input_sha256": sl.source_sha256, "checkpoint_sha256": result.result_json["model_version"], "preprocessing_version": result.result_json["preprocessing_version"], "protocol_id": result.result_json["protocol_id"]}, "scale_summaries": result.result_json.get("scale_summaries", []), "cross_scale": result.result_json.get("cross_scale", []), "assets": [{"asset_id": x.asset_id, "layer_kind": x.layer_kind, "width": x.width, "height": x.height, "coordinate_space": x.coordinate_space, "media_type": x.media_type, "asset_url": store.signed_asset_get(x)} for x in asset_rows]})
     return body
 
 
@@ -294,13 +296,13 @@ def result_positions(result_id: str, scale: int, cursor: int = 0, limit: int = 1
 @app.get("/api/v2/results/{result_id}/assets/{asset_id}")
 def result_asset(result_id: str, asset_id: str, db: Session = Depends(get_db), user: User = Depends(current_user)):
     result, _ = _owned_result(db, user, result_id)
-    asset = next((x for x in result.asset_manifest if x.get("asset_id") == asset_id), None)
+    asset = db.scalar(select(Asset).where(Asset.result_id == result.id, Asset.asset_id == asset_id))
     if not asset:
         fail("ASSET_NOT_FOUND", 404)
-    data, media = ObjectStore().read(asset["object_key"])
+    data, media = ObjectStore().read(asset.object_key)
     if media != "image/png":
         fail("ASSET_TYPE_INVALID", 503)
-    if len(data) != asset["size_bytes"] or not hmac.compare_digest(hashlib.sha256(data).hexdigest(), asset["sha256"]):
+    if len(data) != asset.size_bytes or not hmac.compare_digest(hashlib.sha256(data).hexdigest(), asset.sha256):
         fail("ASSET_INTEGRITY_FAILURE", 503)
     return Response(data, media_type="image/png", headers={"Cache-Control": "private,no-store", "X-Content-Type-Options": "nosniff"})
 

@@ -193,10 +193,29 @@ class InferenceResult(Base):
     model_version_id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey("model_versions.id"))
     source: Mapped[str] = mapped_column(Text, default="LIVE_CASE", server_default="LIVE_CASE")
     result_json: Mapped[dict] = mapped_column(JSONType)
+    metadata_json: Mapped[dict] = mapped_column(JSONType, default=dict, server_default="{}")
     asset_manifest: Mapped[list] = mapped_column(JSONType, default=list, server_default="[]")
     created_at: Mapped[datetime] = stamp()
     retention_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True, index=True)
     __table_args__ = (ForeignKeyConstraint(["job_id", "case_id"], ["inference_jobs.id", "inference_jobs.case_id"]), CheckConstraint("source = 'LIVE_CASE'"))
+
+
+class Asset(Base):
+    __tablename__ = "assets"
+    id: Mapped[uuid.UUID] = uid()
+    result_id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey("inference_results.id"))
+    asset_id: Mapped[str] = mapped_column(String(128))
+    object_key: Mapped[str] = mapped_column(Text)
+    layer_kind: Mapped[str] = mapped_column(String(64))
+    width: Mapped[int] = mapped_column(Integer)
+    height: Mapped[int] = mapped_column(Integer)
+    coordinate_space: Mapped[str] = mapped_column(String(32))
+    media_type: Mapped[str] = mapped_column(String(96))
+    size_bytes: Mapped[int] = mapped_column(Integer)
+    sha256: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = stamp()
+    retention_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True, index=True)
+    __table_args__ = (UniqueConstraint("result_id", "asset_id"), Index("ix_assets_result", "result_id"), CheckConstraint("width > 0"), CheckConstraint("height > 0"), CheckConstraint("size_bytes >= 0"), CheckConstraint("media_type IN ('image/png','application/json')"), CheckConstraint("coordinate_space IN ('ALGORITHM_224','COMPARISON_14','RAW_PIXEL_EDGE')"))
 
 
 class ApiIdempotency(Base):

@@ -12,7 +12,7 @@ from datetime import timedelta
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from backend_v2.models.entities import Case, InferenceJob, InferenceResult, JobAttempt, ModelVersion, Slice, WorkerNode
+from backend_v2.models.entities import Asset, Case, InferenceJob, InferenceResult, JobAttempt, ModelVersion, Slice, WorkerNode
 from backend_v2.services.common import aware, digest, fail, iso, now, public_id, valid_key
 
 LEASE_SECONDS = 90
@@ -320,8 +320,12 @@ def submit_result(db: Session, store, worker: WorkerNode, manifest: dict, assets
                     fail("RESULT_SCHEMA_INVALID")
                 key = store.put(data, "image/png", "results")
                 stored.append({**x, "width": layer["width"], "height": layer["height"], "coordinate_space": layer["coordinate_space"], "object_key": key})
-            row = InferenceResult(job_id=job.id, case_id=job.case_id, accepted_attempt_id=attempt.id, model_version_id=model.id, result_json=result, asset_manifest=stored)
+            metadata = {"case_id": job.request_json["case_id"], "slice_id": job.request_json["slice_id"], "kind": job.kind, "model_id": model.model_id, "model_version": model.checkpoint_sha256, "preprocessing_version": model.preprocessing_version, "protocol_id": model.protocol_id, "source": "LIVE_CASE"}
+            row = InferenceResult(job_id=job.id, case_id=job.case_id, accepted_attempt_id=attempt.id, model_version_id=model.id, result_json=result, metadata_json=metadata, asset_manifest=stored)
             db.add(row); db.flush()
+            for item in stored:
+                db.add(Asset(result_id=row.id, asset_id=item["asset_id"], object_key=item["object_key"], layer_kind=item["layer_kind"], width=item["width"], height=item["height"], coordinate_space=item["coordinate_space"], media_type=item["media_type"], size_bytes=item["size_bytes"], sha256=item["sha256"]))
+            db.flush()
             result_id = f"result_{row.id.hex}"
             job.status = "COMPLETED"; job.finished_at = at; job.worker_node_id = None; job.lease_expire_time = None; job.last_heartbeat = None
             attempt.outcome = "SUCCEEDED"; attempt.finished_at = at

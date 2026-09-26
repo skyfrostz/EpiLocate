@@ -206,6 +206,28 @@
 
 提交事务须校验 Job、Attempt、Case、ModelVersion 四者一致；仅 `COMPLETED` Job 可见结果。结果 JSON 和资产在同一接收流程校验后发布，失败时不可出现“完成 Job 但缺图层”。
 
+### assets — Asset（v1.0 生产存储扩展）
+
+`result_json` 保留 Worker 原始、经 Schema 校验的响应数据；`metadata_json` 保存不含 PHI 的 Case/Slice/模型/协议来源元数据。`assets` 将图层从 JSON manifest 正规化为可索引的对象记录，`asset_manifest` 继续保留兼容快照。
+
+| 字段 | PostgreSQL 类型 | Nullable | 默认值 | 索引/约束 |
+| --- | --- | --- | --- | --- |
+| id | UUID | 否 | `gen_random_uuid()` | PK |
+| result_id | UUID | 否 | — | FK → `inference_results.id`；INDEX |
+| asset_id | VARCHAR(128) | 否 | — | UNIQUE `(result_id, asset_id)` |
+| object_key | TEXT | 否 | — | 私有 S3/MinIO key；不对外返回 |
+| layer_kind | VARCHAR(64) | 否 | — | 冻结 Heatmap layer kind |
+| width | INTEGER | 否 | — | CHECK `> 0` |
+| height | INTEGER | 否 | — | CHECK `> 0` |
+| coordinate_space | VARCHAR(32) | 否 | — | CHECK `ALGORITHM_224,COMPARISON_14,RAW_PIXEL_EDGE` |
+| media_type | VARCHAR(96) | 否 | — | CHECK `image/png,application/json` |
+| size_bytes | INTEGER | 否 | — | CHECK `>= 0` |
+| sha256 | CHAR(64) | 否 | — | 上传及读取时校验 |
+| created_at | TIMESTAMPTZ | 否 | `now()` | — |
+| retention_until | TIMESTAMPTZ | 是 | `NULL` | INDEX；默认长期保存 |
+
+Result 提交在同一数据库事务写入 `inference_results` 与 `assets`；对象先写入 private storage，哈希、尺寸、MIME、坐标系全部验证后才可见。Frontend 只能获得通过 Case/Result/Asset 所有权校验签发的不超过 5 分钟 signed URL 或使用代理读取端点，不能获得 bucket key。原始 DICOM 的 7 天 TTL 不级联到 Result/Asset。
+
 ### api_idempotency — Case 与上传请求的幂等记录（为 API v2 补充）
 
 | 字段 | 类型 | Nullable | 默认值 | 索引/约束 |

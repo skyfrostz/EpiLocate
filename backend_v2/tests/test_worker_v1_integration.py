@@ -20,7 +20,7 @@ from sqlalchemy.pool import StaticPool
 
 from backend_v2.api.app import app, get_db
 from backend_v2.db.base import Base
-from backend_v2.models.entities import InferenceJob, InferenceResult, Slice, User
+from backend_v2.models.entities import Asset, InferenceJob, InferenceResult, Slice, User
 from backend_v2.services.retention import expire_inputs
 from backend_v2.workers.provision import provision, write_worker_env
 
@@ -45,6 +45,9 @@ class MemoryStore:
 
     def signed_get(self, sl):
         return f"https://objects.example/{sl.staging_object_key}"
+
+    def signed_asset_get(self, asset):
+        return f"https://objects.example/{asset.object_key}?signature=test"
 
     def read(self, key):
         return self.items[key]
@@ -167,14 +170,17 @@ def test_backend_worker_frozen_prediction_and_occlusion(monkeypatch, tmp_path):
                     result = db.scalar(select(InferenceResult).where(InferenceResult.job_id == job.id))
                     assert result.result_json["source"] == "LIVE_CASE"
                     assert result.result_json["model_version"] == MODEL_SHA
+                    assert result.metadata_json["protocol_id"] == PROTOCOL
                     assert result.result_json["prediction"]["positive_probability"] >= 0
                     if kind == "OCCLUSION":
                         assert len(result.result_json["positions"]) == 729
                         assert result.result_json["scale_summaries"][0]["response_layer"]
                         assert len(result.asset_manifest) == 3
+                        assert len(db.scalars(select(Asset).where(Asset.result_id == result.id)).all()) == 3
                 detail = client.get(f"/api/v2/results/{result_id}", headers=user_headers)
                 assert detail.status_code == 200 and detail.json()["provenance"]["checkpoint_sha256"] == MODEL_SHA
                 if kind == "OCCLUSION":
+                    assert all(item["asset_url"].startswith("https://objects.example/") for item in detail.json()["assets"])
                     positions = client.get(f"/api/v2/results/{result_id}/positions",
                         params={"scale": 16, "limit": 1000}, headers=user_headers)
                     assert positions.status_code == 200 and len(positions.json()["positions"]) == 729
