@@ -32,59 +32,79 @@ export class ApiRequestError extends Error {
 export interface ApiClientOptions {
   baseUrl?: string
   fetcher?: typeof fetch
+  timeoutMs?: number
 }
 
 export class ApiClient {
   private readonly baseUrl: string
   private readonly fetcher: typeof fetch
+  private readonly timeoutMs: number
 
   constructor(options: ApiClientOptions = {}) {
     this.baseUrl = (options.baseUrl ?? import.meta.env.VITE_API_BASE_URL ?? DEFAULT_BASE).replace(/\/$/, '')
-    this.fetcher = options.fetcher ?? fetch
+    this.fetcher = options.fetcher ?? ((input, init) => fetch(input, init))
+    this.timeoutMs = options.timeoutMs ?? 15000
+  }
+
+  private async send(path: string, init: RequestInit = {}): Promise<Response> {
+    const timeout = AbortSignal.timeout(this.timeoutMs)
+    const signal = init.signal ? AbortSignal.any([init.signal, timeout]) : timeout
+    try {
+      return await this.fetcher(`${this.baseUrl}${path}`, {
+        credentials: 'include',
+        ...init,
+        signal,
+        headers: { Accept: 'application/json', ...init.headers },
+      })
+    } catch (error) {
+      if (init.signal?.aborted) throw error
+      if (timeout.aborted) {
+        throw new ApiRequestError(0, 'REQUEST_TIMEOUT', 'API 请求超时，请重试。', true, null)
+      }
+      throw new ApiRequestError(0, 'NETWORK_UNAVAILABLE', '无法连接 API，请检查网络或服务状态。', true, null)
+    }
+  }
+
+  private async assertOk(response: Response): Promise<void> {
+    if (response.ok) return
+    let body: Partial<ApiErrorBody> = {}
+    try {
+      body = (await response.json()) as Partial<ApiErrorBody>
+    } catch {
+      // Reverse proxies can return non-JSON errors.
+    }
+    throw new ApiRequestError(
+      response.status,
+      typeof body.code === 'string' ? body.code : `HTTP_${response.status}`,
+      response.status === 401 ? '未认证或登录已失效，请联系部署管理员。' :
+        typeof body.message === 'string' ? body.message : '请求失败，请稍后重试。',
+      body.retryable === true,
+      typeof body.request_id === 'string' ? body.request_id : null,
+    )
   }
 
   private async request<T>(path: string, init: RequestInit = {}): Promise<T> {
-    let response: Response
-    try {
-      response = await this.fetcher(`${this.baseUrl}${path}`, {
-        credentials: 'include',
-        ...init,
-        headers: { Accept: 'application/json', ...init.headers },
-      })
-    } catch {
-      throw new ApiRequestError(0, 'NETWORK_UNAVAILABLE', '无法连接 API，请检查网络或服务状态。', true, null)
-    }
-    if (!response.ok) {
-      let body: Partial<ApiErrorBody> = {}
-      try {
-        body = (await response.json()) as Partial<ApiErrorBody>
-      } catch {
-        // A gateway error may not have a JSON body.
-      }
-      throw new ApiRequestError(
-        response.status,
-        typeof body.code === 'string' ? body.code : `HTTP_${response.status}`,
-        typeof body.message === 'string' ? body.message : '请求失败，请稍后重试。',
-        body.retryable === true,
-        typeof body.request_id === 'string' ? body.request_id : null,
-      )
-    }
+    const response = await this.send(path, init)
+    await this.assertOk(response)
     if (response.status === 204) return undefined as T
-    const contentType = response.headers.get('content-type') ?? ''
-    if (!contentType.includes('application/json')) {
+    if (!(response.headers.get('content-type') ?? '').includes('application/json')) {
       throw new ApiRequestError(response.status, 'INVALID_RESPONSE', 'API 返回了非 JSON 数据。', false, null)
     }
-    return (await response.json()) as T
+    try {
+      return (await response.json()) as T
+    } catch {
+      throw new ApiRequestError(response.status, 'INVALID_RESPONSE', 'API 返回了无效 JSON。', false, null)
+    }
   }
 
-  listCases(cursor?: string, limit = 30): Promise<CaseListResponse> {
+  listCases(cursor?: string, limit = 30, signal?: AbortSignal): Promise<CaseListResponse> {
     const query = new URLSearchParams({ limit: String(limit) })
     if (cursor) query.set('cursor', cursor)
-    return this.request(`/cases?${query}`)
+    return this.request(`/cases?${query}`, { signal })
   }
 
-  getCase(caseId: string): Promise<CaseDetail> {
-    return this.request(`/cases/${encodeURIComponent(caseId)}`)
+  getCase(caseId: string, signal?: AbortSignal): Promise<CaseDetail> {
+    return this.request(`/cases/${encodeURIComponent(caseId)}`, { signal })
   }
 
   createCase(patientId: string | null, idempotencyKey: string): Promise<CreatedCase> {
@@ -114,8 +134,8 @@ export class ApiClient {
     })
   }
 
-  getPrediction(predictionId: string): Promise<PredictionJob> {
-    return this.request(`/predictions/${encodeURIComponent(predictionId)}`)
+  getPrediction(predictionId: string, signal?: AbortSignal): Promise<PredictionJob> {
+    return this.request(`/predictions/${encodeURIComponent(predictionId)}`, { signal })
   }
 
   createOcclusion(
@@ -133,31 +153,26 @@ export class ApiClient {
     })
   }
 
-  getJob(jobId: string): Promise<JobRecord> {
-    return this.request(`/jobs/${encodeURIComponent(jobId)}`)
+  getJob(jobId: string, signal?: AbortSignal): Promise<JobRecord> {
+    return this.request(`/jobs/${encodeURIComponent(jobId)}`, { signal })
   }
 
-  getResult(resultId: string): Promise<ResultRecord> {
-    return this.request(`/results/${encodeURIComponent(resultId)}`)
+  getResult(resultId: string, signal?: AbortSignal): Promise<ResultRecord> {
+    return this.request(`/results/${encodeURIComponent(resultId)}`, { signal })
   }
 
-  getPositions(resultId: string, scale: 16 | 32 | 64, cursor?: string, limit = 100): Promise<PositionsPage> {
+  getPositions(resultId: string, scale: 16 | 32 | 64, cursor?: string, limit = 100, signal?: AbortSignal): Promise<PositionsPage> {
     const query = new URLSearchParams({ scale: String(scale), limit: String(limit) })
     if (cursor) query.set('cursor', cursor)
-    return this.request(`/results/${encodeURIComponent(resultId)}/positions?${query}`)
+    return this.request(`/results/${encodeURIComponent(resultId)}/positions?${query}`, { signal })
   }
 
-  async getResultAsset(resultId: string, assetId: string): Promise<Blob> {
-    let response: Response
-    try {
-      response = await this.fetcher(
-        `${this.baseUrl}/results/${encodeURIComponent(resultId)}/assets/${encodeURIComponent(assetId)}`,
-        { credentials: 'include' },
-      )
-    } catch {
-      throw new ApiRequestError(0, 'NETWORK_UNAVAILABLE', '无法连接 API，请检查网络或服务状态。', true, null)
+  async getResultAsset(resultId: string, assetId: string, signal?: AbortSignal): Promise<Blob> {
+    const response = await this.send(`/results/${encodeURIComponent(resultId)}/assets/${encodeURIComponent(assetId)}`, { signal })
+    await this.assertOk(response)
+    if (!(response.headers.get('content-type') ?? '').includes('image/png')) {
+      throw new ApiRequestError(response.status, 'INVALID_ASSET', '响应图资产格式无效。', false, null)
     }
-    if (!response.ok) throw new ApiRequestError(response.status, `HTTP_${response.status}`, '影像资产读取失败。', false, null)
     return response.blob()
   }
 }

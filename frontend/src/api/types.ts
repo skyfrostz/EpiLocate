@@ -92,12 +92,15 @@ export interface AcceptedJob {
   prediction_id?: string
 }
 
-export interface Prediction {
+export interface PredictionValues {
   predicted_class: 0 | 1
   class_label: string
   positive_probability: number
   predicted_class_confidence: number
   inference_time_ms: number
+}
+
+export interface Prediction extends PredictionValues {
   model_version: string
   preprocessing_version: string
   source: 'LIVE_CASE'
@@ -110,6 +113,34 @@ export interface PredictionJob {
   result_id: string | null
   prediction: Prediction | null
   error: JobError | null
+}
+
+export interface HeatmapLayer {
+  asset_id: string
+  layer_kind: 'CANDIDATE_RESPONSE' | 'CANDIDATE_TOP10' | 'COMPARISON_GRID'
+  width: number
+  height: number
+  coordinate_space: 'ALGORITHM_224' | 'COMPARISON_14' | 'RAW_PIXEL_EDGE'
+  value_min: number
+  value_max: number
+  origin: 'TOP_LEFT_PIXEL_EDGE'
+  x_axis: 'RIGHT'
+  y_axis: 'DOWN'
+  display_interpolation_only: boolean
+}
+
+export interface ScaleSummary {
+  block_size: 16 | 32 | 64
+  stride: 8 | 16 | 32
+  fill: 0.5
+  baseline_positive_probability: number
+  median_absolute_probability_change: number
+  flip_rate: number
+  candidate_status: 'valid' | 'insufficient_positive_response'
+  candidate_area_fraction: number | null
+  response_layer: HeatmapLayer | null
+  candidate_layer: HeatmapLayer | null
+  comparison_grid_layer: HeatmapLayer | null
 }
 
 export interface ResultAsset {
@@ -134,8 +165,8 @@ export interface ResultRecord {
   model_version: string
   preprocessing_version: string
   protocol_id: string
-  prediction: Prediction | null
-  scale_summaries: unknown[]
+  prediction: PredictionValues | null
+  scale_summaries: ScaleSummary[]
   cross_scale: unknown[]
   provenance: Record<string, unknown>
   assets: ResultAsset[]

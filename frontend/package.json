@@ -11,7 +11,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@cornerstonejs/core": "^5.11.0",
+    "@cornerstonejs/dicom-image-loader": "^5.11.0",
     "ant-design-vue": "^4.2.6",
+    "events": "^3.3.0",
     "pinia": "^4.0.3",
     "vue": "^3.5.42",
     "vue-router": "^5.3.1"
