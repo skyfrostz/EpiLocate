@@ -22,7 +22,7 @@ def iso(seconds: int = 0):
 
 def config(tmp_path):
     return WorkerConfig("node_test", "https://backend.example", "test-worker-secret", MODEL_SHA,
-                        tmp_path / "frozen", tmp_path / "worker", poll_seconds=0.01)
+                        tmp_path / "frozen", tmp_path / "worker", MODEL_SHA, poll_seconds=0.01)
 
 
 def claim(data: bytes, *, kind="PREDICTION", expires=90):

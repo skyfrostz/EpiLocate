@@ -47,7 +47,7 @@ class WorkerAgent:
                  runner: FrozenRunner | None = None, download_transport: httpx.BaseTransport | None = None):
         self.config = config
         self.client = client or WorkerClient(config.backend_url, config.token)
-        self.runner = runner or FrozenRunner(config.frozen_root, config.model_version)
+        self.runner = runner or FrozenRunner(config.frozen_root, config.model_hash)
         self.download_transport = download_transport
         self.stop_event = threading.Event()
         self._lock = threading.Lock()
@@ -55,6 +55,8 @@ class WorkerAgent:
         self._lease_deadline = 0.0
         self._stale = False
         self._fatal = False
+        self._connected = False
+        self._register_again = False
         self._heartbeat_thread: threading.Thread | None = None
         self.data_root = config.data_root.resolve()
         self.data_root.mkdir(mode=0o700, parents=True, exist_ok=True)
@@ -110,11 +112,12 @@ class WorkerAgent:
         self.claim_key_file.unlink(missing_ok=True)
 
     def register(self) -> dict:
-        response = self.client.register(self.config.worker_id, self.config.model_version, self.runner.hardware)
+        response = self.client.register(self.config.worker_id, self.config.model_hash, self.runner.hardware)
         if response.get("worker_id") != self.config.worker_id or response.get("registered") is not True:
             raise WorkerAPIError(502, "REGISTER_RESPONSE_INVALID")
         if response.get("heartbeat_interval_seconds") != 15 or response.get("lease_seconds") != 90:
             raise WorkerAPIError(502, "PROTOCOL_VERSION_MISMATCH")
+        self._register_again = False
         return response
 
     def _set_lease(self, response: dict) -> None:
@@ -148,28 +151,49 @@ class WorkerAgent:
                     "lease_token": active["lease_token"]} if activity == "RUNNING" else None)
         try:
             response = self.client.heartbeat(self.config.worker_id, activity, attempt)
+        except BackendUnavailable:
+            self._connected = False
+            raise
         except WorkerAPIError as exc:
+            self._connected = False
             if exc.code == "STALE_ATTEMPT":
                 with self._lock:
                     self._stale = True
+            elif exc.code == "WORKER_NOT_REGISTERED":
+                self._register_again = True
             elif exc.status in {401, 403}:
                 self._fatal = True
             raise
         if activity == "RUNNING":
             if not response.get("server_time") or not response.get("lease_expire_time"):
+                self._connected = False
                 raise WorkerAPIError(502, "HEARTBEAT_RESPONSE_INVALID")
             self._set_lease(response)
+        self._connected = True
         return response
 
     def _heartbeat_loop(self) -> None:
-        while not self.stop_event.wait(15):
+        delay = 15.0
+        while not self.stop_event.wait(delay):
             try:
-                self.heartbeat_once()
+                self._heartbeat_tick()
+                delay = 15.0
             except (BackendUnavailable, WorkerAPIError) as exc:
                 LOG.warning("Heartbeat unavailable: %s", type(exc).__name__)
+                if isinstance(exc, WorkerAPIError) and (
+                    (exc.status in {401, 403} and exc.code != "WORKER_NOT_REGISTERED")
+                    or exc.code == "PROTOCOL_VERSION_MISMATCH"
+                ):
+                    self._fatal = True
                 if self._fatal:
                     self.stop_event.set()
                     return
+                delay = min(15.0, 1.0 if delay == 15.0 else delay * 2)
+
+    def _heartbeat_tick(self) -> None:
+        if self._register_again:
+            self.register()
+        self.heartbeat_once()
 
     def start_heartbeats(self) -> None:
         if self._heartbeat_thread is None:
@@ -215,10 +239,15 @@ class WorkerAgent:
         if size > MAX_RESULT_BYTES:
             raise InvalidWorkerInput("Result exceeds 64 MiB limit")
         last_error = None
-        for delay in (0, 1, 2, 4):
+        replayed_after_loss = False
+        for delay in (0, 1, 2, 4, 8, 15, 15, 15):
             if delay:
                 if self.stop_event.wait(delay):
                     break
+            if last_error is not None and not self._lease_valid():
+                if replayed_after_loss:
+                    break
+                replayed_after_loss = True
             try:
                 response = self.client.submit(claim["job_id"], manifest, assets)
                 if response.get("accepted") is not True or response.get("job_id") != claim["job_id"] or response.get("attempt_id") != claim["attempt_id"]:
@@ -226,10 +255,15 @@ class WorkerAgent:
                 return response
             except BackendUnavailable as exc:
                 last_error = exc
+                self._connected = False
             except WorkerAPIError as exc:
                 if exc.code in {"STALE_ATTEMPT", "RESULT_CONFLICT", "MODEL_HASH_MISMATCH"} or not exc.retryable:
                     raise
                 last_error = exc
+            # An uncertain upload may already have been accepted. One replay
+            # can recover its saved response after local lease loss.
+            if replayed_after_loss:
+                break
         raise BackendUnavailable("Result submission could not be confirmed") from last_error
 
     def process_claim(self, claim: dict, claim_key: str | None = None) -> dict | None:
@@ -245,7 +279,7 @@ class WorkerAgent:
             self.heartbeat_once()
             if not self._lease_valid():
                 raise LeaseExpired("Lease expired before execution")
-            if claim.get("model_version", {}).get("checkpoint_sha256") != self.config.model_version:
+            if claim.get("model_version", {}).get("checkpoint_sha256") != self.config.model_hash:
                 manifest = manifest_for_failure(self.config.worker_id, claim, "MODEL_HASH_MISMATCH")
                 return self._submit_with_retry(claim, manifest, {})
             with tempfile.TemporaryDirectory(prefix="attempt-", dir=self.temp_root) as directory:
@@ -261,7 +295,7 @@ class WorkerAgent:
                         # a short-lived signed URL without taking another Job.
                         input_path.unlink(missing_ok=True)
                         try:
-                            refreshed = self.client.claim(self.config.worker_id, self.config.model_version,
+                            refreshed = self.client.claim(self.config.worker_id, self.config.model_hash,
                                                           claim_key, 0)
                         except WorkerAPIError as exc:
                             if exc.code in {"STALE_ATTEMPT", "CLAIM_ALREADY_FINISHED"}:
@@ -290,6 +324,8 @@ class WorkerAgent:
                 except ModelHashMismatch:
                     manifest = manifest_for_failure(self.config.worker_id, claim, "MODEL_HASH_MISMATCH")
                     assets = {}
+                except (BackendUnavailable, WorkerAPIError, LeaseExpired):
+                    raise
                 except (InvalidWorkerInput, ValueError):
                     manifest = manifest_for_failure(self.config.worker_id, claim, "PREPROCESSING_FAILED")
                     assets = {}
@@ -309,21 +345,26 @@ class WorkerAgent:
     def run_once(self) -> dict | None:
         key, recovering = self._claim_key()
         try:
-            claim = self.client.claim(self.config.worker_id, self.config.model_version, key, 0 if recovering else 1)
+            claim = self.client.claim(self.config.worker_id, self.config.model_hash, key, 0 if recovering else 1)
         except BackendUnavailable:
+            self._connected = False
             LOG.warning("Backend unavailable during claim")
             return None
         except WorkerAPIError as exc:
             if exc.code in {"CLAIM_ALREADY_FINISHED", "CLAIM_KEY_CONFLICT"}:
                 self._clear_claim_key()
             if exc.status in {401, 403}:
-                self._fatal = True
+                if exc.code == "WORKER_NOT_REGISTERED":
+                    self._register_again = True
+                    self._connected = False
+                else:
+                    self._fatal = True
             raise
         self._clear_claim_key()
         if claim is None:
             return None
         self._validate_claim(claim)
-        if claim.get("model_version", {}).get("checkpoint_sha256") != self.config.model_version:
+        if claim.get("model_version", {}).get("checkpoint_sha256") != self.config.model_hash:
             LOG.warning("Claimed model hash differs from local frozen checkpoint")
         return self.process_claim(claim, key)
 
@@ -337,7 +378,7 @@ class WorkerAgent:
             except BackendUnavailable:
                 LOG.warning("Backend unavailable during registration")
             except WorkerAPIError as exc:
-                if exc.status in {401, 403} or exc.code == "PROTOCOL_VERSION_MISMATCH":
+                if (exc.status in {401, 403} and exc.code != "WORKER_NOT_REGISTERED") or exc.code == "PROTOCOL_VERSION_MISMATCH":
                     raise
                 LOG.warning("Registration rejected: %s", exc.code)
             if self.stop_event.wait(delay):
@@ -346,12 +387,19 @@ class WorkerAgent:
         self.start_heartbeats()
         while not self.stop_event.is_set() and not self._fatal:
             try:
-                self.run_once()
+                if self._connected:
+                    self.run_once()
             except LeaseExpired:
                 LOG.warning("Attempt lease expired; no result uploaded")
             except BackendUnavailable:
+                self._connected = False
                 LOG.warning("Backend unavailable; claim or result will be retried by Backend lease policy")
             except WorkerAPIError as exc:
+                if exc.code == "WORKER_NOT_REGISTERED":
+                    self._register_again = True
+                    self._connected = False
+                elif exc.status in {401, 403}:
+                    self._fatal = True
                 LOG.warning("Worker API rejected request: %s", exc.code)
             if self.stop_event.wait(self.config.poll_seconds):
                 break

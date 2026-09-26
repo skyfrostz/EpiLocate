@@ -104,7 +104,7 @@ def test_claim_model_hash_mismatch_rejected_before_inference(tmp_path):
 def test_config_rejects_plain_http_and_frozen_storage(tmp_path):
     with pytest.raises(ValueError, match="HTTPS"):
         WorkerConfig("node_test", "http://backend.example", "token", MODEL_SHA,
-                     tmp_path / "frozen", tmp_path / "worker")
+                     tmp_path / "frozen", tmp_path / "worker", MODEL_SHA)
     with pytest.raises(ValueError, match="separate"):
         WorkerConfig("node_test", "https://backend.example", "token", MODEL_SHA,
-                     tmp_path / "frozen", tmp_path / "frozen" / "temp")
+                     tmp_path / "frozen", tmp_path / "frozen" / "temp", MODEL_SHA)
