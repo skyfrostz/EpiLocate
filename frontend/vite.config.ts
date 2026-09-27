@@ -4,7 +4,6 @@ import { defineConfig, loadEnv } from 'vite'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const target = env.API_PROXY_TARGET
-  const userToken = env.API_PROXY_USER_TOKEN
   const proxySecure = env.API_PROXY_INSECURE !== 'true'
   return {
     plugins: [vue()],
@@ -21,14 +20,8 @@ export default defineConfig(({ mode }) => {
       port: Number(env.FRONTEND_DEV_PORT ?? '5183'),
       strictPort: true,
       proxy: target ? {
-        '/api/v2': {
-          target,
-          changeOrigin: true,
-          secure: proxySecure,
-          configure(proxy) {
-            if (userToken) proxy.on('proxyReq', request => request.setHeader('Authorization', `Bearer ${userToken}`))
-          },
-        },
+        '/api/v2': { target, changeOrigin: true, secure: proxySecure },
+        '/auth': { target, changeOrigin: true, secure: proxySecure },
       } : undefined,
     },
   }

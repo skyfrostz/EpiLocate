@@ -10,6 +10,7 @@ import type {
   ResultRecord,
   UploadedCase,
 } from './types'
+import { auth, clearSession } from '../auth/session'
 
 const DEFAULT_BASE = '/api/v2'
 
@@ -54,7 +55,10 @@ export class ApiClient {
         credentials: 'include',
         ...init,
         signal,
-        headers: { Accept: 'application/json', ...init.headers },
+        headers: {
+          Accept: 'application/json', ...init.headers,
+          ...(init.method && init.method !== 'GET' && auth.csrfToken ? { 'X-CSRF-Token': auth.csrfToken } : {}),
+        },
       })
     } catch (error) {
       if (init.signal?.aborted) throw error
@@ -67,6 +71,7 @@ export class ApiClient {
 
   private async assertOk(response: Response): Promise<void> {
     if (response.ok) return
+    if (response.status === 401) clearSession()
     let body: Partial<ApiErrorBody> = {}
     try {
       body = (await response.json()) as Partial<ApiErrorBody>

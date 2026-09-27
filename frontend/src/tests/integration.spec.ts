@@ -11,6 +11,7 @@ import { useJobStore } from '../stores/jobs'
 import { useResultStore } from '../stores/results'
 import { overlayCompatible } from '../viewer/geometry'
 import ResultDetailView from '../views/ResultDetailView.vue'
+import { auth } from '../auth/session'
 
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
   status, headers: { 'Content-Type': 'application/json' },
@@ -42,7 +43,12 @@ const result: ResultRecord = {
     coordinate_space: layer.coordinate_space, media_type: 'image/png' }],
 }
 
-beforeEach(() => setActivePinia(createPinia()))
+beforeEach(() => {
+  setActivePinia(createPinia())
+  auth.username = 'test-user'
+  auth.csrfToken = 'test-csrf'
+  auth.loaded = true
+})
 afterEach(() => { vi.restoreAllMocks(); vi.useRealTimers() })
 
 describe('Phase 2 API and state integration', () => {

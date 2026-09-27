@@ -18,22 +18,21 @@ npm run build
 npm run dev
 ```
 
-Open `http://127.0.0.1:5183/`. The server binds to loopback and refuses an occupied port. For a separately running Backend v2, configure ignored `frontend/.env.local`:
+The Vite server binds to loopback and refuses an occupied port. For session gateway integration, place Vite behind a local HTTPS origin and configure ignored `frontend/.env.local`:
 
 ```sh
 VITE_API_BASE_URL=/api/v2
-API_PROXY_TARGET=http://127.0.0.1:8890
-API_PROXY_USER_TOKEN=<locally provisioned user token>
+API_PROXY_TARGET=<local HTTPS browser session gateway>
 ```
 
-`API_PROXY_USER_TOKEN` is read by the local Vite server and added to proxied requests; it is never included in the Vue bundle. Use only a database-backed user token, never a Worker token. Do not commit `.env.local`. Production must provision an expiring/revocable Backend user credential or perform a controlled OIDC-to-bearer mapping at the edge; the browser must not receive the server credential. Without an authenticated Backend v2, the UI shows an API error and does not fall back to a Mock result.
+Phase 5 browser access uses `session_gateway` for personal password login, a protected session cookie, CSRF, and per-member server-side Backend Bearer injection. Vite proxies both `/auth` and `/api/v2` to that gateway; it no longer injects a single development user token. Do not commit `.env.local`. The browser receives no Backend credential. Without an authenticated Backend v2, the UI shows an error and does not fall back to a Mock result.
 
 ## Contract boundaries
 
 - Backend v2 Job states are `CREATED`, `QUEUED`, `RUNNING`, `COMPLETED`, `FAILED`. There is no v2 cancellation route.
 - `READY` means input is eligible to queue; it does not mean a model ran.
 - Result `source` must be `LIVE_CASE`; `/api/v1` Mock data is never queried by this UI.
-- Only the Result's own `CANDIDATE_RESPONSE` image asset is shown. It uses algorithm coordinates and is not overlaid on raw CT pixels.
+- The Result viewer selects only authorized assets and overlays them on CT only when the audited single-slice pixel geometry contract matches.
 - The model ID input defaults to the currently documented `baseline_resnet18` and can be edited if a deployment provisions another active model.
 - `npm audit` currently reports 9 transitive Cornerstone-related advisories (3 moderate, 6 high) with no automatic fix available. Review upstream updates before production deployment.
 

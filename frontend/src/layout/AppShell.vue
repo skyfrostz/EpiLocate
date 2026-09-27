@@ -46,6 +46,9 @@
         <button class="mobile-menu" type="button" aria-label="打开导航" @click="ui.toggleSidebar">☰</button>
         <div class="breadcrumb"><span>EPILOCATE</span><b>/</b><strong>{{ title }}</strong></div>
         <div class="topbar-right">
+          <span class="research-label">{{ auth.username }}</span>
+          <button class="logout-button" type="button" :disabled="loggingOut" @click="signOut">退出</button>
+          <span v-if="logoutError" class="login-error" role="alert">{{ logoutError }}</span>
           <span class="api-label"><i />API v2</span>
           <span class="topbar-divider" />
           <span class="research-label">仅供研究</span>
@@ -61,8 +64,25 @@
 import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useUiStore } from '../stores/ui'
+import { auth, logout } from '../auth/session'
+import { ref } from 'vue'
 
 const route = useRoute()
 const ui = useUiStore()
+const loggingOut = ref(false)
+const logoutError = ref('')
 const title = computed(() => String(route.meta.title ?? '工作台'))
+
+async function signOut() {
+  loggingOut.value = true
+  logoutError.value = ''
+  try {
+    await logout()
+    window.location.assign('/login')
+  } catch (cause) {
+    logoutError.value = cause instanceof Error ? cause.message : '退出失败，请重试。'
+  } finally {
+    loggingOut.value = false
+  }
+}
 </script>
