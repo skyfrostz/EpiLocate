@@ -16,6 +16,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 import httpx
+import torch
 
 from .client import BackendUnavailable, WorkerAPIError, WorkerClient
 from .config import WorkerConfig
@@ -28,6 +29,7 @@ from .inference import (
 LOG = logging.getLogger("epilocate.worker")
 MAX_INPUT_BYTES = 20 * 1024 * 1024
 MAX_RESULT_BYTES = 64 * 1024 * 1024
+HEARTBEAT_INTERVAL_SECONDS = 15.0
 
 
 class InputDownloadFailed(RuntimeError):
@@ -48,7 +50,7 @@ class WorkerAgent:
         self.config = config
         self.client = client or WorkerClient(config.backend_url, config.token,
                                              verify=str(config.tls_ca_file) if config.tls_ca_file else True)
-        self.runner = runner or FrozenRunner(config.frozen_root, config.model_hash)
+        self.runner = runner or FrozenRunner(config.frozen_root, config.model_hash, config.device)
         self.download_transport = download_transport
         self.stop_event = threading.Event()
         self._lock = threading.Lock()
@@ -174,11 +176,11 @@ class WorkerAgent:
         return response
 
     def _heartbeat_loop(self) -> None:
-        delay = 15.0
+        delay = HEARTBEAT_INTERVAL_SECONDS
         while not self.stop_event.wait(delay):
             try:
                 self._heartbeat_tick()
-                delay = 15.0
+                delay = HEARTBEAT_INTERVAL_SECONDS
             except (BackendUnavailable, WorkerAPIError) as exc:
                 LOG.warning("Heartbeat unavailable: %s", type(exc).__name__)
                 if isinstance(exc, WorkerAPIError) and (
@@ -189,7 +191,8 @@ class WorkerAgent:
                 if self._fatal:
                     self.stop_event.set()
                     return
-                delay = min(15.0, 1.0 if delay == 15.0 else delay * 2)
+                delay = min(HEARTBEAT_INTERVAL_SECONDS,
+                            1.0 if delay == HEARTBEAT_INTERVAL_SECONDS else delay * 2)
 
     def _heartbeat_tick(self) -> None:
         if self._register_again:
@@ -326,6 +329,10 @@ class WorkerAgent:
                 except ModelHashMismatch:
                     manifest = manifest_for_failure(self.config.worker_id, claim, "MODEL_HASH_MISMATCH")
                     assets = {}
+                except torch.cuda.OutOfMemoryError:
+                    LOG.error("CUDA memory exhausted for job %s", claim["job_id"])
+                    manifest = manifest_for_failure(self.config.worker_id, claim, "TEMPORARY_GPU_UNAVAILABLE")
+                    assets = {}
                 except (BackendUnavailable, WorkerAPIError, LeaseExpired):
                     raise
                 except (InvalidWorkerInput, ValueError):
@@ -343,6 +350,12 @@ class WorkerAgent:
                 self._active = None
                 self._lease_deadline = 0.0
                 self._stale = False
+            release = getattr(self.runner, "release_cached_memory", None)
+            if release is not None:
+                try:
+                    release()
+                except RuntimeError:
+                    LOG.warning("Worker CUDA cache cleanup failed")
 
     def run_once(self) -> dict | None:
         key, recovering = self._claim_key()

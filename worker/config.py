@@ -22,6 +22,7 @@ class WorkerConfig:
     model_hash: str
     tls_ca_file: Path | None = None
     poll_seconds: float = 5.0
+    device: str = "CPU"
 
     def __post_init__(self) -> None:
         if not re.fullmatch(r"node_[A-Za-z0-9_-]{1,123}", self.worker_id):
@@ -36,6 +37,8 @@ class WorkerConfig:
             raise ValueError("MODEL_HASH does not match the frozen Baseline checkpoint SHA-256")
         if self.model_version != self.model_hash:
             raise ValueError("MODEL_VERSION must equal MODEL_HASH under Worker Protocol v1")
+        if self.device not in {"CPU", "CUDA", "AUTO"}:
+            raise ValueError("WORKER_DEVICE must be CPU, CUDA, or AUTO")
         if not math.isfinite(self.poll_seconds) or self.poll_seconds <= 0:
             raise ValueError("WORKER_POLL_SECONDS must be positive")
         if self.tls_ca_file is not None:
@@ -63,4 +66,5 @@ class WorkerConfig:
             poll_seconds=float(os.getenv("WORKER_POLL_SECONDS", "5")),
             model_hash=os.environ["MODEL_HASH"],
             tls_ca_file=Path(os.environ["WORKER_CA_CERT"]) if os.getenv("WORKER_CA_CERT") else None,
+            device=os.getenv("WORKER_DEVICE", "CPU").upper(),
         )

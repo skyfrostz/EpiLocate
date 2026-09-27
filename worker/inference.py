@@ -9,11 +9,13 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from PIL import Image
+import torch
 
 from algorithm.service import (
-    FrozenBaseline, MODEL_ID, MODEL_SHA, PREPROCESSING_VERSION, PROTOCOL_ID,
+    FrozenBaseline, ModelUnavailable, MODEL_ID, MODEL_SHA, PREPROCESSING_VERSION, PROTOCOL_ID,
     validate_dicom,
 )
+from .device import DeviceUnavailable, select_device
 
 
 class ModelHashMismatch(RuntimeError):
@@ -33,14 +35,33 @@ class InferenceOutput:
 class FrozenRunner:
     """Loads the frozen checkpoint once and delegates all model math to FrozenBaseline."""
 
-    def __init__(self, frozen_root: Path, expected_hash: str):
+    def __init__(self, frozen_root: Path, expected_hash: str, device_mode: str = "CPU"):
         if expected_hash != MODEL_SHA:
             raise ModelHashMismatch("Configured model hash does not match the frozen Baseline")
+        self.device_selection = select_device(device_mode)
         self.baseline = FrozenBaseline(frozen_root)
-        if not self.baseline.ready():
-            raise ModelHashMismatch("Frozen checkpoint, protocol, or configuration hash check failed")
+        # FrozenBaseline defaults to CPU but load() moves the verified model to
+        # self.device. Set that existing device hook before its first load.
+        self.baseline.device = self.device_selection.torch_device
+        try:
+            model = self.baseline.load()
+        except ModelUnavailable as exc:
+            raise ModelHashMismatch("Frozen checkpoint, protocol, or configuration hash check failed") from exc
+        except torch.cuda.OutOfMemoryError as exc:
+            try:
+                torch.cuda.empty_cache()
+            except RuntimeError:
+                pass
+            raise DeviceUnavailable("GPU ran out of memory while loading the frozen model") from exc
+        if next(model.parameters()).device.type != self.device_selection.actual.lower():
+            raise DeviceUnavailable("Frozen model loaded on a different device than requested")
         self.model_hash = MODEL_SHA
-        self.hardware = {"accelerator": str(self.baseline.device).upper()}
+        self.hardware = self.device_selection.hardware
+
+    def release_cached_memory(self) -> None:
+        """Release only this process's unused CUDA allocator cache."""
+        if self.device_selection.actual == "CUDA":
+            torch.cuda.empty_cache()
 
     @staticmethod
     def _prediction(value: dict) -> dict:
