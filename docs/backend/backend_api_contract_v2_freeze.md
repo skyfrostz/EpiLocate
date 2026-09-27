@@ -107,7 +107,7 @@ Job 完成后 `GET /jobs/{id}` 和 `GET /predictions/{id}` 提供 `result_id`，
 
 遮挡位置按尺度与游标分页，返回数值而非仅从 PNG 反推；热图和预览资产用同一 Result 归属授权。资产请求同时校验用户 → Case → Job → Result → asset_id，任何一环不匹配返回 404。服务端流式读取私有存储，禁止裸露通用文件目录或 Gradio 文件路由。响应需使用 `Content-Type` 白名单和 `X-Content-Type-Options: nosniff`。
 
-完整 Result 顶层字段固定为 `result_id,job_id,case_id,slice_id,kind,contract_version,source,status,model_id,model_version,preprocessing_version,protocol_id,prediction,scale_summaries,cross_scale,provenance,assets,created_at`。`PREDICTION` 的 `scale_summaries/cross_scale/assets` 为空数组；`OCCLUSION` 的尺度摘要、跨尺度数值和位置项沿用现有冻结算法契约，位置数组只经分页端点返回。无效正响应区域的 `candidate_status=insufficient_positive_response`、`candidate_layer=null`、`candidate_area_fraction=null`，不能伪造病灶。资产描述仅含 `asset_id,layer_kind,width,height,coordinate_space,media_type`；不含私有存储键。位置分页响应固定 `result_id,scale,positions,next_cursor`，`next_cursor=null` 表示结束。
+完整 Result 顶层字段固定为 `result_id,job_id,case_id,slice_id,kind,contract_version,source,status,model_id,model_version,preprocessing_version,protocol_id,prediction,scale_summaries,cross_scale,provenance,assets,created_at`。`PREDICTION` 的 `scale_summaries/cross_scale/assets` 为空数组；`OCCLUSION` 的尺度摘要、跨尺度数值和位置项沿用现有冻结算法契约，位置数组只经分页端点返回。无效正响应区域的 `candidate_status=insufficient_positive_response`、`candidate_layer=null`、`candidate_area_fraction=null`，不能伪造病灶。资产描述含 `asset_id,layer_kind,width,height,coordinate_space,media_type`，并可带短时效、权限绑定的 `asset_url`；不含私有存储键。位置分页响应固定 `result_id,scale,positions,next_cursor`，`next_cursor=null` 表示结束。`asset_url` 由私有对象存储签发，最长 300 秒，过期后必须重新读取 Result 获取新 URL；云端不作为长期 DICOM 存储。
 
 ## 通用错误、身份与版本
 

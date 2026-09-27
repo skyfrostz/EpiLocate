@@ -13,7 +13,7 @@ from sqlalchemy.pool import StaticPool
 
 from backend_v2.api.app import app, get_db
 from backend_v2.db.base import Base
-from backend_v2.models.entities import Case, InferenceJob, InferenceResult, ModelVersion, Patient, Series, Slice, Study, User, WorkerNode
+from backend_v2.models.entities import Asset, Case, InferenceJob, InferenceResult, ModelVersion, Patient, Series, Slice, Study, User, WorkerNode
 from backend_v2.services.common import aware, now, public_id
 from backend_v2.services import jobs
 
@@ -41,6 +41,9 @@ class FakeStore:
 
     def read(self, key):
         return self.objects[key], "application/dicom"
+
+    def signed_asset_get(self, asset):
+        return f"https://private.invalid/assets/{asset.asset_id}?signature=test"
 
 
 @pytest.fixture
@@ -174,7 +177,9 @@ def test_job_transitions_claim_heartbeat_duplicate_result(ctx):
         assert second == first
         job = db.scalar(select(InferenceJob).where(InferenceJob.public_id == job_id))
         assert job.status == "COMPLETED" and job.retry_count == 0
-        assert db.scalar(select(InferenceResult).where(InferenceResult.job_id == job.id))
+        stored_result = db.scalar(select(InferenceResult).where(InferenceResult.job_id == job.id))
+        assert stored_result and stored_result.metadata_json["source"] == "LIVE_CASE"
+        assert db.scalars(select(Asset).where(Asset.result_id == stored_result.id)).all() == []
     changed = json.loads(json.dumps(body))
     changed["result"]["prediction"]["positive_probability"] = 0.2
     with factory() as db:

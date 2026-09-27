@@ -20,19 +20,12 @@ from sqlalchemy.pool import StaticPool
 
 from backend_v2.api.app import app, get_db
 from backend_v2.db.base import Base
-from backend_v2.models.entities import InferenceJob, InferenceResult, Slice, User
+from backend_v2.models.entities import Asset, InferenceJob, InferenceResult, Slice, User
 from backend_v2.services.retention import expire_inputs
 from backend_v2.workers.provision import provision, write_worker_env
 
 
-# Approved Worker v1 protocol implementations. The Phase 2 hardening commit
-# is accepted alongside the original protocol baseline so integration evidence
-# cannot be skipped merely because the checkout advanced within the same
-# frozen protocol.
-SUPPORTED_WORKER_SHAS = {
-    "24d4fbf8674ce4f34070daebe006ea31ab13f647",
-    "1f90321b7b6af9e2a69992c4259fd2dcf32944ed",
-}
+WORKER_SHA = "24d4fbf8674ce4f34070daebe006ea31ab13f647"
 MODEL_SHA = "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734"
 PREPROCESSING = "formal-resnet18-baseline-rule-b-v1"
 PROTOCOL = "stage1-occlusion-instability-v1"
@@ -53,6 +46,9 @@ class MemoryStore:
     def signed_get(self, sl):
         return f"https://objects.example/{sl.staging_object_key}"
 
+    def signed_asset_get(self, asset):
+        return f"https://objects.example/{asset.object_key}?signature=test"
+
     def read(self, key):
         return self.items[key]
 
@@ -65,8 +61,9 @@ def worker_root_or_skip():
         pytest.skip("Set EPILOCATE_WORKER_ROOT, EPILOCATE_WORKER_PYTHON and EPILOCATE_FROZEN_ROOT for real Worker integration")
     root = Path(raw).resolve()
     actual_sha = subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip()
-    if actual_sha not in SUPPORTED_WORKER_SHAS:
-        pytest.skip(f"Worker HEAD differs from approved v1 SHAs: {sorted(SUPPORTED_WORKER_SHAS)}")
+    baseline = subprocess.run(["git", "-C", str(root), "merge-base", "--is-ancestor", WORKER_SHA, actual_sha], check=False)
+    if baseline.returncode != 0:
+        pytest.skip(f"Worker HEAD {actual_sha} does not descend from pinned baseline {WORKER_SHA}")
     return root, Path(worker_python), Path(frozen_root)
 
 
@@ -174,14 +171,17 @@ def test_backend_worker_frozen_prediction_and_occlusion(monkeypatch, tmp_path):
                     result = db.scalar(select(InferenceResult).where(InferenceResult.job_id == job.id))
                     assert result.result_json["source"] == "LIVE_CASE"
                     assert result.result_json["model_version"] == MODEL_SHA
+                    assert result.metadata_json["protocol_id"] == PROTOCOL
                     assert result.result_json["prediction"]["positive_probability"] >= 0
                     if kind == "OCCLUSION":
                         assert len(result.result_json["positions"]) == 729
                         assert result.result_json["scale_summaries"][0]["response_layer"]
                         assert len(result.asset_manifest) == 3
+                        assert len(db.scalars(select(Asset).where(Asset.result_id == result.id)).all()) == 3
                 detail = client.get(f"/api/v2/results/{result_id}", headers=user_headers)
                 assert detail.status_code == 200 and detail.json()["provenance"]["checkpoint_sha256"] == MODEL_SHA
                 if kind == "OCCLUSION":
+                    assert all(item["asset_url"].startswith("https://objects.example/") for item in detail.json()["assets"])
                     positions = client.get(f"/api/v2/results/{result_id}/positions",
                         params={"scale": 16, "limit": 1000}, headers=user_headers)
                     assert positions.status_code == 200 and len(positions.json()["positions"]) == 729
