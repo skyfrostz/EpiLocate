@@ -17,6 +17,7 @@ Set these variables in the Worker process environment:
 | `WORKER_DATA_ROOT` | Private writable directory outside the frozen root, unique to this Worker |
 | `WORKER_CA_CERT` | Optional local CA certificate for a self-signed HTTPS integration runtime; omit in production to use normal certificate validation |
 | `WORKER_POLL_SECONDS` | Optional polling interval, default 5 seconds |
+| `WORKER_DEVICE` | `CPU` (default), `CUDA`, or `AUTO`; `CUDA` fails startup if NVIDIA CUDA is unavailable, while `AUTO` selects CUDA when usable and CPU otherwise |
 
 On a local GPU node, mount the frozen experiment root read-only and provision a private Worker data directory on a separate volume. Install the repository's root `requirements.txt` and `gradio_service/requirements-gradio.txt` in that node's Python environment. Load the Backend-provisioned secret environment file outside Git, then run from this repository:
 
@@ -29,7 +30,30 @@ export MODEL_VERSION="$MODEL_HASH"
 PYTHONPATH=. python -m worker
 ```
 
-The existing `FrozenBaseline` currently executes on CPU even when the host has a GPU. The Worker registers `accelerator=CPU` and does not advertise CUDA until the frozen service itself supports and verifies it. A missing or mismatched checkpoint prevents startup; it never falls back to Mock. Production Docker deployment is outside Phase 2.
+The Worker sets the existing `FrozenBaseline.device` hook before its first checkpoint load. The checkpoint is still verified and loaded on CPU before the frozen model is moved to the selected device. Preprocessing remains on CPU, and the frozen prediction and occlusion math is unchanged. The Worker registers the actual accelerator. An explicit `WORKER_DEVICE=CUDA` never falls back to CPU. `AUTO` selects CUDA if PyTorch reports a usable NVIDIA device, otherwise CPU; it does not select MPS. A missing or mismatched checkpoint prevents startup; it never falls back to Mock.
+
+On a GPU host, install a CUDA-enabled PyTorch build compatible with that host's NVIDIA driver. Before setting `WORKER_DEVICE=CUDA`, verify `nvidia-smi` and that Python reports a non-null `torch.version.cuda` and `torch.cuda.is_available() == True`. Keep `MODEL_HASH` and `MODEL_VERSION` at the frozen checkpoint SHA. The macOS development host used for Phase 3 has no NVIDIA GPU, so its CPU results do not establish CUDA acceptance.
+
+## Synthetic CPU reference and GPU gate
+
+The benchmark synchronizes CUDA before and after every measured operation. It records model initialization, first and warmed prediction/occlusion, and peak CUDA allocation. Run in a clean output directory; the command refuses to overwrite existing evidence:
+
+```sh
+PYTHONPATH=. python -m worker.benchmark \
+  --frozen-root /READ-ONLY-FROZEN-ROOT \
+  --device CPU \
+  --benchmark-output /PRIVATE-OUTPUT/cpu-benchmark.json \
+  --bundle-output /PRIVATE-OUTPUT/cpu-reference.json
+
+PYTHONPATH=. python -m worker.benchmark \
+  --frozen-root /READ-ONLY-FROZEN-ROOT \
+  --device CUDA \
+  --compare-to /PRIVATE-OUTPUT/cpu-reference.json \
+  --benchmark-output /PRIVATE-OUTPUT/gpu-benchmark.json \
+  --bundle-output /PRIVATE-OUTPUT/gpu-result.json
+```
+
+The comparison gate is fixed in `worker/consistency.py`: absolute probability and derived-value difference at most `1e-4`, decoded response PNG difference at most two 8-bit levels, exact candidate mask, indexing, geometry, schema, and model/input hashes. Encoded PNG hashes may differ. A failed comparison writes both diagnostic files and exits nonzero; do not change the tolerance after examining a GPU result.
 
 ## Protocol and storage boundaries
 
