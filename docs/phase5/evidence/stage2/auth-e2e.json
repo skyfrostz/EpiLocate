@@ -1,0 +1,13 @@
+{
+  "administrative_revocation": "401",
+  "alice_cross_bob_case_dicom_result": "404",
+  "alice_owner_case_result_asset": "200",
+  "anonymous_auth_session_cases_result": "401",
+  "bob_cross_case_dicom_result_asset_positions_bearer_override": "404",
+  "bob_owner_case": "200",
+  "browser_worker_route": "404",
+  "forced_session_expiry": "401",
+  "independent_logins_cookie_flags": "200; HttpOnly Secure SameSite=Strict",
+  "logout": "204 then 401",
+  "missing_csrf": "403"
+}

@@ -1,0 +1,154 @@
+{
+  "checkpoint_sha256": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+  "jobs": {
+    "job_161f6ab93e2ff06b724fa3a1539e036b": {
+      "asset_count": 9,
+      "assets_verified": 9,
+      "attempt_no": 1,
+      "attempt_outcomes": [
+        {
+          "failure_reason": null,
+          "number": 1,
+          "outcome": "SUCCEEDED"
+        }
+      ],
+      "failure_reason": null,
+      "kind": "OCCLUSION",
+      "minio_input_sha_matches": true,
+      "model_version": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "positions": {
+        "16": 729,
+        "32": 169,
+        "64": 36
+      },
+      "result_id": "result_ceee83b7aaf74277b2619a1ef1ca2981",
+      "retry_count": 0,
+      "seconds_created_to_finished": 10.18,
+      "seconds_started_to_finished": 9.68,
+      "source": "LIVE_CASE",
+      "status": "COMPLETED"
+    },
+    "job_28a92c2e360aeb65c3271c05e812bbf3": {
+      "asset_count": 0,
+      "assets_verified": 0,
+      "attempt_no": 1,
+      "attempt_outcomes": [
+        {
+          "failure_reason": null,
+          "number": 1,
+          "outcome": "SUCCEEDED"
+        }
+      ],
+      "failure_reason": null,
+      "kind": "PREDICTION",
+      "minio_input_sha_matches": true,
+      "model_version": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "positions": null,
+      "result_id": "result_a0300c7122684bdfa165eb51cf0287ad",
+      "retry_count": 0,
+      "seconds_created_to_finished": 33.5,
+      "seconds_started_to_finished": 0.04,
+      "source": "LIVE_CASE",
+      "status": "COMPLETED"
+    },
+    "job_409be07c570f35bec6db5e0d261e79da": {
+      "asset_count": 9,
+      "assets_verified": 9,
+      "attempt_no": 2,
+      "attempt_outcomes": [
+        {
+          "failure_reason": "LEASE_EXPIRED",
+          "number": 1,
+          "outcome": "EXPIRED"
+        },
+        {
+          "failure_reason": null,
+          "number": 2,
+          "outcome": "SUCCEEDED"
+        }
+      ],
+      "failure_reason": null,
+      "kind": "OCCLUSION",
+      "minio_input_sha_matches": true,
+      "model_version": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "positions": {
+        "16": 729,
+        "32": 169,
+        "64": 36
+      },
+      "result_id": "result_66bbb1db269c4648a4833c5192098f37",
+      "retry_count": 1,
+      "seconds_created_to_finished": 157.79,
+      "seconds_started_to_finished": 156.25,
+      "source": "LIVE_CASE",
+      "status": "COMPLETED"
+    },
+    "job_6d4a87b99db0c4dda6c3c90a62a885d6": {
+      "asset_count": 9,
+      "assets_verified": 9,
+      "attempt_no": 1,
+      "attempt_outcomes": [
+        {
+          "failure_reason": null,
+          "number": 1,
+          "outcome": "SUCCEEDED"
+        }
+      ],
+      "failure_reason": null,
+      "kind": "OCCLUSION",
+      "minio_input_sha_matches": true,
+      "model_version": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "positions": {
+        "16": 729,
+        "32": 169,
+        "64": 36
+      },
+      "result_id": "result_b52b0f94ed1b44758d8205286d3b986d",
+      "retry_count": 0,
+      "seconds_created_to_finished": 11.28,
+      "seconds_started_to_finished": 9.43,
+      "source": "LIVE_CASE",
+      "status": "COMPLETED"
+    },
+    "job_a8a1679bbc0245b735fe4d7ac0d6a2f4": {
+      "asset_count": 0,
+      "assets_verified": 0,
+      "attempt_no": 1,
+      "attempt_outcomes": [
+        {
+          "failure_reason": null,
+          "number": 1,
+          "outcome": "SUCCEEDED"
+        }
+      ],
+      "failure_reason": null,
+      "kind": "PREDICTION",
+      "minio_input_sha_matches": true,
+      "model_version": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "positions": null,
+      "result_id": "result_1e0a1d02252044f18a4801642a89ecb9",
+      "retry_count": 0,
+      "seconds_created_to_finished": 2.37,
+      "seconds_started_to_finished": 0.05,
+      "source": "LIVE_CASE",
+      "status": "COMPLETED"
+    },
+    "job_f2d3456f0916ac454b64694a6c029006": {
+      "attempt_no": 1,
+      "attempt_outcomes": [
+        {
+          "failure_reason": "INPUT_HASH_MISMATCH",
+          "number": 1,
+          "outcome": "FAILED"
+        }
+      ],
+      "failure_reason": "INPUT_HASH_MISMATCH",
+      "kind": "PREDICTION",
+      "retry_count": 0,
+      "seconds_created_to_finished": 1.48,
+      "seconds_started_to_finished": 0.04,
+      "status": "FAILED"
+    }
+  },
+  "synthetic_input_sha256": "8e73851ac16215180f7a3e17d72c85814886fa25ef62fbfbc618686dc8df54ee"
+}
