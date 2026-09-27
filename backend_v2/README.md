@@ -5,7 +5,9 @@
 ## 本地配置
 
 - `EPILOCATE_V2_DATABASE_URL`：生产环境使用 PostgreSQL 16 的 `postgresql+psycopg://` DSN。
-- `EPILOCATE_V2_USER_TOKEN_HASHES`：JSON 映射，`auth_subject` → 用户 Bearer 的 SHA-256。User 行需由部署认证组件预配；凭据不写数据库。
+- `EPILOCATE_V2_ALLOW_ENV_TOKENS`：默认 `false`。只有隔离的本地兼容测试才可设为 `true`，启用旧的 env hash bootstrap；生产环境禁止使用默认测试 token。
+- `EPILOCATE_V2_USER_TOKEN_HASHES`：仅在上述 local bootstrap 开启时使用的 JSON 映射，`auth_subject` → 用户 Bearer 的 SHA-256。
+- 生产用户使用数据库中的 `user_credentials`。运行迁移后，用 `EPILOCATE_V2_DATABASE_URL=... .venv/bin/python -m backend_v2.scripts.provision_user --auth-subject <opaque-subject> --expires-in-days 30 --output /secure/user.env` 生成一次性可见、权限为 `0600` 的 token 文件；用 `backend_v2.scripts.revoke_user --credential-id <credential-id>` 撤销凭据。数据库只保存 token SHA-256、签发/过期/撤销时间。
 - `EPILOCATE_V2_LEASE_SECRET`：不少于 32 字符的随机密钥。轮换前排空活跃租约。
 - `EPILOCATE_V2_S3_BUCKET`、可选 `EPILOCATE_V2_S3_ENDPOINT`：私有、支持服务端 AES256 加密的 S3 存储。凭据使用标准 AWS 环境/实例身份。
 - `DICOM_RETENTION_DAYS`：默认 7，允许 1–365。对象存储需同时配置对应生命周期删除规则；既有对象不会因新配置延长。
@@ -55,7 +57,7 @@ EPILOCATE_V2_S3_SECRET_KEY='change-me-change-me' \
 .venv/bin/python -m backend_v2.scripts.validate_migrations
 ```
 
-再运行 `EPILOCATE_V2_PRODUCTION_DATABASE_URL` 与 MinIO 变量已设置的 `.venv/bin/pytest -q -m production_like backend_v2/tests/test_production_like.py`，它会验证 schema、上传、读取、删除对象。Compose 的 MinIO bucket 保持 private；Backend 只在通过 Case/Result/Asset 所有权校验后签发不超过 5 分钟的 Result `asset_url`，同时保留代理读取端点。Frontend 可把 `asset_url` 交给浏览器加载，不能拼接 bucket URL。原始 DICOM 的 7 天清理不影响结果 JSON 或 heatmap asset。
+再运行 `EPILOCATE_V2_PRODUCTION_DATABASE_URL` 与 MinIO 变量已设置的 `.venv/bin/pytest -q -m production_like backend_v2/tests/test_production_like.py`，它会验证 schema、上传、读取、删除对象。Compose 的 MinIO bucket 保持 private；Backend 只在通过 Case/Result/Asset 所有权校验后返回授权的 Backend asset route。浏览器不获得 S3 access key、secret 或 private object key；asset route 由 Backend 再次执行 owner 校验并读取私有对象。原始 DICOM 的 7 天清理不影响结果 JSON 或 heatmap asset。
 
 只验证对象存储链路可运行：`set -a; . backend_v2/.example.env; set +a; .venv/bin/python -m backend_v2.scripts.validate_storage`。该命令只上传随机测试字节，读取并校验 SHA-256，生成最长 5 分钟的 SigV4 URL，最后删除对象；不会上传 DICOM 或推理结果。
 

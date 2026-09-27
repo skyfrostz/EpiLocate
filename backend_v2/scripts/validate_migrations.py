@@ -12,7 +12,7 @@ from backend_v2.db.base import make_engine
 
 REQUIRED_TABLES = {
     "users", "patients", "cases", "studies", "series", "slices", "inference_jobs",
-    "job_attempts", "inference_results", "assets", "worker_nodes", "model_versions", "api_idempotency",
+    "job_attempts", "inference_results", "assets", "worker_nodes", "model_versions", "api_idempotency", "user_credentials",
 }
 
 

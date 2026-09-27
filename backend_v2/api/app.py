@@ -19,6 +19,7 @@ from sqlalchemy.orm import Session
 
 from backend_v2.db.base import make_engine, make_session_factory
 from backend_v2.models.entities import Asset, Case, InferenceJob, InferenceResult, JobAttempt, ModelVersion, Slice, User, WorkerNode
+from backend_v2.auth.credentials import authenticate_user
 from backend_v2.services import cases as case_service
 from backend_v2.services import jobs as job_service
 from backend_v2.services.common import aware, fail, iso, now, valid_key
@@ -90,22 +91,46 @@ def get_db() -> Iterator[Session]:
 
 
 def bearer(authorization: str | None):
-    if not authorization or not authorization.startswith("Bearer ") or len(authorization) < 16:
+    if not authorization or not authorization.startswith("Bearer "):
         fail("UNAUTHENTICATED", 401)
-    return authorization[7:]
+    token = authorization[7:]
+    if len(token) < 16 or len(token) > 256 or any(char.isspace() for char in token):
+        fail("UNAUTHENTICATED", 401)
+    return token
+
+
+def _local_env_user(db: Session, token: str) -> User | None:
+    """Explicit local-only compatibility for the pre-Phase-2 env bootstrap."""
+    if os.environ.get("EPILOCATE_V2_ALLOW_ENV_TOKENS", "false").lower() != "true":
+        return None
+    raw = os.environ.get("EPILOCATE_V2_USER_TOKEN_HASHES", "{}")
+    try:
+        configured = json.loads(raw)
+    except (TypeError, ValueError, json.JSONDecodeError):
+        fail("AUTH_CONFIGURATION_ERROR", 503)
+    if not isinstance(configured, dict):
+        fail("AUTH_CONFIGURATION_ERROR", 503)
+    lookup = hashlib.sha256(token.encode()).hexdigest()
+    subject = next((subject for subject, token_hash in configured.items() if isinstance(subject, str) and isinstance(token_hash, str) and hmac.compare_digest(lookup, token_hash)), None)
+    if subject is None:
+        return None
+    user = db.scalar(select(User).where(User.auth_subject == subject, User.is_active.is_(True)))
+    if user is None:
+        fail("UNAUTHENTICATED", 401)
+    return user
 
 
 def current_user(db: Session = Depends(get_db), authorization: str | None = Header(None)) -> User:
     token = bearer(authorization)
-    lookup = hashlib.sha256(token.encode()).hexdigest()
-    configured = json.loads(os.environ.get("EPILOCATE_V2_USER_TOKEN_HASHES", "{}"))
-    subject = next((subject for subject, token_hash in configured.items() if hmac.compare_digest(lookup, token_hash)), None)
-    if subject is None:
-        fail("UNAUTHENTICATED", 401)
-    user = db.scalar(select(User).where(User.auth_subject == subject, User.is_active.is_(True)))
-    if not user:
-        fail("UNAUTHENTICATED", 401)
-    return user
+    try:
+        return authenticate_user(db, token)
+    except HTTPException as exc:
+        if exc.status_code != 401:
+            raise
+        local_user = _local_env_user(db, token)
+        if local_user is not None:
+            return local_user
+        raise
 
 
 def current_worker(db: Session = Depends(get_db), authorization: str | None = Header(None), x_request_id: str | None = Header(None)) -> WorkerNode:
@@ -156,6 +181,15 @@ def decode_cursor(user_id: uuid.UUID, value: str):
 
 
 app = FastAPI(title="EpiLocate Backend v2", version="2.0")
+
+
+@app.middleware("http")
+async def security_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    if request.url.path.startswith("/api/v2/workers/"):
+        response.headers.setdefault("Cache-Control", "no-store")
+    return response
 
 
 @app.exception_handler(HTTPException)
@@ -292,8 +326,10 @@ def result_detail(result_id: str, db: Session = Depends(get_db), user: User = De
     body = {k: v for k, v in result.result_json.items() if k != "positions"}
     sl = db.get(Slice, job.slice_id)
     asset_rows = db.scalars(select(Asset).where(Asset.result_id == result.id).order_by(Asset.asset_id)).all()
-    store = ObjectStore() if asset_rows else None
-    body.update({"result_id": result_id, "job_id": job.public_id, "status": "COMPLETED", "created_at": iso(result.created_at), "provenance": {"input_sha256": sl.source_sha256, "checkpoint_sha256": result.result_json["model_version"], "preprocessing_version": result.result_json["preprocessing_version"], "protocol_id": result.result_json["protocol_id"]}, "scale_summaries": result.result_json.get("scale_summaries", []), "cross_scale": result.result_json.get("cross_scale", []), "assets": [{"asset_id": x.asset_id, "layer_kind": x.layer_kind, "width": x.width, "height": x.height, "coordinate_space": x.coordinate_space, "media_type": x.media_type, "asset_url": store.signed_asset_get(x)} for x in asset_rows]})
+    # The browser receives an authorized Backend route, never a direct S3/MinIO
+    # URL.  Direct signed URLs contain private object keys and are reserved for
+    # the Worker input path or server-side storage operations.
+    body.update({"result_id": result_id, "job_id": job.public_id, "status": "COMPLETED", "created_at": iso(result.created_at), "provenance": {"input_sha256": sl.source_sha256, "checkpoint_sha256": result.result_json["model_version"], "preprocessing_version": result.result_json["preprocessing_version"], "protocol_id": result.result_json["protocol_id"]}, "scale_summaries": result.result_json.get("scale_summaries", []), "cross_scale": result.result_json.get("cross_scale", []), "assets": [{"asset_id": x.asset_id, "layer_kind": x.layer_kind, "width": x.width, "height": x.height, "coordinate_space": x.coordinate_space, "media_type": x.media_type, "asset_url": f"/api/v2/results/{result_id}/assets/{x.asset_id}"} for x in asset_rows]})
     return body
 
 
@@ -312,6 +348,8 @@ def result_asset(result_id: str, asset_id: str, db: Session = Depends(get_db), u
     asset = db.scalar(select(Asset).where(Asset.result_id == result.id, Asset.asset_id == asset_id))
     if not asset:
         fail("ASSET_NOT_FOUND", 404)
+    if asset.retention_until and aware(asset.retention_until) <= now():
+        fail("ASSET_EXPIRED", 410)
     data, media = ObjectStore().read(asset.object_key)
     if media != "image/png":
         fail("ASSET_TYPE_INVALID", 503)

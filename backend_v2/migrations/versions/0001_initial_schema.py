@@ -18,7 +18,7 @@ depends_on = None
 def upgrade():
     frozen_metadata = MetaData()
     for table in Base.metadata.sorted_tables:
-        if table.name == "assets":
+        if table.name in {"assets", "user_credentials"}:
             continue
         copied = table.to_metadata(frozen_metadata)
         if table.name == "inference_results":

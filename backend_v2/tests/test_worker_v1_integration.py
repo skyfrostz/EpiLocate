@@ -9,6 +9,7 @@ import os
 import subprocess
 import sys
 import uuid
+from datetime import timedelta
 from pathlib import Path
 
 import httpx
@@ -19,6 +20,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from backend_v2.api.app import app, get_db
+from backend_v2.auth.credentials import issue_user_credential
 from backend_v2.db.base import Base
 from backend_v2.models.entities import Asset, InferenceJob, InferenceResult, Slice, User
 from backend_v2.services.retention import expire_inputs
@@ -88,8 +90,7 @@ def test_backend_worker_frozen_prediction_and_occlusion(monkeypatch, tmp_path):
     engine = create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
     Base.metadata.create_all(engine)
     factory = sessionmaker(engine, expire_on_commit=False)
-    user_token = "integration-user-token-" + uuid.uuid4().hex
-    monkeypatch.setenv("EPILOCATE_V2_USER_TOKEN_HASHES", json.dumps({"integration-user": hashlib.sha256(user_token.encode()).hexdigest()}))
+    monkeypatch.setenv("EPILOCATE_V2_ALLOW_ENV_TOKENS", "false")
     monkeypatch.setenv("EPILOCATE_V2_LEASE_SECRET", "integration-test-lease-secret-0123456789")
     store = MemoryStore()
     api_module = importlib.import_module("backend_v2.api.app")
@@ -102,7 +103,10 @@ def test_backend_worker_frozen_prediction_and_occlusion(monkeypatch, tmp_path):
     app.dependency_overrides[get_db] = override
     try:
         with factory.begin() as db:
-            db.add(User(auth_subject="integration-user"))
+            user = User(auth_subject="integration-user")
+            db.add(user)
+            db.flush()
+            _, user_token = issue_user_credential(db, user, expires_in=timedelta(hours=1), label="worker-integration")
             worker_id, worker_token = provision(db, model_id="baseline_resnet18", model_hash=MODEL_SHA,
                 preprocessing_version=PREPROCESSING, protocol_id=PROTOCOL,
                 display_name="Pinned Worker v1 integration")
@@ -181,7 +185,8 @@ def test_backend_worker_frozen_prediction_and_occlusion(monkeypatch, tmp_path):
                 detail = client.get(f"/api/v2/results/{result_id}", headers=user_headers)
                 assert detail.status_code == 200 and detail.json()["provenance"]["checkpoint_sha256"] == MODEL_SHA
                 if kind == "OCCLUSION":
-                    assert all(item["asset_url"].startswith("https://objects.example/") for item in detail.json()["assets"])
+                    assert all(item["asset_url"].startswith("/api/v2/results/") for item in detail.json()["assets"])
+                    assert all("objects.example" not in item["asset_url"] for item in detail.json()["assets"])
                     positions = client.get(f"/api/v2/results/{result_id}/positions",
                         params={"scale": 16, "limit": 1000}, headers=user_headers)
                     assert positions.status_code == 200 and len(positions.json()["positions"]) == 729
@@ -200,7 +205,6 @@ def test_backend_worker_frozen_prediction_and_occlusion(monkeypatch, tmp_path):
 
             with factory.begin() as db:
                 sl = db.scalar(select(Slice).where(Slice.slice_ref == slice_id))
-                from datetime import timedelta
                 from backend_v2.services.common import now
                 sl.staging_expires_at = now() - timedelta(seconds=1)
             with factory.begin() as db:
