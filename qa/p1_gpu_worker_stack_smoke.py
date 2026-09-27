@@ -39,6 +39,15 @@ def _json(response: httpx.Response, expected: int) -> dict:
     return response.json()
 
 
+def _write_private_token(path: Path | None, token: str) -> None:
+    if path is None:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+        stream.write(token + "\n")
+
+
 def run(args) -> dict:
     if not os.environ.get("EPILOCATE_V2_DATABASE_URL"):
         raise ValueError("EPILOCATE_V2_DATABASE_URL is required")
@@ -109,6 +118,7 @@ finally:
                                        check=True, capture_output=True, text=True, timeout=300)
             worker_result = json.loads(completed.stdout)
         output = {"requested_device": args.device, "actual_device": worker_result["device"],
+                  "case_id": case_id, "slice_id": slice_id,
                   "model_hash": MODEL_SHA, "input_sha256": input_hash,
                   "accepted": worker_result["accepted"], "jobs": {}, "position_count_by_scale": {},
                   "asset_count": 0}
@@ -134,6 +144,8 @@ finally:
                     output["position_count_by_scale"][str(scale)] = len(page["positions"])
         if output["asset_count"] != 9 or output["position_count_by_scale"] != {"16": 729, "32": 169, "64": 36}:
             raise RuntimeError("Occlusion assets or positions differ from the synthetic reference")
+        _write_private_token(args.user_token_output, user_token)
+        _write_private_token(args.worker_token_output, worker_token)
         return output
 
 
@@ -146,6 +158,10 @@ def main() -> None:
     parser.add_argument("--fixture", type=Path, default=ROOT / "docs/interfaces/fixtures/p0_synthetic_ct.dcm")
     parser.add_argument("--device", choices=("CPU", "CUDA"), required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--user-token-output", type=Path,
+                        help="Optional private token file for isolated browser QA (mode 0600)")
+    parser.add_argument("--worker-token-output", type=Path,
+                        help="Optional private token file for isolated auth QA (mode 0600)")
     args = parser.parse_args()
     result = run(args)
     args.output.parent.mkdir(parents=True, exist_ok=True)
