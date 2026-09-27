@@ -115,6 +115,7 @@ def test_backend_worker_frozen_prediction_and_occlusion(monkeypatch, tmp_path):
             backend_url="https://backend.example", frozen_root=frozen_root, data_root=tmp_path / "worker-data")
         assert credential_file.stat().st_mode & 0o777 == 0o600
         assert worker_token not in credential_file.name
+        assert f"export MODEL_HASH={MODEL_SHA}" in credential_file.read_text()
 
         client = TestClient(app)
         user_headers = {"Authorization": f"Bearer {user_token}"}

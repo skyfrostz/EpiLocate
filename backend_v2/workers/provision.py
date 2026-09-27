@@ -62,6 +62,7 @@ def write_worker_env(path: Path, *, worker_id: str, token: str, model_hash: str,
         raise ValueError("backend_url must be an HTTPS origin")
     path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     values = {"WORKER_ID": worker_id, "TOKEN": token, "MODEL_VERSION": model_hash,
+              "MODEL_HASH": model_hash,
               "BACKEND_URL": backend_url.rstrip("/"), "EPILOCATE_FROZEN_ROOT": str(frozen_root),
               "WORKER_DATA_ROOT": str(data_root)}
     fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)

@@ -8,6 +8,7 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 
 beforeEach(() => {
   clearSession()
+  sessionStorage.clear()
   auth.loaded = false
   vi.unstubAllGlobals()
 })
@@ -33,9 +34,28 @@ describe('browser session', () => {
     await expect(login('alice', 'wrong')).rejects.toThrow('尝试次数过多')
     await login('alice', 'correct-password')
     expect(auth.username).toBe('alice')
+    sessionStorage.setItem('epilocate:fusion:result_alice', '{"scale":16}')
+    sessionStorage.setItem('unrelated-preference', 'keep')
     await logout()
     expect(auth.username).toBeNull()
+    expect(sessionStorage.getItem('epilocate:fusion:result_alice')).toBeNull()
+    expect(sessionStorage.getItem('epilocate:session-account')).toBeNull()
+    expect(sessionStorage.getItem('unrelated-preference')).toBe('keep')
     expect(fetcher.mock.calls[2]?.[1]?.headers).toEqual({ 'X-CSRF-Token': 'csrf-new' })
+  })
+
+  it('preserves same-user preferences on refresh and clears them when identity changes', async () => {
+    const fetcher = vi.fn().mockResolvedValueOnce(json({ username: 'alice', csrf_token: 'a' }))
+      .mockResolvedValueOnce(json({ username: 'alice', csrf_token: 'a2' }))
+      .mockResolvedValueOnce(json({ username: 'bob', csrf_token: 'b' }))
+    vi.stubGlobal('fetch', fetcher)
+    await loadSession()
+    sessionStorage.setItem('epilocate:fusion:result_alice', '{"scale":16}')
+    await loadSession(true)
+    expect(sessionStorage.getItem('epilocate:fusion:result_alice')).not.toBeNull()
+    await loadSession(true)
+    expect(sessionStorage.getItem('epilocate:fusion:result_alice')).toBeNull()
+    expect(sessionStorage.getItem('epilocate:session-account')).toBe('bob')
   })
 
   it('clears the browser session after an API 401', async () => {

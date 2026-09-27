@@ -1,12 +1,25 @@
 import { reactive } from 'vue'
 
 interface SessionPayload { username: string; csrf_token: string }
+const FUSION_KEY_PREFIX = 'epilocate:fusion:'
+const SESSION_ACCOUNT_KEY = 'epilocate:session-account'
+
+function clearFusionPreferences() {
+  try {
+    for (let index = sessionStorage.length - 1; index >= 0; index--) {
+      const key = sessionStorage.key(index)
+      if (key?.startsWith(FUSION_KEY_PREFIX)) sessionStorage.removeItem(key)
+    }
+  } catch { /* Session storage may be unavailable; server authorization still applies. */ }
+}
 
 export const auth = reactive<{ username: string | null; csrfToken: string | null; loaded: boolean; error: string | null }>({
   username: null, csrfToken: null, loaded: false, error: null,
 })
 
 export function clearSession() {
+  clearFusionPreferences()
+  try { sessionStorage.removeItem(SESSION_ACCOUNT_KEY) } catch { /* Storage may be unavailable. */ }
   auth.username = null
   auth.csrfToken = null
   auth.loaded = true
@@ -14,6 +27,10 @@ export function clearSession() {
 }
 
 function accept(payload: SessionPayload) {
+  try {
+    if (sessionStorage.getItem(SESSION_ACCOUNT_KEY) !== payload.username) clearFusionPreferences()
+    sessionStorage.setItem(SESSION_ACCOUNT_KEY, payload.username)
+  } catch { /* Storage may be unavailable. */ }
   auth.username = payload.username
   auth.csrfToken = payload.csrf_token
   auth.loaded = true

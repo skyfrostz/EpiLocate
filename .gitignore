@@ -50,3 +50,4 @@ frontend/.env.local
 frontend/.env.*.local
 frontend/.playwright-cli/
 .playwright-cli/
+output/playwright/

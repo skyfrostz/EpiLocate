@@ -10,6 +10,8 @@ from .config import WorkerConfig
 
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
+    # httpx INFO includes complete presigned MinIO URLs, including their short-lived signature.
+    logging.getLogger("httpx").setLevel(logging.WARNING)
     agent = WorkerAgent(WorkerConfig.from_env())
     logging.getLogger("epilocate.worker").info("Worker execution device: %s", agent.runner.hardware["accelerator"])
     signal.signal(signal.SIGINT, lambda *_: agent.stop_event.set())
