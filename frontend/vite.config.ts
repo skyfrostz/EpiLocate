@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
     ] },
     server: {
       host: '127.0.0.1',
-      port: 5183,
+      port: Number(env.FRONTEND_DEV_PORT ?? '5183'),
       strictPort: true,
       proxy: target ? {
         '/api/v2': {
