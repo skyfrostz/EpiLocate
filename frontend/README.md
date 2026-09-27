@@ -26,7 +26,7 @@ API_PROXY_TARGET=http://127.0.0.1:8890
 API_PROXY_USER_TOKEN=<locally provisioned user token>
 ```
 
-`API_PROXY_USER_TOKEN` is read by the local Vite server and added to proxied requests; it is never included in the Vue bundle. Use only a user token, never a Worker token. Do not commit `.env.local`. Production authentication/refresh remains a separate deployment contract. Without an authenticated Backend v2, the UI shows an API error and does not fall back to a Mock result.
+`API_PROXY_USER_TOKEN` is read by the local Vite server and added to proxied requests; it is never included in the Vue bundle. Use only a database-backed user token, never a Worker token. Do not commit `.env.local`. Production must provision an expiring/revocable Backend user credential or perform a controlled OIDC-to-bearer mapping at the edge; the browser must not receive the server credential. Without an authenticated Backend v2, the UI shows an API error and does not fall back to a Mock result.
 
 ## Contract boundaries
 

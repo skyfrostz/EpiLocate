@@ -52,6 +52,7 @@ def ctx(monkeypatch):
     Base.metadata.create_all(engine)
     factory = sessionmaker(engine, expire_on_commit=False)
     monkeypatch.setenv("EPILOCATE_V2_USER_TOKEN_HASHES", json.dumps({"test-subject": hashlib.sha256(USER_TOKEN.encode()).hexdigest()}))
+    monkeypatch.setenv("EPILOCATE_V2_ALLOW_ENV_TOKENS", "true")
     monkeypatch.setenv("EPILOCATE_V2_LEASE_SECRET", "0123456789abcdef0123456789abcdef")
     store = FakeStore()
     import backend_v2.api.app as api_module

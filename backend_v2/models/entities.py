@@ -32,6 +32,18 @@ class User(Base):
     __table_args__ = (CheckConstraint("role IN ('USER','ADMIN')"),)
 
 
+class UserCredential(Base):
+    __tablename__ = "user_credentials"
+    id: Mapped[uuid.UUID] = uid()
+    user_id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey("users.id"), index=True)
+    token_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    label: Mapped[str] = mapped_column(String(96))
+    issued_at: Mapped[datetime] = stamp()
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True, index=True)
+    __table_args__ = (Index("ix_user_credentials_active", "user_id", "expires_at", "revoked_at"),)
+
+
 class Patient(Base):
     __tablename__ = "patients"
     id: Mapped[uuid.UUID] = uid()
