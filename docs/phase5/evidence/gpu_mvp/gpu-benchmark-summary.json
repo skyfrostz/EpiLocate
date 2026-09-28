@@ -1,0 +1,44 @@
+{
+  "gpu_name": "NVIDIA GeForce RTX 3090",
+  "requested_device": "CUDA",
+  "actual_device": "CUDA",
+  "torch_version": "2.4.0+cu121",
+  "torch_cuda_runtime": "12.1",
+  "gpu_memory_mib": 24259,
+  "peak_gpu_memory_allocated_bytes": 278073344,
+  "model_hash": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+  "input_sha256": "8e73851ac16215180f7a3e17d72c85814886fa25ef62fbfbc618686dc8df54ee",
+  "prediction": {
+    "class_label": "negative",
+    "inference_time_ms": 537,
+    "positive_probability": 0.025690102949738503,
+    "predicted_class": 0,
+    "predicted_class_confidence": 0.9743098970502615
+  },
+  "position_count_by_scale": {
+    "16": 729,
+    "32": 169,
+    "64": 36
+  },
+  "timings_ms": {
+    "model_initialization": 1562.003,
+    "occlusion_cold": 22492.836,
+    "occlusion_warm": 682.239,
+    "prediction_cold": 539.116,
+    "prediction_warm": 256.614
+  },
+  "comparison": {
+    "passed": false,
+    "tolerance": {
+      "derived_abs": 0.0001,
+      "png_pixel_abs": 2,
+      "probability_abs": 0.0001
+    },
+    "maxima": {
+      "derived_abs": 0.0010498762130737305,
+      "png_pixel_abs": 1,
+      "probability_abs": 0.00007169507443904877
+    },
+    "failed_path_count": 502
+  }
+}

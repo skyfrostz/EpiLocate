@@ -62,12 +62,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useUiStore } from '../stores/ui'
 import { auth, logout } from '../auth/session'
 import { ref } from 'vue'
 
 const route = useRoute()
+const router = useRouter()
 const ui = useUiStore()
 const loggingOut = ref(false)
 const logoutError = ref('')
@@ -78,7 +79,7 @@ async function signOut() {
   logoutError.value = ''
   try {
     await logout()
-    window.location.assign('/login')
+    await router.replace({ name: 'login' })
   } catch (cause) {
     logoutError.value = cause instanceof Error ? cause.message : '退出失败，请重试。'
   } finally {

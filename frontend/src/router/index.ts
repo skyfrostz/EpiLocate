@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/results/:id', name: 'result-detail', component: () => import('../views/ResultDetailView.vue'), meta: { title: '结果详情' } },
 ]
 
-export function createAppRouter(history: RouterHistory = createWebHistory()) {
+export function createAppRouter(history: RouterHistory = createWebHistory(import.meta.env.BASE_URL)) {
   const router = createRouter({ history, routes, scrollBehavior: () => ({ top: 0 }) })
   router.beforeEach(async to => {
     if (!auth.loaded) await loadSession()

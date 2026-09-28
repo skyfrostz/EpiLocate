@@ -20,10 +20,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { auth, login } from '../auth/session'
 
 const route = useRoute()
+const router = useRouter()
 const username = ref('')
 const password = ref('')
 const error = ref('')
@@ -36,7 +37,7 @@ async function submit() {
     await login(username.value, password.value)
     const next = typeof route.query.next === 'string' && route.query.next.startsWith('/') && !route.query.next.startsWith('//')
       ? route.query.next : '/'
-    window.location.assign(next)
+    await router.replace(next)
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : '登录失败，请重试。'
   } finally {

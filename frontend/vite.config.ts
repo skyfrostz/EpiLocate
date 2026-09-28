@@ -6,6 +6,7 @@ export default defineConfig(({ mode }) => {
   const target = env.API_PROXY_TARGET
   const proxySecure = env.API_PROXY_INSECURE !== 'true'
   return {
+    base: env.VITE_PUBLIC_BASE || '/',
     plugins: [vue()],
     resolve: { alias: { events: 'events/' } },
     optimizeDeps: { include: [
