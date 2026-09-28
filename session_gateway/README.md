@@ -1,4 +1,6 @@
-# EpiLocate browser session gateway — Phase 5 stage 1
+# EpiLocate browser session gateway — Phase 5
+
+**现行浏览器接口与错误体：** [Session Gateway Contract](../docs/backend/session_gateway_contract_phase5.md)。此 README 主要保留账户与秘密文件的运维说明。
 
 The gateway is the browser entry for existing Backend v2 **user** APIs. Backend v2 remains the source of user identity, revocable Bearer credentials, Case ownership, and asset authorization. This package adds personal password login and revocable browser sessions. It does not expose Worker routes, execute inference, or change the frozen Worker/API protocol.
 
@@ -23,10 +25,10 @@ EPILOCATE_GATEWAY_SESSIONS_FILE=/private/sessions.sqlite3
 EPILOCATE_GATEWAY_SESSION_KEY_FILE=/secure/gateway.key
 ```
 
-Run behind a TLS reverse proxy bound to the public origin: `uvicorn session_gateway.app:create_app --factory --host 127.0.0.1 --port <private-port>`. The gateway requires the Backend origin to be loopback HTTP. Nginx must route `/auth/*` and browser `/api/v2/*` to the gateway; it must not expose Backend v2 directly to browsers. Worker traffic remains a separate authenticated Backend route in the later deployment design, outside the browser gateway.
+Run behind a TLS reverse proxy bound to the public origin: `uvicorn session_gateway.app:create_app --factory --host 127.0.0.1 --port <private-port>`. The gateway requires the Backend origin to be loopback HTTP. Nginx must route `/auth/*` and browser `/api/v2/*` to the gateway; it must not expose Backend v2 directly to browsers. Worker traffic uses a separate authenticated Backend route in the current MVP deployment, outside the browser gateway.
 
 `POST /auth/login` requires a same-origin `Origin` header. It verifies the password hash and probes the member's existing Backend credential before issuing an eight-hour, `HttpOnly; Secure; SameSite=Strict` cookie. Failed login attempts are limited by account and source IP. `GET /auth/session` returns the display username and CSRF value. State-changing requests to `/api/v2/*` and `POST /auth/logout` require both the same origin and `X-CSRF-Token`. Logout, expiry, account disable, and administrative revocation invalidate sessions. The gateway strips browser `Authorization` and injects only the mapped user token into its loopback Backend request. Responses never include tokens.
 
 The Frontend is built with `VITE_API_BASE_URL=/api/v2`; its production static files can be served by Nginx. During local development, `API_PROXY_TARGET` points to the gateway, not directly to Backend. The local full browser smoke test requires an HTTPS origin so the Secure cookie and Origin gate are exercised as deployed.
 
-This stage has no ECS configuration or deployment. CPU Worker startup, capacity assessment, and end-to-end inference are later stages.
+Phase 5 已在 ECS 的独立 `/mvp/` 测试入口部署 Gateway、Backend、PostgreSQL 与 MinIO，并由远端 RTX 3090 CUDA Worker 完成端到端工程验证。该入口不是正式生产环境；ECS CPU Worker 当前未启动，代码仍保留 CPU/CUDA/AUTO 模式。部署事实见 [Phase 5 MVP 报告](../docs/phase5/gpu_full_chain_mvp_report.md)。

@@ -1,5 +1,7 @@
 # Phase 2 API and Viewer integration notes
 
+> 历史 Phase 2 记录。当前 Phase 5 浏览器路径、Session 与 CT 叠加行为见 [Frontend Integration Guide](../../docs/backend/frontend_integration_guide_phase5.md)。
+
 Scope: Vue branch `feature/frontend-v1`, based on Phase 1 commit `8a7952a1b0819e3db1630c3c486cf5544ef6a99a`.
 
 ## Frozen v2 paths used

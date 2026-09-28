@@ -2,11 +2,11 @@
 
 Vue 3 + TypeScript + Vite + Pinia + Vue Router + Ant Design Vue. This is the formal web UI. The old Gradio page remains a research/debug interface.
 
-## Phase 2 scope
+## Current Phase 5 scope
 
 The app reads Case, Job and Result records from the frozen Backend v2 `/api/v2` routes. Case creation and single de-identified DICOM upload are separate operations. From a READY Case, the user can create a slice-level Baseline prediction Job or a 16/32/64 px occlusion Job. The Job page polls by its public ID, survives a page refresh, stops at `COMPLETED` or `FAILED`, and reports network, 401 and timeout errors. Only a completed `LIVE_CASE` Result can be displayed. Positive-class probability and predicted-class confidence are shown separately. Response PNGs come from the Result-owned asset endpoint and are labelled as model decision response, never as lesion annotation.
 
-The `CornerstoneSliceViewer` component loads a DICOM `File` through Cornerstone3D's local file manager after upload or a retained `GET /api/v2/cases/{case_id}/dicom` read on refresh. Its overlay input is guarded by slice ID, coordinate space, dimensions and axis metadata. Actual CT/heatmap overlay is deferred because raw-to-algorithm transform metadata is not part of this page contract.
+The `CornerstoneSliceViewer` loads a DICOM `File` through Cornerstone3D's local file manager after upload or an authorized `GET /api/v2/cases/{case_id}/dicom` read on refresh. Phase 5 implements single-slice CT/heatmap overlay with audited pixel geometry, source SHA-256, model/protocol and asset checks; unsupported geometry disables overlay while the independent heatmap remains available. See the [Phase 5 Frontend Integration Guide](../docs/backend/frontend_integration_guide_phase5.md) before UI refactoring.
 
 ## Local commands
 
@@ -36,4 +36,4 @@ Phase 5 browser access uses `session_gateway` for personal password login, a pro
 - The model ID input defaults to the currently documented `baseline_resnet18` and can be edited if a deployment provisions another active model.
 - `npm audit` currently reports 9 transitive Cornerstone-related advisories (3 moderate, 6 high) with no automatic fix available. Review upstream updates before production deployment.
 
-See [Phase 2 contract notes](docs/phase2_contract_notes.md) for implementation limits and test evidence.
+Start with the [Phase 5 Frontend Integration Guide](../docs/backend/frontend_integration_guide_phase5.md). [Phase 2 contract notes](docs/phase2_contract_notes.md) remain historical evidence.

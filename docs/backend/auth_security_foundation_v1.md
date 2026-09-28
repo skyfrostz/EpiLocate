@@ -1,5 +1,7 @@
 # EpiLocate P1 Phase 2 Authentication & Security Foundation v1
 
+> 历史安全基础设计。Phase 5 已实现浏览器 Session Gateway；登录、Cookie、CSRF 与错误体见 [Session Gateway Contract](session_gateway_contract_phase5.md)，用户资源与资产行为见 [Backend API Contract](backend_api_contract_phase5.md)。下文关于 Cookie 仍待采用的文字只记录当时状态。
+
 ## Authentication architecture
 
 Backend v2 accepts HTTP `Authorization: Bearer <opaque-token>` on user routes. A provisioned token is high entropy, shown once to the operator, and stored only as SHA-256 in `user_credentials`. Each credential has an issued time, mandatory expiry, optional revocation time, and a user reference. An inactive `User` invalidates all of that user's credentials. Invalid, expired, revoked, and missing credentials all return `401 UNAUTHENTICATED` without revealing which condition occurred.

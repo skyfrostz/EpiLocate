@@ -1,5 +1,7 @@
 # EpiLocate Backend API Contract v2.0 Freeze
 
+> 历史设计冻结稿。Phase 5 前端联调请以 [已实现 Backend API Contract](backend_api_contract_phase5.md) 为准；其中资产 URL、Case 列表结构、流式读取等描述与当前代码不同，不能直接作为现行接口依据。
+
 状态：**正式冻结版 v2.0，待最终确认后进入实现**。Backend 基于 FastAPI，公共前缀固定 `/api/v2`；P0 `/api/v1` 和 Gradio 研究入口不在本轮迁移中改写。此文将上游 Backend API Contract v2.0 的无前缀路径放入明确的版本命名空间，并固定 Result 读取、鉴权、幂等和 Job 状态机。Worker 报文见 [worker_protocol_v1_freeze.md](worker_protocol_v1_freeze.md)，持久字段与保留策略见 [database_schema_freeze_v1.md](database_schema_freeze_v1.md)。
 
 ## 路由及权限总览

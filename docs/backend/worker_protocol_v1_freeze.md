@@ -1,5 +1,7 @@
 # EpiLocate Worker Protocol v1.0 Freeze
 
+> 历史设计冻结稿。Phase 5 已实现报文及 Job 状态请以 [Worker API 与 Job lifecycle](worker_api_job_lifecycle_phase5.md) 为准；本稿关于 X-Request-ID 回显及流式结果接收的陈述尚未由当前代码实现。
+
 状态：**正式冻结版 v1.0，待最终确认后进入实现**。适用于 Cloud Control Plane 与已预配 AI Worker 的第一阶段轮询通信，公共基址为 `/api/v2`。任务领取按 Design Freeze Review 修订为有副作用的 `POST /workers/jobs/claim`，不保留旧 `GET /workers/jobs/next` 别名。Worker 只处理临时 DICOM、冻结模型推理、遮挡和图层生成；云端负责身份、Case、调度、结果和资产权限。没有 WebSocket、消息队列、自动扩缩容、自动模型发布或医院多租户权限。
 
 ## 传输、身份与通用格式
