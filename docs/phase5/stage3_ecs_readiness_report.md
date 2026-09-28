@@ -1,12 +1,58 @@
-# EpiLocate P1 Phase 5 — Stage 3 ECS readiness audit
+# EpiLocate P1 Phase 5 — Stage 3A/3B ECS readiness audit
 
-## Scope and evidence boundary
+## Stage 3B: actual ECS read-only audit (2026-09-28)
+
+**Audit window:** 12:03–12:07 Asia/Shanghai. The owner separately authorized one SSH read-only audit. Local `ssh -G epilocate` resolved to the owner-specified host, account and port; no ProxyCommand/ProxyJump or agent forwarding was configured. The owner supplied the ECS ED25519 **server** public-key fingerprint in response to the trusted-channel verification request; it matched the existing local `known_hosts` record. This task did not operate the owner's independent channel. Connections used `BatchMode=yes`, `StrictHostKeyChecking=yes`, no TTY and no forwarding. Remote `hostname`, `whoami` and the internal IPv4 matched the owner's supplied identity before other commands ran. The report deliberately omits the public IP, full host/user identifiers and raw private network output.
+
+**Observed system and capacity (one time-point, not a peak or inference benchmark):**
+
+| Item | Actual read-only evidence | Judgment |
+| --- | --- | --- |
+| OS / CPU | Ubuntu 24.04.4 LTS, `x86_64`, KVM virtual machine; Intel Xeon Platinum exposed as **2 logical vCPUs** (one core with two threads in `lscpu`), `nproc=2`. | Physical host share and sustained compute entitlement cannot be inferred. `/sys/fs/cgroup/cpu.max` was absent, so no quota reading was obtained. |
+| RAM / swap | 3.5 GiB total, about 2.7 GiB `available` at audit time; 4.0 GiB swap, unused in the sample. | Full-stack plus CPU Worker coexistence is **high risk and unproven**. Swap is not acceptable evidence of enough inference memory. |
+| Load / processes | Load averages 0.36/0.11/0.03; three `vmstat` samples had no swap in/out. Review Server, Gradio, Aid site and Nginx were active. | A few seconds of idle sampling do not establish peak headroom or multiuser throughput. |
+| Disk / mounts | One 50 GB virtual disk, root `ext4` filesystem 49 GiB with 39 GiB available (18% used); no separate persistent data/backup mount appeared in `lsblk`/`findmnt`. | Space can hold a staging copy in principle, but same-disk copies do not provide independent recovery. Need an approved off-host or separate-volume backup/restore target. |
+| Logs | Nginx logs about 1.8 MiB; journal about 24–25 MiB. | Retention and growth have not been load tested. |
+| Candidate ports | `ss -H -lnt` showed public 80/443 and SSH 22; loopback 8000, 4110, 8765, 8766. Proposed 8890, 8891, 9443, 9444, 5432 and 9000 were **not listening at that instant**. | This is not a reservation. No service was stopped or started to free a port. Port owners were not queried with the disallowed privileged variant. |
+| Data services | No PostgreSQL/MinIO listener or running unit appeared in the permitted `ss`/`systemctl` results. | Installation, Docker/Compose version, images and inactive units remain **unconfirmed** because Docker management interface calls were explicitly forbidden. |
+
+The Stage 2 Worker had only a local **sampled**, non-peak RSS of about 1.32 GiB on an 18-logical-CPU M5 Pro. Subtracting that number from the ECS's instantaneous available memory would be an invalid capacity proof: Linux model peak, PostgreSQL, MinIO, Gateway, Backend, Sweeper, existing services, page cache and burst load all remain unmeasured. A single Worker/single attempt is the maximum initial **proposal**, subject to Stage 4A server measurement. No model inference or pressure test was run in Stage 3B. A capacity upgrade or separate compute host may be needed; do not shrink the frozen algorithm or remove required services to fit this instance.
+
+**Existing Review Server, Nginx and TLS:**
+
+| Check | Verified fact | Limit / next gate |
+| --- | --- | --- |
+| Old service | `epilocate-review.service` was `active/running`; systemd unit path `/etc/systemd/system/epilocate-review.service`, environment **file path** `/etc/epilocate-review/epilocate-review.env`. Current release symlink resolved under `/opt/epilocate-review/releases/`. | systemd supervision is verified; the exact `ExecStart` line was not read under this scope. No start/stop/reload or environment **values** read. Restore ability not proven. |
+| Old data | SQLite file at `/var/lib/epilocate-review/review.sqlite3`, 139,264 bytes at audit time. No `review.sqlite3-wal` at that instant. `/var/lib/epilocate-review` totaled about 280 KiB; media bundle about 457 MiB; full old install about 517 MiB, including about 60 MiB virtualenv. | Absence of a WAL at one instant does not authorize a raw live-file copy. No snapshot, backup or isolated restore was executed. Existing exports directory was about 4 KiB. |
+| Old access permissions | Data directory mode 750; environment file mode 640; media bundle mode 750. SQLite file mode 644 inside the restricted data directory. | Review permission model before Stage 4A backup; no file contents read. |
+| Public site | Nginx 1.24.0 active. Actual enabled `project.xbstu.com` site listens on 80/443 and proxies to loopback 8765; another enabled Aid site shares Nginx and proxies to loopback 8766. Old site's `client_max_body_size` is 64k and has a same-origin referrer policy. | Preserve the other site. A new DICOM upload route requires a separately reviewed size limit and site-only cutover in Stage 4B. No Nginx config was changed or tested with `nginx -t`. |
+| Certificate / response | Existing Let's Encrypt certificate for the target domain was valid during audit, expiring 2026-12-23 13:00:43 UTC; `certbot.timer` was listed. The TLS private key **target metadata** was mode 600, root-owned. A loopback-resolved HTTPS request to the old `/healthz` returned HTTP 200 with certificate verification result 0. | Renewal success and new-site TLS behavior remain untested. No private key contents or HTTP response body were read. |
+
+**Network and security feasibility:** Nginx and the currently unused candidate loopback ports make the proposed separate private Worker/API and signed-MinIO TLS listeners technically plausible, **not verified working**. Stage 4A must build and test a SAN-matching certificate/CA, `WORKER_CA_CERT`, preserved SigV4 Host/port/path/query, and log redaction without disabling TLS validation. Browser Gateway security properties were validated locally in Stage 1/2 code and tests; the new Gateway is not deployed here, so ECS session cookies, CSRF, login throttling, ownership and `/docs` denial cannot yet be live-verified. Current Nginx has an access log directive with no redaction verified; a new signed-object edge must prevent signed query strings from reaching logs. Host firewall rules and cloud security-group state remain **unverified**: the owner barred the proposed `sudo -n` firewall command and no control-plane evidence was supplied.
+
+**Actual commands and exceptions:** the following were executed only as remote read-only checks after the identity gate. The SSH wrapper used the strict flags above. Raw command output stayed in this task; this report records only sanitized conclusions.
+
+| Commands actually run | Purpose / result |
+| --- | --- |
+| Local `ssh -G epilocate`, `ssh-keygen -F epilocate -l`, `ssh-keygen -F <owner-specified-host> -l`; remote `hostname`, `whoami`, `ip -o -4 addr show scope global`, `date -Is` | Effective route, existing host key, owner-confirmed fingerprint, target identity and audit time. |
+| `cat /etc/os-release`, `uname -m`, `lscpu`, `nproc`, `cat /sys/fs/cgroup/cpu.max` | OS/CPU. The last command failed because that file was absent; it is **not** a passed quota check. |
+| `free -h`, `swapon --show --noheadings`, `uptime`, `vmstat 1 3`, `ps -eo pid,comm,%cpu,rss --sort=-rss \| head -n 20` | Memory, swap, load and one-time process samples; no process arguments printed. |
+| `df -hT`, `lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS,TYPE`, `findmnt -rn -o TARGET,SOURCE,FSTYPE,OPTIONS`, `df -hT <old-data-and-release-paths>` | Disk size, free space and mounts. |
+| `systemctl list-units --type=service --state=running --no-pager --plain`, `systemctl show <Review/Gradio/Aid/Nginx-unit> -p LoadState -p ActiveState -p SubState -p FragmentPath -p ExecMainPID -p MemoryCurrent -p EnvironmentFiles --no-pager`, `systemctl list-timers --all --no-pager` | Running services, unit/config-file paths, current memory and renewal timer; no environment values. |
+| `ss -H -lnt`, `nginx -v`, `journalctl --disk-usage` | Listener snapshot, Nginx version and journal size. |
+| `rg --files <Nginx-dirs>` then `find <Nginx-dirs> -maxdepth 1 ... -print`, targeted `grep -En` for Nginx route/header/log directives | `rg` was absent; the approved `find`/targeted grep fallback identified the two enabled sites and non-secret route metadata. No full `nginx -T`. |
+| `readlink -f <old-release-and-site-paths>`, `stat -c ... <SQLite/WAL/env/site/key/dirs>`, `stat -L -c ... <TLS-key>`, `du -sh <old-data/release/media/log/exports-paths>` | Old-service paths, modes and sizes only. An initial `stat` attempt had shell-quoting errors; it was corrected and rerun. Missing WAL was recorded as absent at audit time. |
+| `openssl x509 -in <public-cert> -noout -dates -issuer -subject -fingerprint -sha256`, `curl --max-time 5 --resolve <target-domain>:443:127.0.0.1 -o /dev/null -sS -w ... https://<target-domain>/healthz` | Public-certificate metadata and current old-site HTTPS health; no body, cookie or key output. |
+
+**Not executed / unavailable:** Docker or Compose management calls, `sudo -n` commands, firewall rule listing, cloud security-group inspection, full logs, DB queries, patient/media reads, environment-value reads, private-key reads, backup/snapshot/restore, software installation, service or Nginx changes, model inference, GPU testing, and any Stage 4 action. Docker/Compose availability, effective firewall policy, Linux Worker dependency compatibility, real CPU peak/runtime, MinIO SigV4 proxy, off-host backup and old-service restoration are **deployment gates**. The read-only audit can support a conditional Stage 4A proposal, but does **not** approve Stage 4A or Stage 4B.
+
+## Stage 3A: local-material audit and original evidence boundary
 
 - Audit time: 2026-09-28 11:14 Asia/Shanghai (03:14 UTC); local repository inspection only.
 - Worktree: `/Users/skyfrost/Documents/Techniques/EpiLocate-p1-phase5-dual-mode-server-demo`; branch `codex/p1-phase5-dual-mode-server-demo`; starting clean HEAD `e74f98432019eb46691e085b957fecb8e23ca1a3`.
-- Actual ECS operating system, architecture, CPU, RAM, swap, disks, mounted filesystems, ports, services, TLS, Review Server state, and available backup space: **待 ECS 只读核验**.
-- No ECS connection, public-domain probe, service change, deployment, merge, or push occurred in Stage 3. Repository templates and Stage 2 local evidence are not observations of the running ECS.
-- Decision: deployment readiness is **not established**. The separate ECS read-only authorization and safe access method, actual measurements, old-service recovery evidence, and production configuration remain gates before a Stage 4 deployment approval.
+- At Stage 3A, actual ECS operating system, architecture, CPU, RAM, swap, disks, mounted filesystems, ports, services, TLS, Review Server state and backup space were **待 ECS 只读核验**. Stage 3B results are recorded above.
+- No ECS connection, public-domain probe, service change, deployment, merge or push occurred in **Stage 3A**. Repository templates and Stage 2 local evidence were not observations of the running ECS.
+- The Stage 3A decision was that deployment readiness was **not established**. Stage 3B has since supplied bounded read-only observations, but restore, peak capacity and production configuration remain gates.
 - Stage 3 changes: this report and `docs/phase5/stage4_deployment_plan.md` only; no application, protocol, checkpoint, service or server file was changed.
 
 Local read-only checks actually run: `git branch --show-current`, `git rev-parse HEAD`, `git status --short --branch`, `rg --files`, targeted `rg -n` and `sed -n` against the files below, `shasum -a 256` on the local frozen checkpoint, and `du -sh` on that checkpoint and `frontend/dist`. The local hash matched the Stage 2 record. The command block later in this document is a **proposed ECS checklist**, not executed evidence.
@@ -43,16 +89,16 @@ Until ECS CPU/RAM/storage and live process use are measured, the safe initial de
 
 ## Security and routing review
 
-- Browser origin: HTTPS `project.xbstu.com` is the **target**. The current live TLS certificate, Nginx routing and validity are **待 ECS 只读核验**. Frontend `/auth/*` and browser `/api/v2/*` must traverse the Gateway. The browser must never receive a Backend Bearer token. Backend ownership checks remain authoritative.
+- Browser origin: HTTPS `project.xbstu.com` is the **target**. At Stage 3A the live TLS certificate and Nginx routing were **待 ECS 只读核验**; Stage 3B findings are above. Frontend `/auth/*` and browser `/api/v2/*` must traverse the Gateway. The browser must never receive a Backend Bearer token. Backend ownership checks remain authoritative.
 - Worker origin: the on-host Worker needs a separate HTTPS route to Backend `/api/v2/workers/*`. The public browser route must deny this path; the current gateway already rejects browser Worker calls. `BACKEND_URL` cannot be plain HTTP because `WorkerConfig` enforces HTTPS. A loopback-only TLS route with hostname/IP-matching certificate and trusted CA is a proposed production solution, pending target verification.
 - Signed MinIO input: the Backend's `EPILOCATE_V2_S3_PUBLIC_ENDPOINT` signs an HTTPS URL for Worker download. Backend `EPILOCATE_V2_S3_ENDPOINT` can remain private HTTP. The signed Host/path/query must survive the private TLS proxy unchanged; validate SigV4 against target MinIO. Do not put signed URLs, query strings, credentials, tokens or DICOM data in Nginx/systemd/app logs. MinIO bucket and PostgreSQL/MinIO ports remain private.
 - Browser session and writes: retain gateway `Secure; HttpOnly; SameSite=Strict`, CSRF header and Origin check, rate-limited login, expiry/revocation and server-side token files. Production secret and session file permissions must be checked. `EPILOCATE_V2_ALLOW_ENV_TOKENS=false` is required in production.
 - Debug/error boundary: Gateway disables its own OpenAPI UI; Backend does not. Deny Backend `/docs`, `/redoc`, `/openapi.json` at every public ingress and prevent direct Backend access. Check sanitized error responses and no secret-bearing URLs in browser/history/referrer or access logs. Preserve an appropriate Referrer-Policy after reviewing the old site's template.
 - Current security concerns needing release review: the local Compose example uses `change-me` and `minio/minio:latest`; its lifecycle setup can mask failure. Frontend README records prior transitive advisories, but current package audit was not rerun in Stage 3. Pin, review and validate actual production dependencies and images before release.
 
-## Proposed ECS read-only audit command list — **not executed**
+## Stage 3A proposed ECS read-only audit command list (historical plan)
 
-Execute only after separate authorization, from the approved access path, with output stored privately. The operator should remove hostnames, public IPs, usernames and service identifiers as needed before sharing evidence. No command below changes service state, reads a secret value, or prints application data. Missing packages/paths should be reported as absent; do not install them.
+This is the earlier Stage 3A plan, not a log of completed checks. Stage 3B executed only the subset recorded above after separate owner authorization; the owner expressly excluded Docker management and `sudo -n` commands. Keep raw metadata private and do not install missing packages.
 
 ```sh
 date -Is
@@ -88,7 +134,7 @@ The listed paths/Review service name come from repository templates; verify the 
 
 ## Gates and handoff
 
-1. Obtain separate ECS read-only authorization and safe access method. Capture the actual system/resource/port/TLS/Review evidence above, including other-service usage and backup destination capacity. Until then all ECS fields in this report remain **待 ECS 只读核验**.
+1. Stage 3B read-only authorization and identity check were completed. Obtain separate authorization before any additional ECS inspection, especially Docker/firewall commands, or any server state change. Backup destination and restoration remain unverified.
 2. Demonstrate the old Review Server can be restored: identify current package, configuration, SQLite and WAL, media, backup method and an isolated restoration check. An unverified old-service recovery path blocks cutover.
 3. Decide target Linux architecture and package/runtime versions; pin compatible CPU PyTorch and data images, measure artifact size, checkpoint hash and model-load/inference peaks. Confirm disk for releases, database, private objects, logs and independent backups.
 4. Prepare and review production Gateway/Backend/Worker/Sweeper/data-service units, private TLS routes, Nginx policy, secrets, lifecycle and health checks. These are **not yet implemented** in this worktree.
