@@ -7,7 +7,7 @@ This repository is a **sanitized source snapshot with an independent Git root**.
 | Internal source | `f80d4cf406689cd031f993090783e281db93c4ef` | Preserved internal Phase 5 source and incident record. Not pushed through this branch. |
 | Audited handoff candidate | `d498f0465f6b7d0e4d999562658356a734211bfa` | Internal candidate from which the initial payload was exported and compared file by file. |
 | Audited handoff candidate tree | `973a488682394db2c90a5c9bb27f064b5ac59af3` | Internal Git tree at the candidate commit; this is not the final public tree. |
-| Sanitized snapshot payload tree | `fa2d70f05b77705a9bb1513222caa73b7c3bc36a` | Git tree of the final staged payload **excluding this file**. A tree cannot contain its own hash without changing that hash. The published commit's full tree hash must be read with `git rev-parse HEAD^{tree}`. |
+| Sanitized snapshot payload tree | `e1f1f810d006e6be4299e0b14e364514d1c5cf1b` | Git tree of the final staged payload **excluding this file**. A tree cannot contain its own hash without changing that hash. The published commit's full tree hash must be read with `git rev-parse HEAD^{tree}`. |
 
 ## Why a new root was required
 
