@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}管理员裁决 | EpiLocate Review{% endblock %}
+{% block content %}
+{% set stats = namespace(total=case_summaries|length, finalized=0, consensus=0, conflict=0, waiting=0, has_defer=0, final_ready=true) %}
+{% for item in case_summaries %}
+  {% set compare_status = item.status|default(item.consensus.status, true) %}
+  {% if item.finalized|default(item.final_decision, true) %}{% set stats.finalized = stats.finalized + 1 %}{% else %}{% set stats.final_ready = false %}{% endif %}
+  {% if compare_status == 'CONSENSUS' %}{% set stats.consensus = stats.consensus + 1 %}{% elif compare_status == 'CONFLICT' %}{% set stats.conflict = stats.conflict + 1 %}{% else %}{% set stats.waiting = stats.waiting + 1 %}{% endif %}
+  {% if item.has_defer|default(item.defer_count|default(0) > 0, true) %}{% set stats.has_defer = stats.has_defer + 1 %}{% endif %}
+  {% if item.final_decision and item.final_decision.decision == 'DEFER' %}{% set stats.final_ready = false %}{% endif %}
+{% endfor %}
+<main class="page-shell admin-page">
+  <header class="page-heading admin-heading">
+    <div><p class="eyebrow">ADMIN FINALIZATION</p><h1>复核裁决</h1><p>共识仅用于预填。每一例都必须由管理员明确确认后才会生成最终记录。</p></div>
+    <div class="admin-actions">
+      <a class="button button-secondary" href="/admin/export?kind=snapshot">导出审计快照</a>
+      <a class="button button-primary{% if not stats.final_ready %} is-disabled{% endif %}" {% if stats.final_ready %}href="/admin/export?kind=final"{% else %}aria-disabled="true"{% endif %}>导出最终 CSV</a>
+    </div>
+  </header>
+
+  <section class="admin-summary">
+    <div><span>已定稿</span><b>{{ stats.finalized }} / {{ stats.total }}</b></div>
+    <div><span>共识</span><b>{{ stats.consensus }}</b></div>
+    <div><span>冲突</span><b>{{ stats.conflict }}</b></div>
+    <div><span>等待提交</span><b>{{ stats.waiting }}</b></div>
+    <div><span>含 DEFER</span><b>{{ stats.has_defer }}</b></div>
+  </section>
+
+  <section class="admin-case-section">
+    <div class="section-bar">
+      <div><p class="eyebrow">13 CASES</p><h2>逐例状态</h2></div>
+      <div class="filter-tabs" role="group" aria-label="状态筛选">
+        <button class="active" type="button" data-admin-filter="ALL">全部</button>
+        <button type="button" data-admin-filter="CONSENSUS">共识</button>
+        <button type="button" data-admin-filter="CONFLICT">冲突</button>
+        <button type="button" data-admin-filter="WAITING">等待</button>
+        <button type="button" data-admin-filter="DEFER">DEFER</button>
+      </div>
+    </div>
+    <div class="admin-case-table">
+      <div class="admin-table-head"><span>病例</span><span>Reviewer 1</span><span>Reviewer 2</span><span>比较状态</span><span>最终记录</span><span></span></div>
+      {% for item in case_summaries %}
+      {% set compare_status = item.status|default(item.consensus.status, true) %}
+      {% set has_defer = item.has_defer|default(item.defer_count|default(0) > 0, true) %}
+      {% set reviewer_1_submitted = item.reviewer_1_submitted|default(item.submitted_count|default(0) >= 1, true) %}
+      {% set reviewer_2_submitted = item.reviewer_2_submitted|default(item.submitted_count|default(0) >= 2, true) %}
+      <a class="admin-case-row" href="/admin/cases/{{ item.case_id }}" data-status="{{ compare_status }}" data-has-defer="{{ 'true' if has_defer else 'false' }}">
+        <span><b>{{ item.case_id }}</b><small>{{ item.case_type|replace('_', ' ') }}</small></span>
+        <span class="reviewer-cell"><i class="completion-dot {{ 'is-complete' if reviewer_1_submitted else '' }}"></i>{{ '已提交' if reviewer_1_submitted else '未提交' }}</span>
+        <span class="reviewer-cell"><i class="completion-dot {{ 'is-complete' if reviewer_2_submitted else '' }}"></i>{{ '已提交' if reviewer_2_submitted else '未提交' }}</span>
+        <span><em class="status-chip status-{{ compare_status|lower }}">{{ compare_status }}</em></span>
+        <span>{{ '已定稿' if item.finalized|default(item.final_decision, true) else '待确认' }}</span>
+        <span class="row-arrow">&rarr;</span>
+      </a>
+      {% else %}<div class="empty-state">尚无病例状态。</div>{% endfor %}
+    </div>
+  </section>
+</main>
+{% endblock %}
+{% block scripts %}<script src="/static/admin.js?v=1" defer></script>{% endblock %}

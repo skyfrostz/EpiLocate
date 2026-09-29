@@ -1,0 +1,80 @@
+{
+  "protocol_id": "formal-series-selection-rule-b-v1",
+  "status": "FROZEN",
+  "frozen_at_utc": "2026-09-22T11:13:56Z",
+  "approval_basis": "User explicitly confirmed candidate Rule B after the metadata-only comparison and before any formal split or full-cohort model training.",
+  "immutability": "This protocol must not be changed in response to later model performance. Any scientifically necessary change requires a new version, an explicit rationale, and a fresh pre-model audit.",
+  "source_analysis": {
+    "analysis_protocol": "outputs/data/fair_series_rule_analysis_v1/protocol.json",
+    "analysis_protocol_sha256": "8e3a48257e3f7a71ae4f4ebf9348b291f8128b4b4c654b462cc7282b8e5d335e",
+    "analysis_result": "outputs/data/fair_series_rule_analysis_v1/analysis.json",
+    "analysis_result_sha256": "f215f8de434a91adfaffb1a6a17a24dc10f6cb9e44f651f766e05981a6e2d700",
+    "patient_rule_analysis": "outputs/data/fair_series_rule_analysis_v1/patient_rule_analysis.csv",
+    "patient_rule_analysis_sha256": "78d4a69c0f0515555bf337d6f21f141176d8f5fd6a4fd58adbc8002a841ff6e2",
+    "series_analysis": "outputs/data/fair_series_rule_analysis_v1/series_analysis.csv",
+    "series_analysis_sha256": "a1d0d8181b9da0fbee5951f66bce3cd9e68ad349e814cb3bd0e5c43b18dc59c3"
+  },
+  "hard_eligibility": {
+    "required": [
+      "CT modality",
+      "valid axial geometry",
+      "diagnostic series evidence"
+    ],
+    "excluded": [
+      "Scout, Localizer, Topogram, or Surview",
+      "explicit sagittal, coronal, reformatted, MPR, or MIP series",
+      "non-axial geometry",
+      "explicit bone-only reconstruction",
+      "non-diagnostic monitoring series"
+    ],
+    "uncertainty_policy": "Missing or ambiguous diagnostic or geometry evidence requires manual review and is not silently accepted or rejected.",
+    "convolution_kernel_policy": "No whitelist. STANDARD is not required. B, L, DETAIL, and vendor-specific values are not interpreted as bone-only without explicit evidence.",
+    "slice_thickness_policy": "No exact SliceThickness is required. In particular, 1.25 mm is not a hard condition."
+  },
+  "rule_b": {
+    "scope": "Apply identically to every patient without reading label or collection.",
+    "coverage_definition": "ImagePositionPatient projection span on the Series axial normal, in millimetres.",
+    "coverage_limit": "Projection span is a technical extent estimate and does not prove full-lung anatomical coverage.",
+    "coverage_candidate_threshold": 0.95,
+    "candidate_step": "Keep hard-eligible Series whose coverage is at least 95% of that patient's maximum hard-eligible coverage.",
+    "ranking": [
+      "smallest maximum SliceThickness",
+      "smallest maximum in-plane PixelSpacing",
+      "largest coverage"
+    ],
+    "ranking_rounding_mm": 0.001,
+    "equal_rank_policy": "Manual confirmation required. Do not choose automatically."
+  },
+  "forbidden_selection_inputs": [
+    "label",
+    "collection",
+    "SeriesInstanceUID ordering or lexical value",
+    "random choice",
+    "train, validation, or test membership",
+    "model loss, accuracy, AUC, predictions, saliency, or other downstream results"
+  ],
+  "manual_decision_requirements": {
+    "required_fields": [
+      "decision",
+      "selected_series_uid",
+      "reason",
+      "reviewer",
+      "reviewed_at_utc",
+      "image_evidence_reviewed",
+      "metadata_evidence_reviewed"
+    ],
+    "conditional_requirements": {
+      "selected_series_uid": "Required only for SELECT_ONE_CANDIDATE or INCLUDE_REVIEW_SERIES; it must be one of the recorded candidate Series UIDs.",
+      "excluded_or_deferred_case": "Must not contain a selected Series UID."
+    },
+    "reason_policy": "The reason must describe diagnostic suitability, anatomical coverage, reconstruction characteristics, artifacts, or another reviewable imaging fact. UID, collection, label, position in a list, or randomness is not a valid reason.",
+    "allowed_unresolved_action": "DEFER",
+    "no_silent_tie_break": true
+  },
+  "phase_boundary": {
+    "formal_cohort_finalized": false,
+    "split_authorized": false,
+    "training_authorized": false,
+    "next_action": "Prepare and review the unresolved Series cases, then wait for explicit confirmation of the final cohort."
+  }
+}

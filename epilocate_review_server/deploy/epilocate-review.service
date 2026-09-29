@@ -1,0 +1,38 @@
+[Unit]
+Description=EpiLocate manual Series review service
+After=network.target
+
+[Service]
+Type=simple
+User=epilocate-review
+Group=epilocate-review
+SupplementaryGroups=epilocate-review-media
+WorkingDirectory=/opt/epilocate-review/current
+EnvironmentFile=/etc/epilocate-review/epilocate-review.env
+ExecStart=/opt/epilocate-review/.venv/bin/uvicorn epilocate_review_server.app.main:app --host 127.0.0.1 --port 8765 --workers 1 --proxy-headers --forwarded-allow-ips=127.0.0.1
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+UMask=0077
+
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+ProtectClock=true
+ProtectControlGroups=true
+ProtectHome=true
+ProtectHostname=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectSystem=strict
+ReadOnlyPaths=/opt/epilocate-review
+ReadWritePaths=/var/lib/epilocate-review
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=true
+RestrictRealtime=true
+SystemCallArchitectures=native
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

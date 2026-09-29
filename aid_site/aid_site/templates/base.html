@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <meta name="theme-color" content="#111713">
+  <meta name="description" content="面向基层医院的新发传染病影像智能辅助诊断系统项目展示。">
+  <title>{{ title }} · 辅助诊断研究计划</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/site.css') }}">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至正文</a>
+  <div class="site-shell">
+    <aside class="sidebar" aria-label="站点导航">
+      <a class="brand" href="/" aria-label="辅助诊断研究计划首页">
+        <span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span><strong>影像研究计划</strong><small>IMAGING RESEARCH / 2026</small></span>
+      </a>
+      <div class="sidebar-label">项目导航 <span>01 / 06</span></div>
+      <nav class="nav-list">
+        <a href="/" class="{% if nav == 'overview' %}active{% endif %}" {% if nav == 'overview' %}aria-current="page"{% endif %}><span>01</span>项目概览<b aria-hidden="true">↗</b></a>
+        <a href="/route" class="{% if nav == 'route' %}active{% endif %}" {% if nav == 'route' %}aria-current="page"{% endif %}><span>02</span>技术路线<b aria-hidden="true">↗</b></a>
+        <a href="/system" class="{% if nav == 'system' %}active{% endif %}" {% if nav == 'system' %}aria-current="page"{% endif %}><span>03</span>系统规划<b aria-hidden="true">↗</b></a>
+        <a href="/evaluation" class="{% if nav == 'evaluation' %}active{% endif %}" {% if nav == 'evaluation' %}aria-current="page"{% endif %}><span>04</span>评测计划<b aria-hidden="true">↗</b></a>
+        <a href="/progress" class="{% if nav == 'progress' %}active{% endif %}" {% if nav == 'progress' %}aria-current="page"{% endif %}><span>05</span>项目进度<b aria-hidden="true">↗</b></a>
+        <a href="/api-guide" class="{% if nav == 'api' %}active{% endif %}" {% if nav == 'api' %}aria-current="page"{% endif %}><span>06</span>接口说明<b aria-hidden="true">↗</b></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="status-pulse"><span></span> 项目展示阶段</div>
+        <p>研究方案与实施计划<br>不提供医学判断</p>
+        <form method="post" action="/logout"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button type="submit" class="logout">{{ username }} <span>退出登录 ↗</span></button></form>
+      </div>
+    </aside>
+    <div class="main-column">
+      <header class="mobile-header">
+        <a class="mobile-brand" href="/">影像研究计划 <span>✳</span></a>
+        <div class="mobile-meta"><form method="post" action="/logout"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button type="submit" class="mobile-logout">{{ username }} · 退出</button></form></div>
+      </header>
+      <nav class="mobile-nav" aria-label="移动端导航"><a href="/">概览</a><a href="/route">路线</a><a href="/system">规划</a><a href="/evaluation">评测</a><a href="/progress">进度</a><a href="/api-guide">接口</a></nav>
+      <main id="main" class="content">
+        {% block content %}{% endblock %}
+      </main>
+      <footer class="footer"><span>辅助诊断研究计划 / 内部访问</span><span>仅展示研究目标与计划 · 不用于临床诊疗</span></footer>
+    </div>
+  </div>
+</body>
+</html>

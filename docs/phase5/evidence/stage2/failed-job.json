@@ -1,0 +1,7 @@
+{
+  "case_id": "case_d8c7f2f4040c5fe8168c62e20391b5d2",
+  "job_id": "job_f2d3456f0916ac454b64694a6c029006",
+  "status": "FAILED",
+  "failure_reason": "INPUT_HASH_MISMATCH",
+  "attempt_no": 1
+}

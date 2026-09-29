@@ -1,0 +1,79 @@
+{
+  "asset_count": 9,
+  "assets": [
+    {
+      "asset_id": "candidate-16.png",
+      "bytes": 258,
+      "sha256": "f6566c9c1520fc027f8beb7cb3590fdbd73a10eb04971e637b82e736568df2c3"
+    },
+    {
+      "asset_id": "candidate-32.png",
+      "bytes": 220,
+      "sha256": "ec2e19f2e43b6f154531b1b1268e9dd335d21137c1c60e2ea0078f5b355b73e0"
+    },
+    {
+      "asset_id": "candidate-64.png",
+      "bytes": 234,
+      "sha256": "976a1df4f2f4fb0a27fa07200fbf0fbd1bcab50c31972bb76343145cf8b7e3b9"
+    },
+    {
+      "asset_id": "comparison-16.png",
+      "bytes": 206,
+      "sha256": "aa9eec58b1bb81e9437829fe15bd475a91db6a4435d9a16a012d2135da6d3959"
+    },
+    {
+      "asset_id": "comparison-32.png",
+      "bytes": 211,
+      "sha256": "3f708618b4efb16a28cda17412e3ca75b7b233f5c139c79f76439b1b3de1f0b3"
+    },
+    {
+      "asset_id": "comparison-64.png",
+      "bytes": 151,
+      "sha256": "392a01c3e4b25cfc3b31bd2bc11bea957b768780595c17e6ee2e931779a9d9f8"
+    },
+    {
+      "asset_id": "response-16.png",
+      "bytes": 1184,
+      "sha256": "80fabfd7c637c8fcab2f2d7814cac03c0cb39f4d47891f925a3ae58d4cdd7e71"
+    },
+    {
+      "asset_id": "response-32.png",
+      "bytes": 663,
+      "sha256": "52230e677ccfd1913bab64fcf5d4618f981ff7e890e2430bc602886987b01e81"
+    },
+    {
+      "asset_id": "response-64.png",
+      "bytes": 466,
+      "sha256": "75d39c85002a8cc9e5b7ebc04c7e7a2598dbdb4ed00373e5e17d72d6959ad459"
+    }
+  ],
+  "browser": "Playwright Chromium headless",
+  "case_id": "case_e7265a2c097c4b36063f6e13614b5d1e",
+  "checked_at": "2026-09-29T02:03:05.391Z",
+  "input_sha256": "8e73851ac16215180f7a3e17d72c85814886fa25ef62fbfbc618686dc8df54ee",
+  "occlusion_job_id": "job_0eeb23357942afb6b8b69e61d3741b4b",
+  "occlusion_result_id": "result_68e0f88eebb345438d631ed1f86d92b4",
+  "occlusion_source": "LIVE_CASE",
+  "occlusion_status": "COMPLETED",
+  "origin": "https://project.xbstu.com/mvp/",
+  "position_counts": {
+    "16": 729,
+    "32": 169,
+    "64": 36
+  },
+  "prediction_job_id": "job_6c0debbc9f21131b573001a79fabcdcd",
+  "prediction_result_id": "result_efbb2090a5304bd99c8ec850a5defd8f",
+  "prediction_source": "LIVE_CASE",
+  "prediction_status": "COMPLETED",
+  "slice_id": "slice_50cdef4e9630e4403a5498300dff905c",
+  "steps": {
+    "api_reread": "PASS",
+    "case_upload_ct": "PASS",
+    "login": "PASS",
+    "logout": "PASS",
+    "occlusion_browser_overlay": "PASS",
+    "post_logout_401": "PASS",
+    "prediction_browser": "PASS",
+    "refresh_restoration": "PASS"
+  }
+}

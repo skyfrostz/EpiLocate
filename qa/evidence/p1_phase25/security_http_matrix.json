@@ -1,0 +1,159 @@
+{
+  "ids": {
+    "case_id": "case_88a44291469a56b8deaba7d7032bacf5",
+    "job_id": "job_acc0c777302809f3cf822da44fd3260b",
+    "prediction_job_id": "job_62ea3941af9961b5f54e7deefd627826",
+    "result_id": "result_c9ff71b7e52045cd83667f72562fb0a0",
+    "asset_id": "candidate-16.png",
+    "user_a_id": "d7979219-e1a2-48af-b90d-46462cc23c9b",
+    "user_b_id": "5ab8a604-282d-4448-8a46-7189f81f2830"
+  },
+  "checks": [
+    {
+      "test": "owner_case_detail",
+      "status": 200,
+      "code": null
+    },
+    {
+      "test": "cross_user_case_detail",
+      "status": 404,
+      "code": "CASE_NOT_FOUND"
+    },
+    {
+      "test": "missing_case_detail",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "owner_dicom_content",
+      "status": 200,
+      "code": null
+    },
+    {
+      "test": "cross_user_dicom_content",
+      "status": 404,
+      "code": "CASE_NOT_FOUND"
+    },
+    {
+      "test": "missing_dicom_content",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "owner_job_status",
+      "status": 200,
+      "code": null
+    },
+    {
+      "test": "cross_user_job_status",
+      "status": 404,
+      "code": "JOB_NOT_FOUND"
+    },
+    {
+      "test": "missing_job_status",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "owner_prediction_alias",
+      "status": 200,
+      "code": null
+    },
+    {
+      "test": "cross_user_prediction_alias",
+      "status": 404,
+      "code": "JOB_NOT_FOUND"
+    },
+    {
+      "test": "missing_prediction_alias",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "owner_result_detail",
+      "status": 200,
+      "code": null
+    },
+    {
+      "test": "cross_user_result_detail",
+      "status": 404,
+      "code": "RESULT_NOT_FOUND"
+    },
+    {
+      "test": "missing_result_detail",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "owner_positions",
+      "status": 200,
+      "code": null
+    },
+    {
+      "test": "cross_user_positions",
+      "status": 404,
+      "code": "RESULT_NOT_FOUND"
+    },
+    {
+      "test": "missing_positions",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "owner_heatmap_asset",
+      "status": 200,
+      "code": null
+    },
+    {
+      "test": "cross_user_heatmap_asset",
+      "status": 404,
+      "code": "RESULT_NOT_FOUND"
+    },
+    {
+      "test": "missing_heatmap_asset",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "valid_token_list",
+      "status": 200,
+      "code": null
+    },
+    {
+      "test": "invalid_token",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "expired_token",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "revoked_token",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "disabled_user",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "user_to_worker",
+      "status": 401,
+      "code": "WORKER_UNAUTHENTICATED"
+    },
+    {
+      "test": "worker_to_user",
+      "status": 401,
+      "code": "UNAUTHENTICATED"
+    },
+    {
+      "test": "cross_user_prediction_create",
+      "status": 404,
+      "code": "CASE_NOT_FOUND"
+    }
+  ],
+  "passed": 29
+}
