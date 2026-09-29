@@ -7,7 +7,7 @@ This repository is a **sanitized source snapshot with an independent Git root**.
 | Internal source | `f80d4cf406689cd031f993090783e281db93c4ef` | Preserved internal Phase 5 source and incident record. Not pushed through this branch. |
 | Audited handoff candidate | `d498f0465f6b7d0e4d999562658356a734211bfa` | Internal candidate from which the initial payload was exported and compared file by file. |
 | Audited handoff candidate tree | `973a488682394db2c90a5c9bb27f064b5ac59af3` | Internal Git tree at the candidate commit; this is not the final public tree. |
-| Sanitized snapshot payload tree | `f1582b902c31d3cd62cdd06ca989a75e1ddcae16` | Git tree of the final staged payload **excluding this file**. A tree cannot contain its own hash without changing that hash. The published commit's full tree hash must be read with `git rev-parse HEAD^{tree}`. |
+| Sanitized snapshot payload tree | `269b833b718869c81269aad7cc5d743accf858fb` | Git tree of the final staged payload **excluding this file**. A tree cannot contain its own hash without changing that hash. The published commit's full tree hash must be read with `git rev-parse HEAD^{tree}`. |
 
 ## Why a new root was required
 
@@ -15,7 +15,7 @@ The internal candidate's files were cleaned, but its ancestor history contains r
 
 ## File reconciliation and snapshot-only changes
 
-Before snapshot-only edits, all 434 exported payload paths were compared byte for byte against the audited internal candidate, with no missing or extra paths. Final reconciliation against that candidate found **417 byte-identical files, 16 intentionally modified files, one excluded manifest, and this one added provenance file**. The modified files are listed below; no business logic, FrozenBaseline, model checkpoint, or numerical tolerance was changed in this sanitization step.
+Before snapshot-only edits, all 434 exported payload paths were compared byte for byte against the audited internal candidate, with no missing or extra paths. Final reconciliation against that candidate found **416 byte-identical files, 17 intentionally modified files, one excluded manifest, and this one added provenance file**. The modified files are listed below; no business logic, FrozenBaseline, model checkpoint, or numerical tolerance was changed in this sanitization step.
 
 | Modified path | Reason |
 | --- | --- |
@@ -23,6 +23,7 @@ Before snapshot-only edits, all 434 exported payload paths were compared byte fo
 | `AGENTS.md`, `README.md` | Clarify snapshot history and remove the excluded manifest from listings. |
 | `docs/backend/EpiLocate_API_Integration_Guide_V1.0.md` | Correct integrated document links. |
 | `docs/consolidation/README.md`, `docs/consolidation/SOURCE_MAP.md` | Clarify internal SHA pointers versus the new public root. |
+| `deploy/mvp/nginx-welcome.conf` | Allow the image service's observed final media domain in Welcome CSP. |
 | Three `docs/handoff/*.docx` files | Fix table clipping, stale TOC numbers, and integrated source index; all pages reviewed. |
 | `docs/handoff/HANDOFF_STATUS.md`, `docs/handoff/README.md`, `docs/handoff/RELEASE_SECURITY_AUDIT.md` | State actual snapshot gates, exclusions, and publication boundary. |
 | `docs/phase5/remote_gpu_node_preparation.md` | Correct two relative links. |

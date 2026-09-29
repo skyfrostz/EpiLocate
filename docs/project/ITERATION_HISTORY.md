@@ -831,6 +831,14 @@ Session Gateway 在浏览器与 Backend v2 之间提供服务端会话；Backend
 
 **验证边界：** Landing 与 Vue 前端本地构建和测试通过；Backend、Gateway、Worker 相关 Python 测试在本机隔离依赖环境执行。公开快照仍须通过全可达 Git objects 的 Secret / PHI 扫描、Word 全页复核、GitHub clone 回归和部署后线上验收；见 `docs/handoff/RELEASE_SECURITY_AUDIT.md`。
 
+## 阶段十八：Sanitized Handoff 固定提交候选与 Welcome 浏览器修复
+
+**时间：** 2026-09-29；**分支：** `handoff/pre-b-transfer-20260929`，独立 sanitized Git root；**首个公开候选：** `39440e05c99562a7a01805dd09a4955ba4933a55`。
+
+**实际验证：** 从 GitHub 全新 clone 通过 Landing 构建、Vue 36 项测试与构建、Backend/Gateway/Worker/文档 51 passed、2 skipped、148 个本地链接检查和 `SOURCE_COMMIT` 导出匹配。ECS 从该 SHA 直接导出候选源码并在服务器构建 Landing/Vue。Welcome 首次上线后 HTTP 与静态资源为 200，Review 与 `/mvp/` 保持可达。
+
+**发现与修复：** Playwright 浏览器发现三张缩略图经图片服务跳转至 CloudFront 后被 Welcome CSP 拦截。`deploy/mvp/nginx-welcome.conf` 的 `img-src` 加入实际跳转域名。该修复须从新的固定提交重新部署并完成浏览器复验；首次上线的 HTTP 200 不代表视觉验收通过。
+
 ## 阶段十六：工程边界确认与 Repository Consolidation Phase 0
 
 **时间：** Git 归档日期 2026-09-29。**分支 / Worktree：** `codex/repository-consolidation-v1`；`LOCAL_WORKTREE/EpiLocate-consolidation-v1`。基线为 Phase 5 验收/文档 HEAD `352152ce95fc26eb2dc0a4c309521d50486472ba`。

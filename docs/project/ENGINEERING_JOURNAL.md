@@ -1191,6 +1191,16 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 **证据：** `docs/handoff/HANDOFF_STATUS.md`、`RELEASE_SECURITY_AUDIT.md`、本候选 Git diff 与本次测试命令输出。
 
+### 14. Sanitized Git root 与 Welcome 浏览器修复
+
+**归档日期：** 2026-09-29。**任务类型：** 公开交接快照、固定提交回归与 Welcome CSP 修复。
+
+**分支 / 来源：** 独立 `handoff/pre-b-transfer-20260929` Git root；内部候选 SHA 为 `d498f0465f6b7d0e4d999562658356a734211bfa`，不是公开 Git 祖先。公开首个候选提交 `39440e05c99562a7a01805dd09a4955ba4933a55`。
+
+**完成与证据：** 候选文件逐字节对照后，排除含影像对象定位符的下载清单，完成三份 Word 全页复核，并扫描公开 root 全部可达 Git objects。仅普通 push Handoff ref。全新 GitHub clone 的 Landing、Vue、Backend/Gateway/Worker、文档链接与 `SOURCE_COMMIT` 导出验证通过。ECS 从 GitHub SHA 建立独立候选 release，服务器本机构建 Landing/Vue；初次 Welcome HTTP 200，原 `/mvp/` 与 Review 健康检查保持 200。
+
+**问题与修复：** 浏览器控制台记录三张缩略图经外部图片服务重定向后触发 CSP `img-src` 拦截。将最终媒体域名纳入 `deploy/mvp/nginx-welcome.conf`，等待新提交推送、服务器配置更新与浏览器复验。未修改模型、FrozenBaseline、容差或生产数据。
+
 ## 未来记录模板
 
 后续 Codex 在完成实际工程迭代时，追加以下结构，不覆盖已有历史：
