@@ -7,7 +7,7 @@ This repository is a **sanitized source snapshot with an independent Git root**.
 | Internal source | `f80d4cf406689cd031f993090783e281db93c4ef` | Preserved internal Phase 5 source and incident record. Not pushed through this branch. |
 | Audited handoff candidate | `d498f0465f6b7d0e4d999562658356a734211bfa` | Internal candidate from which the initial payload was exported and compared file by file. |
 | Audited handoff candidate tree | `973a488682394db2c90a5c9bb27f064b5ac59af3` | Internal Git tree at the candidate commit; this is not the final public tree. |
-| Sanitized snapshot payload tree | `e2f50f27785414974f7eed4031b6fadfe26d7448` | Git tree of the final staged payload **excluding this file**. A tree cannot contain its own hash without changing that hash. The published commit's full tree hash must be read with `git rev-parse HEAD^{tree}`. |
+| Sanitized snapshot payload tree | `f1582b902c31d3cd62cdd06ca989a75e1ddcae16` | Git tree of the final staged payload **excluding this file**. A tree cannot contain its own hash without changing that hash. The published commit's full tree hash must be read with `git rev-parse HEAD^{tree}`. |
 
 ## Why a new root was required
 
@@ -40,6 +40,8 @@ The single tracked DICOM, `docs/interfaces/fixtures/p0_synthetic_ct.dcm`, was re
 
 ## Secret and PHI checks
 
-The audited candidate-tip file scan found no actual secret, private key, credential value, direct patient identifier, or source-uncertain medical image. A later targeted check found object-level image locators in a download manifest; that manifest was excluded from this public snapshot. The three Word copies passed XML, relationships, metadata, media, hidden-text, and native Word full-page review (8 + 7 + 16 pages). **Before push, every object reachable from the new root commit must be rescanned**, including every blob inside Word ZIP files; a working-tree-only scan does not satisfy the publication gate. Any positive finding stops publication.
+The audited candidate-tip file scan found no actual secret, private key, credential value, direct patient identifier, or source-uncertain medical image. A later targeted check found object-level image locators in a download manifest; that manifest was excluded from this public snapshot. The three Word copies passed XML, relationships, metadata, media, hidden-text, and native Word full-page review (8 + 7 + 16 pages).
+
+At new root commit `9f06fbd1a3a6cec88dbcfd0e867d768ba9c40b5e`, every reachable Git object was enumerated: 511 objects, 422 unique blobs, three expanded Word ZIP files, one byte-verified synthetic DICOM, and 55 other image files. No blocking Secret / PHI finding remained. Three patient-field test strings were manually confirmed to be synthetic rejection tests. Because this provenance update creates a later commit, **the full reachable-object scan must be repeated against the final commit before push**. A working-tree-only scan does not satisfy the publication gate. Any positive finding stops publication.
 
 This record states provenance and exclusion scope. It does not assert that the sanitized branch preserves complete project development history.

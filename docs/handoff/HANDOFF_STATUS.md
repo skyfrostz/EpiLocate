@@ -13,7 +13,7 @@
 | Landing | PASS local | `npm ci` and `npm run build` passed. External media availability was checked; usage rights remain OPEN for online deployment. |
 | AI Web / Backend / Gateway / Worker | PASS local | Vue: 36 tests and build. Python Backend/Gateway/Worker/docs: 51 passed, 2 skipped. Clean GitHub clone verification remains pending. |
 | Word documents | PASS local | Three sanitized copies passed native Word print-quality PDF full-page review: Handoff 8 pages, Redesign 7, API 16. Metadata, embedded media, relationships, hidden text, and linkable-pattern checks passed. |
-| Secret / PHI | PENDING root objects | Audited candidate-tip scan passed. A new scan of every Git object reachable from the sanitized root commit is required before push. |
+| Secret / PHI | PASS root objects | Sanitized root `9f06fbd1a3a6cec88dbcfd0e867d768ba9c40b5e`: all 511 reachable objects / 422 unique blobs scanned, including three expanded Word files and the only synthetic DICOM. No blocking finding; three patient-field test strings were reviewed as synthetic rejection fixtures. Re-scan the final commit before push. |
 | DICOM | PASS candidate | The only tracked DICOM is byte-reproduced from the synthetic fixture generator and structurally checked; no source-uncertain image is included. |
 | GPU reproducibility | PARTIAL | Direct runtime dependencies are pinned; a fresh GPU environment install and approved synthetic JPEG Lossless fixture test remain open. |
 | GitHub Handoff branch | PENDING | Push only this sanitized branch after all pre-push gates pass. Do not push internal refs. |
