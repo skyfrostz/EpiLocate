@@ -1199,7 +1199,15 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 **完成与证据：** 候选文件逐字节对照后，排除含影像对象定位符的下载清单，完成三份 Word 全页复核，并扫描公开 root 全部可达 Git objects。仅普通 push Handoff ref。全新 GitHub clone 的 Landing、Vue、Backend/Gateway/Worker、文档链接与 `SOURCE_COMMIT` 导出验证通过。ECS 从 GitHub SHA 建立独立候选 release，服务器本机构建 Landing/Vue；初次 Welcome HTTP 200，原 `/mvp/` 与 Review 健康检查保持 200。
 
-**问题与修复：** 浏览器控制台记录三张缩略图经外部图片服务重定向后触发 CSP `img-src` 拦截。将最终媒体域名纳入 `deploy/mvp/nginx-welcome.conf`，等待新提交推送、服务器配置更新与浏览器复验。未修改模型、FrozenBaseline、容差或生产数据。
+**问题与修复：** 浏览器控制台记录三张缩略图经外部图片服务重定向后触发 CSP `img-src` 拦截。将最终媒体域名纳入 `deploy/mvp/nginx-welcome.conf` 并普通推送提交 `649b0c665971cfefcc67509849947b2d3f7e49c7`。ECS 从该 GitHub SHA 重新导出与构建；Nginx 检查、桌面和移动浏览器视觉复核通过，浏览器控制台无错误。`/welcome/`、`/mvp/`、Review root 和健康端点保持可达；Backend/Gateway/Sweeper 运行目录与 `SOURCE_COMMIT` 指向同一固定 release。运行时 Python 虚拟环境复用上一 release，未宣称依赖从零重建。未修改模型、FrozenBaseline、容差或生产数据。
+
+### 15. GPU 主动释放与非 GPU 交接继续推进
+
+**日期：** 2026-09-29。**负责人说明：** GPU AI Node 已主动暂时释放，状态为 **TEMPORARILY OFFLINE / INTENTIONALLY RELEASED**；不是新系统故障。旧 SSH 不再重试。GPU architecture 为 **PREVIOUSLY VALIDATED**，历史 GPU 功能 E2E PASS 不改写；Final Git-based GPU E2E 为 **PENDING GPU RE-PROVISION**。
+
+**继续工作：** Word 全页 QA、公开 root 全可达 Git objects 扫描、GitHub sanitized branch、全新 clone 回归、ECS Git-based candidate release、Landing/Welcome 浏览器复核和交接文档均独立于 GPU。下一文档提交仍需对象重扫、普通 push、全新 clone 与 ECS `SOURCE_COMMIT` 对齐。Frontend redesign branch 可从最终 sanitized Handoff SHA 在本地准备；远端分支推送等待最终 GPU 门槛。
+
+**暂停工作：** GPU Worker deployment、GPU `SOURCE_COMMIT` validation、synthetic GPU E2E、CUDA runtime revalidation。获得新 SSH host/port 后，从最终 Handoff Git SHA 重建 RTX 3090-class CUDA Worker；保留 PyTorch `2.4.0+cu121`、固定 Worker 依赖、`pylibjpeg==2.1.0`、`pylibjpeg-libjpeg==2.4.0` 和已核验 FrozenBaseline checkpoint hash。不得用 ECS CPU Worker 替代最终 GPU 验收，也不修改 FrozenBaseline 或 CPU/GPU tolerance。
 
 ## 未来记录模板
 

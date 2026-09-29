@@ -837,7 +837,15 @@ Session Gateway 在浏览器与 Backend v2 之间提供服务端会话；Backend
 
 **实际验证：** 从 GitHub 全新 clone 通过 Landing 构建、Vue 36 项测试与构建、Backend/Gateway/Worker/文档 51 passed、2 skipped、148 个本地链接检查和 `SOURCE_COMMIT` 导出匹配。ECS 从该 SHA 直接导出候选源码并在服务器构建 Landing/Vue。Welcome 首次上线后 HTTP 与静态资源为 200，Review 与 `/mvp/` 保持可达。
 
-**发现与修复：** Playwright 浏览器发现三张缩略图经图片服务跳转至 CloudFront 后被 Welcome CSP 拦截。`deploy/mvp/nginx-welcome.conf` 的 `img-src` 加入实际跳转域名。该修复须从新的固定提交重新部署并完成浏览器复验；首次上线的 HTTP 200 不代表视觉验收通过。
+**发现与修复：** Playwright 浏览器发现三张缩略图经图片服务跳转至 CloudFront 后被 Welcome CSP 拦截。`deploy/mvp/nginx-welcome.conf` 的 `img-src` 加入实际跳转域名。修复提交 `649b0c665971cfefcc67509849947b2d3f7e49c7` 从 GitHub 重新导出至 ECS，服务器构建与 Nginx 检查通过；桌面、移动浏览器复核通过且控制台无错误。ECS `/welcome/`、`/mvp/`、Review root、健康端点可达，Backend/Gateway/Sweeper 运行目录和 `SOURCE_COMMIT` 指向该固定 release。最终文档提交仍需 GitHub clone 和 ECS 来源标记对齐。
+
+## 阶段十九：GPU 节点主动释放与交接门槛分流
+
+**时间：** 2026-09-29。负责人主动暂时释放 GPU AI Node；状态 **TEMPORARILY OFFLINE / INTENTIONALLY RELEASED**，不是新的系统故障。GPU architecture **PREVIOUSLY VALIDATED**；历史 GPU 功能 E2E PASS 保留。Final Git-based GPU E2E **PENDING GPU RE-PROVISION**。
+
+**继续：** Sanitized Clean Snapshot、Word 全页 QA、Secret / PHI 与全可达 Git objects 扫描、指定 GitHub branch、全新 clone、Landing/Welcome、ECS Git-based candidate release、Handoff 文档，以及最终 SHA 的本地 Frontend redesign branch 准备。
+
+**暂停：** GPU Worker deployment、GPU `SOURCE_COMMIT` validation、synthetic GPU E2E、CUDA runtime revalidation。待负责人提供新 SSH host/port，再由最终 Handoff SHA 重建 RTX 3090-class CUDA 节点并执行最终 synthetic E2E。保留 PyTorch `2.4.0+cu121`、固定 Worker 依赖、`pylibjpeg==2.1.0`、`pylibjpeg-libjpeg==2.4.0` 和核验的 FrozenBaseline checkpoint hash。ECS 不启用 CPU Worker 替代 GPU 验收；FrozenBaseline、历史 GPU PASS 和 CPU/GPU tolerance 均不改动。
 
 ## 阶段十六：工程边界确认与 Repository Consolidation Phase 0
 

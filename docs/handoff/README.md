@@ -34,6 +34,7 @@
 ## Current Baseline and Live URLs
 
 - 当前快照分支：`handoff/pre-b-transfer-20260929`，Git 历史从独立 root commit 开始；内部来源 SHA 仅用于文件来源核对，不能用本仓库 `git log` 还原完整开发史。最终 Handoff SHA 以 `git rev-parse HEAD` 和部署目录的 `SOURCE_COMMIT` 双重核对；Git 文件不能可靠地自写其最终 SHA。
-- Welcome 目标：`https://project.xbstu.com/welcome/`，本候选编写时仍未上线；根 `/` 保留 Review。
-- AI Web 当前测试入口：`https://project.xbstu.com/mvp/`；本候选编写时 HTTP 200 仅证明入口可达，不代表交接提交已部署。
+- Welcome：`https://project.xbstu.com/welcome/` 已从 GitHub sanitized 提交 `649b0c6` 部署并完成桌面、移动浏览器全页检查；根 `/` 保留 Review。最终文档提交的 `SOURCE_COMMIT` 对齐另见 [HANDOFF_STATUS](HANDOFF_STATUS.md)。
+- AI Web 工程测试入口：`https://project.xbstu.com/mvp/`，已切至同一 Git-based candidate release；HTTP 可达与现有服务健康检查不等于最终 GPU E2E 或生产验收。
+- GPU AI Node 由负责人主动释放：**TEMPORARILY OFFLINE / INTENTIONALLY RELEASED**。历史架构验证保留；最终 Git-based GPU E2E 等待新节点。参见 [HANDOFF_STATUS](HANDOFF_STATUS.md)。
 - CPU/GPU 数值一致性、失败 Job UX、Worker traceback、生产加固与备份恢复状态见 [HANDOFF_STATUS](HANDOFF_STATUS.md)。
