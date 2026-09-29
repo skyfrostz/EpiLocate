@@ -6,6 +6,8 @@
 
 本目录是 Phase 5 **Engineering MVP** 的前端交接入口。当前系统 **Not Production · Not Clinical**；GPU 功能链路的历史验收不代表 CPU/GPU 数值等价或持续线上可用。本仓库是独立 sanitized Git root，不包含完整内部开发历史；[SOURCE_PROVENANCE](SOURCE_PROVENANCE.md) 记录了文件树来源和排除范围。发布与部署门槛见 [HANDOFF_STATUS](HANDOFF_STATUS.md)。
 
+陈奕冰从 [Frontend Owner — Start Here](FRONTEND_OWNER_START_HERE.md) 开始；该入口属于 `feature/frontend-redesign-phase5` 的接手文档提交，代码起始基线仍是 Handoff SHA `4e38fd32765e7c69ae0b7389cb91fe057c938472`。
+
 ## Start Here
 
 1. [Project Context](../project/PROJECT_CONTEXT.md)：应用边界、冻结研究与证据等级。
