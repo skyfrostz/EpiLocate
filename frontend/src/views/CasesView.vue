@@ -30,32 +30,47 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { apiClient } from '../api/client'
 import { formatDate } from '../format'
 import { errorText, useCaseStore } from '../stores/cases'
+import { isSessionCurrent, sessionEpoch } from '../auth/lifecycle'
 
 const cases = useCaseStore()
 const router = useRouter()
 const creating = ref(false)
 const createError = ref<string | null>(null)
 const createKey = ref<string | null>(null)
+let generation = 0
+function resetCreation() {
+  generation++
+  creating.value = false
+  createError.value = null
+  createKey.value = null
+}
+watch(sessionEpoch, resetCreation, { flush: 'sync' })
+onBeforeUnmount(resetCreation)
 
 onMounted(() => { void cases.loadCases() })
 
 async function createCase() {
+  if (creating.value) return
+  const epoch = sessionEpoch.value
+  const ownGeneration = generation
   creating.value = true
   createError.value = null
   try {
     createKey.value ??= crypto.randomUUID()
     const created = await apiClient.createCase(null, createKey.value)
+    if (ownGeneration !== generation || !isSessionCurrent(epoch)) return
     await router.push(`/cases/${encodeURIComponent(created.case_id)}`)
     createKey.value = null
   } catch (cause) {
+    if (ownGeneration !== generation || !isSessionCurrent(epoch)) return
     createError.value = errorText(cause)
   } finally {
-    creating.value = false
+    if (ownGeneration === generation && isSessionCurrent(epoch)) creating.value = false
   }
 }
 </script>

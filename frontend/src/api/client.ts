@@ -1,6 +1,5 @@
 import type {
   AcceptedJob,
-  ApiErrorBody,
   CaseDetail,
   CaseListResponse,
   CreatedCase,
@@ -11,24 +10,11 @@ import type {
   UploadedCase,
 } from './types'
 import { auth, clearSession } from '../auth/session'
+import { isSessionCurrent, sessionEpoch } from '../auth/lifecycle'
+import { ApiRequestError, normalizeApiError } from './errors'
+export { ApiRequestError } from './errors'
 
 const DEFAULT_BASE = '/api/v2'
-
-export class ApiRequestError extends Error {
-  readonly status: number
-  readonly code: string
-  readonly retryable: boolean
-  readonly requestId: string | null
-
-  constructor(status: number, code: string, message: string, retryable: boolean, requestId: string | null) {
-    super(message)
-    this.name = 'ApiRequestError'
-    this.status = status
-    this.code = code
-    this.retryable = retryable
-    this.requestId = requestId
-  }
-}
 
 export interface ApiClientOptions {
   baseUrl?: string
@@ -48,10 +34,11 @@ export class ApiClient {
   }
 
   private async send(path: string, init: RequestInit = {}): Promise<Response> {
+    const epoch = sessionEpoch.value
     const timeout = AbortSignal.timeout(this.timeoutMs)
     const signal = init.signal ? AbortSignal.any([init.signal, timeout]) : timeout
     try {
-      return await this.fetcher(`${this.baseUrl}${path}`, {
+      const response = await this.fetcher(`${this.baseUrl}${path}`, {
         credentials: 'include',
         ...init,
         signal,
@@ -60,7 +47,11 @@ export class ApiClient {
           ...(init.method && init.method !== 'GET' && auth.csrfToken ? { 'X-CSRF-Token': auth.csrfToken } : {}),
         },
       })
+      this.assertSession(epoch)
+      return response
     } catch (error) {
+      this.assertSession(epoch)
+      if (error instanceof ApiRequestError) throw error
       if (init.signal?.aborted) throw error
       if (timeout.aborted) {
         throw new ApiRequestError(0, 'REQUEST_TIMEOUT', 'API 请求超时，请重试。', true, null)
@@ -69,35 +60,39 @@ export class ApiClient {
     }
   }
 
-  private async assertOk(response: Response): Promise<void> {
-    if (response.ok) return
-    if (response.status === 401) clearSession()
-    let body: Partial<ApiErrorBody> = {}
-    try {
-      body = (await response.json()) as Partial<ApiErrorBody>
-    } catch {
-      // Reverse proxies can return non-JSON errors.
+  private assertSession(epoch: number) {
+    if (!isSessionCurrent(epoch)) {
+      throw new ApiRequestError(0, 'SESSION_CHANGED', '登录状态已改变，请重新操作。', false, null)
     }
-    throw new ApiRequestError(
-      response.status,
-      typeof body.code === 'string' ? body.code : `HTTP_${response.status}`,
-      response.status === 401 ? '未认证或登录已失效，请联系部署管理员。' :
-        typeof body.message === 'string' ? body.message : '请求失败，请稍后重试。',
-      body.retryable === true,
-      typeof body.request_id === 'string' ? body.request_id : null,
-    )
+  }
+
+  private async assertOk(response: Response, epoch: number): Promise<void> {
+    this.assertSession(epoch)
+    if (response.ok) return
+    if (response.status === 401) {
+      clearSession()
+      auth.error = '未认证或登录已失效，请重新登录。'
+    }
+    const errorEpoch = sessionEpoch.value
+    const error = await normalizeApiError(response)
+    this.assertSession(errorEpoch)
+    throw error
   }
 
   private async request<T>(path: string, init: RequestInit = {}): Promise<T> {
+    const epoch = sessionEpoch.value
     const response = await this.send(path, init)
-    await this.assertOk(response)
+    await this.assertOk(response, epoch)
     if (response.status === 204) return undefined as T
     if (!(response.headers.get('content-type') ?? '').includes('application/json')) {
       throw new ApiRequestError(response.status, 'INVALID_RESPONSE', 'API 返回了非 JSON 数据。', false, null)
     }
     try {
-      return (await response.json()) as T
+      const value = (await response.json()) as T
+      this.assertSession(epoch)
+      return value
     } catch {
+      this.assertSession(epoch)
       throw new ApiRequestError(response.status, 'INVALID_RESPONSE', 'API 返回了无效 JSON。', false, null)
     }
   }
@@ -113,12 +108,15 @@ export class ApiClient {
   }
 
   async getCaseDicom(caseId: string, signal?: AbortSignal): Promise<Blob> {
+    const epoch = sessionEpoch.value
     const response = await this.send(`/cases/${encodeURIComponent(caseId)}/dicom`, { signal })
-    await this.assertOk(response)
+    await this.assertOk(response, epoch)
     if (!(response.headers.get('content-type') ?? '').includes('application/dicom')) {
       throw new ApiRequestError(response.status, 'INVALID_DICOM', 'API 返回的影像格式无效。', false, null)
     }
-    return response.blob()
+    const blob = await response.blob()
+    this.assertSession(epoch)
+    return blob
   }
 
   createCase(patientId: string | null, idempotencyKey: string): Promise<CreatedCase> {
@@ -129,20 +127,20 @@ export class ApiClient {
     })
   }
 
-  uploadCase(caseId: string, file: File, idempotencyKey: string): Promise<UploadedCase> {
+  uploadCase(caseId: string, file: File, idempotencyKey: string, signal?: AbortSignal): Promise<UploadedCase> {
     const body = new FormData()
     body.set('input_kind', 'dicom_series')
     body.set('file', file, 'slice.dcm')
     return this.request(`/cases/${encodeURIComponent(caseId)}/upload`, {
-      method: 'POST',
+      method: 'POST', signal,
       headers: { 'Idempotency-Key': idempotencyKey },
       body,
     })
   }
 
-  createPrediction(caseId: string, sliceId: string, modelId: string, idempotencyKey: string): Promise<AcceptedJob> {
+  createPrediction(caseId: string, sliceId: string, modelId: string, idempotencyKey: string, signal?: AbortSignal): Promise<AcceptedJob> {
     return this.request('/predictions', {
-      method: 'POST',
+      method: 'POST', signal,
       headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
       body: JSON.stringify({ case_id: caseId, slice_id: sliceId, model_id: modelId }),
     })
@@ -159,9 +157,10 @@ export class ApiClient {
     protocolId: string,
     scales: Array<16 | 32 | 64>,
     idempotencyKey: string,
+    signal?: AbortSignal,
   ): Promise<AcceptedJob> {
     return this.request('/jobs/occlusion', {
-      method: 'POST',
+      method: 'POST', signal,
       headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
       body: JSON.stringify({ case_id: caseId, slice_id: sliceId, model_id: modelId, protocol_id: protocolId, scales }),
     })
@@ -182,12 +181,15 @@ export class ApiClient {
   }
 
   async getResultAsset(resultId: string, assetId: string, signal?: AbortSignal): Promise<Blob> {
+    const epoch = sessionEpoch.value
     const response = await this.send(`/results/${encodeURIComponent(resultId)}/assets/${encodeURIComponent(assetId)}`, { signal })
-    await this.assertOk(response)
+    await this.assertOk(response, epoch)
     if (!(response.headers.get('content-type') ?? '').includes('image/png')) {
       throw new ApiRequestError(response.status, 'INVALID_ASSET', '响应图资产格式无效。', false, null)
     }
-    return response.blob()
+    const blob = await response.blob()
+    this.assertSession(epoch)
+    return blob
   }
 }
 

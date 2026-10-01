@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { apiClient, ApiRequestError, type ApiClient } from '../api/client'
+import { apiClient, type ApiClient } from '../api/client'
+import { errorText } from '../api/errors'
+import { onSessionReset } from '../auth/lifecycle'
 import type { CaseDetail, CaseSummary } from '../api/types'
 
 export const useCaseStore = defineStore('cases', () => {
@@ -14,6 +16,8 @@ export const useCaseStore = defineStore('cases', () => {
   const detailError = ref<string | null>(null)
   let listEpoch = 0
   let detailEpoch = 0
+  let listAbort: AbortController | undefined
+  let detailAbort: AbortController | undefined
 
   function setPage(cases: CaseSummary[], cursor: string | null) {
     items.value = cases
@@ -27,10 +31,12 @@ export const useCaseStore = defineStore('cases', () => {
 
   async function loadCases(client: ApiClient = apiClient, append = false) {
     const epoch = ++listEpoch
+    listAbort?.abort()
+    const controller = listAbort = new AbortController()
     loading.value = true
     error.value = null
     try {
-      const page = await client.listCases(append ? nextCursor.value ?? undefined : undefined)
+      const page = await client.listCases(append ? nextCursor.value ?? undefined : undefined, 30, controller.signal)
       if (epoch !== listEpoch) return
       items.value = append ? [...items.value, ...page.items] : page.items
       nextCursor.value = page.next_cursor
@@ -45,11 +51,13 @@ export const useCaseStore = defineStore('cases', () => {
 
   async function loadCase(caseId: string, client: ApiClient = apiClient) {
     const epoch = ++detailEpoch
+    detailAbort?.abort()
+    const controller = detailAbort = new AbortController()
     selected.value = null
     detailLoading.value = true
     detailError.value = null
     try {
-      const detail = await client.getCase(caseId)
+      const detail = await client.getCase(caseId, controller.signal)
       if (epoch !== detailEpoch) return
       if (detail.case_id !== caseId) throw new Error('病例响应 ID 与请求不一致。')
       selected.value = detail
@@ -63,6 +71,8 @@ export const useCaseStore = defineStore('cases', () => {
   function reset() {
     listEpoch++
     detailEpoch++
+    listAbort?.abort()
+    detailAbort?.abort()
     items.value = []
     selected.value = null
     nextCursor.value = null
@@ -72,12 +82,17 @@ export const useCaseStore = defineStore('cases', () => {
     error.value = null
     detailError.value = null
   }
+  function clearDetail() {
+    detailEpoch++
+    detailAbort?.abort()
+    selected.value = null
+    detailLoading.value = false
+    detailError.value = null
+  }
+  onSessionReset(reset)
 
   return { items, selected, nextCursor, hasLoaded, loading, detailLoading, error, detailError,
-    setPage, select, loadCases, loadCase, reset }
+    setPage, select, loadCases, loadCase, reset, clearDetail }
 })
 
-export function errorText(cause: unknown): string {
-  if (cause instanceof ApiRequestError) return cause.message
-  return '响应无法读取，请重试。'
-}
+export { errorText } from '../api/errors'

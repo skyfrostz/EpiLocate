@@ -4,7 +4,7 @@
       <div ref="viewportElement" class="cornerstone-viewport" aria-label="单切片 DICOM 查看器" />
       <canvas ref="overlayCanvas" class="cornerstone-overlay" aria-label="模型响应叠加图层" />
     </div>
-    <div v-else class="viewer-placeholder"><span class="viewer-corner corner-tl"/><span class="viewer-corner corner-tr"/><span class="viewer-corner corner-bl"/><span class="viewer-corner corner-br"/><span class="viewer-cross"/><p>当前无法读取原始 DICOM</p><small>病例输入可能已过期，或 API 暂时不可用。</small></div>
+    <div v-else class="viewer-placeholder"><span class="viewer-corner corner-tl"/><span class="viewer-corner corner-tr"/><span class="viewer-corner corner-bl"/><span class="viewer-corner corner-br"/><span class="viewer-cross"/><p :role="inputState === 'error' ? 'alert' : 'status'">{{ placeholderTitle }}</p><small v-if="inputMessage">{{ inputMessage }}</small><button v-if="inputState === 'error'" class="recovery-action" type="button" @click="emit('retry')">重试读取影像</button></div>
     <div v-if="ready" class="viewer-controls" aria-label="影像视图控制">
       <button type="button" aria-label="放大 CT" @click="zoom(1.25)">＋</button>
       <button type="button" aria-label="缩小 CT" @click="zoom(0.8)">－</button>
@@ -13,14 +13,15 @@
     </div>
     <p v-if="loading" class="viewer-note" role="status">正在解码 DICOM…</p>
     <p v-if="error" class="notice notice-error" role="alert">{{ error }}</p>
+    <button v-if="error && file" class="recovery-action" type="button" @click="decodeAttempt++">重试解码</button>
     <p v-if="overlayError" class="notice notice-error" role="alert">{{ overlayError }}</p>
-    <p v-if="file && !loading && !error" class="viewer-note">单切片 DICOM 已从本次上传或授权 API 恢复。窗宽窗位由 Cornerstone 原视图处理。</p>
+    <p v-if="ready && !loading && !error" class="viewer-note">单切片 DICOM 已恢复。支持平移、缩放和重置；当前未提供窗宽窗位工具。</p>
     <p v-if="overlay && !overlayCompatible(overlay, sliceId, sliceWidth, sliceHeight)" class="viewer-note">图层与当前 Slice 或已核验几何不一致，已禁用叠加。</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import type { Types } from '@cornerstonejs/core'
 import { canvasAffineFromCorners, overlayCompatible, rawEdgeToWorld, type Point, type ViewerCameraState, type ViewerOverlayInput } from './geometry'
 
@@ -34,8 +35,12 @@ const props = withDefaults(defineProps<{
   overlayVisible?: boolean
   overlayOpacity?: number
   initialView?: ViewerCameraState | null
-}>(), { overlay: null, overlayVisible: true, overlayOpacity: 0.5, initialView: null })
-const emit = defineEmits<{ cameraChanged: [state: ViewerCameraState] }>()
+  inputState?: 'empty' | 'loading' | 'ready' | 'expired' | 'error'
+  inputMessage?: string | null
+}>(), { overlay: null, overlayVisible: true, overlayOpacity: 0.5, initialView: null, inputState: 'empty', inputMessage: null })
+const emit = defineEmits<{ cameraChanged: [state: ViewerCameraState]; retry: [] }>()
+const decodeAttempt = ref(0)
+const placeholderTitle = computed(() => ({ empty: '尚未读取原始 DICOM', loading: '正在读取原始 DICOM…', ready: '正在准备影像…', expired: '原始影像已过期', error: '原始影像读取失败' })[props.inputState])
 const viewportElement = ref<HTMLDivElement | null>(null)
 const overlayCanvas = ref<HTMLCanvasElement | null>(null)
 const loading = ref(false)
@@ -135,12 +140,13 @@ function resetView() {
   publishCamera()
 }
 
-watch(() => props.file, async file => {
+watch([() => props.file, decodeAttempt], async ([file]) => {
   generation++
   cleanup?.()
   cleanup = undefined
   activeViewport = null
   ready.value = false
+  loading.value = false
   error.value = null
   overlayError.value = null
   clearCanvas()
@@ -148,7 +154,10 @@ watch(() => props.file, async file => {
   const ownGeneration = generation
   loading.value = true
   await nextTick()
-  if (!viewportElement.value || ownGeneration !== generation) return
+  if (!viewportElement.value || ownGeneration !== generation) {
+    if (ownGeneration === generation) loading.value = false
+    return
+  }
   try {
     const core = await import('@cornerstonejs/core')
     const dicom = await import('@cornerstonejs/dicom-image-loader')
@@ -237,9 +246,12 @@ watch(() => props.file, async file => {
     viewport.render()
     scheduleOverlay()
     publishCamera()
-  } catch {
+  } catch (cause) {
     if (ownGeneration === generation) {
-      error.value = 'DICOM 无法显示或解码尺寸与病例元数据不一致。'
+      const message = cause instanceof Error ? cause.message : ''
+      error.value = message === 'DICOM decode timed out' ? 'DICOM 解码超时，请重试。'
+        : message === 'Decoded DICOM dimensions mismatch' ? 'DICOM 尺寸与病例元数据不一致，已停止显示。'
+          : 'DICOM 无法解码，请确认影像格式或重试。'
       cleanup?.()
       cleanup = undefined
     }
@@ -273,6 +285,8 @@ watch(() => [props.overlayVisible, props.overlayOpacity], scheduleOverlay)
 onBeforeUnmount(() => {
   generation++
   imageGeneration++
+  loading.value = false
+  ready.value = false
   cleanup?.()
   activeViewport = null
 })

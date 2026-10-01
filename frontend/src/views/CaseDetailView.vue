@@ -23,7 +23,7 @@
         </div>
         <div class="content-card">
           <div class="card-heading"><div><h2>影像浏览</h2><p>Cornerstone3D · 单切片</p></div></div>
-          <CornerstoneSliceViewer :file="previewFile" :slice-id="slices[0]?.slice_id ?? null" :slice-width="slices[0]?.width_px ?? null" :slice-height="slices[0]?.height_px ?? null" />
+          <CornerstoneSliceViewer :file="previewFile" :input-state="previewState" :input-message="previewError" :slice-id="slices[0]?.slice_id ?? null" :slice-width="slices[0]?.width_px ?? null" :slice-height="slices[0]?.height_px ?? null" @retry="restoreDicom" />
         </div>
       </div>
       <div v-if="slices.length" class="content-card inference-card">
@@ -42,7 +42,9 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
-import { apiClient } from '../api/client'
+import { apiClient, ApiRequestError } from '../api/client'
+import { auth } from '../auth/session'
+import { isSessionCurrent, sessionEpoch } from '../auth/lifecycle'
 import type { JobKind, SliceRecord } from '../api/types'
 import CornerstoneSliceViewer from '../viewer/CornerstoneSliceViewer.vue'
 import { formatDate } from '../format'
@@ -56,6 +58,8 @@ const slices = computed<SliceRecord[]>(() => cases.selected?.case_id === caseId.
   ? cases.selected.studies.flatMap(study => study.series.flatMap(series => series.slices)) : [])
 const selectedFile = ref<File | null>(null)
 const previewFile = ref<File | null>(null)
+const previewState = ref<'empty' | 'loading' | 'ready' | 'expired' | 'error'>('empty')
+const previewError = ref<string | null>(null)
 const uploading = ref(false)
 const uploadError = ref<string | null>(null)
 const modelId = ref('baseline_resnet18')
@@ -63,20 +67,58 @@ const submitting = ref(false)
 const jobError = ref<string | null>(null)
 const uploadKey = ref<string | null>(null)
 const jobKeys = new Map<string, string>()
+let pageGeneration = 0
+let previewGeneration = 0
+let previewAbort: AbortController | undefined
+let mutationAbort: AbortController | undefined
 const canSubmit = computed(() => cases.selected?.status === 'READY' && slices.value.length > 0 && modelId.value.length > 0)
 
-watch(caseId, id => { selectedFile.value = null; previewFile.value = null; uploadKey.value = null; jobKeys.clear(); void cases.loadCase(id) }, { immediate: true })
-watch(slices, async value => {
-  if (!value.length || previewFile.value) return
-  try {
-    const blob = await apiClient.getCaseDicom(caseId.value)
-    previewFile.value = new File([blob], `${caseId.value}.dcm`, { type: 'application/dicom' })
-  } catch {
-    // The metadata remains useful when an expired input cannot be restored.
-    previewFile.value = null
-  }
+function resetPage() {
+  pageGeneration++
+  previewGeneration++
+  previewAbort?.abort()
+  mutationAbort?.abort()
+  selectedFile.value = null
+  previewFile.value = null
+  previewState.value = 'empty'
+  previewError.value = null
+  uploadKey.value = null
+  uploadError.value = null
+  jobError.value = null
+  uploading.value = false
+  submitting.value = false
+  jobKeys.clear()
+}
+watch([caseId, sessionEpoch], ([id]) => {
+  resetPage()
+  if (auth.username) void cases.loadCase(id)
+}, { immediate: true, flush: 'sync' })
+watch(slices, value => {
+  if (value.length && !previewFile.value) void restoreDicom()
 })
-onBeforeUnmount(() => { previewFile.value = null })
+async function restoreDicom() {
+  if (!slices.value.length || !auth.username) return
+  const id = caseId.value
+  const epoch = sessionEpoch.value
+  const ownGeneration = ++previewGeneration
+  previewAbort?.abort()
+  const controller = previewAbort = new AbortController()
+  previewFile.value = null
+  previewState.value = 'loading'
+  previewError.value = null
+  try {
+    const blob = await apiClient.getCaseDicom(id, controller.signal)
+    if (controller.signal.aborted || ownGeneration !== previewGeneration || id !== caseId.value || !isSessionCurrent(epoch)) return
+    previewFile.value = new File([blob], 'authorized-slice.dcm', { type: 'application/dicom' })
+    previewState.value = 'ready'
+  } catch (cause) {
+    if (controller.signal.aborted || ownGeneration !== previewGeneration || !isSessionCurrent(epoch)) return
+    previewFile.value = null
+    previewState.value = cause instanceof ApiRequestError && (cause.status === 410 || cause.code === 'INPUT_EXPIRED') ? 'expired' : 'error'
+    previewError.value = errorText(cause)
+  }
+}
+onBeforeUnmount(() => { resetPage(); cases.clearDetail() })
 
 function chooseFile(event: Event) {
   const input = event.target as HTMLInputElement
@@ -90,43 +132,58 @@ function chooseFile(event: Event) {
 }
 
 async function upload() {
-  if (!selectedFile.value) return
+  if (!selectedFile.value || uploading.value) return
+  const id = caseId.value
+  const epoch = sessionEpoch.value
+  const ownGeneration = pageGeneration
+  const controller = mutationAbort = new AbortController()
   uploading.value = true
   uploadError.value = null
   const file = selectedFile.value
   try {
     uploadKey.value ??= crypto.randomUUID()
-    const uploaded = await apiClient.uploadCase(caseId.value, file, uploadKey.value)
-    if (uploaded.case_id !== caseId.value) throw new Error('上传响应病例不一致。')
+    const uploaded = await apiClient.uploadCase(id, file, uploadKey.value, controller.signal)
+    if (ownGeneration !== pageGeneration || !isSessionCurrent(epoch) || controller.signal.aborted) return
+    if (uploaded.case_id !== id) throw new Error('上传响应病例不一致。')
     previewFile.value = file
+    previewState.value = 'ready'
+    previewError.value = null
     selectedFile.value = null
-    await cases.loadCase(caseId.value)
+    await cases.loadCase(id)
   } catch (cause) {
+    if (ownGeneration !== pageGeneration || !isSessionCurrent(epoch)) return
     uploadError.value = errorText(cause)
   } finally {
-    uploading.value = false
+    if (ownGeneration === pageGeneration && isSessionCurrent(epoch)) uploading.value = false
   }
 }
 
 async function submit(kind: JobKind) {
   const slice = slices.value[0]
-  if (!slice || !canSubmit.value) return
+  if (!slice || !canSubmit.value || submitting.value) return
+  const id = caseId.value
+  const epoch = sessionEpoch.value
+  const ownGeneration = pageGeneration
+  const controller = mutationAbort = new AbortController()
   submitting.value = true
   jobError.value = null
   try {
-    const action = `${caseId.value}:${slice.slice_id}:${modelId.value}:${kind}`
+    const action = `${id}:${slice.slice_id}:${modelId.value}:${kind}`
     const key = jobKeys.get(action) ?? crypto.randomUUID()
     jobKeys.set(action, key)
     const created = kind === 'PREDICTION'
-      ? await apiClient.createPrediction(caseId.value, slice.slice_id, modelId.value, key)
-      : await apiClient.createOcclusion(caseId.value, slice.slice_id, modelId.value,
-        'stage1-occlusion-instability-v1', [16, 32, 64], key)
-    if (created.case_id !== caseId.value) throw new Error('任务响应病例不一致。')
+      ? await apiClient.createPrediction(id, slice.slice_id, modelId.value, key, controller.signal)
+      : await apiClient.createOcclusion(id, slice.slice_id, modelId.value,
+        'stage1-occlusion-instability-v1', [16, 32, 64], key, controller.signal)
+    if (ownGeneration !== pageGeneration || !isSessionCurrent(epoch) || controller.signal.aborted) return
+    if (created.case_id !== id) throw new Error('任务响应病例不一致。')
+    jobKeys.delete(action)
     await router.push(`/jobs/${encodeURIComponent(created.job_id)}`)
   } catch (cause) {
+    if (ownGeneration !== pageGeneration || !isSessionCurrent(epoch)) return
     jobError.value = errorText(cause)
   } finally {
-    submitting.value = false
+    if (ownGeneration === pageGeneration && isSessionCurrent(epoch)) submitting.value = false
   }
 }
 </script>

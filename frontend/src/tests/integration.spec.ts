@@ -67,7 +67,7 @@ describe('Phase 2 API and state integration', () => {
     }
   })
 
-  it('loads the real Case route response and keeps an API error visible', async () => {
+  it('loads the real Case route response and clears its cache on an API 401', async () => {
     const fetcher = vi.fn().mockResolvedValueOnce(json({ items: [{ case_id: 'case_test', patient_id: 'pat_test',
       status: 'READY', created_at: '2026-09-26T00:00:00Z', input_expires_at: null }], next_cursor: null }))
       .mockResolvedValueOnce(json({ code: 'UNAUTHENTICATED', message: 'Authentication required.',
@@ -80,8 +80,9 @@ describe('Phase 2 API and state integration', () => {
     expect(fetcher).toHaveBeenCalledWith('/api/v2/cases?limit=30', expect.anything())
     expect(store.items[0]?.case_id).toBe('case_test')
     await store.loadCases(client)
-    expect(store.error).toContain('未认证')
-    expect(store.hasLoaded).toBe(true)
+    expect(store.items).toEqual([])
+    expect(store.hasLoaded).toBe(false)
+    expect(auth.error).toContain('未认证')
   })
 
   it('polls CREATED through COMPLETED and stops after the terminal state', async () => {
@@ -112,7 +113,8 @@ describe('Phase 2 API and state integration', () => {
     store.startPolling('job_test', client401, { intervalMs: 100 })
     await flushPromises()
     expect(store.isPolling).toBe(false)
-    expect(store.error).toContain('未认证')
+    expect(store.byId).toEqual({})
+    expect(auth.error).toContain('未认证')
     let clock = 0
     const client = new ApiClient({ baseUrl: '/api/v2', fetcher: vi.fn(async () => json(job('RUNNING'))) })
     store.startPolling('job_test', client, { intervalMs: 100, timeoutMs: 500, now: () => clock })

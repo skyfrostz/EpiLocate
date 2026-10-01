@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { apiClient, type ApiClient } from '../api/client'
 import type { HeatmapLayer, ResultRecord } from '../api/types'
 import { errorText } from './cases'
+import { onSessionReset } from '../auth/lifecycle'
 
 export const useResultStore = defineStore('results', () => {
   const current = ref<ResultRecord | null>(null)
@@ -13,9 +14,12 @@ export const useResultStore = defineStore('results', () => {
   const assetError = ref<string | null>(null)
   let generation = 0
   let resultGeneration = 0
+  let resultAbort: AbortController | undefined
+  let assetAbort: AbortController | undefined
 
   function clearAsset() {
     generation++
+    assetAbort?.abort()
     if (assetUrl.value) URL.revokeObjectURL(assetUrl.value)
     assetUrl.value = null
     assetLoading.value = false
@@ -24,12 +28,14 @@ export const useResultStore = defineStore('results', () => {
 
   async function loadResult(resultId: string, client: ApiClient = apiClient) {
     const ownResultGeneration = ++resultGeneration
+    resultAbort?.abort()
+    const controller = resultAbort = new AbortController()
     clearAsset()
     current.value = null
     loading.value = true
     error.value = null
     try {
-      const result = await client.getResult(resultId)
+      const result = await client.getResult(resultId, controller.signal)
       if (ownResultGeneration !== resultGeneration) return
       if (result.result_id !== resultId || result.status !== 'COMPLETED' ||
           result.source !== 'LIVE_CASE' || result.contract_version !== '2.0') {
@@ -56,9 +62,10 @@ export const useResultStore = defineStore('results', () => {
       return
     }
     const ownGeneration = generation
+    const controller = assetAbort = new AbortController()
     assetLoading.value = true
     try {
-      const blob = await client.getResultAsset(result.result_id, layer.asset_id)
+      const blob = await client.getResultAsset(result.result_id, layer.asset_id, controller.signal)
       if (ownGeneration !== generation) return
       assetUrl.value = URL.createObjectURL(blob)
     } catch (cause) {
@@ -70,11 +77,13 @@ export const useResultStore = defineStore('results', () => {
 
   function clear() {
     resultGeneration++
+    resultAbort?.abort()
     clearAsset()
     current.value = null
     loading.value = false
     error.value = null
   }
+  onSessionReset(clear)
 
   return { current, loading, error, assetUrl, assetLoading, assetError, loadResult, loadAsset, clearAsset, clear }
 })

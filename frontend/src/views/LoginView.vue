@@ -22,6 +22,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { auth, login } from '../auth/session'
+import { errorText } from '../api/errors'
 
 const route = useRoute()
 const router = useRouter()
@@ -39,7 +40,7 @@ async function submit() {
       ? route.query.next : '/'
     await router.replace(next)
   } catch (cause) {
-    error.value = cause instanceof Error ? cause.message : '登录失败，请重试。'
+    error.value = errorText(cause)
   } finally {
     password.value = ''
     busy.value = false

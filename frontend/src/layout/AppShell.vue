@@ -66,6 +66,8 @@ import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useUiStore } from '../stores/ui'
 import { auth, logout } from '../auth/session'
 import { ref } from 'vue'
+import { errorText } from '../api/errors'
+import { isSessionCurrent, sessionEpoch } from '../auth/lifecycle'
 
 const route = useRoute()
 const router = useRouter()
@@ -75,13 +77,15 @@ const logoutError = ref('')
 const title = computed(() => String(route.meta.title ?? '工作台'))
 
 async function signOut() {
+  const epoch = sessionEpoch.value
   loggingOut.value = true
   logoutError.value = ''
   try {
     await logout()
-    await router.replace({ name: 'login' })
+    if (!auth.username) await router.replace({ name: 'login' })
   } catch (cause) {
-    logoutError.value = cause instanceof Error ? cause.message : '退出失败，请重试。'
+    if (!isSessionCurrent(epoch)) return
+    logoutError.value = errorText(cause)
   } finally {
     loggingOut.value = false
   }

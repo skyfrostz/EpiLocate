@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { apiClient, ApiRequestError, type ApiClient } from '../api/client'
 import type { JobRecord } from '../api/types'
 import { errorText } from './cases'
+import { onSessionReset } from '../auth/lifecycle'
 
 export interface PollOptions {
   intervalMs?: number
@@ -22,6 +23,7 @@ export const useJobStore = defineStore('jobs', () => {
   const current = computed(() => currentId.value ? byId.value[currentId.value] ?? null : null)
   let generation = 0
   let timer: ReturnType<typeof setTimeout> | undefined
+  let requestAbort: AbortController | undefined
 
   function upsert(job: JobRecord) {
     byId.value[job.job_id] = job
@@ -29,6 +31,8 @@ export const useJobStore = defineStore('jobs', () => {
 
   function stopPolling() {
     generation++
+    requestAbort?.abort()
+    requestAbort = undefined
     if (timer) clearTimeout(timer)
     timer = undefined
     isPolling.value = false
@@ -63,8 +67,9 @@ export const useJobStore = defineStore('jobs', () => {
         return
       }
       loading.value = true
+      const controller = requestAbort = new AbortController()
       try {
-        const job = await client.getJob(jobId)
+        const job = await client.getJob(jobId, controller.signal)
         if (ownGeneration !== generation) return
         if (job.job_id !== jobId) throw new Error('任务响应 ID 与请求不一致。')
         upsert(job)
@@ -100,6 +105,7 @@ export const useJobStore = defineStore('jobs', () => {
     timedOut.value = false
     lastUpdatedAt.value = null
   }
+  onSessionReset(clear)
 
   return { byId, currentId, current, loading, isPolling, timedOut, error, lastUpdatedAt,
     upsert, startPolling, stopPolling, clear }
