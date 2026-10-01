@@ -1249,3 +1249,14 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **关联报告：** `frontend/docs/FIRST_ROUND_AUDIT.md`、`frontend/docs/first-round-visual-sketch.html`；本机交付 `outputs/frontend-qa/browser-acceptance.json`。本轮代码范围仍为 frontend；新增根日志属于本次必要文档收敛。
 
 **扩大审查后的修复与复验：** 核对 Gateway 共享 Cookie 与依赖实现发现跨tab身份不同步、core/dataset/NATURALIZED缓存未随renderer销毁释放；采用无凭证storage失效通知和窗口恢复校验、按imageId资源清理并处理迟到解码。检查期间阻止业务请求，通知接收/校验失败不循环广播，登录跳转目标在请求前固定。原APIclient测试补齐明确会话前置状态。最终 81/81 tests（14 spec）及 build PASS；15 个本地浏览器场景 PASS、0 page error，真实 Cornerstone 两种影像卸载后 image/metadata cache 为空。第一次双tab脚本错误假设主动退出后返回病例页，已按实际首页跳转修正并重新完整通过。文档检查与 diff 检查 PASS；没有改变后端或部署。
+
+### 2026-10-01｜第一轮前端推送与独立服务器发布
+
+**任务类型：** 前端发布 / QA / 文档。**授权：** 用户明确指示上传服务器并推送。
+**分支 / 开始HEAD：** `feature/frontend-redesign-phase5` @ `3ad9fbc0d8dba4b16585c94dd16f5375be276f98`；本机独立checkout。**关联应用提交：** 同一完整SHA。
+**完成：** 解除浅克隆并扫描完整Git closure（636 objects/488 blobs），普通push指定分支，SSH核对远端SHA；从固定提交导出frontend并以SHA256核对传输，服务器Node24.21.0执行npm ci（314packages）、81/81测试（14spec）及/mvp/构建。原线上package/lock/vite/API types与Git blob哈希相同，契约未换。
+**问题与处理：** 服务器访问GitHub HTTPS超时，改为从已推送提交导出源码传输，不传私钥/环境。第一次Nginx重载后即时请求读到旧首页，自动回滚成功；核对其哈希属于旧版后增加最长10秒重复内容校验，第二次激活PASS。本机浏览器默认DNS导航超时；按已核实IP映射域名且保持TLS验证后检查通过。
+**验证：** 实际/mvp/首页及2个入口JS/CSS字节一致；mvp200、无Cookie/auth/session和/api/v2/cases401、Welcome200、Review303；Backend/Gateway/Sweeper/MinIO active且current仍为原4e38fd...release。真实未登录桌面/移动登录UI、受保护route跳转、键盘焦点、无水平溢出通过，0page error/资源失败。
+**回滚：** 旧release保留，新frontend目录nginx-before.conf保留原root配置；仅恢复前端配置并检查/reload即可，不改控制平面current。新目录保留旧hashed assets用于已开标签页兼容。
+**剩余：** 授权真实账号操作与GPU恢复后的真实推理未验收；视觉重构属于下一轮。CPU/GPU数值/临床有效性仍非此次前端发布证据。
+**报告：** `frontend/docs/DEPLOYMENT_20261001.md`；本机交付 `publication-scan.json`、`server-frontend-activation.json`、`live-frontend-acceptance.json`及登录截图。记录提交只补文档，不更换线上应用SHA。

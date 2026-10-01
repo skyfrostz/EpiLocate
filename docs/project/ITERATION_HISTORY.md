@@ -886,3 +886,12 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 **证据：** `frontend/docs/FIRST_ROUND_AUDIT.md`、`frontend/geometry-qa/first-round-browser.mjs`、`frontend/src/tests/`；本机交付目录 `outputs/frontend-qa/browser-acceptance.json` 及截图。线上版本先前核实为 `4e38fd32765e7c69ae0b7389cb91fe057c938472`，本次没有切换版本。
 
 **本阶段后续审查补录：** 扩大必要目录审查后发现跨标签页身份通知和 Cornerstone 解码/自然化数据缓存释放缺口，已补修。最终 Node 24 回归 81/81（14 spec）与 build 通过；本地浏览器 15 场景、0 page error，新增双标签页及真实 image/NATURALIZED cache 卸载断言，6 组几何继续通过。根目录文档门禁与 diff 检查现 PASS。真实账号/GPU/部署边界不变，详见前端审计报告补录。
+
+## 阶段二十一：第一轮前端独立发布
+
+**日期 / 授权：** 2026-10-01，用户明确要求推送 GitHub 并上传服务器。
+**发布应用提交：** `feature/frontend-redesign-phase5` @ `3ad9fbc0d8dba4b16585c94dd16f5375be276f98`，普通 push 与远端 SHA 核对成功。
+**范围：** 新建独立 frontend-releases 固定提交目录，服务器 Node 24.21.0 锁定安装、81/81 测试及 /mvp/ build PASS；仅切换 Nginx 前端静态 root，其他控制平面保持原 release。
+**发布证据：** 完整 closure 636 objects/488 blobs 无阻断发现；归档哈希核对，HTTPS 首页/入口资源字节一致；mvp 200、无Cookie身份/病例401、Welcome200、Review303。外部Edge未登录桌面/移动检查PASS，真实账号/GPU推理未执行。
+**切换记录：** 初次即时校验读到旧worker首页，自动回滚；加入重载完成等待后再次激活通过，保留旧前端及配置备份。
+**报告：** `frontend/docs/DEPLOYMENT_20261001.md`。后续文档提交不改变线上应用源码 SHA；第一轮代码/审计/发布完成，完整真实业务链路验收仍待账号与GPU。
