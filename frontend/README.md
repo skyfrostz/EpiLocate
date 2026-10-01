@@ -10,7 +10,7 @@ The `CornerstoneSliceViewer` component loads a DICOM `File` through Cornerstone3
 
 ## Local commands
 
-Node 24.19.0 was validated for the current locked dependencies. Node 20.16.0 on the implementation machine failed jsdom ESM loading. First-round verification: 72 tests and production build passed. See [audit and acceptance boundaries](docs/FIRST_ROUND_AUDIT.md) and [synthetic browser checks](geometry-qa/README.md).
+Node 24.19.0 was validated for the current locked dependencies. Node 20.16.0 on the implementation machine failed jsdom ESM loading. First-round verification after expanded review: 81 tests and production build passed. See [audit and acceptance boundaries](docs/FIRST_ROUND_AUDIT.md) and [synthetic browser checks](geometry-qa/README.md).
 
 ```sh
 cd frontend

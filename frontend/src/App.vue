@@ -6,14 +6,22 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
+import { onBeforeUnmount, watch } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
 import AppShell from './layout/AppShell.vue'
-import { auth } from './auth/session'
+import { auth, startSessionSync } from './auth/session'
 import { sessionEpoch } from './auth/lifecycle'
 
 const router = useRouter()
-watch(() => auth.username, (username, previous) => {
-  if (previous && !username) void router.replace({ name: 'login', query: { next: router.currentRoute.value.fullPath } })
+onBeforeUnmount(startSessionSync())
+watch([() => auth.username, () => auth.loaded], ([username, loaded]) => {
+  if (!loaded) return
+  const route = router.currentRoute.value
+  if (!username && route.name !== 'login') void router.replace({ name: 'login', query: { next: route.fullPath } })
+  else if (username && route.name === 'login') {
+    const next = typeof route.query.next === 'string' && route.query.next.startsWith('/') && !route.query.next.startsWith('//')
+      && !route.query.next.startsWith('/login') ? route.query.next : '/'
+    void router.replace(next)
+  }
 })
 </script>

@@ -1232,3 +1232,20 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **下一步计划：**
 **关联文档或验收报告：**
 ```
+
+### 2026-10-01｜前端稳定性第一轮与根工程记录收敛
+
+**任务类型：** Frontend / QA / 文档。
+**任务负责人：** Codex 执行，用户授权；未推断其他人员的实际操作。
+**分支 / Worktree：** `feature/frontend-redesign-phase5`；独立本机 `work/EpiLocate` checkout。
+**开发前 HEAD：** `008c81e8d0545c32f59d16890ea987f59614c87c`；本次后续审查起点 `9dbdf6372c4b33571a47a0a99adbaa6ff2ce9d14`。
+**关联 Commit：** `0a93c7dfcb2c22070337ed20264467e4e0079716`、`8447f7b5246d8e146e176b09f872f9bd958f7a32`、`9dbdf6372c4b33571a47a0a99adbaa6ff2ce9d14`。
+**目标与完成：** 按第一轮计划修复会话隔离、异步响应与影像资源清理、安全错误归一化、任务失败/查询恢复、影像及图层局部重试；增加 36 项回归测试、本地合成 DICOM 浏览器工具、页面审计及下一轮草图。
+**问题与原因：** 单纯清空缓存不能阻止旧请求重新写回；旧401/退出响应可能清理新账号。用 session epoch、认证 request generation、病例/页面版本与 AbortController 联合保护，并在消费响应及执行清理前校验。错误 envelope 与 Job failure_reason 差异用安全稳定码归一化；不呈现原始异常，不自动重跑推理。
+**环境问题：** 系统 Node 20.16.0 与锁定 jsdom ESM 兼容失败；改用已验证 Node 24.19.0，不变更依赖锁。基线及修改版均有 Cornerstone codec 外部化和 bundle 大小警告，未宣称已修复。
+**验证结果：** `npm ci` 安装 314 个锁定依赖；基线 36/36 和 build，通过；修改后 `npm run test` 72/72（13 spec）及 `npm run build` 通过。本地 Edge 13 场景、13 截图、0 page error；6 组 5-marker 几何测量最大 0.3031 CSS px。全部 auth/业务 API 拦截为合成数据；实际 Cornerstone 解码和渲染，非线上/GPU E2E。
+**门禁收敛：** 首次执行 `scripts/check_project_documentation.py --base 008c81e8d0545c32f59d16890ea987f59614c87c --working-tree` 为 FAIL，因为原授权仅限 frontend，根两份日志未改。用户随后扩大必要目录审查授权，故追加根记录；复验结果随交付报告更新，不改检查器或历史日志。
+**留下的问题：** 真实账号及恢复后的 GPU 推理未验收，CPU/GPU 固定数值门槛仍 OPEN；尚未 push、merge、部署。下一步完成合并前审查，真实账号验证，再由负责人决定发布与 GPU E2E。
+**关联报告：** `frontend/docs/FIRST_ROUND_AUDIT.md`、`frontend/docs/first-round-visual-sketch.html`；本机交付 `outputs/frontend-qa/browser-acceptance.json`。本轮代码范围仍为 frontend；新增根日志属于本次必要文档收敛。
+
+**扩大审查后的修复与复验：** 核对 Gateway 共享 Cookie 与依赖实现发现跨tab身份不同步、core/dataset/NATURALIZED缓存未随renderer销毁释放；采用无凭证storage失效通知和窗口恢复校验、按imageId资源清理并处理迟到解码。检查期间阻止业务请求，通知接收/校验失败不循环广播，登录跳转目标在请求前固定。原APIclient测试补齐明确会话前置状态。最终 81/81 tests（14 spec）及 build PASS；15 个本地浏览器场景 PASS、0 page error，真实 Cornerstone 两种影像卸载后 image/metadata cache 为空。第一次双tab脚本错误假设主动退出后返回病例页，已按实际首页跳转修正并重新完整通过。文档检查与 diff 检查 PASS；没有改变后端或部署。

@@ -186,6 +186,28 @@ try {
   assert(!(await page.locator('body').innerText()).includes(caseId)); record('logout and different-account login clear prior business data')
   await page.setViewportSize({ width: 1100, height: 900 }); await noOverflow(); record('tablet breakpoint 1100 px')
 
+  // The browser cookie is shared across tabs, while each application's stores are separate.
+  const otherTab = await context.newPage()
+  otherTab.on('pageerror', error => evidence.pageErrors.push(error.message))
+  await otherTab.goto(base + '/cases')
+  await otherTab.getByText('暂无病例', { exact: true }).waitFor()
+  await otherTab.getByRole('button', { name: '退出', exact: true }).click()
+  await page.getByLabel('账号', { exact: true }).waitFor()
+  assert(!(await page.locator('body').innerText()).includes(caseId))
+  await otherTab.getByLabel('账号', { exact: true }).fill('alice')
+  await otherTab.getByLabel('密码', { exact: true }).fill('synthetic-fixture-only')
+  await otherTab.getByRole('button', { name: '登录', exact: true }).click()
+  await otherTab.getByRole('button', { name: '退出', exact: true }).waitFor()
+  await otherTab.goto(base + '/cases')
+  await otherTab.getByText(caseId, { exact: true }).waitFor()
+  await page.getByRole('button', { name: '创建匿名病例', exact: true }).waitFor()
+  await page.getByText(caseId, { exact: true }).waitFor()
+  await otherTab.getByRole('button', { name: '退出', exact: true }).click()
+  await page.getByLabel('账号', { exact: true }).waitFor()
+  assert(!(await page.locator('body').innerText()).includes(caseId))
+  await otherTab.close()
+  record('cross-tab logout/login synchronizes identity and clears previous account data')
+
   const measure = Function('return (' + await readFile(new URL('./measure.js', import.meta.url), 'utf8') + ')')()
   for (const oriented of [false, true]) {
     await page.goto(base + '/geometry-qa/smoke.html' + (oriented ? '?oriented=1' : ''))
@@ -208,8 +230,23 @@ try {
       assert(metrics.maxErrorCssPx <= 1, `Geometry error > 1 CSS px (${oriented}/${stage}): ${metrics.maxErrorCssPx}`)
     }
     await screenshot(oriented ? '11-geometry-oriented' : '10-geometry-nonsquare')
+    const release = await page.evaluate(() => {
+      const { cornerstone: core, metaData, MetadataEnums, unmount } = window.__geometryFixture
+      const imageId = core.getRenderingEngines()[0].getViewport('single-slice').getCurrentImageId()
+      const before = { bytes: core.cache.getCacheSize(), metadata: Boolean(metaData.get(MetadataEnums.MetadataModules.NATURALIZED, imageId)) }
+      unmount()
+      return { imageId, before, after: { bytes: core.cache.getCacheSize(), image: Boolean(core.cache.getImage(imageId)),
+        metadata: Boolean(metaData.get(MetadataEnums.MetadataModules.NATURALIZED, imageId)) } }
+    })
+    assert(release.before.bytes > 0 && release.before.metadata, 'Real renderer should own image and metadata before teardown')
+    assert.equal(release.after.bytes, 0)
+    assert.equal(release.after.image, false)
+    assert.equal(release.after.metadata, false)
+    evidence.cacheRelease ??= []
+    evidence.cacheRelease.push(release)
   }
   record('actual renderer geometry: non-square, rotated, unequal spacing, pan, zoom, resize, five marker measurements')
+  record('actual Cornerstone owned decoded-image and naturalized metadata caches released on teardown')
   assert.deepEqual(evidence.pageErrors, [], 'No browser page errors should occur')
   await writeFile(join(output, 'browser-acceptance.json'), JSON.stringify(evidence, null, 2))
   console.log(JSON.stringify({ passed: evidence.scenarios.length, screenshots: evidence.screenshots.length,

@@ -1,11 +1,14 @@
 import { reactive } from 'vue'
 import { ApiRequestError, normalizeApiError } from '../api/errors'
 import { invalidateSessionData, isSessionCurrent, sessionEpoch } from './lifecycle'
+import { listenForSessionInvalidation, publishSessionInvalidation } from './sessionSync'
 
 interface SessionPayload { username: string; csrf_token: string }
 const FUSION_KEY_PREFIX = 'epilocate:fusion:'
 const SESSION_ACCOUNT_KEY = 'epilocate:session-account'
 let requestGeneration = 0
+let activeMutation: number | null = null
+let sessionRead: { generation: number; epoch: number; promise: Promise<boolean> } | null = null
 
 function clearFusionPreferences() {
   try {
@@ -20,8 +23,9 @@ export const auth = reactive<{ username: string | null; csrfToken: string | null
   username: null, csrfToken: null, loaded: false, error: null,
 })
 
-export function clearSession() {
+export function clearSession(broadcast = true) {
   requestGeneration++
+  activeMutation = null
   clearFusionPreferences()
   try { sessionStorage.removeItem(SESSION_ACCOUNT_KEY) } catch { /* Storage may be unavailable. */ }
   auth.username = null
@@ -29,6 +33,7 @@ export function clearSession() {
   auth.loaded = true
   auth.error = null
   invalidateSessionData()
+  if (broadcast) publishSessionInvalidation()
 }
 
 function accept(payload: SessionPayload) {
@@ -60,15 +65,22 @@ function sessionChanged() {
   return new ApiRequestError(0, 'SESSION_CHANGED', '登录状态已改变，请重新操作。', false, null)
 }
 
-export async function loadSession(force = false): Promise<boolean> {
-  if (auth.loaded && !force) return auth.username !== null
+export function loadSession(force = false): Promise<boolean> {
+  if (auth.loaded && !force) return Promise.resolve(auth.username !== null)
+  if (sessionRead?.generation === requestGeneration && sessionRead.epoch === sessionEpoch.value) return sessionRead.promise
   const ownRequest = ++requestGeneration
   const epoch = sessionEpoch.value
+  const promise = readSession(ownRequest, epoch)
+  sessionRead = { generation: ownRequest, epoch, promise }
+  void promise.finally(() => { if (sessionRead?.promise === promise) sessionRead = null })
+  return promise
+}
+async function readSession(ownRequest: number, epoch: number): Promise<boolean> {
   try {
     const response = await fetch('/auth/session', { credentials: 'include', cache: 'no-store' })
     if (ownRequest !== requestGeneration || !isSessionCurrent(epoch)) return auth.username !== null
     if (!response.ok) {
-      clearSession()
+      clearSession(false)
       if (response.status !== 401) auth.error = '登录状态检查失败，请稍后重试。'
       return false
     }
@@ -78,39 +90,59 @@ export async function loadSession(force = false): Promise<boolean> {
     return true
   } catch {
     if (ownRequest !== requestGeneration || !isSessionCurrent(epoch)) return auth.username !== null
-    clearSession()
+    clearSession(false)
     auth.error = '无法连接登录服务，请检查网络后重试。'
     return false
   }
 }
 
+/** Hide old identity and stop its requests before resolving the shared Cookie again. */
+async function refreshSharedSession(external = false) {
+  if (!external && (activeMutation !== null || !auth.loaded)) return
+  clearSession(false)
+  auth.loaded = false
+  await loadSession(true)
+}
+export function startSessionSync() {
+  return listenForSessionInvalidation(() => { void refreshSharedSession(true) }, () => { void refreshSharedSession() })
+}
+
 export async function login(username: string, password: string): Promise<void> {
   const ownRequest = ++requestGeneration
+  activeMutation = ownRequest
   const epoch = sessionEpoch.value
-  let response: Response
   try {
-    response = await fetch('/auth/login', {
-      method: 'POST', credentials: 'include', cache: 'no-store',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    })
-  } catch {
+    let response: Response
+    try {
+      response = await fetch('/auth/login', {
+        method: 'POST', credentials: 'include', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      })
+    } catch {
+      if (ownRequest !== requestGeneration || !isSessionCurrent(epoch)) throw sessionChanged()
+      throw new ApiRequestError(0, 'NETWORK_UNAVAILABLE', '无法连接登录服务，请检查网络后重试。', true, null)
+    }
     if (ownRequest !== requestGeneration || !isSessionCurrent(epoch)) throw sessionChanged()
-    throw new ApiRequestError(0, 'NETWORK_UNAVAILABLE', '无法连接登录服务，请检查网络后重试。', true, null)
+    if (!response.ok) {
+      const error = await normalizeApiError(response)
+      if (ownRequest !== requestGeneration || !isSessionCurrent(epoch)) throw sessionChanged()
+      throw error
+    }
+    const payload = await sessionPayload(response)
+    if (ownRequest !== requestGeneration || !isSessionCurrent(epoch)) throw sessionChanged()
+    accept(payload)
+    publishSessionInvalidation()
+  } finally {
+    if (activeMutation === ownRequest) activeMutation = null
   }
-  if (ownRequest !== requestGeneration || !isSessionCurrent(epoch)) throw sessionChanged()
-  if (!response.ok) {
-    throw await normalizeApiError(response)
-  }
-  const payload = await sessionPayload(response)
-  if (ownRequest !== requestGeneration || !isSessionCurrent(epoch)) throw sessionChanged()
-  accept(payload)
 }
 
 export async function logout(): Promise<void> {
   if (!auth.csrfToken) { clearSession(); return }
   const epoch = sessionEpoch.value
   const ownRequest = ++requestGeneration
+  activeMutation = ownRequest
   try {
     const response = await fetch('/auth/logout', {
       method: 'POST', credentials: 'include', cache: 'no-store',
@@ -127,5 +159,7 @@ export async function logout(): Promise<void> {
     if (!isSessionCurrent(epoch) || ownRequest !== requestGeneration) return
     if (cause instanceof ApiRequestError) throw cause
     throw new ApiRequestError(0, 'NETWORK_UNAVAILABLE', '无法连接登录服务，请检查网络后重试。', true, null)
+  } finally {
+    if (activeMutation === ownRequest) activeMutation = null
   }
 }

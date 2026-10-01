@@ -868,3 +868,21 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 ## 当前线上可用性
 
 截至本次文档补录可取得的最新部署证据，事故报告记录了 2026-09-29 10:08 前的服务检查与修复后 E2E；没有更晚的 Live Regression Audit 结果。因此 **CURRENT LIVE AVAILABILITY: PENDING REVALIDATION**。历史 E2E PASS 只代表对应验收时点，不推出此后持续可用。
+
+## 阶段二十：前端第一轮稳定流程与页面审计
+
+**日期：** 2026-10-01。**分支：** `feature/frontend-redesign-phase5`。**开发起点：** `008c81e8d0545c32f59d16890ea987f59614c87c`。本阶段为此分支的本地实现和验收，未合并、推送或部署。
+
+**交付提交：** `0a93c7dfcb2c22070337ed20264467e4e0079716`（会话/请求隔离、错误归一化、Case/Viewer 恢复）；`8447f7b5246d8e146e176b09f872f9bd958f7a32`（Job 失败说明、Result 图层恢复）；`9dbdf6372c4b33571a47a0a99adbaa6ff2ce9d14`（本地浏览器验收工具、审计、草图）。
+
+**实现：** 退出、401 与账号切换清空业务缓存并阻止迟到请求写回；病例切换取消影像取回并核对上传/任务响应；统一安全中文错误提示；FAILED 独立呈现，查询失败保留最近状态；影像/热图局部重试与几何门控。保持既有 API 和本轮页面布局，没有 Backend、Gateway、Worker、部署或 FrozenBaseline 变更。
+
+**验收：** 独立本机锁定依赖安装，Node 24.19.0。原基线 36/36 测试与 build 通过；修改后 72/72、13 个 spec 文件及 TypeScript/Vite build 通过。本地 Edge 合成 API 拦截验收 13 场景通过、0 page error；实际执行 Cornerstone 解码/渲染。非方形、旋转及不同像素间距的 6 组几何测量最大误差 0.3031 CSS px。该结果不是线上账号或 GPU 推理验收。
+
+**范围收敛：** 初次交付因用户限定仅改 frontend，根工程记录检查实际 FAIL，记录先存于 frontend/docs。用户随后授权审查所有必要目录，本次追加根日志并重新检查。保留初次 FAIL 的历史事实，不修改检查器。
+
+**仍开放：** 真实授权账号浏览器链路与 GPU 节点恢复后的推理 E2E；下一轮视觉重构、性能/依赖评估。历史 CPU/GPU 数值一致性 FAIL / OPEN 不变。
+
+**证据：** `frontend/docs/FIRST_ROUND_AUDIT.md`、`frontend/geometry-qa/first-round-browser.mjs`、`frontend/src/tests/`；本机交付目录 `outputs/frontend-qa/browser-acceptance.json` 及截图。线上版本先前核实为 `4e38fd32765e7c69ae0b7389cb91fe057c938472`，本次没有切换版本。
+
+**本阶段后续审查补录：** 扩大必要目录审查后发现跨标签页身份通知和 Cornerstone 解码/自然化数据缓存释放缺口，已补修。最终 Node 24 回归 81/81（14 spec）与 build 通过；本地浏览器 15 场景、0 page error，新增双标签页及真实 image/NATURALIZED cache 卸载断言，6 组几何继续通过。根目录文档门禁与 diff 检查现 PASS。真实账号/GPU/部署边界不变，详见前端审计报告补录。

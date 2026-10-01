@@ -161,6 +161,7 @@ watch([() => props.file, decodeAttempt], async ([file]) => {
   try {
     const core = await import('@cornerstonejs/core')
     const dicom = await import('@cornerstonejs/dicom-image-loader')
+    const metadata = await import('@cornerstonejs/metadata')
     if (ownGeneration !== generation) return
     if (!loaderInitialized) {
       core.init()
@@ -169,7 +170,30 @@ watch([() => props.file, decodeAttempt], async ([file]) => {
     }
     const imageId = dicom.wadouri.fileManager.add(file)
     const fileIndex = Number(imageId.split(':')[1])
-    const engine = new core.RenderingEngine(`epilocate-viewer-${crypto.randomUUID()}`)
+    const datasetUri = String(fileIndex)
+    let disposed = false
+    let engine: InstanceType<typeof core.RenderingEngine> | undefined
+    const releaseOwnedCache = () => {
+      if (core.cache.getImageLoadObject(imageId)) core.cache.removeImageLoadObject(imageId, { force: true })
+      // A load removed before its dataset finishes may not yet have a decache hook.
+      if (dicom.wadouri.dataSetCacheManager.isLoaded(datasetUri)) dicom.wadouri.dataSetCacheManager.unload(datasetUri)
+      // The default loader stores naturalized DICOM (including pixel data) separately.
+      // clearQuery also removes this image's pending-add and derived metadata caches.
+      metadata.metaData.clearQuery(metadata.Enums.MetadataModules.NATURALIZED, imageId)
+    }
+    const releaseResources = () => {
+      if (disposed) return
+      disposed = true
+      const pendingImage = core.cache.getImageLoadObject(imageId)?.promise
+      // Renderer teardown cannot cancel every worker decode; release late datasets too.
+      if (pendingImage) void pendingImage.then(releaseOwnedCache, releaseOwnedCache)
+      try { engine?.destroy() } finally {
+        releaseOwnedCache()
+        dicom.wadouri.fileManager.remove(fileIndex)
+      }
+    }
+    cleanup = releaseResources
+    engine = new core.RenderingEngine(`epilocate-viewer-${crypto.randomUUID()}`)
     const viewportId = 'single-slice'
     const element = viewportElement.value
     engine.enableElement({ viewportId, type: core.Enums.ViewportType.STACK, element })
@@ -203,7 +227,7 @@ watch([() => props.file, decodeAttempt], async ([file]) => {
     element.addEventListener('wheel', wheel, { passive: false })
     element.addEventListener(core.Enums.Events.CAMERA_MODIFIED, onCameraModified)
     element.addEventListener(core.Enums.Events.IMAGE_RENDERED, scheduleOverlay)
-    const observer = new ResizeObserver(() => { engine.resize(); scheduleOverlay() })
+    const observer = new ResizeObserver(() => { engine?.resize(); scheduleOverlay() })
     observer.observe(element)
     cleanup = () => {
       observer.disconnect()
@@ -216,13 +240,14 @@ watch([() => props.file, decodeAttempt], async ([file]) => {
       element.removeEventListener(core.Enums.Events.IMAGE_RENDERED, scheduleOverlay)
       if (frame) cancelAnimationFrame(frame)
       frame = 0
-      engine.destroy()
-      dicom.wadouri.fileManager.remove(fileIndex)
+      releaseResources()
     }
     let timeoutId: ReturnType<typeof setTimeout> | undefined
     try {
+      const decoding = viewport.setStack([imageId])
+      void decoding.then(() => { if (disposed) releaseOwnedCache() }, () => { if (disposed) releaseOwnedCache() })
       await Promise.race([
-        viewport.setStack([imageId]),
+        decoding,
         new Promise<never>((_, reject) => {
           timeoutId = setTimeout(() => reject(new Error('DICOM decode timed out')), 15000)
         }),

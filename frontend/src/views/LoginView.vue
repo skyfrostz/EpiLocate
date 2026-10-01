@@ -34,10 +34,10 @@ const busy = ref(false)
 async function submit() {
   busy.value = true
   error.value = ''
+  const next = typeof route.query.next === 'string' && route.query.next.startsWith('/') && !route.query.next.startsWith('//')
+    && !route.query.next.startsWith('/login') ? route.query.next : '/'
   try {
     await login(username.value, password.value)
-    const next = typeof route.query.next === 'string' && route.query.next.startsWith('/') && !route.query.next.startsWith('//')
-      ? route.query.next : '/'
     await router.replace(next)
   } catch (cause) {
     error.value = errorText(cause)

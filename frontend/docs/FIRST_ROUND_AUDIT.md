@@ -86,3 +86,14 @@
 - `0a93c7d`：会话与请求隔离、统一错误、Case/Viewer 状态及回归测试。
 - `8447f7b`：失败任务说明、Result 图层与资产恢复及回归测试。
 - 浏览器复验工具、审计及草图另作一个交付提交。
+
+## 授权扩大后的合并前审查补录
+
+用户授权审查所有必要目录后，核对实际 Gateway Cookie/身份行为、Backend 错误与 Job 契约及 Cornerstone 依赖实现。未发现本轮引入的接口契约破坏；发现并补修两处隔离遗漏：
+
+1. 跨标签页共用 Cookie，但旧标签页的身份和 store 独立。增加仅携带随机失效 nonce 的 storage 通知；登录/退出时广播，接收方立即清缓存并重新 GET session。focus 与持久 pageshow 重新校验，普通恢复事件不抢占正在进行的登录/退出；检查中阻止业务请求，失效通知和检查失败不互相循环广播。
+2. Viewer 销毁 renderer 与删除 fileManager 条目不足以释放底层解码数据。按所属 imageId 清理 core image cache、wadouri dataset 及 NATURALIZED metadata；对迟到解码重复释放，不全局 purge 其他 Viewer 或终止共享 Worker。
+
+最终回归 **81/81（14 spec）通过、build 通过**；浏览器 **15 场景通过、0 page error**。新增真实同 context 双标签页切换验收，以及真实 Cornerstone 卸载前存在/卸载后为空的解码像素和自然化 metadata 断言（两种影像）。6 组几何测量继续通过。原 13 张页面截图已更新。
+
+根目录两份工程日志已补录；原基线至当前工作区的文档门禁现为 **PASS**，`git diff --check` 通过。首次 FAIL 的历史记录保留，本次范围例外已解决。真实账号、线上上传/GPU E2E、发布仍待负责人安排。通知存储不可用时依赖窗口恢复重新校验；浏览器共享 Cookie 同时只支持一个账号身份，不提供多账号并行会话。

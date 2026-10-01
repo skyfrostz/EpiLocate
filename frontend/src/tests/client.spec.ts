@@ -1,5 +1,8 @@
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ApiClient, ApiRequestError } from '../api/client'
+import { clearSession } from '../auth/session'
+
+beforeEach(() => { clearSession(false) })
 
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
   status, headers: { 'Content-Type': 'application/json' },

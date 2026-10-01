@@ -6,6 +6,7 @@
 import '/src/style.css'
 import { createApp, h, ref } from 'vue'
 import * as cornerstone from '@cornerstonejs/core'
+import { metaData, Enums as MetadataEnums } from '@cornerstonejs/metadata'
 import Viewer from '/src/viewer/CornerstoneSliceViewer.vue'
 const oriented = new URLSearchParams(location.search).has('oriented')
 const name = oriented ? 'geometry_synthetic_oriented_ct.dcm' : 'geometry_synthetic_ct.dcm'
@@ -23,10 +24,10 @@ const layer = { asset_id: 'geometry-markers.png', layer_kind: 'CANDIDATE_RESPONS
   origin: 'TOP_LEFT_PIXEL_EDGE', x_axis: 'RIGHT', y_axis: 'DOWN', display_interpolation_only: true }
 const overlay = { url: raster.toDataURL('image/png'), sliceId: 'slice_geometry', layer,
   geometry: { rawWidth: 112, rawHeight: 80, modelWidth: 224, modelHeight: 224, rasterWidth: 224, rasterHeight: 224 } }
-createApp({ setup() {
+const fixtureApp = createApp({ setup() {
   const enabled = ref(true)
   const opacity = ref(0.8)
-  window.__geometryFixture = { cornerstone, enabled, opacity }
+  window.__geometryFixture = { cornerstone, metaData, MetadataEnums, enabled, opacity, unmount: () => fixtureApp.unmount() }
   return () => h('div', [
     h('button', { onClick: () => enabled.value = !enabled.value }, 'toggle'),
     h('input', { type: 'range', min: 0, max: 1, step: 0.1, value: opacity.value,
@@ -34,5 +35,6 @@ createApp({ setup() {
     h(Viewer, { file, sliceId: 'slice_geometry', sliceWidth: 112, sliceHeight: 80,
       overlay, overlayVisible: enabled.value, overlayOpacity: opacity.value }),
   ])
-} }).mount('#app')
+} })
+fixtureApp.mount('#app')
 </script></body></html>

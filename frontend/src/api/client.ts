@@ -34,6 +34,7 @@ export class ApiClient {
   }
 
   private async send(path: string, init: RequestInit = {}): Promise<Response> {
+    if (!auth.loaded) throw new ApiRequestError(0, 'SESSION_CHANGED', '正在确认登录状态，请稍后重新操作。', false, null)
     const epoch = sessionEpoch.value
     const timeout = AbortSignal.timeout(this.timeoutMs)
     const signal = init.signal ? AbortSignal.any([init.signal, timeout]) : timeout
