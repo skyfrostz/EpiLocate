@@ -27,13 +27,13 @@
           <div v-if="selectedSummary" class="scale-metrics">
             <span>中位绝对概率变化 <strong>{{ formatPercent(selectedSummary.median_absolute_probability_change) }}</strong></span>
             <span>翻转比例 <strong>{{ formatPercent(selectedSummary.flip_rate) }}</strong></span>
-            <span>候选响应 <strong>{{ selectedSummary.candidate_status === 'valid' ? '有效模型响应' : '正响应不足' }}</strong></span>
+            <span>候选响应 <strong>{{ selectedSummary.candidate_status === 'valid' ? '有效模型响应' : selectedSummary.candidate_status === 'insufficient_positive_response' ? '正响应不足' : '候选状态不可用' }}</strong></span>
           </div>
           <div class="heatmap-frame">
-            <p v-if="results.assetError || imageError" class="notice notice-error" role="alert">{{ results.assetError ?? imageError }}</p>
+            <div v-if="results.assetError || imageError"><p class="notice notice-error" role="alert">{{ results.assetError ?? imageError }}</p><button v-if="selectedLayer" class="recovery-action" type="button" @click="retryAsset">重试读取图层</button></div>
             <p v-else-if="results.assetLoading" role="status">正在读取授权图层…</p>
-            <img v-else-if="results.assetUrl && selectedLayer && !imageError" :src="results.assetUrl" :alt="`${selectedLayerLabel}，模型决策响应，不是病灶标注`" @load="checkImage" @error="imageError = '响应图无法解码。'; imageReady = false" />
-            <p v-else>{{ result.kind === 'PREDICTION' ? '分类结果没有响应图资产。' : '当前尺度或图层没有可显示的资产。' }}</p>
+            <img v-else-if="results.assetUrl && selectedLayer && !imageError" :key="results.assetUrl" :src="results.assetUrl" :alt="`${selectedLayerLabel}，模型决策响应，不是病灶标注`" @load="checkImage" @error="checkImageError" />
+            <p v-else>{{ result.kind === 'PREDICTION' ? '分类结果没有响应图资产。' : '当前尺度或图层未提供图层资产。' }}</p>
           </div>
           <p v-if="selectedLayer" class="asset-caption">{{ selectedLayerLabel }} · {{ selectedLayer.coordinate_space }} · {{ selectedLayer.width }} × {{ selectedLayer.height }} px</p>
           <p v-if="selectedLayer?.layer_kind === 'COMPARISON_GRID'" class="viewer-note">14×14 区域平均图；放大仅用于显示，不增加空间分辨率。</p>
@@ -47,7 +47,7 @@
             <label><input v-model="overlayVisible" type="checkbox" :disabled="!geometryGate?.ok || !imageReady" /> 显示叠加</label>
             <label>透明度 <input v-model.number="overlayOpacity" type="range" min="0" max="1" step="0.05" :disabled="!geometryGate?.ok || !imageReady" /> {{ Math.round(overlayOpacity * 100) }}%</label>
           </div>
-          <CornerstoneSliceViewer :file="dicomFile" :slice-id="result.slice_id" :slice-width="currentSlice?.width_px ?? null" :slice-height="currentSlice?.height_px ?? null" :overlay="viewerOverlay" :overlay-visible="overlayVisible" :overlay-opacity="overlayOpacity" :initial-view="viewState" @camera-changed="viewState = $event" />
+          <CornerstoneSliceViewer :file="dicomFile" :slice-id="result.slice_id" :slice-width="currentSlice?.width_px ?? null" :slice-height="currentSlice?.height_px ?? null" :overlay="viewerOverlay" :overlay-visible="overlayVisible" :overlay-opacity="overlayOpacity" :initial-view="viewState" :input-state="ctState" :input-message="ctError" @retry="loadCt" @camera-changed="viewState = $event" />
           <p class="viewer-note">仅当原始 DICOM 摘要、版本、Slice、资产清单及画布映射全部通过校验时才绘制叠加。独立图层始终保留。</p>
         </div>
         <div class="content-card model-card">
@@ -72,9 +72,10 @@
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { apiClient } from '../api/client'
+import { ApiRequestError, errorText } from '../api/errors'
+import { sessionEpoch } from '../auth/lifecycle'
 import type { CaseDetail, HeatmapLayer, SliceRecord } from '../api/types'
 import { formatPercent } from '../format'
-import { errorText } from '../stores/cases'
 import { useResultStore } from '../stores/results'
 import CornerstoneSliceViewer from '../viewer/CornerstoneSliceViewer.vue'
 import { resolveOverlayGeometry, type ViewerCameraState, type ViewerOverlayInput } from '../viewer/geometry'
@@ -112,7 +113,9 @@ const dicomFile = ref<File | null>(null)
 const dicomSha256 = ref<string | null>(null)
 const ctLoading = ref(false)
 const ctError = ref<string | null>(null)
+const ctState = ref<'empty' | 'loading' | 'ready' | 'expired' | 'error'>('empty')
 let ctGeneration = 0
+let ctController: AbortController | null = null
 
 const layerOptions: Array<{ kind: HeatmapLayer['layer_kind']; label: string }> = [
   { kind: 'CANDIDATE_RESPONSE', label: '响应图' },
@@ -139,42 +142,56 @@ const viewerOverlay = computed<ViewerOverlayInput | null>(() =>
         layer: selectedLayer.value, geometry: geometryGate.value.geometry } : null)
 
 watch(resultId, id => { void results.loadResult(id) }, { immediate: true })
-watch(result, async value => {
+async function loadCt() {
+  const value = result.value
+  ctController?.abort()
+  const controller = new AbortController()
+  ctController = controller
   const ownGeneration = ++ctGeneration
+  const ownEpoch = sessionEpoch.value
   caseDetail.value = null
   dicomFile.value = null
   dicomSha256.value = null
   ctError.value = null
   ctLoading.value = Boolean(value)
+  ctState.value = value ? 'loading' : 'empty'
   if (!value) return
-  const preferences = readPreferences(value.result_id)
-  selectedScale.value = preferences && value.scale_summaries.some(item => item.block_size === preferences.scale)
-    ? preferences.scale : value.scale_summaries[0]?.block_size ?? 16
-  selectedLayerKind.value = preferences?.layer ?? 'CANDIDATE_RESPONSE'
-  overlayVisible.value = preferences?.visible ?? false
-  overlayOpacity.value = preferences?.opacity ?? 0.5
-  viewState.value = preferences?.view ?? null
   try {
     const [detail, blob] = await Promise.all([
-      apiClient.getCase(value.case_id), apiClient.getCaseDicom(value.case_id),
+      apiClient.getCase(value.case_id, controller.signal), apiClient.getCaseDicom(value.case_id, controller.signal),
     ])
-    if (ownGeneration !== ctGeneration) return
+    if (ownGeneration !== ctGeneration || ownEpoch !== sessionEpoch.value) return
     const digest = await crypto.subtle.digest('SHA-256', await blob.arrayBuffer())
-    if (ownGeneration !== ctGeneration) return
+    if (ownGeneration !== ctGeneration || ownEpoch !== sessionEpoch.value) return
     const hash = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('')
-    if (hash !== value.provenance.input_sha256) throw new Error('DICOM SHA-256 与 Result provenance 不一致。')
+    if (hash !== String(value.provenance.input_sha256 ?? '').toLowerCase()) throw new Error('DICOM SHA-256 与 Result provenance 不一致。')
     caseDetail.value = detail
     dicomSha256.value = hash
     dicomFile.value = new File([blob], 'authorized-slice.dcm', { type: 'application/dicom' })
+    ctState.value = 'ready'
   } catch (cause) {
-    if (ownGeneration === ctGeneration) ctError.value = cause instanceof Error && cause.message.includes('SHA-256')
-      ? cause.message : errorText(cause)
+    if (ownGeneration === ctGeneration && ownEpoch === sessionEpoch.value && !controller.signal.aborted) {
+      ctError.value = cause instanceof Error && cause.message.includes('SHA-256') ? cause.message : errorText(cause)
+      ctState.value = cause instanceof ApiRequestError && cause.status === 410 ? 'expired' : 'error'
+    }
   } finally {
     if (ownGeneration === ctGeneration) ctLoading.value = false
   }
+}
+watch(result, value => {
+  if (value) {
+    const preferences = readPreferences(value.result_id)
+    selectedScale.value = preferences && value.scale_summaries.some(item => item.block_size === preferences.scale)
+      ? preferences.scale : value.scale_summaries[0]?.block_size ?? 16
+    selectedLayerKind.value = preferences?.layer ?? 'CANDIDATE_RESPONSE'
+    overlayVisible.value = preferences?.visible ?? false
+    overlayOpacity.value = preferences?.opacity ?? 0.5
+    viewState.value = preferences?.view ?? null
+  }
+  void loadCt()
 })
 watch(selectedSummary, () => {
-  if (!layerFor(selectedLayerKind.value)) selectedLayerKind.value = 'CANDIDATE_RESPONSE'
+  if (!layerFor(selectedLayerKind.value)) selectedLayerKind.value = layerOptions.find(option => layerFor(option.kind))?.kind ?? 'CANDIDATE_RESPONSE'
 })
 watch([resultId, selectedScale, selectedLayerKind, overlayVisible, overlayOpacity, viewState], () => {
   if (!result.value) return
@@ -186,18 +203,56 @@ watch([resultId, selectedScale, selectedLayerKind, overlayVisible, overlayOpacit
   } catch { /* Browser storage may be unavailable; the current view remains usable. */ }
 })
 watch([result, selectedScale, selectedLayerKind], () => {
+  retryAsset()
+})
+function retryAsset() {
   imageError.value = null
   imageReady.value = false
   void results.loadAsset(selectedLayer.value)
-})
-onBeforeUnmount(() => { ctGeneration++; results.clear() })
+}
+function invalidateLocal() {
+  ctGeneration++
+  ctController?.abort()
+  ctController = null
+  caseDetail.value = null
+  dicomFile.value = null
+  dicomSha256.value = null
+  ctLoading.value = false
+  ctError.value = null
+  ctState.value = 'empty'
+  imageReady.value = false
+  imageError.value = null
+  overlayVisible.value = false
+  overlayOpacity.value = 0.5
+  viewState.value = null
+  selectedScale.value = 16
+  selectedLayerKind.value = 'CANDIDATE_RESPONSE'
+}
+watch(sessionEpoch, () => {
+  try {
+    for (let index = sessionStorage.length - 1; index >= 0; index--) {
+      const key = sessionStorage.key(index)
+      if (key?.startsWith('epilocate:fusion:')) sessionStorage.removeItem(key)
+    }
+  } catch { /* Storage can be unavailable. */ }
+  results.clear()
+  invalidateLocal()
+}, { flush: 'sync' })
+onBeforeUnmount(() => { invalidateLocal(); results.clear() })
 
 function checkImage(event: Event) {
   const image = event.target as HTMLImageElement
+  if (image.getAttribute('src') !== results.assetUrl || results.assetLoading || !result.value) return
   const layer = selectedLayer.value
   if (!layer || image.naturalWidth !== layer.width || image.naturalHeight !== layer.height) {
     imageError.value = '响应图尺寸与结果元数据不一致，已停止显示。'
     imageReady.value = false
   } else imageReady.value = true
+}
+function checkImageError(event: Event) {
+  const image = event.target as HTMLImageElement
+  if (image.getAttribute('src') !== results.assetUrl || !result.value) return
+  imageError.value = '响应图无法解码。'
+  imageReady.value = false
 }
 </script>
