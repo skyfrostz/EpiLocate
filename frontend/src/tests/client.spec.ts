@@ -1,8 +1,10 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { flushPromises } from '@vue/test-utils'
 import { ApiClient, ApiRequestError } from '../api/client'
 import { clearSession } from '../auth/session'
 
 beforeEach(() => { clearSession(false) })
+afterEach(() => { vi.restoreAllMocks() })
 
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
   status, headers: { 'Content-Type': 'application/json' },
@@ -66,6 +68,49 @@ describe('Backend API v2 client', () => {
     await expect(client.getJob('job_1')).rejects.toMatchObject({
       status: 0, code: 'NETWORK_UNAVAILABLE', retryable: true,
     } satisfies Partial<ApiRequestError>)
+  })
+
+
+  it.each(['json', 'dicom', 'asset'])('normalizes a %s body timeout after successful headers', async kind => {
+    const timeout = new AbortController()
+    vi.spyOn(AbortSignal, 'timeout').mockReturnValue(timeout.signal)
+    const response = new Response(null, { headers: { 'Content-Type': kind === 'json' ? 'application/json'
+      : kind === 'dicom' ? 'application/dicom' : 'image/png' } })
+    let rejectBody!: (error: unknown) => void
+    const body = new Promise<never>((_resolve, reject) => { rejectBody = reject })
+    if (kind === 'json') vi.spyOn(response, 'json').mockReturnValue(body)
+    else vi.spyOn(response, 'blob').mockReturnValue(body)
+    const fetcher = vi.fn(async () => response)
+    const client = new ApiClient({ fetcher })
+    const request = kind === 'json' ? client.getCase('case_1') : kind === 'dicom'
+      ? client.getCaseDicom('case_1') : client.getResultAsset('result_1', 'layer')
+    const rejected = expect(request).rejects.toMatchObject({ code: 'REQUEST_TIMEOUT', retryable: true })
+    await flushPromises()
+    const reason = new DOMException('timeout', 'TimeoutError')
+    timeout.abort(reason); rejectBody(reason)
+    await rejected
+    expect(fetcher).toHaveBeenCalledTimes(1)
+  })
+
+  it('preserves caller cancellation during body consumption', async () => {
+    const abort = new AbortController()
+    const response = json({})
+    let rejectBody!: (error: unknown) => void
+    vi.spyOn(response, 'json').mockReturnValue(new Promise((_resolve, reject) => { rejectBody = reject }))
+    const request = new ApiClient({ fetcher: vi.fn(async () => response) }).getCase('case_1', abort.signal)
+    const rejected = expect(request).rejects.toMatchObject({ name: 'AbortError' })
+    await flushPromises()
+    abort.abort(); rejectBody(abort.signal.reason)
+    await rejected
+  })
+
+  it('keeps malformed JSON distinct from interrupted body transfer', async () => {
+    const malformed = new ApiClient({ fetcher: vi.fn(async () => new Response('{', { headers: { 'Content-Type': 'application/json' } })) })
+    await expect(malformed.getCase('case_1')).rejects.toMatchObject({ code: 'INVALID_RESPONSE', retryable: false })
+    const interrupted = json({})
+    vi.spyOn(interrupted, 'json').mockRejectedValue(new TypeError('terminated'))
+    await expect(new ApiClient({ fetcher: vi.fn(async () => interrupted) }).getCase('case_1'))
+      .rejects.toMatchObject({ code: 'NETWORK_UNAVAILABLE', retryable: true })
   })
 
   it('rejects a success page that is not JSON', async () => {

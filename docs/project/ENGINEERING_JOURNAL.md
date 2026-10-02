@@ -1270,3 +1270,48 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **边界：** 无新增接口/部署模板/后端/算法变更；真实账号和GPU E2E仍未实测。发布结果将在操作完成后补录。报告frontend/docs/SECOND_ROUND_REPORT.md。
 
 **本轮实际发布：** 2026-10-02，应用 `988328f53c44a1542e95707951163a14d7b9eb05` GitHub普通push并核对。扫描673objects/507blobs无阻断；固定frontend归档SHA256核对，服务器Node24.21.0锁定安装、85/85测试15spec及/mvp/构建PASS。准备脚本初次CRLF在开始时退出，转LF后重跑通过，失败时未切换线上。Nginx配置备份/检查/reload与资源字节核对PASS，仅改前端root，控制平面current保持4e38fd，四项服务active。外部Edge新版登录桌面/手机、保护跳转、键盘、无横向溢出PASS，0page error/资源失败。mvp200、无Cookie身份/病例401、Welcome200；Review斜杠307/无斜杠401与上一轮303证据不同，仅记录，不改此应用。真实账号/GPU未验收。旧目录/hashed assets与nginx-before.conf保留；报告及本机发布JSON补录，文档提交不改变应用SHA。
+
+### 2026-10-02｜云端工作区恢复：UI阶段
+
+**负责人/分支/起点：** dot；独立`EpiLocate-mvp-recovery`，`dot/mvp-recovery-20261002`，固定`2be89143a8abccb3c3896a8f53633e490cf79b28`。原`EpiLocate-mvp-design`与旧Git对象在环境替换后确认为空，不是git reset或产品代码故障；此前未备份，无法恢复原SHA。
+**完成：** 根据会话保留的完整文件创建/修改脚本恢复CaseCollection、Dashboard/Cases/Result、workspace.css与7项UI回归。不声称逐字节复原旧提交。代码、模型、患者资料、GPU与冻结边界不扩展。
+**新验证：** Node24.19.0锁定安装；92/92 tests（16spec），TypeScript+/mvp build通过；旧warning保留，无独立lint配置。新环境证据日志将与自包含bundle/format-patch一起持久化。文档/差异检查按固定base执行。
+**边界：** 未push/部署；接口与后端恢复独立进行并需要重新集成/审核/测试。遵循用户先不截图，不操作Mac或另行发布预览；实际视觉与真实E2E仍未验。
+
+**恢复轮前端接口集成：** UI新提交`16998839301cc83e296f2d583cdd4dd782004d6b`；auth/client新提交`989485d2605d47c257482eb1bb99f8dc36f8e2a6`汇入为`572ccd376ec9660dd4aabb4cfcb81d87b8348165`。新环境111/111 tests（16spec）和TypeScript+/mvp build PASS。恢复本地合成浏览器QA模式/筛选/refresh/Back脚本并仅验语法，实际渲染仍未跑。前端阶段完整bundle（含祖先history）verify成功，连同patch/测试日志/HEAD/校验清单已持久化用户私有Library。旧未发布对象仍不可读取，不把此次新提交写成旧提交复原。
+
+### 2026-10-02｜Backend 幂等 Job 重放修复重建与重新验证
+
+**类型 / 执行者：** Backend / QA / 文档；Codex 按本轮修复及恢复授权实施。
+**来源 / 工作树：** GitHub `skyfrostz/EpiLocate` 的固定基线 `2be89143a8abccb3c3896a8f53633e490cf79b28`；独立 `/workspace/scratch/83af3b968556/EpiLocate-job-replay-recovery`，分支 `fix/job-replay-recovery`，开始时 tracked/untracked/ignored 均为空。
+**新实现提交：** `657a758fc5084343e43f7f2421b0f9dde1ba6cd4`。云端工作区替换导致此前未发布 Git 对象不可用，本轮依据可见实现及审查记录重新构建，不宣称与丢失对象逐字节相同，不沿用旧提交作为新验证证据。
+**发现与实现：** 原 `create_job` 在检索幂等键前先检查输入有效期及当前 ACTIVE 模型，已接受但响应丢失的请求在输入到期/清理、模型退役/替换后无法取回原 Job。现在保持 owner、非 DELETING Case、Slice 归属校验，按同用户旧键使用 Job 的固定模型版本及原请求协议核对参数、输入 SHA 和模型完整摘要，再返回原 Job，不改状态或重新派单；新键仍需有效输入及 ACTIVE 模型，变更请求返回 409，不可见资源保持 404。包含此前独立审查指出的空协议边界：仅 Prediction 的省略协议允许默认值，Occlusion 显式空协议为变更内容，必须拒绝。
+**新测试证据：** Python 3.12，隔离 `/tmp/epilocate-replay-recovery-venv`，仅安装 `backend_v2/requirements.txt` 的常规 CPU 依赖。原基线加新增重放测试：8 failed / 38 deselected；恢复修复版，`/tmp/epilocate-replay-recovery-venv/bin/python -m pytest -q -ra backend_v2/tests tests/test_project_documentation.py` 得到 **63 passed / 2 skipped**（后端 60 passed，其中新增 46 项；文档 3 passed）。新增范围含 Prediction/Occlusion、输入到期与清理函数、模型退役与替换、七类 payload 变更、跨用户键隔离、DELETING/错误 Slice、输入/模型摘要变化、非法新参数；一项 Starlette TestClient/httpx 弃用 warning 保留。
+**边界：** 两个跳过分别需要 PostgreSQL/MinIO 配置与固定 Worker/冻结模型运行环境；无 Python 缺依赖阻断。SQLite HTTP 回归不是 PostgreSQL 并发、真实账号、生产、GPU 或临床验收。未改研究、GPU、冻结、Worker、frontend、部署；未 push/merge。CPU/GPU 数值门槛仍 OPEN。新提交交主任务集成，并生成完整补丁及增量 Git bundle 的私有恢复包；包的持久保存状态需以实际上传结果为准。
+
+### 2026-10-02｜恢复版前后端集成与重新验收
+
+**代码集成点：** `dot/mvp-recovery-20261002` @ `25f1cdfc38eda96af3b813ad35bcb655b0a99926`。新前端审查点`d67cc020350a6c601b206861e900da8c03554c70`与后端审查点`877573ed2e5c70294b60c662df0a527593541c95`已组合，逐路径代码diff均为空。仅双日志追加处冲突，保留双方小节；无代码冲突。
+**新独立审查及集成复跑：** 前端111/111（16spec）、后端及文档63 passed/2 skipped（60+3），TypeScript+/mvp build、文档范围检查、diff-check、浏览器QA脚本语法通过。独立review重新看新实现和测试，不沿用旧批准。外部PostgreSQL/MinIO和冻结Worker两环境测试未配；实际浏览器/真实GPU E2E仍未跑。
+**交付与差异：** UI/业务行为没有有意偏离旧方案，但旧对象不可读，没有字节相等证明；本轮新写恢复报告并保存完整bundle/patch/新日志/校验清单到用户私有Library。前端阶段已验证bundle离线clone SHA与base上patch重放tree一致；最终整包再次验证。新SHA未push、未主线merge、未部署，需新审核后再决定发布。详见`frontend/docs/RECOVERY_20261002.md`。
+
+### 2026-10-02｜Result 原始影像错误优先级修复
+
+**分支/起点：** `dot/result-input-error-priority-20261002`，独立补丁，起点`d6e2690b501b645d5be8b323e107c90c703654ab`。原恢复仓库仍可读，未进行重建。
+**问题与原因：** Mac Chrome合成API验收发现DICOM 410时既显示到期原因，又因caseDetail尚为空而出现“病例与结果不一致”。几何函数按缺失数据保守拒绝叠加没有错误；问题是输入尚不可用时把派生拒绝原因当作独立错误呈现。
+**最小修复：** 仅在CT输入状态ready时显示几何拒绝原因；loading/expired/error优先保留实际输入状态和原因。未修改几何函数、像素坐标/版本/来源门控、叠加控制禁用、独立图层加载、API或模型。真实输入成功但case不匹配时仍显示几何错误。
+**验证：** 新增4项回归在修改前全部失败，修改后全量115/115（16spec）、TypeScript+/mvp build通过。覆盖410、网络错误、加载后真实case mismatch、过期后成功重新读取，并断言独立热图DOM保留和不可用叠加禁用。使用jsdom和viewer stub，不代替浏览器解码/几何验收。原codec/bundle警告保留；无独立lint配置。
+**边界：** 焦点闪屏、loader初始化与性能问题本提交不处理，待固定viewport正常硬件测量；不猜测根因。未push/merge主线/部署；补丁与完整bundle将私有持久化，再交新审核/浏览器复验。
+
+### 2026-10-02｜被动会话核验保留布局与隐私遮蔽
+
+**分支/基线：** `dot/passive-session-layout-20261002`，`c565b7f3a323fc583faac13dac8aeb497c11f24b`。Mac正常硬件固定viewport的合成focus及受控延迟证实旧display:none对应stage/overlay归零；主CT canvas保持，不能扩大为camera重置、原生focus已复现或通用性能根因。
+**实现：** App被动核验改为保留DOM/布局，祖先立即opacity0+inert+aria-hidden+pointer-events:none，fixed不透明核验层不占文档流；初始未知/明确失效仍硬加载。增加AppShell全局导航键verifying guard，避免inert外的window监听器修改隐藏菜单。session/API/CSRF/epoch/网络频率、viewer/module init/RO/几何/模型均不改。
+**验证：** 4项呈现期望先在旧代码失败；隐藏菜单Escape回归也先失败。修复后120/120 tests16spec、TypeScript+/mvp build、QA脚本语法通过；独立源码安全review无阻断。detached jsdom曾返回过时computed opacity，改正常body附着fixture复验。没有把DOM测试称真实布局测量；新脚本供Mac测量至少5秒synthetic核验中/恢复后的尺寸、隐私与手机键盘行为。
+**边界/交付：** 保留严格身份未知时的即时遮蔽，不承诺完全无视觉切换。此新提交仍需真实浏览器复验；未push/部署。独立补丁、完整bundle、测试和恢复日志私有备份；详见`frontend/docs/PASSIVE_VERIFICATION_LAYOUT_20261002.md`。
+
+### 2026-10-02｜移动导航恢复焦点最小修复
+**执行：** dot；worktree `EpiLocate-mvp-recovery`，分支 `dot/mobile-navigation-focus-20261002`，起点 `eb8f6f85152861e673efd8816f1e5f198e01477c`。提交SHA由交付包HEAD及Git记录定位。
+**原因/变更：** 原watch仅监听菜单开关，核验解除后没有焦点锚点；Tab trap只判断首/尾，BODY等外部焦点没有兜底。改watch open/verifying并在nextTick后检查当前身份、epoch、节点连接和document.hasFocus；已在有效菜单项上的焦点保留，外部焦点恢复首项。Tab外部双向兜底，禁用按钮及显式tabindex=-1不参与。后台页面不强行focus，正常页面焦点触发核验完成后再恢复。
+**回归：** 新4项在旧AppShell全部失败；修复后全量124/124（16spec）及VITE_PUBLIC_BASE=/mvp/ TypeScript/Vite构建通过。覆盖核验后BODY恢复、已有效焦点保留、后台不抢焦点及再次聚焦核验、双向外部Tab与首尾wrap。现有隐藏期间禁键、401/换号/CSRF及其他业务测试继续通过。没有独立lint配置，保留既有codec与bundle警告。
+**边界：** 本次只改AppShell及测试/双日志；auth、API、App布局、viewer/RO/初始化及后端不变。Mac反馈用作问题线索，本次云端未运行真实浏览器。待独立审查、完整bundle/patch恢复验证与私有Library保存后，交Mac复验；尚未push或部署。

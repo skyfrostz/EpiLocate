@@ -8,6 +8,7 @@ const FUSION_KEY_PREFIX = 'epilocate:fusion:'
 const SESSION_ACCOUNT_KEY = 'epilocate:session-account'
 let requestGeneration = 0
 let activeMutation: number | null = null
+let passiveVerification: Promise<boolean> | null = null
 let sessionRead: { generation: number; epoch: number; promise: Promise<boolean> } | null = null
 
 function clearFusionPreferences() {
@@ -19,13 +20,15 @@ function clearFusionPreferences() {
   } catch { /* Session storage may be unavailable; server authorization still applies. */ }
 }
 
-export const auth = reactive<{ username: string | null; csrfToken: string | null; loaded: boolean; error: string | null }>({
-  username: null, csrfToken: null, loaded: false, error: null,
+export const auth = reactive<{ username: string | null; csrfToken: string | null; loaded: boolean; verifying: boolean; error: string | null }>({
+  username: null, csrfToken: null, loaded: false, verifying: false, error: null,
 })
 
 export function clearSession(broadcast = true) {
   requestGeneration++
   activeMutation = null
+  passiveVerification = null
+  auth.verifying = false
   clearFusionPreferences()
   try { sessionStorage.removeItem(SESSION_ACCOUNT_KEY) } catch { /* Storage may be unavailable. */ }
   auth.username = null
@@ -37,7 +40,8 @@ export function clearSession(broadcast = true) {
 }
 
 function accept(payload: SessionPayload) {
-  const identityChanged = auth.username !== payload.username
+  const identityChanged = auth.username !== payload.username || auth.csrfToken !== payload.csrf_token
+  if (identityChanged && auth.username !== null) clearFusionPreferences()
   try {
     if (sessionStorage.getItem(SESSION_ACCOUNT_KEY) !== payload.username) clearFusionPreferences()
     sessionStorage.setItem(SESSION_ACCOUNT_KEY, payload.username)
@@ -66,8 +70,8 @@ function sessionChanged() {
 }
 
 export function loadSession(force = false): Promise<boolean> {
-  if (auth.loaded && !force) return Promise.resolve(auth.username !== null)
   if (sessionRead?.generation === requestGeneration && sessionRead.epoch === sessionEpoch.value) return sessionRead.promise
+  if (auth.loaded && !force) return Promise.resolve(auth.username !== null)
   const ownRequest = ++requestGeneration
   const epoch = sessionEpoch.value
   const promise = readSession(ownRequest, epoch)
@@ -77,7 +81,7 @@ export function loadSession(force = false): Promise<boolean> {
 }
 async function readSession(ownRequest: number, epoch: number): Promise<boolean> {
   try {
-    const response = await fetch('/auth/session', { credentials: 'include', cache: 'no-store' })
+    const response = await fetch('/auth/session', { credentials: 'include', cache: 'no-store', signal: AbortSignal.timeout(15000) })
     if (ownRequest !== requestGeneration || !isSessionCurrent(epoch)) return auth.username !== null
     if (!response.ok) {
       clearSession(false)
@@ -96,12 +100,31 @@ async function readSession(ownRequest: number, epoch: number): Promise<boolean> 
   }
 }
 
-/** Hide old identity and stop its requests before resolving the shared Cookie again. */
+/** Hold dispatch and response acceptance while a passive Cookie check is pending. */
+export async function waitForSessionVerification(): Promise<void> {
+  while (passiveVerification) await passiveVerification
+}
+
+/** Explicit notices invalidate immediately; passive focus preserves an unchanged session. */
 async function refreshSharedSession(external = false) {
-  if (!external && (activeMutation !== null || !auth.loaded)) return
-  clearSession(false)
-  auth.loaded = false
-  await loadSession(true)
+  if (external) {
+    clearSession(false)
+    auth.loaded = false
+    await loadSession(true)
+    return
+  }
+  if (activeMutation !== null || !auth.loaded || passiveVerification) return
+  auth.verifying = true
+  const pending = loadSession(true)
+  passiveVerification = pending
+  try {
+    await pending
+  } finally {
+    if (passiveVerification === pending) {
+      passiveVerification = null
+      auth.verifying = false
+    }
+  }
 }
 export function startSessionSync() {
   return listenForSessionInvalidation(() => { void refreshSharedSession(true) }, () => { void refreshSharedSession() })

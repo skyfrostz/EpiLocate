@@ -9,7 +9,7 @@ import type {
   ResultRecord,
   UploadedCase,
 } from './types'
-import { auth, clearSession } from '../auth/session'
+import { auth, clearSession, waitForSessionVerification } from '../auth/session'
 import { isSessionCurrent, sessionEpoch } from '../auth/lifecycle'
 import { ApiRequestError, normalizeApiError } from './errors'
 export { ApiRequestError } from './errors'
@@ -22,10 +22,16 @@ export interface ApiClientOptions {
   timeoutMs?: number
 }
 
+interface ResponseContext {
+  timeout: AbortSignal
+  callerSignal?: AbortSignal | null
+}
+
 export class ApiClient {
   private readonly baseUrl: string
   private readonly fetcher: typeof fetch
   private readonly timeoutMs: number
+  private readonly responseContexts = new WeakMap<Response, ResponseContext>()
 
   constructor(options: ApiClientOptions = {}) {
     this.baseUrl = (options.baseUrl ?? import.meta.env.VITE_API_BASE_URL ?? DEFAULT_BASE).replace(/\/$/, '')
@@ -36,6 +42,8 @@ export class ApiClient {
   private async send(path: string, init: RequestInit = {}): Promise<Response> {
     if (!auth.loaded) throw new ApiRequestError(0, 'SESSION_CHANGED', '正在确认登录状态，请稍后重新操作。', false, null)
     const epoch = sessionEpoch.value
+    await this.assertVerifiedSession(epoch)
+    init.signal?.throwIfAborted()
     const timeout = AbortSignal.timeout(this.timeoutMs)
     const signal = init.signal ? AbortSignal.any([init.signal, timeout]) : timeout
     try {
@@ -48,16 +56,41 @@ export class ApiClient {
           ...(init.method && init.method !== 'GET' && auth.csrfToken ? { 'X-CSRF-Token': auth.csrfToken } : {}),
         },
       })
-      this.assertSession(epoch)
+      this.responseContexts.set(response, { timeout, callerSignal: init.signal })
+      await this.assertVerifiedSession(epoch)
       return response
     } catch (error) {
-      this.assertSession(epoch)
-      if (error instanceof ApiRequestError) throw error
-      if (init.signal?.aborted) throw error
-      if (timeout.aborted) {
-        throw new ApiRequestError(0, 'REQUEST_TIMEOUT', 'API 请求超时，请重试。', true, null)
+      await this.assertVerifiedSession(epoch)
+      throw this.transportError(error, { timeout, callerSignal: init.signal })
+    }
+  }
+
+  private transportError(error: unknown, context?: ResponseContext): unknown {
+    if (error instanceof ApiRequestError) return error
+    if (context?.callerSignal?.aborted) return error
+    if (context?.timeout.aborted) {
+      return new ApiRequestError(0, 'REQUEST_TIMEOUT', 'API 请求超时，请重试。', true, null)
+    }
+    return new ApiRequestError(0, 'NETWORK_UNAVAILABLE', '无法连接 API，请检查网络或服务状态。', true, null)
+  }
+
+  private async assertVerifiedSession(epoch: number) {
+    await waitForSessionVerification()
+    this.assertSession(epoch)
+  }
+
+  private async readBody<T>(response: Response, epoch: number, read: () => Promise<T>): Promise<T> {
+    try {
+      const value = await read()
+      await this.assertVerifiedSession(epoch)
+      return value
+    } catch (error) {
+      await this.assertVerifiedSession(epoch)
+      const context = this.responseContexts.get(response)
+      if (!context?.timeout.aborted && !context?.callerSignal?.aborted && error instanceof SyntaxError) {
+        throw new ApiRequestError(response.status, 'INVALID_RESPONSE', 'API 返回了无效 JSON。', false, null)
       }
-      throw new ApiRequestError(0, 'NETWORK_UNAVAILABLE', '无法连接 API，请检查网络或服务状态。', true, null)
+      throw this.transportError(error, context)
     }
   }
 
@@ -68,7 +101,7 @@ export class ApiClient {
   }
 
   private async assertOk(response: Response, epoch: number): Promise<void> {
-    this.assertSession(epoch)
+    await this.assertVerifiedSession(epoch)
     if (response.ok) return
     if (response.status === 401) {
       clearSession()
@@ -76,7 +109,11 @@ export class ApiClient {
     }
     const errorEpoch = sessionEpoch.value
     const error = await normalizeApiError(response)
-    this.assertSession(errorEpoch)
+    await this.assertVerifiedSession(errorEpoch)
+    const context = this.responseContexts.get(response)
+    if (response.status !== 401 && (context?.timeout.aborted || context?.callerSignal?.aborted)) {
+      throw this.transportError(context.callerSignal?.reason ?? context.timeout.reason, context)
+    }
     throw error
   }
 
@@ -88,14 +125,7 @@ export class ApiClient {
     if (!(response.headers.get('content-type') ?? '').includes('application/json')) {
       throw new ApiRequestError(response.status, 'INVALID_RESPONSE', 'API 返回了非 JSON 数据。', false, null)
     }
-    try {
-      const value = (await response.json()) as T
-      this.assertSession(epoch)
-      return value
-    } catch {
-      this.assertSession(epoch)
-      throw new ApiRequestError(response.status, 'INVALID_RESPONSE', 'API 返回了无效 JSON。', false, null)
-    }
+    return this.readBody(response, epoch, () => response.json() as Promise<T>)
   }
 
   listCases(cursor?: string, limit = 30, signal?: AbortSignal): Promise<CaseListResponse> {
@@ -115,9 +145,7 @@ export class ApiClient {
     if (!(response.headers.get('content-type') ?? '').includes('application/dicom')) {
       throw new ApiRequestError(response.status, 'INVALID_DICOM', 'API 返回的影像格式无效。', false, null)
     }
-    const blob = await response.blob()
-    this.assertSession(epoch)
-    return blob
+    return this.readBody(response, epoch, () => response.blob())
   }
 
   createCase(patientId: string | null, idempotencyKey: string): Promise<CreatedCase> {
@@ -188,9 +216,7 @@ export class ApiClient {
     if (!(response.headers.get('content-type') ?? '').includes('image/png')) {
       throw new ApiRequestError(response.status, 'INVALID_ASSET', '响应图资产格式无效。', false, null)
     }
-    const blob = await response.blob()
-    this.assertSession(epoch)
-    return blob
+    return this.readBody(response, epoch, () => response.blob())
   }
 }
 

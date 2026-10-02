@@ -18,7 +18,7 @@ const sliceId = 'slice_synthetic'
 const jobId = 'job_synthetic'
 const resultId = 'result_synthetic'
 const createdAt = '2026-10-01T12:00:00Z'
-const browser = await chromium.launch({ channel: process.env.FRONTEND_QA_BROWSER || 'msedge', headless: true,
+const browser = await chromium.launch({ ...(process.env.FRONTEND_QA_EXECUTABLE ? { executablePath: process.env.FRONTEND_QA_EXECUTABLE } : { channel: process.env.FRONTEND_QA_BROWSER || 'msedge' }), headless: true,
   args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] })
 const evidence = { environment: 'local intercepted synthetic APIs, no inference', scenarios: [], screenshots: [], geometry: [], pageErrors: [] }
 const record = name => evidence.scenarios.push({ name, passed: true })
@@ -40,6 +40,8 @@ try {
     pngs[size] = Buffer.from(bytes, 'base64')
   }
   let logged = false, identity = 'alice', exists = false, ready = false, polls = 0
+  let holdNextSessionRead = false, releaseSessionRead
+  let heldSessionRead = Promise.resolve()
   let dicomExpired = false, assetBroken = false, transportFailed = true
   const caseRecord = () => ({ case_id: caseId, patient_id: 'SYNTHETIC-ONLY', status: ready ? 'READY' : 'CREATED',
     created_at: createdAt, input_expires_at: '2026-10-08T12:00:00Z', studies: ready ? [{ study_id: 'study_synthetic', series: [{ series_id: 'series_synthetic',
@@ -69,7 +71,10 @@ try {
   const json = (route, body, status = 200) => route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) })
   await context.route(base + '/auth/**', async route => {
     const path = new URL(route.request().url()).pathname
-    if (path === '/auth/session') return json(route, logged ? { username: identity, csrf_token: 'synthetic-csrf-only' } : { code: 'UNAUTHENTICATED' }, logged ? 200 : 401)
+    if (path === '/auth/session') {
+      if (holdNextSessionRead) { holdNextSessionRead = false; await heldSessionRead }
+      return json(route, logged ? { username: identity, csrf_token: 'synthetic-csrf-only' } : { code: 'UNAUTHENTICATED' }, logged ? 200 : 401)
+    }
     if (path === '/auth/login') {
       const input = route.request().postDataJSON()
       if (input.password !== 'synthetic-fixture-only') return json(route, { code: 'INVALID_CREDENTIALS' }, 401)
@@ -136,6 +141,36 @@ try {
   await page.getByRole('button', { name: '放大 CT' }).waitFor({ timeout: 30000 }); record('create case, synthetic DICOM upload, actual Cornerstone decoding')
   await page.reload(); await page.getByRole('button', { name: '放大 CT' }).waitFor({ timeout: 30000 }); record('Case deep-link refresh restores authorized DICOM')
   await screenshot('03-case-desktop'); await noOverflow()
+  await page.goto(base + '/cases')
+  await page.locator('.case-row').waitFor()
+  for (const name of ['卡片', '列表', '卡片']) {
+    await page.getByRole('button', { name, exact: true }).click()
+    await page.waitForFunction(name => document.querySelector(`.segmented-control button[aria-pressed="true"]`)?.textContent === name, name)
+  }
+  await page.getByLabel('输入状态', { exact: true }).selectOption('READY')
+  await page.reload()
+  await page.locator('.collection-cards .case-row').waitFor()
+  assert.equal(await page.getByLabel('输入状态', { exact: true }).inputValue(), 'READY')
+  await screenshot('enterprise-cases-cards-desktop')
+  await page.getByLabel('查找病例', { exact: true }).fill('no-match')
+  await page.getByText('没有匹配的病例', { exact: true }).waitFor()
+  assert(!page.url().includes('no-match'))
+  await page.getByRole('button', { name: '清除筛选', exact: true }).click()
+  await page.locator('.case-link').first().click()
+  await page.getByRole('button', { name: '放大 CT' }).waitFor({ timeout: 30000 })
+  await page.goBack(); await page.locator('.collection-cards .case-row').waitFor()
+  await page.setViewportSize({ width: 390, height: 844 }); await noOverflow()
+  await screenshot('enterprise-cases-cards-mobile')
+  await page.getByRole('button', { name: '列表', exact: true }).click()
+  await page.locator('.table-head').waitFor(); await noOverflow()
+  await screenshot('enterprise-cases-list-mobile')
+  await page.setViewportSize({ width: 1440, height: 1000 })
+  await page.goto(base + '/')
+  await page.locator('.case-row').waitFor()
+  await screenshot('enterprise-dashboard-populated')
+  record('case modes repeat, URL refresh, status filter, private search, empty recovery, Back and mobile layout')
+  await page.goto(base + '/cases/' + caseId)
+  await page.getByRole('button', { name: '放大 CT' }).waitFor({ timeout: 30000 })
   await page.setViewportSize({ width: 390, height: 844 }); await noOverflow(); await screenshot('03-case-mobile')
   await page.setViewportSize({ width: 1440, height: 1000 })
   await page.getByRole('button', { name: '运行 16 / 32 / 64 px 遮挡' }).click()
@@ -143,8 +178,65 @@ try {
   await page.getByRole('link', { name: '查看已完成结果 →' }).waitFor({ timeout: 10000 })
   await page.getByRole('link', { name: '查看已完成结果 →' }).click()
   await page.getByRole('button', { name: '放大 CT' }).waitFor({ timeout: 30000 })
-  await page.getByText('PIXEL CONTRACT MATCHED', { exact: true }).waitFor(); record('Job polling and Result navigation, uppercase SHA-256, verified geometry')
+  await page.getByText('像素契约匹配', { exact: true }).waitFor(); record('Job polling and Result navigation, uppercase SHA-256, verified geometry')
   await page.getByRole('checkbox', { name: '显示叠加' }).check()
+  // Deliberately synthetic focus with a controlled auth delay. This is not a native-focus or performance claim.
+  const initialGeometry = await page.evaluate(() => {
+    const stage = document.querySelector('.cornerstone-stage')
+    const overlay = document.querySelector('.cornerstone-overlay')
+    const boundary = document.querySelector('.session-workspace')
+    window.__qaSessionNodes = { stage, overlay, boundary }
+    const rect = stage.getBoundingClientRect()
+    return { width: rect.width, height: rect.height, overlayWidth: overlay.width, overlayHeight: overlay.height, scrollY }
+  })
+  assert(initialGeometry.width > 0 && initialGeometry.height > 0 && initialGeometry.overlayWidth > 0 && initialGeometry.overlayHeight > 0)
+  heldSessionRead = new Promise(resolve => { releaseSessionRead = resolve })
+  holdNextSessionRead = true
+  const verificationStartedAt = performance.now()
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')))
+  await page.locator('.session-verification-curtain').waitFor()
+  const maskedSamples = []
+  for (let index = 0; index < 10; index++) {
+    await page.waitForTimeout(500)
+    const sample = await page.evaluate(() => {
+      const { stage, overlay, boundary } = window.__qaSessionNodes
+      const rect = stage.getBoundingClientRect()
+      const curtain = document.querySelector('.session-verification-curtain')
+      const style = getComputedStyle(boundary)
+      const curtainStyle = getComputedStyle(curtain)
+      return { width: rect.width, height: rect.height, overlayWidth: overlay.width, overlayHeight: overlay.height,
+        scrollY, opacity: style.opacity, display: style.display, inert: boundary.inert,
+        hidden: boundary.getAttribute('aria-hidden'), curtainPosition: curtainStyle.position,
+        curtainBackground: curtainStyle.backgroundColor, loginVisible: Boolean(document.querySelector('.login-page')) }
+    })
+    for (const key of ['width', 'height', 'overlayWidth', 'overlayHeight', 'scrollY']) assert.equal(sample[key], initialGeometry[key], `Verification changed ${key}`)
+    assert.equal(sample.opacity, '0'); assert.notEqual(sample.display, 'none'); assert(sample.inert); assert.equal(sample.hidden, 'true')
+    assert.equal(sample.curtainPosition, 'fixed'); assert.equal(sample.curtainBackground, 'rgb(245, 246, 248)'); assert.equal(sample.loginVisible, false)
+    maskedSamples.push(sample)
+  }
+  await page.keyboard.press('Tab')
+  assert(await page.evaluate(() => !document.querySelector('.session-workspace').contains(document.activeElement)))
+  assert.equal(await page.getByRole('button', { name: '放大 CT' }).count(), 0)
+  await page.screenshot({ path: join(output, 'passive-session-verification-curtain.png'), animations: 'disabled' })
+  evidence.screenshots.push('passive-session-verification-curtain.png')
+  const triggerToReleaseMs = performance.now() - verificationStartedAt
+  releaseSessionRead()
+  await page.locator('.session-verification-curtain').waitFor({ state: 'detached' })
+  assert(await page.evaluate(() => {
+    const { stage, overlay, boundary } = window.__qaSessionNodes
+    return stage === document.querySelector('.cornerstone-stage') && overlay === document.querySelector('.cornerstone-overlay') &&
+      boundary === document.querySelector('.session-workspace') && !boundary.inert && !boundary.hasAttribute('aria-hidden')
+  }))
+  const restoredGeometry = await page.evaluate(() => {
+    const stage = document.querySelector('.cornerstone-stage'), overlay = document.querySelector('.cornerstone-overlay')
+    const boundary = document.querySelector('.session-workspace'), rect = stage.getBoundingClientRect()
+    return { width: rect.width, height: rect.height, overlayWidth: overlay.width, overlayHeight: overlay.height, scrollY,
+      opacity: getComputedStyle(boundary).opacity, display: getComputedStyle(boundary).display }
+  })
+  for (const key of ['width', 'height', 'overlayWidth', 'overlayHeight', 'scrollY']) assert.equal(restoredGeometry[key], initialGeometry[key], `Restored ${key} changed`)
+  assert.notEqual(restoredGeometry.opacity, '0'); assert.notEqual(restoredGeometry.display, 'none')
+  evidence.passiveVerification = { trigger: 'synthetic focus', minimumHoldMs: 5000, triggerToReleaseMs, initialGeometry, maskedSamples, restoredGeometry }
+  record('synthetic focus verification preserves stage/overlay dimensions and conceals private workspace for at least 5 seconds')
   assert.equal(await page.locator('.result-metadata').getAttribute('open'), null)
   await page.locator('.result-metadata summary').focus()
   await page.keyboard.press('Enter')
@@ -174,7 +266,20 @@ try {
   assert(await page.getByRole('button', { name: '64 px', exact: true }).evaluate(button => button.classList.contains('active')))
   assert(await page.getByRole('checkbox', { name: '显示叠加' }).isChecked()); record('rapid scale/layer switching, zoom, Result refresh preferences')
   await page.setViewportSize({ width: 390, height: 844 }); await noOverflow(); await screenshot('05-result-mobile')
-  await page.getByRole('button', { name: '打开导航' }).click(); await page.getByRole('button', { name: '关闭菜单' }).click(); record('mobile result, navigation, long IDs, no horizontal overflow')
+  await page.getByRole('button', { name: '打开导航' }).click()
+  heldSessionRead = new Promise(resolve => { releaseSessionRead = resolve }); holdNextSessionRead = true
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')))
+  await page.locator('.session-verification-curtain').waitFor()
+  await page.keyboard.press('Escape')
+  assert(await page.locator('.sidebar').evaluate(sidebar => sidebar.classList.contains('sidebar-open')))
+  assert.equal(await page.getByRole('button', { name: '关闭菜单' }).count(), 0)
+  assert(await page.locator('.session-workspace').evaluate(boundary => getComputedStyle(boundary).opacity === '0' && boundary.inert && boundary.getAttribute('aria-hidden') === 'true'))
+  releaseSessionRead()
+  await page.locator('.session-verification-curtain').waitFor({ state: 'detached' })
+  await page.getByRole('button', { name: '关闭菜单' }).waitFor()
+  await page.keyboard.press('Escape')
+  assert.equal(await page.locator(':focus').getAttribute('aria-label'), '打开导航')
+  record('mobile result privacy curtain blocks hidden sidebar keys and restores normal Escape after verification')
   await page.getByRole('button', { name: '打开导航' }).click()
   await page.getByRole('button', { name: '关闭菜单' }).waitFor()
   await page.keyboard.press('Escape')

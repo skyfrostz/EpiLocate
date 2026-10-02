@@ -43,6 +43,18 @@ def create_job(db: Session, user_id, *, case_public_id: str, slice_public_id: st
     sl = db.scalar(select(Slice).where(Slice.slice_ref == slice_public_id, Slice.case_id == case.id))
     if sl is None:
         fail("SLICE_NOT_FOUND", 404)
+    old = db.scalar(select(InferenceJob).where(InferenceJob.requested_by_user_id == user_id, InferenceJob.idempotency_key == key))
+    if old:
+        # A replay retrieves an accepted job, rather than admitting new work.
+        # Resolve its pinned version, not today's ACTIVE version of model_id.
+        model = db.get(ModelVersion, old.model_version_id)
+        params = {"kind": kind, "case_id": case_public_id, "slice_id": slice_public_id, "model_id": model_id, "protocol_id": old.request_json["protocol_id"] if kind == "PREDICTION" and protocol_id is None else protocol_id, "scales": scales or []}
+        if params != old.request_json or model is None:
+            fail("IDEMPOTENCY_CONFLICT", 409)
+        request_digest = digest({**params, "checkpoint_sha256": model.checkpoint_sha256, "preprocessing_version": model.preprocessing_version, "input_sha256": sl.source_sha256})
+        if old.request_digest != request_digest:
+            fail("IDEMPOTENCY_CONFLICT", 409)
+        return old, False
     if not sl.staging_object_key or not sl.staging_expires_at or aware(sl.staging_expires_at) <= now():
         fail("INPUT_EXPIRED", 410)
     model = model_for_request(db, model_id)
@@ -50,11 +62,6 @@ def create_job(db: Session, user_id, *, case_public_id: str, slice_public_id: st
         fail("INVALID_OCCLUSION_PARAMETERS")
     params = {"kind": kind, "case_id": case_public_id, "slice_id": slice_public_id, "model_id": model_id, "protocol_id": protocol_id or model.protocol_id, "scales": scales or []}
     request_digest = digest({**params, "checkpoint_sha256": model.checkpoint_sha256, "preprocessing_version": model.preprocessing_version, "input_sha256": sl.source_sha256})
-    old = db.scalar(select(InferenceJob).where(InferenceJob.requested_by_user_id == user_id, InferenceJob.idempotency_key == key))
-    if old:
-        if old.request_digest != request_digest:
-            fail("IDEMPOTENCY_CONFLICT", 409)
-        return old, False
     job = InferenceJob(public_id=public_id("job"), case_id=case.id, slice_id=sl.id, requested_by_user_id=user_id, model_version_id=model.id, kind=kind, status="CREATED", request_json=params, request_digest=request_digest, idempotency_key=key)
     db.add(job)
     db.flush()

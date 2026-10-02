@@ -8,7 +8,7 @@
       aria-label="关闭导航"
       @click="ui.closeSidebar"
     />
-    <aside id="workspace-navigation" class="sidebar" :class="{ 'sidebar-open': ui.sidebarOpen }" aria-label="主导航">
+    <aside ref="navigation" id="workspace-navigation" class="sidebar" :class="{ 'sidebar-open': ui.sidebarOpen }" aria-label="主导航">
       <button v-if="ui.sidebarOpen" class="navigation-close" aria-label="关闭菜单" type="button" @click="ui.closeSidebar">关闭导航</button>
       <RouterLink class="brand" to="/" @click="ui.closeSidebar">
         <span class="brand-symbol" aria-hidden="true"><span /></span>
@@ -77,19 +77,34 @@ const ui = useUiStore()
 const loggingOut = ref(false)
 const logoutError = ref('')
 const title = computed(() => String(route.meta.title ?? '工作台'))
-watch(() => ui.sidebarOpen, async opened => {
+const navigation = ref<HTMLElement>()
+const shellEpoch = sessionEpoch.value
+function navigationItems() {
+  return [...(navigation.value?.querySelectorAll<HTMLElement>('a[href], button') ?? [])]
+    .filter(item => !item.hasAttribute('disabled') && item.getAttribute('tabindex') !== '-1')
+}
+watch([() => ui.sidebarOpen, () => auth.verifying], async ([opened, verifying], [wasOpen]) => {
   await nextTick()
-  document.querySelector<HTMLElement>(opened ? '.navigation-close' : window.matchMedia('(min-width: 768px)').matches ? '#workspace-content' : '.mobile-menu')?.focus()
+  // Never focus concealed, detached, superseded, or background-page content.
+  if (verifying || auth.verifying || !auth.loaded || !auth.username ||
+      !isSessionCurrent(shellEpoch) || !navigation.value?.isConnected || !document.hasFocus()) return
+  if (opened && ui.sidebarOpen) {
+    const items = navigationItems()
+    if (!items.includes(document.activeElement as HTMLElement)) items[0]?.focus({ preventScroll: true })
+  } else if (wasOpen && !ui.sidebarOpen) {
+    document.querySelector<HTMLElement>(window.matchMedia('(min-width: 768px)').matches ? '#workspace-content' : '.mobile-menu')?.focus({ preventScroll: true })
+  }
 })
 let desktopMedia: MediaQueryList | undefined
 function restoreDesktopNavigation() { if (desktopMedia?.matches) ui.closeSidebar() }
 function navigationKeys(event: KeyboardEvent) {
-  if (!ui.sidebarOpen) return
+  if (!ui.sidebarOpen || auth.verifying) return
   if (event.key === 'Escape') { event.preventDefault(); ui.closeSidebar(); return }
   if (event.key !== 'Tab') return
-  const items = [...document.querySelectorAll<HTMLElement>('#workspace-navigation a, #workspace-navigation button')]
+  const items = navigationItems()
   const first = items[0], last = items[items.length - 1]
-  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
+  if (!items.includes(document.activeElement as HTMLElement)) { event.preventDefault(); (event.shiftKey ? last : first)?.focus({ preventScroll: true }) }
+  else if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
   else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
 }
 onMounted(() => {

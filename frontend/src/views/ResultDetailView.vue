@@ -13,10 +13,10 @@
       </nav>
       <div class="result-workspace">
         <div class="content-card fusion-card result-image-panel">
-          <div class="card-heading"><div><h2>CT 与模型图层</h2><p>单切片像素空间 · Cornerstone3D</p></div><a-tag :color="geometryGate?.ok ? 'green' : 'default'">{{ geometryGate?.ok ? 'PIXEL CONTRACT MATCHED' : 'OVERLAY UNAVAILABLE' }}</a-tag></div>
+          <div class="card-heading"><div><h2>CT 与模型图层</h2><p>单切片像素空间 · Cornerstone3D</p></div><a-tag :color="geometryGate?.ok ? 'green' : 'default'">{{ result.kind === 'PREDICTION' ? '分类任务 · 无叠加图层' : geometryGate?.ok ? '像素契约匹配' : '叠加尚不可用' }}</a-tag></div>
           <p v-if="ctLoading" class="viewer-note" role="status">正在通过授权 API 读取原始 DICOM…</p>
           <p v-if="ctError" class="notice notice-error" role="alert">{{ ctError }}</p>
-          <p v-if="result.kind === 'OCCLUSION' && !geometryGate?.ok" class="viewer-note" role="status">{{ geometryGate?.reason }}</p>
+          <p v-if="result.kind === 'OCCLUSION' && ctState === 'ready' && !geometryGate?.ok" class="viewer-note" role="status">{{ geometryGate?.reason }}</p>
           <div v-if="result.kind === 'OCCLUSION'" class="fusion-controls">
             <label><input v-model="overlayVisible" type="checkbox" :disabled="!geometryGate?.ok || !imageReady" /> 显示叠加</label>
             <label>透明度 <input v-model.number="overlayOpacity" type="range" min="0" max="1" step="0.05" :disabled="!geometryGate?.ok || !imageReady" /> {{ Math.round(overlayOpacity * 100) }}%</label>
@@ -36,11 +36,11 @@
         </div>
         <div class="content-card result-heatmap-card">
           <div class="card-heading"><div><h2>模型响应图</h2><p>受保护的独立图层 · 不是病灶标注</p></div><a-tag v-if="result.kind === 'OCCLUSION'">{{ selectedScale }} px</a-tag></div>
-          <div v-if="result.scale_summaries.length" class="scale-switch" aria-label="遮挡尺度">
-            <button v-for="summary in result.scale_summaries" :key="summary.block_size" type="button" :class="{ active: selectedScale === summary.block_size }" @click="selectedScale = summary.block_size">{{ summary.block_size }} px</button>
+          <div v-if="result.scale_summaries.length" class="scale-switch" role="group" aria-label="遮挡尺度">
+            <button v-for="summary in result.scale_summaries" :key="summary.block_size" type="button" :class="{ active: selectedScale === summary.block_size }" :aria-pressed="selectedScale === summary.block_size" @click="selectedScale = summary.block_size">{{ summary.block_size }} px</button>
           </div>
-          <div v-if="selectedSummary" class="layer-switch" aria-label="模型图层">
-            <button v-for="option in layerOptions" :key="option.kind" type="button" :class="{ active: selectedLayerKind === option.kind }" :disabled="!layerFor(option.kind)" @click="selectedLayerKind = option.kind">{{ option.label }}</button>
+          <div v-if="selectedSummary" class="layer-switch" role="group" aria-label="模型图层">
+            <button v-for="option in layerOptions" :key="option.kind" type="button" :class="{ active: selectedLayerKind === option.kind }" :aria-pressed="selectedLayerKind === option.kind" :disabled="!layerFor(option.kind)" @click="selectedLayerKind = option.kind">{{ option.label }}</button>
           </div>
           <div v-if="selectedSummary" class="scale-metrics">
             <span>中位绝对概率变化 <strong>{{ formatPercent(selectedSummary.median_absolute_probability_change) }}</strong></span>

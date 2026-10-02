@@ -8,19 +8,13 @@
     <p v-if="createError" class="notice notice-error" role="alert">{{ createError }}</p>
     <div class="content-card">
       <div class="card-heading">
-        <div><h2>病例列表</h2><p>数据由 Case API 实时读取。</p></div>
+        <div><h2>病例列表</h2><p>保留服务端顺序；筛选与显示模式不会创建分析任务。</p></div>
         <a-button :loading="cases.loading" @click="cases.loadCases()">刷新</a-button>
       </div>
-      <p v-if="cases.error" class="notice notice-error" role="alert">{{ cases.error }}</p>
+      <p v-if="cases.error" class="notice notice-error" role="alert">{{ cases.error }}<span v-if="cases.items.length"> 当前保留上次成功读取的记录，可能不是最新状态。</span></p>
       <div v-if="cases.loading && !cases.hasLoaded" class="empty-state compact" role="status">正在读取病例…</div>
       <template v-else-if="cases.hasLoaded && cases.items.length">
-        <div class="table-head" aria-hidden="true"><span>CASE ID</span><span>状态</span><span>创建时间</span><span>输入可用期</span></div>
-        <div v-for="item in cases.items" :key="item.case_id" class="case-row">
-          <RouterLink :to="`/cases/${encodeURIComponent(item.case_id)}`" class="case-link">{{ item.case_id }}</RouterLink>
-          <span><a-tag :color="item.status === 'READY' ? 'green' : 'default'">{{ caseLabels[item.status] }}</a-tag></span>
-          <span>{{ formatDate(item.created_at) }}</span>
-          <span>{{ formatDate(item.input_expires_at) }}</span>
-        </div>
+        <CaseCollection :items="cases.items" :loading="cases.loading" />
         <div v-if="cases.nextCursor" class="table-actions"><a-button :loading="cases.loading" @click="cases.loadCases(undefined, true)">加载更多</a-button></div>
       </template>
       <div v-else-if="cases.hasLoaded && !cases.error" class="empty-state compact"><h3>暂无病例</h3><p>服务端返回了空列表。可创建新的匿名病例。</p></div>
@@ -31,15 +25,13 @@
 
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { apiClient } from '../api/client'
-import { formatDate } from '../format'
+import CaseCollection from '../components/CaseCollection.vue'
 import { errorText, useCaseStore } from '../stores/cases'
 import { isSessionCurrent, sessionEpoch } from '../auth/lifecycle'
-import type { CaseStatus } from '../api/types'
 
 const cases = useCaseStore()
-const caseLabels: Record<CaseStatus, string> = { CREATED: '待上传', READY: '输入可用', EXPIRED: '输入已到期', DELETING: '删除中' }
 const router = useRouter()
 const creating = ref(false)
 const createError = ref<string | null>(null)

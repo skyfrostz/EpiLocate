@@ -32,6 +32,8 @@ describe('Dashboard real Case API page', () => {
     expect(wrapper.text()).toContain('输入已到期')
     expect(wrapper.text()).toContain('还有更多病例')
     expect(wrapper.text()).not.toContain('总病例')
+    expect(wrapper.text()).toContain('不代表全部病例')
+    expect(wrapper.findAll('.snapshot-metric strong').map(item => item.text())).toEqual(['1', '0', '1'])
     wrapper.unmount()
   })
   it('distinguishes initial loading, empty response and failed refresh while retaining known data', async () => {
@@ -48,6 +50,8 @@ describe('Dashboard real Case API page', () => {
     expect(wrapper.text()).toContain('case_first')
     await refresh(); await flushPromises()
     expect(wrapper.text()).toContain('服务暂时不可用')
+    expect(wrapper.text()).toContain('可能不是最新状态')
+    expect(wrapper.find('.source-stale').text()).toBe('读取失败')
     expect(wrapper.text()).toContain('case_first')
     wrapper.unmount()
   })

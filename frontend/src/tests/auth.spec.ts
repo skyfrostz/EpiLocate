@@ -46,7 +46,7 @@ describe('browser session', () => {
 
   it('preserves same-user preferences on refresh and clears them when identity changes', async () => {
     const fetcher = vi.fn().mockResolvedValueOnce(json({ username: 'alice', csrf_token: 'a' }))
-      .mockResolvedValueOnce(json({ username: 'alice', csrf_token: 'a2' }))
+      .mockResolvedValueOnce(json({ username: 'alice', csrf_token: 'a' }))
       .mockResolvedValueOnce(json({ username: 'bob', csrf_token: 'b' }))
     vi.stubGlobal('fetch', fetcher)
     await loadSession()

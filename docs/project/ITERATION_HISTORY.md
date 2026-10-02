@@ -904,3 +904,32 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 **报告 / 边界：** frontend/docs/SECOND_ROUND_REPORT.md；真实账号/GPU E2E未验收。推送/服务器发布待执行后补录，不预写通过。FrozenBaseline、CPU/GPU数值和临床边界不变。
 
 **阶段二十二发布补录：** 应用提交 `988328f53c44a1542e95707951163a14d7b9eb05` 已普通推送并部署独立前端目录；完整 closure 673 objects / 507 blobs 无阻断发现，归档 SHA256 一致。服务器 Node24.21.0，85/85 测试、15 spec及 build PASS。仅切换 Nginx frontend root，首页/2入口资源字节一致，Backend/Gateway/Sweeper/MinIO active，控制平面仍为原4e38fd release；旧前端与回滚配置保留。真实未登录桌面/手机新登录页验收 PASS，0脚本/资源错误；mvp200、身份/病例401、Welcome200。另观测 Review带斜杠307/不带斜杠401，区别于上一轮303记录，未修改或宣称该应用通过。真实账号/GPU E2E仍开放，详见 SECOND_ROUND_REPORT.md。
+
+### 2026-10-02｜未发布工作区丢失后的恢复分支
+
+旧本地集成`ef15c1574e6d1be7dd8f05f581aba27abe440654`因临时云端工作区替换不可读取且无持久化工件，不宣称找回。按用户已知情的恢复安排，从B固定`2be89143a8abccb3c3896a8f53633e490cf79b28`在`dot/mvp-recovery-20261002`恢复真实病例优先工作台、列表/卡片、筛选/恢复和结果选中语义及样式。实现根据保留的脚本/审计记录重建，字节一致性不可确认。UI阶段新跑92/92 tests、TypeScript及/mvp build通过；旧111测试记录不能作为本分支通过证据。每阶段保存自包含bundle/patch到私有Library。浏览器/真实E2E未验，无push/主线merge/部署。详见`frontend/docs/RECOVERY_20261002.md`。
+
+**恢复轮前端接口阶段：** 新代码集成`572ccd376ec9660dd4aabb4cfcb81d87b8348165`，重新执行111/111测试与/mvp构建通过。被动会话与body传输修复已按保留脚本重建；浏览器QA脚本只做语法检查。自包含bundle、patch、日志和校验清单已成功持久化到用户私有Library，停止把临时workspace视为唯一交付。原ef15c157不可用且无字节一致证明。
+
+## Backend 补充：幂等 Job 重放修复重建
+
+**日期 / 分支 / 基线：** 2026-10-02；`fix/job-replay-recovery`；GitHub 固定 `2be89143a8abccb3c3896a8f53633e490cf79b28`。
+**新实现提交：** `657a758fc5084343e43f7f2421b0f9dde1ba6cd4`。因临时工作区替换、未发布对象不可用而重新构建及验证，不声明与丢失版本逐字节一致。
+**恢复能力：** 同用户、同请求且摘要一致的已接受 Job，在输入到期/清理、模型退役/替换后仍按固定模型版本返回原 ID；保留 owner/Case/Slice 与输入/模型摘要校验，不改变任务状态或创建重复工作。变更请求保持409、新键仍受410/422限制；修复 Occlusion 显式空协议被误当默认值的边界。
+**新验证：** 隔离 Python 3.12 CPU 环境，8个基线重放回归全部失败；新实现后端60 passed / 2 skipped（新增46项），文档3 passed。外部PostgreSQL/MinIO及固定Worker/冻结运行环境未配置，未运行GPU、真实账号、生产或临床验收。两份日志随新代码交付，完整patch/bundle另作私有恢复工件；未push/merge/deploy，固定数值门槛仍OPEN。
+
+**恢复版前后端集成：** 新代码集成`25f1cdfc38eda96af3b813ad35bcb655b0a99926`重新通过111前端测试、63后端及文档测试（2项外部环境skip）、TypeScript+/mvp build和文档/差异门禁；新独立review通过。UI行为无有意偏离但不可证明旧字节一致。新恢复报告取代对丢失工件的引用，完整bundle/patch和新证据必须私有持久化并验证可恢复；新分支新SHA不继承旧发布批准。未push/主线merge/部署，视觉与真实E2E仍缺证据。
+
+### 2026-10-02｜Result 输入故障提示分层
+
+基于`d6e2690b501b645d5be8b323e107c90c703654ab`在`dot/result-input-error-priority-20261002`修复DICOM410后误导性并列“病例与结果不一致”：只有CT ready才显示派生几何拒绝原因，加载/到期/网络错误优先实际输入提示。叠加几何门控与独立图层不改，真实不匹配仍报告。4项新回归先红后绿，全量115/115与TypeScript+/mvp build通过；新浏览器复验、焦点/性能问题仍待证据，无push/部署。
+
+### 2026-10-02｜被动认证核验不再折叠影像布局
+
+基于`c565b7f3a323fc583faac13dac8aeb497c11f24b`独立修复App passive verification呈现：保留workspace尺寸/DOM、即时完整隐私遮蔽和fixed核验层，避免display:none；隐藏菜单全局键盘处理暂停，验证后恢复。不减少服务器核验，不修改session/API门控、loader/RO/像素几何或模型。120/120与TypeScript+/mvp build通过，新独立源码review无阻断；真实新版本尺寸/视觉仍交Mac复验，不继承基线synthetic-focus证据。未push/主线merge/部署。
+
+### 2026-10-02｜移动导航核验后键盘焦点恢复
+- 基线：`eb8f6f85152861e673efd8816f1e5f198e01477c`；分支 `dot/mobile-navigation-focus-20261002`。
+- Mac 复验反馈：菜单正常时Tab可用；核验遮蔽期间Tab可能触发trusted blur，恢复时activeElement为BODY、页面失焦；首个恢复Tab可能进入浏览器UI。手动聚焦关闭菜单后可恢复。不能概括为所有Tab稳定失效。
+- AppShell监听菜单开关和verifying解除；仅页面有焦点、当前会话、节点仍连接且菜单仍开时恢复有效导航焦点，不抢后台应用焦点。外部Tab/ShiftTab按方向进入首/尾菜单项。核验中仍不处理菜单按键，身份检查及图像管线不变。
+- 新增4项回归在旧代码全部失败，修复后124/124前端测试、TypeScript与/mvp构建通过。DOM模拟不能证明Chrome焦点行为，新补丁待Mac复验后才可发布。
