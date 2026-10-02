@@ -1,5 +1,13 @@
 <template>
   <main class="login-page">
+    <div class="login-layout">
+    <aside class="login-story" aria-label="工作台介绍">
+      <p class="login-kicker">EPILOCATE / 影像研究</p>
+      <h2>从一张 CT，<br>开始可追溯的分析。</h2>
+      <p>准备匿名病例，查看任务状态，在影像中阅读模型响应。</p>
+      <ol><li><span>01</span> 上传单切片 CT</li><li><span>02</span> 创建分类或遮挡任务</li><li><span>03</span> 阅读影像与模型响应</li></ol>
+      <p class="login-boundary">仅供研究 · 模型响应不等同于病灶标注或临床诊断</p>
+    </aside>
     <section class="login-panel" aria-labelledby="login-title">
       <div class="login-mark" aria-hidden="true">+</div>
       <p class="login-kicker">EPILOCATE · TEAM ACCESS</p>
@@ -15,6 +23,7 @@
       </form>
       <p class="login-foot">单切片 CT · 研究用途 · 请仅上传合成或合规去标识影像</p>
     </section>
+    </div>
   </main>
 </template>
 

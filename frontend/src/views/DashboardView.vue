@@ -30,9 +30,27 @@
         <div class="workflow-step"><span class="step-number">01</span><div><h3>病例准备</h3><p>查看已授权的匿名病例与影像输入。</p></div><span class="step-glyph">↗</span></div>
         <div class="workflow-step"><span class="step-number">02</span><div><h3>任务执行</h3><p>按 Job ID 查询创建、排队、运行及终态。</p></div><span class="step-glyph">↗</span></div>
         <div class="workflow-step"><span class="step-number">03</span><div><h3>结果阅读</h3><p>分类、模型版本和响应图以 Result 为准。</p></div><span class="step-glyph">↗</span></div>
-        <div class="workflow-note"><span class="note-mark">i</span><p>当前阶段建立页面与接口边界。这里不显示未经 API 读取的数量或诊断结论。</p></div>
+        <div class="workflow-note"><span class="note-mark">i</span><p>任务与结果通过各自链接恢复。病例列表由服务端读取，模型响应用于研究解释。</p></div>
       </section>
     </div>
+
+    <section class="content-card" aria-labelledby="dashboard-cases-title">
+      <div class="card-heading"><div><h2 id="dashboard-cases-title">当前账号的病例</h2><p>展示 Case API 返回的第一页，保留服务端顺序。</p></div><a-button :loading="loading" @click="loadCases">刷新</a-button></div>
+      <p v-if="error" class="notice notice-error" role="alert">{{ error }}</p>
+      <div v-if="loading && !hasLoaded" class="empty-state compact" role="status">正在读取病例…</div>
+      <template v-else-if="items.length">
+        <div class="table-head" aria-hidden="true"><span>CASE ID</span><span>状态</span><span>创建时间</span><span>输入可用期</span></div>
+        <div v-for="item in items" :key="item.case_id" class="case-row">
+          <RouterLink :to="`/cases/${encodeURIComponent(item.case_id)}`" class="case-link">{{ item.case_id }}</RouterLink>
+          <span><a-tag :color="item.status === 'READY' ? 'green' : 'default'">{{ caseLabels[item.status] }}</a-tag></span>
+          <span>{{ formatDate(item.created_at) }}</span><span>{{ formatDate(item.input_expires_at) }}</span>
+        </div>
+        <p v-if="nextCursor" class="viewer-note">还有更多病例，可在病例中心继续查看。</p>
+      </template>
+      <div v-else-if="hasLoaded && !error" class="empty-state compact"><h3>暂无病例</h3><p>创建匿名病例，上传已去标识的单切片 CT DICOM 开始研究。</p></div>
+      <div v-else-if="error" class="empty-state compact"><h3>病例无法读取</h3><p>检查网络和认证状态后点击“刷新”。</p></div>
+      <RouterLink class="back-link" to="/cases">查看全部病例 →</RouterLink>
+    </section>
 
     <section class="scope-strip" aria-label="当前范围">
       <div><span>影像范围</span><strong>单切片 CT</strong></div>
@@ -43,7 +61,43 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+import { apiClient } from '../api/client'
+import { errorText } from '../api/errors'
+import type { CaseStatus, CaseSummary } from '../api/types'
+import { isSessionCurrent, sessionEpoch } from '../auth/lifecycle'
+import { formatDate } from '../format'
 
 const router = useRouter()
+const items = ref<CaseSummary[]>([])
+const nextCursor = ref<string | null>(null)
+const loading = ref(false)
+const hasLoaded = ref(false)
+const error = ref<string | null>(null)
+const caseLabels: Record<CaseStatus, string> = { CREATED: '待上传', READY: '输入可用', EXPIRED: '输入已到期', DELETING: '删除中' }
+let generation = 0
+let controller: AbortController | undefined
+function reset() {
+  generation++; controller?.abort()
+  items.value = []; nextCursor.value = null; loading.value = false; hasLoaded.value = false; error.value = null
+}
+async function loadCases() {
+  const ownGeneration = ++generation, epoch = sessionEpoch.value
+  controller?.abort()
+  const abort = controller = new AbortController()
+  loading.value = true; error.value = null
+  try {
+    const page = await apiClient.listCases(undefined, 6, abort.signal)
+    if (ownGeneration !== generation || !isSessionCurrent(epoch)) return
+    items.value = page.items; nextCursor.value = page.next_cursor; hasLoaded.value = true
+  } catch (cause) {
+    if (ownGeneration === generation && isSessionCurrent(epoch)) error.value = errorText(cause)
+  } finally {
+    if (ownGeneration === generation && isSessionCurrent(epoch)) loading.value = false
+  }
+}
+watch(sessionEpoch, reset, { flush: 'sync' })
+onMounted(() => { void loadCases() })
+onBeforeUnmount(reset)
 </script>

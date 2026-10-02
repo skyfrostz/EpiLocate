@@ -6,6 +6,8 @@ import App from '../App.vue'
 import AppShell from '../layout/AppShell.vue'
 import { auth, clearSession, login } from '../auth/session'
 import { ApiClient } from '../api/client'
+import { useUiStore } from '../stores/ui'
+let media: { matches: boolean; addEventListener: ReturnType<typeof vi.fn>; removeEventListener: ReturnType<typeof vi.fn> }
 
 const wrappers: ReturnType<typeof mount>[] = []
 const stores: Pinia[] = []
@@ -13,6 +15,8 @@ const json = (value: unknown, status = 200) => new Response(JSON.stringify(value
 async function fixture(component: typeof App | typeof AppShell) {
   const pinia = createPinia(); stores.push(pinia)
   const router = createRouter({ history: createMemoryHistory(), routes: [
+    { path: '/', component: { template: '<p>Workspace</p>' } },
+    { path: '/cases', component: { template: '<p>Cases</p>' } },
     { path: '/login', name: 'login', component: { template: '<p>Test login</p>' } },
     { path: '/cases/:id', component: { template: '<p>Old private record</p>' } },
     { path: '/results/:id', component: { template: '<p>New result</p>' } },
@@ -22,7 +26,11 @@ async function fixture(component: typeof App | typeof AppShell) {
   await flushPromises()
   return { wrapper, router }
 }
-beforeEach(() => { clearSession(); auth.username = 'alice'; auth.csrfToken = 'alice-csrf'; auth.loaded = true })
+beforeEach(() => {
+  clearSession(); auth.username = 'alice'; auth.csrfToken = 'alice-csrf'; auth.loaded = true
+  media = { matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }
+  vi.stubGlobal('matchMedia', vi.fn(() => media))
+})
 afterEach(() => {
   wrappers.splice(0).forEach(wrapper => wrapper.unmount())
   stores.splice(0).forEach(disposePinia)
@@ -30,6 +38,20 @@ afterEach(() => {
 })
 
 describe('application session transitions', () => {
+  it('releases the main area when an open mobile navigation becomes desktop width', async () => {
+    const { wrapper } = await fixture(AppShell)
+    const ui = useUiStore(stores[stores.length - 1]!)
+    ui.sidebarOpen = true
+    await flushPromises()
+    expect(wrapper.find('.main-area').attributes()).toHaveProperty('inert')
+    media.matches = true
+    media.addEventListener.mock.calls[0]![1]()
+    await flushPromises()
+    expect(ui.sidebarOpen).toBe(false)
+    expect(wrapper.find('.main-area').attributes()).not.toHaveProperty('inert')
+    wrapper.unmount()
+    expect(media.removeEventListener).toHaveBeenCalled()
+  })
   it('does not redirect a newly logged-in user when an older logout completes', async () => {
     let resolveLogout!: (response: Response) => void
     const pendingLogout = new Promise<Response>(done => { resolveLogout = done })

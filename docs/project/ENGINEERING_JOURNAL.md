@@ -1260,3 +1260,11 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **回滚：** 旧release保留，新frontend目录nginx-before.conf保留原root配置；仅恢复前端配置并检查/reload即可，不改控制平面current。新目录保留旧hashed assets用于已开标签页兼容。
 **剩余：** 授权真实账号操作与GPU恢复后的真实推理未验收；视觉重构属于下一轮。CPU/GPU数值/临床有效性仍非此次前端发布证据。
 **报告：** `frontend/docs/DEPLOYMENT_20261001.md`；本机交付 `publication-scan.json`、`server-frontend-activation.json`、`live-frontend-acceptance.json`及登录截图。记录提交只补文档，不更换线上应用SHA。
+
+### 2026-10-02｜第二轮医学影像工作台视觉重构
+
+**类型：** Frontend/QA；用户授权实施并完成后发布。**分支/起点：** feature/frontend-redesign-phase5，`a97a34688d5e5057681ecdcc38340adf1be3cd05`，本机独立work/EpiLocate checkout。
+**完成：** Login叙事/表单双栏、可访问导航、真实病例首页、中文输入状态、Case/Job流程上下文、CT优先Result工作台、折叠来源、响应式字号和44px控件。首页用既有Case API limit6不改分页store，generation/epoch/abort隔离。
+**发现和处理：** 手机菜单开着进入桌面会残留inert，增加断点监听清理/焦点返回/测试；200%放大双栏挤压画布，增加容器查询。jsdom无matchMedia及inert布尔反射与浏览器不同，补明确测试环境与使用true/undefined属性；没有移除安全检查来让测试通过。
+**验证：** 85/85测试15spec、TypeScript/build PASS，本地Edge合成API18场景19截图0page error；五宽度/200%CSS放大/键盘/Escape/断点恢复；六组新尺寸画布几何最大0.3222CSSpx，真实core/NATURALIZED清理PASS。保留原构建警告。
+**边界：** 无新增接口/部署模板/后端/算法变更；真实账号和GPU E2E仍未实测。发布结果将在操作完成后补录。报告frontend/docs/SECOND_ROUND_REPORT.md。

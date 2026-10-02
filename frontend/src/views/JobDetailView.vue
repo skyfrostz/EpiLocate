@@ -1,12 +1,13 @@
 <template>
   <div class="view">
     <div class="page-eyebrow"><span class="eyebrow-line" /> JOB MONITOR / 任务监控</div>
+    <nav class="context-nav" aria-label="任务上下文"><RouterLink to="/cases">病例中心</RouterLink><template v-if="job"><span aria-hidden="true"> / </span><RouterLink :to="`/cases/${encodeURIComponent(job.case_id)}`">关联病例</RouterLink></template><span aria-hidden="true"> / </span><span>任务详情</span></nav>
     <div class="page-heading"><div><h1>任务详情</h1><p class="page-intro">页面按 Job ID 自动查询；刷新页面后仍可恢复。</p></div><a-button :loading="jobs.loading" @click="jobs.startPolling(jobId)">重新查询</a-button></div>
     <div class="record-identity"><span>JOB ID</span><code style="overflow-wrap: anywhere">{{ jobId }}</code><a-tag :color="statusColor">{{ job ? labels[job.status] : '查询中' }}</a-tag></div>
     <p v-if="jobs.error" class="notice notice-error" role="alert">{{ jobs.error }}</p>
     <p v-if="jobs.error && job" class="notice" role="status">保留下方最近一次查询到的状态。查询中断不代表任务失败，点击“重新查询”可恢复。</p>
     <div class="content-card">
-      <div class="card-heading"><div><h2>任务状态</h2><p>状态由 Backend Job API 返回，不推断进度。</p></div><span v-if="jobs.isPolling" class="live-indicator">自动刷新中</span></div>
+      <div class="card-heading"><div><h2>任务状态</h2><p>显示服务端确认的状态；查询暂停后可按原 Job ID 恢复。</p></div><span v-if="jobs.isPolling" class="live-indicator">自动刷新中</span></div>
       <div v-if="job?.status !== 'FAILED'" class="status-track" aria-label="任务状态"><span v-for="status in statuses" :key="status" :class="{ 'status-current': job?.status === status }" :aria-current="job?.status === status ? 'step' : undefined">{{ labels[status] }}</span></div>
       <div v-if="job" class="job-facts">
         <div><span>任务类型</span><strong>{{ job.kind === 'PREDICTION' ? '分类预测' : '遮挡分析' }}</strong></div>

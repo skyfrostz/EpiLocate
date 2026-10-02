@@ -895,3 +895,10 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 **发布证据：** 完整 closure 636 objects/488 blobs 无阻断发现；归档哈希核对，HTTPS 首页/入口资源字节一致；mvp 200、无Cookie身份/病例401、Welcome200、Review303。外部Edge未登录桌面/移动检查PASS，真实账号/GPU推理未执行。
 **切换记录：** 初次即时校验读到旧worker首页，自动回滚；加入重载完成等待后再次激活通过，保留旧前端及配置备份。
 **报告：** `frontend/docs/DEPLOYMENT_20261001.md`。后续文档提交不改变线上应用源码 SHA；第一轮代码/审计/发布完成，完整真实业务链路验收仍待账号与GPU。
+
+## 阶段二十二：第二轮医学影像工作台视觉重构
+
+**日期 / 分支：** 2026-10-02，feature/frontend-redesign-phase5；起点 `a97a34688d5e5057681ecdcc38340adf1be3cd05`。用户选择医学工作台优先、全页面验收后直接发布。
+**实现：** Login双栏/移动单栏、中文导航与键盘恢复、真实首页病例第一页、Case分区/状态、Job关联、Result CT主区与分析侧栏/默认折叠来源、响应式容器查询。已有安全隔离和几何门控保留；无服务端/API/算法变更。
+**验证：** 本机Node24.19.0，85/85测试（15spec）、build PASS；18本地合成浏览器场景、19截图、0page error，5宽度和200% CSS放大；6组新画布几何误差最大0.3222CSSpx，cache释放PASS。移动菜单跨断点inert及放大画布挤压两问题在审查中修复并复验。
+**报告 / 边界：** frontend/docs/SECOND_ROUND_REPORT.md；真实账号/GPU E2E未验收。推送/服务器发布待执行后补录，不预写通过。FrozenBaseline、CPU/GPU数值和临床边界不变。

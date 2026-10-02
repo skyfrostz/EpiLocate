@@ -17,13 +17,13 @@
         <div class="table-head" aria-hidden="true"><span>CASE ID</span><span>状态</span><span>创建时间</span><span>输入可用期</span></div>
         <div v-for="item in cases.items" :key="item.case_id" class="case-row">
           <RouterLink :to="`/cases/${encodeURIComponent(item.case_id)}`" class="case-link">{{ item.case_id }}</RouterLink>
-          <span><a-tag :color="item.status === 'READY' ? 'green' : 'default'">{{ item.status }}</a-tag></span>
+          <span><a-tag :color="item.status === 'READY' ? 'green' : 'default'">{{ caseLabels[item.status] }}</a-tag></span>
           <span>{{ formatDate(item.created_at) }}</span>
           <span>{{ formatDate(item.input_expires_at) }}</span>
         </div>
         <div v-if="cases.nextCursor" class="table-actions"><a-button :loading="cases.loading" @click="cases.loadCases(undefined, true)">加载更多</a-button></div>
       </template>
-      <div v-else-if="cases.hasLoaded" class="empty-state compact"><h3>暂无病例</h3><p>服务端返回了空列表。可创建新的匿名病例。</p></div>
+      <div v-else-if="cases.hasLoaded && !cases.error" class="empty-state compact"><h3>暂无病例</h3><p>服务端返回了空列表。可创建新的匿名病例。</p></div>
       <div v-else class="empty-state compact"><h3>病例列表未加载</h3><p>请检查网络或认证状态后重试。</p></div>
     </div>
   </div>
@@ -36,8 +36,10 @@ import { apiClient } from '../api/client'
 import { formatDate } from '../format'
 import { errorText, useCaseStore } from '../stores/cases'
 import { isSessionCurrent, sessionEpoch } from '../auth/lifecycle'
+import type { CaseStatus } from '../api/types'
 
 const cases = useCaseStore()
+const caseLabels: Record<CaseStatus, string> = { CREATED: '待上传', READY: '输入可用', EXPIRED: '输入已到期', DELETING: '删除中' }
 const router = useRouter()
 const creating = ref(false)
 const createError = ref<string | null>(null)

@@ -3,7 +3,7 @@ import { auth, loadSession } from '../auth/session'
 
 const routes: RouteRecordRaw[] = [
   { path: '/login', name: 'login', component: () => import('../views/LoginView.vue'), meta: { title: '登录' } },
-  { path: '/', name: 'dashboard', component: () => import('../views/DashboardView.vue'), meta: { title: 'Dashboard' } },
+  { path: '/', name: 'dashboard', component: () => import('../views/DashboardView.vue'), meta: { title: '工作台' } },
   { path: '/cases', name: 'cases', component: () => import('../views/CasesView.vue'), meta: { title: '病例中心' } },
   { path: '/cases/:id', name: 'case-detail', component: () => import('../views/CaseDetailView.vue'), meta: { title: '病例详情' } },
   { path: '/jobs/:id', name: 'job-detail', component: () => import('../views/JobDetailView.vue'), meta: { title: '任务详情' } },

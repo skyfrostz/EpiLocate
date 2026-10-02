@@ -6,8 +6,26 @@
     <p v-if="results.error" class="notice notice-error" role="alert">{{ results.error }}</p>
     <p v-if="results.loading" class="notice" role="status">正在读取 Result…</p>
     <template v-if="result">
-      <div class="result-grid">
-        <div class="content-card">
+      <nav class="result-context" aria-label="当前病例与任务">
+        <RouterLink :to="`/cases/${encodeURIComponent(result.case_id)}`"><span>当前病例</span><code>{{ result.case_id }}</code></RouterLink>
+        <RouterLink :to="`/jobs/${encodeURIComponent(result.job_id)}`"><span>当前任务</span><code>{{ result.job_id }}</code></RouterLink>
+        <span class="result-context-slice"><span>单切片 CT</span><code>{{ result.slice_id }}</code></span>
+      </nav>
+      <div class="result-workspace">
+        <div class="content-card fusion-card result-image-panel">
+          <div class="card-heading"><div><h2>CT 与模型图层</h2><p>单切片像素空间 · Cornerstone3D</p></div><a-tag :color="geometryGate?.ok ? 'green' : 'default'">{{ geometryGate?.ok ? 'PIXEL CONTRACT MATCHED' : 'OVERLAY UNAVAILABLE' }}</a-tag></div>
+          <p v-if="ctLoading" class="viewer-note" role="status">正在通过授权 API 读取原始 DICOM…</p>
+          <p v-if="ctError" class="notice notice-error" role="alert">{{ ctError }}</p>
+          <p v-if="result.kind === 'OCCLUSION' && !geometryGate?.ok" class="viewer-note" role="status">{{ geometryGate?.reason }}</p>
+          <div v-if="result.kind === 'OCCLUSION'" class="fusion-controls">
+            <label><input v-model="overlayVisible" type="checkbox" :disabled="!geometryGate?.ok || !imageReady" /> 显示叠加</label>
+            <label>透明度 <input v-model.number="overlayOpacity" type="range" min="0" max="1" step="0.05" :disabled="!geometryGate?.ok || !imageReady" /> {{ Math.round(overlayOpacity * 100) }}%</label>
+          </div>
+          <CornerstoneSliceViewer :file="dicomFile" :slice-id="result.slice_id" :slice-width="currentSlice?.width_px ?? null" :slice-height="currentSlice?.height_px ?? null" :overlay="viewerOverlay" :overlay-visible="overlayVisible" :overlay-opacity="overlayOpacity" :initial-view="viewState" :input-state="ctState" :input-message="ctError" @retry="loadCt" @camera-changed="viewState = $event" />
+          <p class="viewer-note">仅当原始 DICOM 摘要、版本、Slice、资产清单及画布映射全部通过校验时才绘制叠加。独立图层始终保留。</p>
+        </div>
+        <aside class="result-analysis-panel" aria-label="分类与模型响应">
+        <div class="content-card result-prediction-card">
           <div class="card-heading"><div><h2>单切片分类</h2><p>Prediction · {{ result.slice_id }}</p></div></div>
           <div v-if="result.prediction" class="prediction-content">
             <div class="prediction-label"><span>预测类别</span><strong>{{ result.prediction.class_label }}</strong></div>
@@ -16,7 +34,7 @@
           </div>
           <div v-else class="empty-state compact"><h3>分类字段不可用</h3><p>此 Result 未提供预测摘要。</p></div>
         </div>
-        <div class="content-card">
+        <div class="content-card result-heatmap-card">
           <div class="card-heading"><div><h2>模型响应图</h2><p>受保护的独立图层 · 不是病灶标注</p></div><a-tag v-if="result.kind === 'OCCLUSION'">{{ selectedScale }} px</a-tag></div>
           <div v-if="result.scale_summaries.length" class="scale-switch" aria-label="遮挡尺度">
             <button v-for="summary in result.scale_summaries" :key="summary.block_size" type="button" :class="{ active: selectedScale === summary.block_size }" @click="selectedScale = summary.block_size">{{ summary.block_size }} px</button>
@@ -38,20 +56,10 @@
           <p v-if="selectedLayer" class="asset-caption">{{ selectedLayerLabel }} · {{ selectedLayer.coordinate_space }} · {{ selectedLayer.width }} × {{ selectedLayer.height }} px</p>
           <p v-if="selectedLayer?.layer_kind === 'COMPARISON_GRID'" class="viewer-note">14×14 区域平均图；放大仅用于显示，不增加空间分辨率。</p>
         </div>
-        <div class="content-card fusion-card">
-          <div class="card-heading"><div><h2>CT 与模型图层</h2><p>单切片像素空间 · Cornerstone3D</p></div><a-tag :color="geometryGate?.ok ? 'green' : 'default'">{{ geometryGate?.ok ? 'PIXEL CONTRACT MATCHED' : 'OVERLAY UNAVAILABLE' }}</a-tag></div>
-          <p v-if="ctLoading" class="viewer-note" role="status">正在通过授权 API 读取原始 DICOM…</p>
-          <p v-if="ctError" class="notice notice-error" role="alert">{{ ctError }}</p>
-          <p v-if="result.kind === 'OCCLUSION' && !geometryGate?.ok" class="viewer-note" role="status">{{ geometryGate?.reason }}</p>
-          <div v-if="result.kind === 'OCCLUSION'" class="fusion-controls">
-            <label><input v-model="overlayVisible" type="checkbox" :disabled="!geometryGate?.ok || !imageReady" /> 显示叠加</label>
-            <label>透明度 <input v-model.number="overlayOpacity" type="range" min="0" max="1" step="0.05" :disabled="!geometryGate?.ok || !imageReady" /> {{ Math.round(overlayOpacity * 100) }}%</label>
-          </div>
-          <CornerstoneSliceViewer :file="dicomFile" :slice-id="result.slice_id" :slice-width="currentSlice?.width_px ?? null" :slice-height="currentSlice?.height_px ?? null" :overlay="viewerOverlay" :overlay-visible="overlayVisible" :overlay-opacity="overlayOpacity" :initial-view="viewState" :input-state="ctState" :input-message="ctError" @retry="loadCt" @camera-changed="viewState = $event" />
-          <p class="viewer-note">仅当原始 DICOM 摘要、版本、Slice、资产清单及画布映射全部通过校验时才绘制叠加。独立图层始终保留。</p>
-        </div>
-        <div class="content-card model-card">
-          <div class="card-heading"><div><h2>模型与算法版本</h2><p>服务端 provenance</p></div></div>
+        </aside>
+      </div>
+        <details class="content-card model-card result-metadata">
+          <summary class="card-heading"><span>模型与算法版本</span><span>服务端 provenance · 展开查看</span></summary>
           <div class="result-meta">
             <div><span>模型 ID</span><code>{{ result.model_id }}</code></div>
             <div><span>模型版本</span><code>{{ result.model_version }}</code></div>
@@ -60,8 +68,7 @@
             <div><span>数据来源</span><strong>{{ result.source }}</strong></div>
             <div><span>任务 ID</span><RouterLink :to="`/jobs/${encodeURIComponent(result.job_id)}`">{{ result.job_id }}</RouterLink></div>
           </div>
-        </div>
-      </div>
+        </details>
       <p class="result-disclaimer">图层表示模型决策响应，不是病灶标注或临床诊断。仅验证当前单切片的像素几何，未建立三维空间配准。</p>
     </template>
     <div v-else-if="!results.loading" class="content-card"><div class="empty-state compact"><h3>结果尚不可显示</h3><p>请确认 Result ID、认证状态和 API 连接，然后重新读取。</p></div></div>

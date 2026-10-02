@@ -2,18 +2,19 @@
   <div class="view">
     <div class="page-eyebrow"><span class="eyebrow-line" /> CASE RECORD / 病例记录</div>
     <div class="page-heading"><div><h1>病例详情</h1><p class="page-intro">单切片 CT 输入与任务创建。</p></div><RouterLink class="back-link" to="/cases">← 返回病例中心</RouterLink></div>
-    <div class="record-identity"><span>CASE ID</span><code>{{ caseId }}</code><a-tag>{{ cases.selected?.status ?? '未读取' }}</a-tag></div>
+    <div class="record-identity"><span>CASE ID</span><code>{{ caseId }}</code><a-tag>{{ cases.selected ? caseLabels[cases.selected.status] : '未读取' }}</a-tag></div>
     <p v-if="cases.detailError" class="notice notice-error" role="alert">{{ cases.detailError }}</p>
+    <a-button v-if="cases.detailError" :loading="cases.detailLoading" @click="cases.loadCase(caseId)">重新读取病例</a-button>
     <p v-if="cases.detailLoading" class="notice" role="status">正在读取病例详情…</p>
     <template v-if="cases.selected?.case_id === caseId">
       <div class="detail-grid">
         <div class="content-card">
-          <div class="card-heading"><div><h2>影像结构</h2><p>Study / Series / Slice</p></div></div>
+          <div class="card-heading"><div><h2>01 · 病例与影像输入</h2><p>输入记录 · 单切片 CT</p></div></div>
           <div class="case-meta"><span>创建时间</span><strong>{{ formatDate(cases.selected.created_at) }}</strong><span>输入可用期</span><strong>{{ formatDate(cases.selected.input_expires_at) }}</strong></div>
           <div v-if="slices.length" class="slice-list">
             <div v-for="slice in slices" :key="slice.slice_id" class="slice-row"><code>{{ slice.slice_id }}</code><span>第 {{ slice.ordinal + 1 }} 张 · {{ slice.width_px }} × {{ slice.height_px }} px</span></div>
           </div>
-          <div v-else class="empty-state compact"><h3>尚无切片</h3><p>上传一张已去标识 CT DICOM；READY 仅代表输入可排队。</p></div>
+          <div v-else class="empty-state compact"><h3>尚无切片</h3><p>上传一张已去标识 CT DICOM；输入可用仅代表可以创建分析任务。</p></div>
           <div v-if="!slices.length" class="case-upload">
             <label for="dicom-upload">选择已去标识的单张 CT DICOM（最多 20 MiB）</label>
             <input id="dicom-upload" type="file" accept=".dcm,application/dicom" @change="chooseFile" />
@@ -22,12 +23,13 @@
           <p v-if="uploadError" class="notice notice-error" role="alert">{{ uploadError }}</p>
         </div>
         <div class="content-card">
-          <div class="card-heading"><div><h2>影像浏览</h2><p>Cornerstone3D · 单切片</p></div></div>
+          <div class="card-heading"><div><h2>02 · 影像浏览</h2><p>单切片 · 缩放与平移</p></div></div>
           <CornerstoneSliceViewer :file="previewFile" :input-state="previewState" :input-message="previewError" :slice-id="slices[0]?.slice_id ?? null" :slice-width="slices[0]?.width_px ?? null" :slice-height="slices[0]?.height_px ?? null" @retry="restoreDicom" />
         </div>
       </div>
       <div v-if="slices.length" class="content-card inference-card">
-        <div class="card-heading"><div><h2>启动分析</h2><p>分类与遮挡任务由独立 API 创建，结果按 Job ID 查询。</p></div></div>
+        <div class="card-heading"><div><h2>03 · 启动分析</h2><p>创建任务后进入任务详情，完成后沿结果链接阅读分析。</p></div></div>
+        <p v-if="cases.selected.status === 'EXPIRED'" class="notice" role="status">原始输入已到期。请在病例中心创建新病例并重新上传；已有结果可通过原结果链接查看。</p>
         <div class="inference-controls">
           <label>模型 ID <input v-model.trim="modelId" type="text" autocomplete="off" /></label>
           <div class="action-group"><a-button :loading="submitting" :disabled="!canSubmit" @click="submit('PREDICTION')">运行 Baseline 分类</a-button><a-button type="primary" :loading="submitting" :disabled="!canSubmit" @click="submit('OCCLUSION')">运行 16 / 32 / 64 px 遮挡</a-button></div>
@@ -45,12 +47,13 @@ import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { apiClient, ApiRequestError } from '../api/client'
 import { auth } from '../auth/session'
 import { isSessionCurrent, sessionEpoch } from '../auth/lifecycle'
-import type { JobKind, SliceRecord } from '../api/types'
+import type { CaseStatus, JobKind, SliceRecord } from '../api/types'
 import CornerstoneSliceViewer from '../viewer/CornerstoneSliceViewer.vue'
 import { formatDate } from '../format'
 import { errorText, useCaseStore } from '../stores/cases'
 
 const route = useRoute()
+const caseLabels: Record<CaseStatus, string> = { CREATED: '待上传', READY: '输入可用', EXPIRED: '输入已到期', DELETING: '删除中' }
 const router = useRouter()
 const cases = useCaseStore()
 const caseId = computed(() => String(route.params.id ?? ''))

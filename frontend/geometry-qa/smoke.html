@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8" /><title>Synthetic pixel geometry fixture</title><style>body{font-family:sans-serif;max-width:850px;margin:auto;background:#eef3f4}</style></head>
+<head><meta charset="utf-8" /><title>Synthetic pixel geometry fixture</title><style>body{font-family:sans-serif;margin:16px;background:#eef3f4}</style></head>
 <body><h1>Synthetic pixel geometry fixture</h1><div id="app"></div>
 <script type="module">
 import '/src/style.css'
@@ -28,7 +28,7 @@ const fixtureApp = createApp({ setup() {
   const enabled = ref(true)
   const opacity = ref(0.8)
   window.__geometryFixture = { cornerstone, metaData, MetadataEnums, enabled, opacity, unmount: () => fixtureApp.unmount() }
-  return () => h('div', [
+  return () => h('div', { class: 'result-image-panel' }, [
     h('button', { onClick: () => enabled.value = !enabled.value }, 'toggle'),
     h('input', { type: 'range', min: 0, max: 1, step: 0.1, value: opacity.value,
       onInput: event => opacity.value = Number(event.target.value) }),
