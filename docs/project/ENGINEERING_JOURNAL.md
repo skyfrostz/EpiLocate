@@ -1268,3 +1268,5 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **发现和处理：** 手机菜单开着进入桌面会残留inert，增加断点监听清理/焦点返回/测试；200%放大双栏挤压画布，增加容器查询。jsdom无matchMedia及inert布尔反射与浏览器不同，补明确测试环境与使用true/undefined属性；没有移除安全检查来让测试通过。
 **验证：** 85/85测试15spec、TypeScript/build PASS，本地Edge合成API18场景19截图0page error；五宽度/200%CSS放大/键盘/Escape/断点恢复；六组新尺寸画布几何最大0.3222CSSpx，真实core/NATURALIZED清理PASS。保留原构建警告。
 **边界：** 无新增接口/部署模板/后端/算法变更；真实账号和GPU E2E仍未实测。发布结果将在操作完成后补录。报告frontend/docs/SECOND_ROUND_REPORT.md。
+
+**本轮实际发布：** 2026-10-02，应用 `988328f53c44a1542e95707951163a14d7b9eb05` GitHub普通push并核对。扫描673objects/507blobs无阻断；固定frontend归档SHA256核对，服务器Node24.21.0锁定安装、85/85测试15spec及/mvp/构建PASS。准备脚本初次CRLF在开始时退出，转LF后重跑通过，失败时未切换线上。Nginx配置备份/检查/reload与资源字节核对PASS，仅改前端root，控制平面current保持4e38fd，四项服务active。外部Edge新版登录桌面/手机、保护跳转、键盘、无横向溢出PASS，0page error/资源失败。mvp200、无Cookie身份/病例401、Welcome200；Review斜杠307/无斜杠401与上一轮303证据不同，仅记录，不改此应用。真实账号/GPU未验收。旧目录/hashed assets与nginx-before.conf保留；报告及本机发布JSON补录，文档提交不改变应用SHA。

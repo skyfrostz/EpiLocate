@@ -902,3 +902,5 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 **实现：** Login双栏/移动单栏、中文导航与键盘恢复、真实首页病例第一页、Case分区/状态、Job关联、Result CT主区与分析侧栏/默认折叠来源、响应式容器查询。已有安全隔离和几何门控保留；无服务端/API/算法变更。
 **验证：** 本机Node24.19.0，85/85测试（15spec）、build PASS；18本地合成浏览器场景、19截图、0page error，5宽度和200% CSS放大；6组新画布几何误差最大0.3222CSSpx，cache释放PASS。移动菜单跨断点inert及放大画布挤压两问题在审查中修复并复验。
 **报告 / 边界：** frontend/docs/SECOND_ROUND_REPORT.md；真实账号/GPU E2E未验收。推送/服务器发布待执行后补录，不预写通过。FrozenBaseline、CPU/GPU数值和临床边界不变。
+
+**阶段二十二发布补录：** 应用提交 `988328f53c44a1542e95707951163a14d7b9eb05` 已普通推送并部署独立前端目录；完整 closure 673 objects / 507 blobs 无阻断发现，归档 SHA256 一致。服务器 Node24.21.0，85/85 测试、15 spec及 build PASS。仅切换 Nginx frontend root，首页/2入口资源字节一致，Backend/Gateway/Sweeper/MinIO active，控制平面仍为原4e38fd release；旧前端与回滚配置保留。真实未登录桌面/手机新登录页验收 PASS，0脚本/资源错误；mvp200、身份/病例401、Welcome200。另观测 Review带斜杠307/不带斜杠401，区别于上一轮303记录，未修改或宣称该应用通过。真实账号/GPU E2E仍开放，详见 SECOND_ROUND_REPORT.md。

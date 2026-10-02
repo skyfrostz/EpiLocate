@@ -27,4 +27,15 @@
 
 用户已选择全页面完成即发布：验证与敏感信息检查后普通推送指定分支，从固定提交导出前端源码传到独立服务器目录，服务器锁定安装/测试及 `/mvp/` build；仅切换前端 Nginx root，保留旧目录与配置备份。发布后核对首页/静态资源及真实未登录桌面/手机浏览器。
 
-发布执行结果另行补录，不将计划写成已上线。真实账号登录后操作与 GPU 恢复后的推理 E2E 仍未验收；临床定位、多切片及 CPU/GPU 数值门槛不属于本轮。仓库目录迁移和清理继续推迟，不作为本次视觉发布的一部分。
+2026-10-02 已完成发布，应用源码为 `988328f53c44a1542e95707951163a14d7b9eb05`，GitHub 指定分支已普通推送并核对。真实账号登录后操作与 GPU 恢复后的推理 E2E 仍未验收；临床定位、多切片及 CPU/GPU 数值门槛不属于本轮。仓库目录迁移和清理继续推迟，不作为本次视觉发布的一部分。
+
+
+## 实际发布记录
+
+- 完整 Git closure 扫描 673 objects / 507 blobs，新增 16 blobs，无阻断发现；固定提交 frontend 归档 SHA256 `db4d8d3089d1a1c26da1a286653b64c6af611713851424f8eb39437359720081`，服务器核对一致。
+- 服务器 Node 24.21.0 锁定安装、**85/85 测试、15 spec、build PASS**。新目录 `/opt/epilocate-mvp/frontend-releases/988328f53c44a1542e95707951163a14d7b9eb05`；仅切换前端静态 root，保留旧目录和新目录下 `nginx-before.conf`。旧 hashed assets 保留供已开页面使用。
+- Nginx 配置检查与重载通过，实际首页与 2 个入口 JS/CSS 字节核对一致。Backend/Gateway/Sweeper/MinIO active；控制平面 current 仍是原 `4e38fd32765e7c69ae0b7389cb91fe057c938472` release。
+- 发布后 HTTPS `/mvp/` 200，无 Cookie `/auth/session` 与 `/api/v2/cases` 401，`/welcome/` 200；另外观测 `/review/` 307、`/review` 401，与上一轮记录的 303 不同，未据此宣称 Review 完整功能通过，也未修改该应用。
+- 外部 Edge 检查真实未登录桌面 1440 px / 手机 390 px：新版登录布局、受保护 Case 重定向、键盘焦点及无水平溢出 PASS；0 page error、0 静态资源失败。通过已核实 IP 映射访问域名，保持 TLS 验证。
+- 初次服务器准备脚本存在 CRLF 导致 shell 在开始时退出；修正为 LF 后完整运行通过，该失败发生在前端切换之前。
+- 本机证据：`round2-publication-scan.json`、`round2-server-activation.json`、`round2-live-frontend-acceptance.json`、`frontend-round2/` 截图。文档补录提交不改变线上应用 SHA。
