@@ -44,6 +44,33 @@ class LeaseExpired(RuntimeError):
     pass
 
 
+def _log_attempt_failure(error: Exception, code: str) -> None:
+    """Log only closed-set diagnostics, never exception text or traceback.
+
+    Exact types avoid exposing user-controlled subclass names. An unknown type
+    stays unclassified; categories are diagnostic hints, not a root-cause claim.
+    Do not add exception arguments, chained exceptions, paths, URLs, or IDs.
+    """
+    categories = (
+        (InputDownloadFailed, "input_download"),
+        (InputHashMismatch, "input_hash"),
+        (ModelHashMismatch, "model_hash"),
+        (torch.cuda.OutOfMemoryError, "cuda_out_of_memory"),
+        (InvalidWorkerInput, "invalid_worker_input"),
+        (ValueError, "value_error"),
+        (ModuleNotFoundError, "module_not_found"),
+        (ImportError, "import_error"),
+        (FileNotFoundError, "file_not_found"),
+        (PermissionError, "permission_error"),
+        (OSError, "os_error"),
+        (RuntimeError, "runtime_error"),
+        (TypeError, "type_error"),
+        (MemoryError, "memory_error"),
+    )
+    category = next((label for kind, label in categories if type(error) is kind), "unclassified")
+    LOG.error("Worker attempt failed: code=%s category=%s", code, category)
+
+
 class WorkerAgent:
     def __init__(self, config: WorkerConfig, *, client: WorkerClient | None = None,
                  runner: FrozenRunner | None = None, download_transport: httpx.BaseTransport | None = None):
@@ -320,26 +347,30 @@ class WorkerAgent:
                     output = self.runner.run(claim, input_path, root / "assets")
                     manifest = manifest_for_success(self.config.worker_id, claim, input_hash, output)
                     assets = output.assets
-                except InputDownloadFailed:
+                except InputDownloadFailed as exc:
+                    _log_attempt_failure(exc, "INPUT_DOWNLOAD_FAILED")
                     manifest = manifest_for_failure(self.config.worker_id, claim, "INPUT_DOWNLOAD_FAILED")
                     assets = {}
-                except InputHashMismatch:
+                except InputHashMismatch as exc:
+                    _log_attempt_failure(exc, "INPUT_HASH_MISMATCH")
                     manifest = manifest_for_failure(self.config.worker_id, claim, "INPUT_HASH_MISMATCH")
                     assets = {}
-                except ModelHashMismatch:
+                except ModelHashMismatch as exc:
+                    _log_attempt_failure(exc, "MODEL_HASH_MISMATCH")
                     manifest = manifest_for_failure(self.config.worker_id, claim, "MODEL_HASH_MISMATCH")
                     assets = {}
-                except torch.cuda.OutOfMemoryError:
-                    LOG.error("CUDA memory exhausted for job %s", claim["job_id"])
+                except torch.cuda.OutOfMemoryError as exc:
+                    _log_attempt_failure(exc, "TEMPORARY_GPU_UNAVAILABLE")
                     manifest = manifest_for_failure(self.config.worker_id, claim, "TEMPORARY_GPU_UNAVAILABLE")
                     assets = {}
                 except (BackendUnavailable, WorkerAPIError, LeaseExpired):
                     raise
-                except (InvalidWorkerInput, ValueError):
+                except (InvalidWorkerInput, ValueError) as exc:
+                    _log_attempt_failure(exc, "PREPROCESSING_FAILED")
                     manifest = manifest_for_failure(self.config.worker_id, claim, "PREPROCESSING_FAILED")
                     assets = {}
-                except Exception:
-                    LOG.error("Inference failed for job %s", claim["job_id"])
+                except Exception as exc:
+                    _log_attempt_failure(exc, "INFERENCE_FAILED")
                     manifest = manifest_for_failure(self.config.worker_id, claim, "INFERENCE_FAILED")
                     assets = {}
                 if not self._lease_valid():

@@ -868,3 +868,13 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 ## 当前线上可用性
 
 截至本次文档补录可取得的最新部署证据，事故报告记录了 2026-09-29 10:08 前的服务检查与修复后 E2E；没有更晚的 Live Regression Audit 结果。因此 **CURRENT LIVE AVAILABILITY: PENDING REVALIDATION**。历史 E2E PASS 只代表对应验收时点，不推出此后持续可用。
+
+## 阶段二十：云端 Worker 安全故障诊断候选
+
+**时间：** 2026-10-02。**分支：** `codex/cloud-worker-safe-diagnostics`；从公开交接基线 `4e38fd32765e7c69ae0b7389cb91fe057c938472` 独立开发，工作区为云端 `EpiLocate-cloud-audit`。本地独立审查已通过。初次提交因缺少 Git 身份受阻，随后负责人明确授权设置本仓库 local 身份并提交、推送该独立分支供审核；未设置 global 身份。最终提交、远端 SHA 与 CI 状态由交付报告核验，不表示已经合并或部署。
+
+**范围与决策：** `worker/agent.py` 原有失败路径缺少可区分且安全的诊断。本次只为既有失败分支添加稳定协议错误码与封闭白名单异常类别。类别按精确类型匹配，未知自定义异常归为 `unclassified`；不输出异常文本、动态类型名、链式异常、traceback、路径、URL、凭据、患者字段或 Job ID。类别仅为故障线索，不证明具体根因；例如 `runtime_error` 不能独自证明 decoder 缺失。
+
+**验证：** 云端 Linux / Python 3.12.14 / PyTorch 2.4.0+cpu，使用 FakeRunner 与内存 HTTPS transport；协议、恢复、远程 GPU 模板静态检查及文档 checker 共 **43 passed**。新增 19 项覆盖安全分类、恶意异常文本/类型名、链式异常、不可字符串化异常、稳定失败 manifest、单次提交、临时目录与缓存清理；真实下载异常/错哈希和控制流异常的传播边界也有回归覆盖。CPU 包安装不代表实际 CPU 推理验收。
+
+**边界：** Backend 契约、租约/重试语义、FrozenBaseline、模型、算法、frontend、部署配置未改；未读取冻结模型或患者文件，未运行训练、真实模型推理、GPU、线上 E2E。数值一致性与 production/clinical 门槛未变化。Decoder 预检、sanitized 根的旧祖先联调准入仍为后续任务；本项不宣称完成整个 Worker 可观测性体系。详细命令见工程日志对应日期。

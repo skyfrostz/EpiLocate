@@ -8,12 +8,13 @@ from pathlib import Path
 
 import httpx
 import pytest
+from torch.cuda import OutOfMemoryError
 
 from algorithm.service import MODEL_SHA, PREPROCESSING_VERSION, PROTOCOL_ID
 from worker.agent import LeaseExpired, WorkerAgent
 from worker.client import BackendUnavailable, WorkerAPIError, WorkerClient
 from worker.config import WorkerConfig
-from worker.inference import InferenceOutput, ModelHashMismatch
+from worker.inference import InferenceOutput, InvalidWorkerInput, ModelHashMismatch
 
 
 def iso(seconds: int = 0):
@@ -266,3 +267,188 @@ def test_backend_auth_error_has_only_stable_code():
     with pytest.raises(WorkerAPIError, match="WORKER_UNAUTHENTICATED") as exc:
         client.register("node_test", MODEL_SHA, {"accelerator": "CPU"})
     assert "secret detail" not in str(exc.value)
+
+
+# These are synthetic leak sentinels, not credentials or patient data.
+_DIAGNOSTIC_SECRET = (
+    '/private/synthetic-patient/file.dcm token=synthetic-secret '
+    'https://synthetic-user:synthetic-password@objects.example/input?signature=synthetic-signature '
+    'PatientName=SyntheticLeakSentinel'
+)
+
+
+class UnprintableDiagnosticError(RuntimeError):
+    def __str__(self):
+        raise AssertionError('diagnostics must not stringify an exception')
+
+
+# A custom type name must not become a log label either.
+UnprintableDiagnosticError.__name__ = 'SyntheticPrivateTypeName'
+
+
+@pytest.mark.parametrize('error_type,category,code', [
+    (InvalidWorkerInput, 'invalid_worker_input', 'PREPROCESSING_FAILED'),
+    (OutOfMemoryError, 'cuda_out_of_memory', 'TEMPORARY_GPU_UNAVAILABLE'),
+    (ModelHashMismatch, 'model_hash', 'MODEL_HASH_MISMATCH'),
+    (ValueError, 'value_error', 'PREPROCESSING_FAILED'),
+    (RuntimeError, 'runtime_error', 'INFERENCE_FAILED'),
+    (ModuleNotFoundError, 'module_not_found', 'INFERENCE_FAILED'),
+    (ImportError, 'import_error', 'INFERENCE_FAILED'),
+    (FileNotFoundError, 'file_not_found', 'INFERENCE_FAILED'),
+    (PermissionError, 'permission_error', 'INFERENCE_FAILED'),
+    (OSError, 'os_error', 'INFERENCE_FAILED'),
+    (TypeError, 'type_error', 'INFERENCE_FAILED'),
+    (MemoryError, 'memory_error', 'INFERENCE_FAILED'),
+    (UnprintableDiagnosticError, 'unclassified', 'INFERENCE_FAILED'),
+], ids=['invalid-input', 'cuda-oom', 'model-hash', 'value', 'runtime', 'module', 'import', 'file', 'permission', 'os', 'type', 'memory', 'custom'])
+def test_failure_diagnostics_are_closed_set_and_preserve_protocol(
+        tmp_path, caplog, error_type, category, code):
+    assigned = claim(b'synthetic input')
+
+    class FailingRunner(FakeRunner):
+        released = False
+
+        def run(self, *_args):
+            self.calls += 1
+            try:
+                raise RuntimeError(_DIAGNOSTIC_SECRET)
+            except RuntimeError as cause:
+                raise error_type(_DIAGNOSTIC_SECRET) from cause
+
+        def release_cached_memory(self):
+            self.released = True
+
+    class Client:
+        submissions = []
+
+        def heartbeat(self, *_args):
+            return {'lease_expire_time': iso(90), 'server_time': iso()}
+
+        def submit(self, job_id, manifest, assets):
+            self.submissions.append((manifest, assets))
+            return {'job_id': job_id, 'attempt_id': assigned['attempt_id'],
+                    'accepted': True, 'job_status': 'FAILED', 'result_id': None}
+
+    runner, client = FailingRunner(), Client()
+    agent = WorkerAgent(config(tmp_path), client=client, runner=runner,
+                       download_transport=httpx.MockTransport(
+                           lambda _r: httpx.Response(200, content=b'synthetic input')))
+    with caplog.at_level('ERROR', logger='epilocate.worker'):
+        assert agent.process_claim(assigned)['accepted'] is True
+    assert runner.calls == 1 and runner.released
+    assert len(client.submissions) == 1
+    manifest, assets = client.submissions[0]
+    assert manifest['outcome'] == 'FAILED'
+    assert manifest['error']['code'] == code and assets == {}
+    assert list(agent.temp_root.iterdir()) == []
+    assert agent._active is None and agent._lease_deadline == 0.0
+    records = [record for record in caplog.records if record.name == 'epilocate.worker']
+    assert len(records) == 1
+    record = records[0]
+    assert record.getMessage() == f'Worker attempt failed: code={code} category={category}'
+    assert record.args == (code, category)
+    assert record.exc_info is None and record.exc_text is None and record.stack_info is None
+    output = caplog.text + json.dumps(manifest)
+    for sentinel in [_DIAGNOSTIC_SECRET, 'synthetic-secret', 'synthetic-password',
+                     'synthetic-signature', 'SyntheticLeakSentinel', 'SyntheticPrivateTypeName',
+                     '/private/synthetic-patient']:
+        assert sentinel not in output
+
+
+def test_failure_diagnostic_known_worker_categories(caplog):
+    import torch
+    from worker.agent import InputDownloadFailed, InputHashMismatch, _log_attempt_failure
+    from worker.inference import InvalidWorkerInput
+
+    for error_type, category, code in [
+        (InputDownloadFailed, 'input_download', 'INPUT_DOWNLOAD_FAILED'),
+        (InputHashMismatch, 'input_hash', 'INPUT_HASH_MISMATCH'),
+        (ModelHashMismatch, 'model_hash', 'MODEL_HASH_MISMATCH'),
+        (InvalidWorkerInput, 'invalid_worker_input', 'PREPROCESSING_FAILED'),
+        (torch.cuda.OutOfMemoryError, 'cuda_out_of_memory', 'TEMPORARY_GPU_UNAVAILABLE'),
+    ]:
+        caplog.clear()
+        with caplog.at_level('ERROR', logger='epilocate.worker'):
+            _log_attempt_failure(error_type(_DIAGNOSTIC_SECRET), code)
+        assert caplog.messages == [f'Worker attempt failed: code={code} category={category}']
+        assert caplog.records[0].exc_info is None
+
+
+@pytest.mark.parametrize('mode,code,category', [
+    ('download', 'INPUT_DOWNLOAD_FAILED', 'input_download'),
+    ('hash', 'INPUT_HASH_MISMATCH', 'input_hash'),
+])
+def test_download_failure_diagnostics_preserve_protocol(tmp_path, caplog, mode, code, category):
+    assigned = claim(b'synthetic input')
+    assigned['input_reference']['url'] += '?signature=synthetic-signature'
+
+    class Client:
+        submissions = []
+
+        def heartbeat(self, *_args):
+            return {'lease_expire_time': iso(90), 'server_time': iso()}
+
+        def submit(self, job_id, manifest, assets):
+            self.submissions.append((manifest, assets))
+            return {'job_id': job_id, 'attempt_id': assigned['attempt_id'],
+                    'accepted': True, 'job_status': 'FAILED', 'result_id': None}
+
+    def input_server(request):
+        if mode == 'download':
+            raise httpx.ReadError(_DIAGNOSTIC_SECRET, request=request)
+        return httpx.Response(200, content=_DIAGNOSTIC_SECRET.encode())
+
+    runner, client = FakeRunner(), Client()
+    agent = WorkerAgent(config(tmp_path), client=client, runner=runner,
+                       download_transport=httpx.MockTransport(input_server))
+    with caplog.at_level('ERROR', logger='epilocate.worker'):
+        assert agent.process_claim(assigned)['accepted'] is True
+    assert runner.calls == 0 and len(client.submissions) == 1
+    manifest, assets = client.submissions[0]
+    assert manifest['outcome'] == 'FAILED'
+    assert manifest['error']['code'] == code and assets == {}
+    assert list(agent.temp_root.iterdir()) == []
+    assert agent._active is None and agent._lease_deadline == 0.0
+    assert caplog.messages == [f'Worker attempt failed: code={code} category={category}']
+    record = caplog.records[0]
+    assert record.args == (code, category)
+    assert record.exc_info is None and record.exc_text is None and record.stack_info is None
+    output = caplog.text + json.dumps(manifest)
+    for sentinel in ['synthetic-secret', 'synthetic-password', 'synthetic-signature',
+                     'SyntheticLeakSentinel', '/private/synthetic-patient']:
+        assert sentinel not in output
+
+
+@pytest.mark.parametrize('error', [
+    BackendUnavailable(_DIAGNOSTIC_SECRET),
+    WorkerAPIError(503, 'WORKER_NOT_REGISTERED'),
+    LeaseExpired(_DIAGNOSTIC_SECRET),
+], ids=['backend-unavailable', 'worker-api', 'lease-expired'])
+def test_control_flow_errors_do_not_become_failure_diagnostics(tmp_path, caplog, error):
+    class FailingRunner(FakeRunner):
+        released = False
+
+        def run(self, *_args):
+            raise error
+
+        def release_cached_memory(self):
+            self.released = True
+
+    class Client:
+        def heartbeat(self, *_args):
+            return {'lease_expire_time': iso(90), 'server_time': iso()}
+
+        def submit(self, *_args):
+            pytest.fail('control-flow error must not submit a failure manifest')
+
+    runner = FailingRunner()
+    agent = WorkerAgent(config(tmp_path), client=Client(), runner=runner,
+                       download_transport=httpx.MockTransport(
+                           lambda _r: httpx.Response(200, content=b'synthetic input')))
+    with caplog.at_level('ERROR', logger='epilocate.worker'):
+        with pytest.raises(type(error)) as caught:
+            agent.process_claim(claim(b'synthetic input'))
+    assert caught.value is error
+    assert not [record for record in caplog.records if record.name == 'epilocate.worker']
+    assert runner.released and list(agent.temp_root.iterdir()) == []
+    assert agent._active is None and agent._lease_deadline == 0.0

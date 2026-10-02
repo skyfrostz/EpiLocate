@@ -1232,3 +1232,29 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **下一步计划：**
 **关联文档或验收报告：**
 ```
+
+### 2026-10-02｜云端 Worker 安全诊断与 FakeRunner 回归
+
+**任务类型 / 负责人：** Worker / QA，dot 云端工程。
+**分支 / Worktree：** `codex/cloud-worker-safe-diagnostics`；`/workspace/scratch/83af3b968556/EpiLocate-cloud-audit`。
+**开发前 HEAD：** `4e38fd32765e7c69ae0b7389cb91fe057c938472`，已核验与 `origin/handoff/pre-b-transfer-20260929` 相同。
+**关联 Commit：** 初次 git commit 因 Author identity unknown 受阻；负责人随后明确授权本仓库 local 身份与此独立分支提交/推送。阻塞已通过授权身份设置解决，未修改 global 配置。最终完整提交 SHA、远端核验与 CI 结论见交付报告；不合并或部署。
+
+**已确认原因：** Worker 失败分支原来丢弃异常类型，通用失败只记录 Job ID；直接输出异常文本或 traceback 会带来路径、URL、凭据和患者信息泄漏风险。
+
+**实现：** `worker/agent.py` 新增精确异常类型白名单，仅记录固定错误码与固定类别。未知类型输出 `unclassified`，不把自定义类名当作安全信息。原有异常分支、失败 manifest、租约检查、提交重试与清理机制保持原语义。`tests/test_worker/test_protocol.py` 新增 13 项参数化 FakeRunner 故障测试、1 项内部类别检查、2 项真实下载失败/错哈希回归与 3 项控制流异常传播回归；测试秘密均为合成哨兵字符串。验证异常链、路径、URL 用户信息/签名、token、患者字段和自定义类型名不进入日志或 manifest，并检查异常从不被字符串化。
+
+**环境：** Linux 云端，Python 3.12.14；独立虚拟环境 `/tmp/epilocate-worker-test-venv`。通过官方 PyTorch CPU 源与 PyPI 安装测试依赖，PyTorch `2.4.0+cpu` / torchvision `0.19.0+cpu` / pytest `9.1.1` / httpx `0.28.1` / pydicom `3.0.1` / NumPy `2.2.6` / pandas `2.2.2` / SciPy `1.14.0`。未修改仓库依赖清单；这不是 GPU 运行环境复刻。
+
+**实际验证：**
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 /tmp/epilocate-worker-test-venv/bin/python -m pytest -p no:cacheprovider -q tests/test_worker/test_protocol.py tests/test_worker/test_integration.py qa/tests/test_remote_gpu_preflight.py tests/test_project_documentation.py
+# 43 passed in 2.40s
+/tmp/epilocate-worker-test-venv/bin/python -m pip check
+# No broken requirements found.
+```
+
+指定三文件组合（上述命令去掉 `tests/test_worker/test_integration.py`）为 **35 passed in 2.42s**。`python scripts/check_project_documentation.py --base 4e38fd32765e7c69ae0b7389cb91fe057c938472 --working-tree` 与 `git diff --check` 均通过。测试全部为 MOCK / 静态检查，不是 LIVE_CASE 或 FROZEN_VALIDATION。
+
+**未运行与开放项：** 未运行 Backend/Gateway 全量回归、真实模型推理、GPU/CUDA、训练、浏览器或线上 E2E；未访问封存数据、患者文件、模型权重或密钥。安全类别不能单独判定 decoder 缺失等根因；decoder 预检与 sanitized Git 根的内部祖先准入不在本项范围。CPU/GPU 固定数值一致性仍 FAIL / OPEN。独立代码审查通过，并补齐下载/哈希与控制流边界持久回归。已获得独立分支推送授权，提交后核验远端相同 SHA 并检查现有 CI；不合并或部署。
