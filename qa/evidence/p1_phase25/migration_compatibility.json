@@ -1,0 +1,110 @@
+{
+  "fresh_head": "0003_user_credentials",
+  "existing_head": "0003_user_credentials",
+  "table_count": 15,
+  "schemas_equal": true,
+  "existing_business_counts": {
+    "cases": 1,
+    "inference_jobs": 1,
+    "inference_results": 1,
+    "assets": 1,
+    "user_credentials": 0
+  },
+  "user_credentials": {
+    "columns": [
+      [
+        "expires_at",
+        "TIMESTAMP",
+        false,
+        "None"
+      ],
+      [
+        "id",
+        "UUID",
+        false,
+        "gen_random_uuid()"
+      ],
+      [
+        "issued_at",
+        "TIMESTAMP",
+        false,
+        "CURRENT_TIMESTAMP"
+      ],
+      [
+        "label",
+        "VARCHAR(96)",
+        false,
+        "None"
+      ],
+      [
+        "revoked_at",
+        "TIMESTAMP",
+        true,
+        "None"
+      ],
+      [
+        "token_hash",
+        "VARCHAR(64)",
+        false,
+        "None"
+      ],
+      [
+        "user_id",
+        "UUID",
+        false,
+        "None"
+      ]
+    ],
+    "foreign_keys": [
+      [
+        [
+          "user_id"
+        ],
+        "users",
+        [
+          "id"
+        ]
+      ]
+    ],
+    "indexes": [
+      [
+        [
+          "expires_at"
+        ],
+        false
+      ],
+      [
+        [
+          "revoked_at"
+        ],
+        false
+      ],
+      [
+        [
+          "token_hash"
+        ],
+        true
+      ],
+      [
+        [
+          "user_id"
+        ],
+        false
+      ],
+      [
+        [
+          "user_id",
+          "expires_at",
+          "revoked_at"
+        ],
+        false
+      ]
+    ],
+    "uniques": [
+      [
+        "token_hash"
+      ]
+    ],
+    "checks": []
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "accepted": [
+    true,
+    true
+  ],
+  "actual_device": "CPU",
+  "asset_count": 9,
+  "case_id": "case_d2dfab09fa96b03d7eb7f09d3a2c066c",
+  "input_sha256": "8e73851ac16215180f7a3e17d72c85814886fa25ef62fbfbc618686dc8df54ee",
+  "jobs": {
+    "OCCLUSION": {
+      "job_id": "job_90b4ec3f8a16f3ac4d1fe923e9908b51",
+      "positive_probability": 0.025618407875299454,
+      "result_id": "result_d557b7375d5846bfb27b47cf39829f03",
+      "status": "COMPLETED"
+    },
+    "PREDICTION": {
+      "job_id": "job_122ec9d2a780efb26d06eb9d32508346",
+      "positive_probability": 0.025618407875299454,
+      "result_id": "result_2f28957d94144b4aab92cd6de9cb734b",
+      "status": "COMPLETED"
+    }
+  },
+  "model_hash": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+  "position_count_by_scale": {
+    "16": 729,
+    "32": 169,
+    "64": 36
+  },
+  "requested_device": "CPU",
+  "slice_id": "slice_6135edd11d7ec8fa30ce2567d0f077b9"
+}

@@ -1,0 +1,15 @@
+{
+  "audit": "metadata-and-artifact-hashes-only",
+  "frozen_root_available": true,
+  "status": "PASS",
+  "freeze_sha256": "ffe8c227361c877ba1ced0764b7b53f1f152526151241fd9a3b229e63f333d3c",
+  "manifest_in_artifacts": true,
+  "expected_artifact_count": 161,
+  "artifact_mismatches": [],
+  "fixed_input_checks": {
+    "protocol_sha256": true,
+    "config_sha256": true,
+    "checkpoint_sha256": true
+  },
+  "recorded_independent_qa_status": "PASS"
+}

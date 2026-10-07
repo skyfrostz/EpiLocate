@@ -1,0 +1,15 @@
+{
+  "source_base": "2be89143a8abccb3c3896a8f53633e490cf79b28",
+  "branch": "feature/clinical-canvas-v1",
+  "design_bundle_sha256": "4e6b45b8eccfdffabd800f7d478193e2942a8905aaf2c06ce4a85ce10b045662",
+  "node": "v26.5.0",
+  "npm": "11.17.0",
+  "unchanged_blobs": {
+    "frontend/src/viewer/CornerstoneSliceViewer.vue": "32f6f02ac1c18da4a71b4c318c65ad072f611310f5656d66e2c123205c973277",
+    "frontend/src/viewer/geometry.ts": "b184cec8c8e283959407df6b988bc50a271e1274cfcbd0762920b3eb7d5a7b4d",
+    "frontend/src/api/client.ts": "bdc0b594f2c9ece6dc4d18ba0f266b3bb4baba90f128573958f1737619ad5765",
+    "frontend/src/api/types.ts": "44915901ce751289c85af4d6579f6082094573eb5547f4b21447073871d2ec92",
+    "frontend/src/auth/session.ts": "258d209c3812fff590544e9dd946dde8ad3046191c9881dfc7a8efae4afffbec",
+    "frontend/package-lock.json": "af291288bd045a8da62a3314e69e6c3a64b25177d30bd11a429ee87aaa930277"
+  }
+}

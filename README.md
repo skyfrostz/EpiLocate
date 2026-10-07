@@ -4,7 +4,7 @@
 
 # EpiLocate · 疫影寻灶
 
-**面向新发突发传染病的弱监督、可解释医学影像病灶定位研究与工程验证**  
+**面向新发突发传染病的弱监督、可解释医学影像病灶定位研究与工程验证**
 **Weakly Supervised & Explainable Lesion Localization for Emerging Infectious-Disease Imaging**
 
 [![Research Prototype](https://img.shields.io/badge/status-research%20prototype-6f42c1)](#项目状态--project-status)
@@ -38,6 +38,10 @@
 独立的项目展示网站位于 [`aid_site/`](aid_site/README.md)，已部署于 [aid.xbstu.com](https://aid.xbstu.com)。它展示研究目标、技术路线与验证计划，并提供受登录保护的 `/api/v1` 占位契约；当前不接入真实影像或算法。既有人工审查工作台代码仍位于 `epilocate_review_server/`。
 
 项目依托“**面向新发突发传染病影像的弱监督可解释病灶定位方法研究**”课题的问题框架开展，并以可运行的医学影像辅助诊断原型作为算法验证和演示载体。
+
+**2026-10-07 项目状态：** 本仓库包含 Clinical Canvas Vue 工作台、Backend v2、Session Gateway 和 Worker 的应用源码，以及已冻结 Stage 1 和 D10 的可公开研究工具。Clinical Canvas 完成了受限的本地集成验收；真实正向 Result、PostgreSQL/MinIO、远端 GPU 和临床有效性未由该验收证明。科研进展及来源见 [当前研究状态](docs/research/REPOSITORY_STATUS_20261007.md)，应用来源和验收范围见 [Clinical Canvas 报告](docs/frontend/CLINICAL_CANVAS_LOCAL_INTEGRATION_REPORT_V1.md)。
+
+本次主线整合的来源、回归范围及 Git 恢复边界见 [整合记录](docs/consolidation/MAINLINE_INTEGRATION_20261007.md)。前端独立开发可在 `frontend/` 执行 `npm ci`、`npm run test` 和 `VITE_PUBLIC_BASE=/mvp/ npm run build`；真实登录与任务链路仍需按 [Gateway](session_gateway/README.md) 和 [Backend v2](backend_v2/README.md) 的配置使用本地服务。构建成功并不表示服务已部署。
 
 ---
 
@@ -86,7 +90,7 @@ Web Research Prototype
 分类 + 粗定位 + 精细定位 + 解释 + 交互
 ```
 
-当前仓库已经完整落地的是**数据与 Baseline 层**；三阶段核心定位算法与 Web 交互层仍按路线图继续实现。
+数据与 Baseline 工作流、冻结 Stage 1 遮挡响应实验及 Web 工作台源码已经存在。遮挡响应不是病灶真值；LIME 精细定位和临床验证仍按路线图推进。
 
 ---
 
@@ -102,12 +106,12 @@ Web Research Prototype
 | Dataset / DataLoader | ✅ 已完成 | 输入检查、标签检查、NaN/Inf 防护 |
 | ResNet-18 Baseline | ✅ 已完成 | tiny overfit、smoke、10-epoch baseline |
 | 全量 MIDRC-RICORD 下载审计 | ✅ 已完成 | 已完成 Header 级全量审计 |
-| 正式 Cohort 冻结 | 🚧 进行中 | 仍需完成部分 Series 人工复核 |
-| 分块掩码逐级定位 | 🧪 研究中 | 核心 Stage 1 |
-| 遮挡免疫鲁棒训练 | 🧪 研究中 | 核心 Stage 1 |
+| 正式 Cohort 冻结 | ✅ 已完成 | 130/28/28 患者划分；正式测试集仍封存 |
+| 多尺度遮挡响应 | ✅ 冻结验证 | Stage 1 为并行全图尺度实验，不是逐级病灶定位 |
+| 遮挡免疫鲁棒训练 | 🧪 研究中 | Stage B v1 不确定；v2 单 seed 的 B 主终点为 null |
 | LIME 精细定位 | 🗓️ 计划中 | 核心 Stage 2 |
 | 临床解释与医生交互 | 🗓️ 计划中 | 核心 Stage 3 |
-| Web 演示系统 | 🗓️ 计划中 | 用于研究结果展示与交互验证 |
+| Clinical Canvas 工作台 | 🧪 本地部分验收 | 真实本地登录、病例和输入链路；正向 Result 使用 Mock API |
 
 ---
 
@@ -203,7 +207,7 @@ ImageNet pretrained ResNet-18
 | Sensitivity | 0 |
 | Specificity | 0.648889 |
 
-该结果反映出**严重的患者级过拟合与较差的跨患者泛化**。由于 validation 仅有 2 位患者，当前结果不能用于比较模型优劣，也不能外推到真实临床人群。下一步应优先扩大患者规模、冻结正式 cohort，并保持患者级划分后再开展正式评测。
+该结果是早期 10 位患者开发集快照，反映出**严重的患者级过拟合与较差的跨患者泛化**。由于当时 validation 仅有 2 位患者，不能用它比较模型优劣或外推到真实临床人群。后续已另行冻结正式 cohort；当前状态见上方研究状态链接。
 
 Tiny overfit 与 smoke run 的意义不同：它们用于验证训练、checkpoint、reload、inference 以及数值稳定性，而不是用于证明模型具有实际诊断性能。
 
@@ -313,7 +317,7 @@ python scripts/prepare_series_manual_review.py
 python scripts/validate_manual_series_decisions.py
 ```
 
-当前仍存在少量技术平局或诊断类型不确定 Series，需要完成人工复核理由后，才能冻结正式 cohort 与 full split。
+上述命令是历史复核流程；正式 cohort 与患者划分已在后续研究中冻结。不得运行生成器覆盖冻结输出，正式测试集仍封存。
 
 ---
 
@@ -329,7 +333,6 @@ EpiLocate/
 ├── infer.py                 # 推理入口（当前仍待扩展）
 ├── prepare_index.py         # 数据索引准备入口
 ├── requirements.txt         # Python 依赖
-├── MIDRC-RICORD-01.s5cmd    # MIDRC-RICORD 数据下载相关清单
 ├── logo.png                 # 项目 Logo
 └── README.md
 ```
@@ -503,7 +506,7 @@ Instead of treating classification as the final goal, EpiLocate studies a three-
 2. **LIME-based fine localization guided by the coarse prior** — constrain local perturbation to candidate regions and refine lesion boundaries;
 3. **Clinical-logic alignment and physician interaction** — present interpretable evidence and allow experts to confirm, add, remove, or edit predicted lesion regions.
 
-The repository currently provides a reproducible **data + baseline foundation**: DICOM organization, Series auditing, patient-level splitting, unified CT preprocessing, QC, Dataset/DataLoader checks, pretrained ResNet-18 initialization, tiny-overfit validation, smoke training, and a 10-epoch development baseline.
+The repository includes the data and baseline workflow, frozen Stage 1 research tools, and the Clinical Canvas application source (Vue, Backend v2, Session Gateway, and Worker). The Canvas has bounded local integration evidence; a real positive Result, PostgreSQL/MinIO, remote GPU, and clinical validity remain outside that acceptance. See the [current research status](docs/research/REPOSITORY_STATUS_20261007.md) and [Canvas integration report](docs/frontend/CLINICAL_CANVAS_LOCAL_INTEGRATION_REPORT_V1.md).
 
 > EpiLocate is a research prototype. It is not a medical device and must not be used for clinical diagnosis or treatment decisions.
 
@@ -630,7 +633,7 @@ Current patient-level split:
 
 There is no patient overlap across splits.
 
-The full downloaded directory currently contains **53,076 DICOM files** across MIDRC-RICORD-1A and MIDRC-RICORD-1B. The formal cohort is **not yet frozen**, because a small number of technically tied or diagnostically ambiguous Series still require documented manual review.
+The historical full-download audit counted **53,076 DICOM files** across MIDRC-RICORD-1A and MIDRC-RICORD-1B. A formal patient-level cohort was frozen later. These local images are not included in the public repository, and the formal test set remains sealed.
 
 ---
 
@@ -651,7 +654,7 @@ For the current 10-patient development baseline, the best checkpoint occurred at
 
 The result indicates severe patient-level overfitting and poor cross-patient generalization. With only two validation patients, the metrics are highly unstable and must not be used to rank models or infer real-world medical performance.
 
-The correct next step is to expand the patient-level cohort, freeze the formal Series-selection decisions, and repeat evaluation under a larger and properly separated dataset.
+The formal cohort was subsequently frozen; this small development result remains a historical engineering snapshot, not evidence of model performance on the formal cohort.
 
 ---
 
@@ -739,7 +742,6 @@ EpiLocate/
 ├── infer.py                 # Inference entry point (to be expanded)
 ├── prepare_index.py         # Dataset index preparation
 ├── requirements.txt         # Python dependencies
-├── MIDRC-RICORD-01.s5cmd    # MIDRC-RICORD download manifest
 ├── logo.png
 └── README.md
 ```
@@ -875,7 +877,7 @@ Please never include protected health information or identifiable patient data i
 
 <div align="center">
 
-**EpiLocate · 疫影寻灶**  
+**EpiLocate · 疫影寻灶**
 *From weak labels to stable, explainable lesion localization.*
 
 </div>

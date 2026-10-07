@@ -1,0 +1,72 @@
+[
+  {
+    "theme": "light",
+    "route": "/",
+    "sampleCount": 110,
+    "failures": [],
+    "minimumRatio": 5.481
+  },
+  {
+    "theme": "light",
+    "route": "/cases",
+    "sampleCount": 89,
+    "failures": [],
+    "minimumRatio": 5.481
+  },
+  {
+    "theme": "light",
+    "route": "/jobs",
+    "sampleCount": 26,
+    "failures": [],
+    "minimumRatio": 5.481
+  },
+  {
+    "theme": "light",
+    "route": "/system",
+    "sampleCount": 44,
+    "failures": [],
+    "minimumRatio": 5.481
+  },
+  {
+    "theme": "light",
+    "route": "/preferences",
+    "sampleCount": 27,
+    "failures": [],
+    "minimumRatio": 5.481
+  },
+  {
+    "theme": "dark",
+    "route": "/",
+    "sampleCount": 110,
+    "failures": [],
+    "minimumRatio": 6.156
+  },
+  {
+    "theme": "dark",
+    "route": "/cases",
+    "sampleCount": 89,
+    "failures": [],
+    "minimumRatio": 6.156
+  },
+  {
+    "theme": "dark",
+    "route": "/jobs",
+    "sampleCount": 26,
+    "failures": [],
+    "minimumRatio": 6.156
+  },
+  {
+    "theme": "dark",
+    "route": "/system",
+    "sampleCount": 44,
+    "failures": [],
+    "minimumRatio": 6.156
+  },
+  {
+    "theme": "dark",
+    "route": "/preferences",
+    "sampleCount": 27,
+    "failures": [],
+    "minimumRatio": 6.156
+  }
+]

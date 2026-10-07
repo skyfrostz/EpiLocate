@@ -1,0 +1,22 @@
+[Unit]
+Description=EpiLocate MVP browser session gateway
+After=network-online.target epilocate-backend.service
+Wants=network-online.target
+Requires=epilocate-backend.service
+
+[Service]
+Type=simple
+User=epilocate-gateway
+Group=epilocate-gateway
+WorkingDirectory=/opt/epilocate-mvp/current
+EnvironmentFile=/etc/epilocate-mvp/gateway.env
+ExecStart=/opt/epilocate-mvp/current/.venv/bin/uvicorn session_gateway.app:create_app --factory --host 127.0.0.1 --port 8891 --workers 1 --no-access-log
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/epilocate-mvp/gateway
+
+[Install]
+WantedBy=multi-user.target

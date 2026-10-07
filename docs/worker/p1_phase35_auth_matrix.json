@@ -1,0 +1,142 @@
+{
+  "case_id": "case_8ba3d0d6e57db7ffa559690f9c2886be",
+  "checks": [
+    {
+      "code": null,
+      "name": "owner_case",
+      "status": 200
+    },
+    {
+      "code": "CASE_NOT_FOUND",
+      "name": "other_case",
+      "status": 404
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "anonymous_case",
+      "status": 401
+    },
+    {
+      "code": null,
+      "name": "owner_dicom",
+      "status": 200
+    },
+    {
+      "code": "CASE_NOT_FOUND",
+      "name": "other_dicom",
+      "status": 404
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "anonymous_dicom",
+      "status": 401
+    },
+    {
+      "code": null,
+      "name": "owner_job",
+      "status": 200
+    },
+    {
+      "code": "JOB_NOT_FOUND",
+      "name": "other_job",
+      "status": 404
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "anonymous_job",
+      "status": 401
+    },
+    {
+      "code": null,
+      "name": "owner_prediction_alias",
+      "status": 200
+    },
+    {
+      "code": "JOB_NOT_FOUND",
+      "name": "other_prediction_alias",
+      "status": 404
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "anonymous_prediction_alias",
+      "status": 401
+    },
+    {
+      "code": null,
+      "name": "owner_result",
+      "status": 200
+    },
+    {
+      "code": "RESULT_NOT_FOUND",
+      "name": "other_result",
+      "status": 404
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "anonymous_result",
+      "status": 401
+    },
+    {
+      "code": null,
+      "name": "owner_positions",
+      "status": 200
+    },
+    {
+      "code": "RESULT_NOT_FOUND",
+      "name": "other_positions",
+      "status": 404
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "anonymous_positions",
+      "status": 401
+    },
+    {
+      "code": null,
+      "name": "owner_asset",
+      "status": 200
+    },
+    {
+      "code": "RESULT_NOT_FOUND",
+      "name": "other_asset",
+      "status": 404
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "anonymous_asset",
+      "status": 401
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "invalid_credential",
+      "status": 401
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "expired_credential",
+      "status": 401
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "revoked_credential",
+      "status": 401
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "name": "worker_credential_on_user_route",
+      "status": 401
+    },
+    {
+      "code": "WORKER_UNAUTHENTICATED",
+      "name": "user_credential_on_worker_route",
+      "status": 401
+    },
+    {
+      "code": "CASE_NOT_FOUND",
+      "name": "other_user_prediction_create",
+      "status": 404
+    }
+  ],
+  "passed": 27,
+  "result_id": "result_5874b6f47709453b97f5fc7818dcf5d9"
+}

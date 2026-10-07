@@ -1,0 +1,2105 @@
+{
+  "environment": "LOCAL_INTEGRATION_SQLITE_TEST_STORAGE",
+  "started_at": "2026-10-04T03:22:20.099486+00:00",
+  "url": "https://127.0.0.1:5198/mvp/",
+  "scenarios": [
+    {
+      "name": "real HTTPS login, invalid password, Cookie flags, next deep-link",
+      "passed": true
+    },
+    {
+      "name": "real Gateway CSRF rejection",
+      "passed": true,
+      "status": 403
+    },
+    {
+      "name": "real upload de-identification validator rejects identified synthetic tags",
+      "passed": true,
+      "status": 422
+    },
+    {
+      "name": "real create/upload and protected DICOM, actual production Cornerstone",
+      "passed": true
+    },
+    {
+      "name": "real case deep-link refresh restores authorized DICOM",
+      "passed": true
+    },
+    {
+      "name": "production chunk failure full-page recovery link opens the one real accepted Job without a second POST",
+      "passed": true
+    },
+    {
+      "name": "real accepted Job and refresh remain CREATED without Worker or Result",
+      "passed": true,
+      "job_id": "job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "name": "real Dashboard case state without AI probabilities",
+      "passed": true
+    },
+    {
+      "name": "real System request evidence, unsupported GPU/Worker metrics remain unconnected",
+      "passed": true
+    },
+    {
+      "name": "real cross-tab logout, account switch, owner-scoped case/DICOM/Job and absent Result/assets 404",
+      "passed": true
+    },
+    {
+      "name": "real retention 410, no CT, disabled new analysis",
+      "passed": true
+    },
+    {
+      "name": "production /mvp/ fallback and application 404",
+      "passed": true
+    },
+    {
+      "name": "actual stopped Backend produces Gateway 503 for cases/Job/login",
+      "passed": true
+    },
+    {
+      "name": "isolated database proves zero Workers/results, no inference attempts",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "01-login.png",
+    "02-case-cornerstone.png",
+    "03a-accepted-job-navigation-recovery.png",
+    "03-job-no-worker.png",
+    "04-dashboard.png",
+    "05-worker-unobserved.png",
+    "06-bob-isolation.png",
+    "07-expired-input.png",
+    "08-not-found.png",
+    "09-backend-unavailable.png",
+    "10-job-service-unavailable.png",
+    "11-login-service-unavailable.png"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/mvp/cases",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 401
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/LoginView-xqQivMZW.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 401
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CasesView-CYZAwBoG.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/cases",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CaseDetailView-Bxt9o-PF.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669/upload",
+      "status": 422
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669/upload",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CaseDetailView-Bxt9o-PF.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669/dicom",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/jobs/occlusion",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/JobDetailView-D_y_nPl7.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/JobDetailView-D_y_nPl7.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/DashboardView-uXXrLrYc.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/system",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/SystemView-BeOLuyfG.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/cases",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CasesView-CYZAwBoG.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "status": 204
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 401
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/LoginView-xqQivMZW.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/LoginView-xqQivMZW.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/DashboardView-uXXrLrYc.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/cases",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CasesView-CYZAwBoG.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "status": 204
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/LoginView-xqQivMZW.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/DashboardView-uXXrLrYc.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CaseDetailView-Bxt9o-PF.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669/dicom",
+      "status": 410
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/not-a-route",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/NotFoundView-XxQMgvVq.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/cases",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CasesView-CYZAwBoG.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "status": 503
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/JobDetailView-D_y_nPl7.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "status": 503
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "status": 204
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/LoginView-xqQivMZW.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 503
+    }
+  ],
+  "initiated_requests": [
+    {
+      "method": "GET",
+      "path": "/mvp/cases",
+      "document_path": "blank"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/LoginView-xqQivMZW.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CasesView-CYZAwBoG.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CaseDetailView-Bxt9o-PF.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669/upload",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669/upload",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CaseDetailView-Bxt9o-PF.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669/dicom",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/jobs/occlusion",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/JobDetailView-D_y_nPl7.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/JobDetailView-D_y_nPl7.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/JobDetailView-D_y_nPl7.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/DashboardView-uXXrLrYc.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/system",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/SystemView-BeOLuyfG.js",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/cases",
+      "document_path": "blank"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CasesView-CYZAwBoG.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/LoginView-xqQivMZW.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/LoginView-xqQivMZW.js",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/DashboardView-uXXrLrYc.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/cases",
+      "document_path": "/mvp/system"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CasesView-CYZAwBoG.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/LoginView-xqQivMZW.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/DashboardView-uXXrLrYc.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CaseDetailView-Bxt9o-PF.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_cd583831c996481b30abb97ba5997669/dicom",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/not-a-route",
+      "document_path": "/mvp/cases/case_cd583831c996481b30abb97ba5997669"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/not-a-route"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/not-a-route"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/not-a-route"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/not-a-route"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/not-a-route"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/NotFoundView-XxQMgvVq.js",
+      "document_path": "/mvp/not-a-route"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/cases",
+      "document_path": "/mvp/not-a-route"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CasesView-CYZAwBoG.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "document_path": "/mvp/cases"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/JobDetailView-D_y_nPl7.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/jobs/job_543d54b301dd098adf0d1304a2c8ea75",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/LoginView-xqQivMZW.js",
+      "document_path": "/mvp/jobs/job_543d54b301dd098adf0d1304a2c8ea75"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/login"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "document_path": "/mvp/login"
+    }
+  ],
+  "page_errors": [],
+  "external_requests": [],
+  "geometry": [],
+  "database_final": {
+    "workers": 0,
+    "results": 0,
+    "jobs": [
+      {
+        "id": "job_543d54b301dd098adf0d1304a2c8ea75",
+        "status": "CREATED",
+        "attempt_no": 0
+      }
+    ]
+  },
+  "status": "PASS",
+  "finished_at": "2026-10-04T03:22:26.855228+00:00"
+}

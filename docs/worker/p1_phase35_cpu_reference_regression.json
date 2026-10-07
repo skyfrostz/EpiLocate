@@ -1,0 +1,139 @@
+{
+  "actual_device": "CPU",
+  "assets": {
+    "candidate-16.png": {
+      "coordinate_space": "ALGORITHM_224",
+      "height": 224,
+      "layer_kind": "CANDIDATE_TOP10",
+      "media_type": "image/png",
+      "mode": "L",
+      "sha256": "0551fd18d03a5402cd88a0b4678a0364a519c8502a9857bc3db91bbdee0ba34b",
+      "size_bytes": 294,
+      "width": 224
+    },
+    "candidate-32.png": {
+      "coordinate_space": "ALGORITHM_224",
+      "height": 224,
+      "layer_kind": "CANDIDATE_TOP10",
+      "media_type": "image/png",
+      "mode": "L",
+      "sha256": "fb89623a09a15e3f4d8bdd9768a4bb13260ad2248c7e4d79bd79fc6616da9e33",
+      "size_bytes": 263,
+      "width": 224
+    },
+    "candidate-64.png": {
+      "coordinate_space": "ALGORITHM_224",
+      "height": 224,
+      "layer_kind": "CANDIDATE_TOP10",
+      "media_type": "image/png",
+      "mode": "L",
+      "sha256": "7ddbfccd6737ccf9fdc51d513de6d6ce5bfe4d4d58878004291eb0e605321872",
+      "size_bytes": 298,
+      "width": 224
+    },
+    "comparison-16.png": {
+      "coordinate_space": "COMPARISON_14",
+      "height": 14,
+      "layer_kind": "COMPARISON_GRID",
+      "media_type": "image/png",
+      "mode": "L",
+      "sha256": "185b1c2ec115821e73f69ec517600929727e6b6ea6875afd11a02b9b3cfef876",
+      "size_bytes": 210,
+      "width": 14
+    },
+    "comparison-32.png": {
+      "coordinate_space": "COMPARISON_14",
+      "height": 14,
+      "layer_kind": "COMPARISON_GRID",
+      "media_type": "image/png",
+      "mode": "L",
+      "sha256": "fb7a689cf913dda924aa02a3375a500318d7c0aa00c68abed5827886b57da28c",
+      "size_bytes": 209,
+      "width": 14
+    },
+    "comparison-64.png": {
+      "coordinate_space": "COMPARISON_14",
+      "height": 14,
+      "layer_kind": "COMPARISON_GRID",
+      "media_type": "image/png",
+      "mode": "L",
+      "sha256": "e78c94ef5ac324c3ea33e258753e73174809b9ee3b4e9df2262cd3f028fca7fd",
+      "size_bytes": 151,
+      "width": 14
+    },
+    "response-16.png": {
+      "coordinate_space": "ALGORITHM_224",
+      "height": 224,
+      "layer_kind": "CANDIDATE_RESPONSE",
+      "media_type": "image/png",
+      "mode": "L",
+      "sha256": "72cb83cf0f25b5b19a72c47ae43f346b46e5a79be7cb593eff69cc250f88b410",
+      "size_bytes": 1176,
+      "width": 224
+    },
+    "response-32.png": {
+      "coordinate_space": "ALGORITHM_224",
+      "height": 224,
+      "layer_kind": "CANDIDATE_RESPONSE",
+      "media_type": "image/png",
+      "mode": "L",
+      "sha256": "baad94564fe3f6ea3138cac6695dec5704d1de7a78e211125cfe07e65aa586d9",
+      "size_bytes": 694,
+      "width": 224
+    },
+    "response-64.png": {
+      "coordinate_space": "ALGORITHM_224",
+      "height": 224,
+      "layer_kind": "CANDIDATE_RESPONSE",
+      "media_type": "image/png",
+      "mode": "L",
+      "sha256": "e67b156c424b437b8611c8fcdf89706f83ad9c97947a920f48211d66809dbf0d",
+      "size_bytes": 536,
+      "width": 224
+    }
+  },
+  "benchmark_version": "1.0",
+  "comparison": {
+    "failures": [],
+    "maxima": {
+      "derived_abs": 0.0,
+      "png_pixel_abs": 0,
+      "probability_abs": 0.0
+    },
+    "passed": true,
+    "tolerance": {
+      "derived_abs": 0.0001,
+      "png_pixel_abs": 2,
+      "probability_abs": 0.0001
+    }
+  },
+  "gpu_memory_mib": null,
+  "gpu_name": null,
+  "input_sha256": "8e73851ac16215180f7a3e17d72c85814886fa25ef62fbfbc618686dc8df54ee",
+  "model_hash": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+  "peak_gpu_memory_allocated_bytes": null,
+  "position_count_by_scale": {
+    "16": 729,
+    "32": 169,
+    "64": 36
+  },
+  "prediction": {
+    "class_label": "negative",
+    "inference_time_ms": 9,
+    "positive_probability": 0.025618407875299454,
+    "predicted_class": 0,
+    "predicted_class_confidence": 0.9743815921247005
+  },
+  "preprocessing_version": "formal-resnet18-baseline-rule-b-v1",
+  "protocol_id": "stage1-occlusion-instability-v1",
+  "requested_device": "CPU",
+  "timings_ms": {
+    "model_initialization": 161.807,
+    "occlusion_cold": 11300.566,
+    "occlusion_warm": 11899.462,
+    "prediction_cold": 9.581,
+    "prediction_warm": 8.495
+  },
+  "torch_cuda_runtime": null,
+  "torch_version": "2.14.0"
+}

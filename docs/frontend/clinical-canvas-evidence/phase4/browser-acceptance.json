@@ -1,0 +1,105 @@
+{
+  "environment": "SYNTHETIC_API_FIXTURE — local intercepted APIs, generated pixel values, actual Cornerstone rendering, no inference or deployment access",
+  "phase": "workspace",
+  "scenarios": [
+    {
+      "name": "Clinical Canvas route and theme screenshot matrix, loopback-only synthetic APIs",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "clinical-case-detail-light-1440.png",
+    "clinical-workspace-result-light-1440.png",
+    "clinical-case-detail-light-390.png",
+    "clinical-workspace-result-light-390.png",
+    "clinical-case-detail-dark-1440.png",
+    "clinical-workspace-result-dark-1440.png",
+    "clinical-case-detail-dark-390.png",
+    "clinical-workspace-result-dark-390.png"
+  ],
+  "geometry": [],
+  "pageErrors": [],
+  "blockedExternalRequests": [],
+  "visualMatrix": [
+    {
+      "route": "/cases/case_synthetic_01234567890123456789012345678901234567890123456789",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 1440,
+      "heading": "病例工作区",
+      "screenshot": "clinical-case-detail-light-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": true
+    },
+    {
+      "route": "/results/result_synthetic",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 1440,
+      "heading": "结果工作区",
+      "screenshot": "clinical-workspace-result-light-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": true
+    },
+    {
+      "route": "/cases/case_synthetic_01234567890123456789012345678901234567890123456789",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 390,
+      "heading": "病例工作区",
+      "screenshot": "clinical-case-detail-light-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": true
+    },
+    {
+      "route": "/results/result_synthetic",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 390,
+      "heading": "结果工作区",
+      "screenshot": "clinical-workspace-result-light-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": true
+    },
+    {
+      "route": "/cases/case_synthetic_01234567890123456789012345678901234567890123456789",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "width": 1440,
+      "heading": "病例工作区",
+      "screenshot": "clinical-case-detail-dark-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": true
+    },
+    {
+      "route": "/results/result_synthetic",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "width": 1440,
+      "heading": "结果工作区",
+      "screenshot": "clinical-workspace-result-dark-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": true
+    },
+    {
+      "route": "/cases/case_synthetic_01234567890123456789012345678901234567890123456789",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "width": 390,
+      "heading": "病例工作区",
+      "screenshot": "clinical-case-detail-dark-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": true
+    },
+    {
+      "route": "/results/result_synthetic",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "width": 390,
+      "heading": "结果工作区",
+      "screenshot": "clinical-workspace-result-dark-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": true
+    }
+  ]
+}

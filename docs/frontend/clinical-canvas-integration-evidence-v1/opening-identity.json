@@ -1,0 +1,11 @@
+{
+  "started_at": "2026-10-04T02:59:55.087053+00:00",
+  "cwd": "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai",
+  "top_level": "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai",
+  "branch": "feature/clinical-canvas-v1",
+  "head": "7ada03b76142e6f45fea9c531f634e36a44cebf8",
+  "status": "## feature/clinical-canvas-v1",
+  "ignored": "!! frontend/.local/\n!! frontend/dist/\n!! frontend/node_modules/",
+  "git_common_dir": "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.git",
+  "task_zip_sha256": "a1032383160ed49b0b2cc7332e95d0a2c02c8937a6cb80cb38b76757bdff5b31"
+}

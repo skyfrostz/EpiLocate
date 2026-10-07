@@ -1,0 +1,46 @@
+{
+  "worker_id": "node_4378864c9b64c1f7f265ad1c4f24f819",
+  "tls_backend": "https://127.0.0.1:8891",
+  "signed_input_tls": true,
+  "case_id": "case_2e4dfc3544359091867755b1c266fb6c",
+  "results": [
+    {
+      "kind": "PREDICTION",
+      "job_id": "job_3df2890b6128bc5cfb31cd9dd12324a7",
+      "result_id": "result_b7e5e978e0344cf0806bfd01a512d214",
+      "status": "COMPLETED",
+      "source": "LIVE_CASE",
+      "model_version": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "scales": [],
+      "asset_count": 0,
+      "prediction": {
+        "class_label": "negative",
+        "predicted_class": 0,
+        "inference_time_ms": 25,
+        "positive_probability": 0.025618407875299454,
+        "predicted_class_confidence": 0.9743815921247005
+      }
+    },
+    {
+      "kind": "OCCLUSION",
+      "job_id": "job_0dda2113b278ba0fda14e4f56bac92e3",
+      "result_id": "result_e08059e7f8e4459e9b21457a1c7270e2",
+      "status": "COMPLETED",
+      "source": "LIVE_CASE",
+      "model_version": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "scales": [
+        16,
+        32,
+        64
+      ],
+      "asset_count": 9,
+      "prediction": {
+        "class_label": "negative",
+        "predicted_class": 0,
+        "inference_time_ms": 8,
+        "positive_probability": 0.025618407875299454,
+        "predicted_class_confidence": 0.9743815921247005
+      }
+    }
+  ]
+}

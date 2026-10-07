@@ -1,0 +1,691 @@
+{
+  "environment": "local intercepted synthetic APIs, no inference",
+  "scenarios": [
+    {
+      "name": "login, keyboard focus, invalid credentials, deep-link restore, empty cases",
+      "passed": true
+    },
+    {
+      "name": "create case, synthetic DICOM upload, actual Cornerstone decoding",
+      "passed": true
+    },
+    {
+      "name": "Case deep-link refresh restores authorized DICOM",
+      "passed": true
+    },
+    {
+      "name": "Job polling and Result navigation, uppercase SHA-256, verified geometry",
+      "passed": true
+    },
+    {
+      "name": "workspace breakpoints 1440/1100/768/390/360, enlarged layout and keyboard metadata disclosure",
+      "passed": true
+    },
+    {
+      "name": "rapid scale/layer switching, zoom, Result refresh preferences",
+      "passed": true
+    },
+    {
+      "name": "mobile result, navigation, long IDs, no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "mobile keyboard navigation Escape restores focus",
+      "passed": true
+    },
+    {
+      "name": "mobile open navigation releases main content when resized to tablet",
+      "passed": true
+    },
+    {
+      "name": "corrupt PNG and local asset retry",
+      "passed": true
+    },
+    {
+      "name": "expired DICOM disables overlay and retains independent heatmap",
+      "passed": true
+    },
+    {
+      "name": "failed Job safe guidance, preserved ID, no false Result or automatic retry",
+      "passed": true
+    },
+    {
+      "name": "transport error preserves RUNNING and supports requery",
+      "passed": true
+    },
+    {
+      "name": "logout and different-account login clear prior business data",
+      "passed": true
+    },
+    {
+      "name": "tablet breakpoint 1100 px",
+      "passed": true
+    },
+    {
+      "name": "cross-tab logout/login synchronizes identity and clears previous account data",
+      "passed": true
+    },
+    {
+      "name": "actual renderer geometry: non-square, rotated, unequal spacing, pan, zoom, resize, five marker measurements",
+      "passed": true
+    },
+    {
+      "name": "actual Cornerstone owned decoded-image and naturalized metadata caches released on teardown",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "01-login-desktop.png",
+    "02-cases-empty.png",
+    "02-dashboard-desktop.png",
+    "03-case-desktop.png",
+    "03-case-mobile.png",
+    "second-round-result-1440.png",
+    "second-round-result-1100.png",
+    "second-round-result-768.png",
+    "second-round-result-390.png",
+    "second-round-result-360.png",
+    "second-round-result-200-percent.png",
+    "04-result-desktop.png",
+    "05-result-mobile.png",
+    "06-expired-input.png",
+    "07-failed-job.png",
+    "08-job-mobile.png",
+    "09-login-mobile.png",
+    "10-geometry-nonsquare.png",
+    "11-geometry-oriented.png"
+  ],
+  "geometry": [
+    {
+      "oriented": false,
+      "stage": "initial",
+      "width": 1060,
+      "height": 440,
+      "zoom": 0.6400000000000001,
+      "pan": [
+        0,
+        0
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            339.91999999999996,
+            84.22857142857141
+          ],
+          "observed": [
+            339.9575163398693,
+            84.4673202614379
+          ],
+          "samples": 153,
+          "errorCssPx": 0.24167846605004725
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            720.08,
+            84.22857142857141
+          ],
+          "observed": [
+            720.0424836601308,
+            84.4673202614379
+          ],
+          "samples": 153,
+          "errorCssPx": 0.24167846605003845
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            339.91999999999996,
+            355.7714285714286
+          ],
+          "observed": [
+            339.9575163398693,
+            355.5326797385621
+          ],
+          "samples": 153,
+          "errorCssPx": 0.24167846605007534
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            720.08,
+            355.7714285714286
+          ],
+          "observed": [
+            720.0424836601308,
+            355.5326797385621
+          ],
+          "samples": 153,
+          "errorCssPx": 0.24167846605006654
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            530,
+            220
+          ],
+          "observed": [
+            530,
+            220
+          ],
+          "samples": 140,
+          "errorCssPx": 0
+        }
+      ],
+      "maxErrorCssPx": 0.24167846605007534
+    },
+    {
+      "oriented": false,
+      "stage": "zoom-pan",
+      "width": 1060,
+      "height": 440,
+      "zoom": 0.8000000000000002,
+      "pan": [
+        18.000012207031318,
+        11.999980163574207
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            310.40001220703124,
+            62.28569444928851
+          ],
+          "observed": [
+            310.96351931330474,
+            62.47424892703863
+          ],
+          "samples": 233,
+          "errorCssPx": 0.5942163325762416
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            785.6000122070312,
+            62.28569444928851
+          ],
+          "observed": [
+            785.0364806866953,
+            62.47424892703863
+          ],
+          "samples": 233,
+          "errorCssPx": 0.5942394849652168
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            310.40001220703124,
+            401.71426587785993
+          ],
+          "observed": [
+            310.96351931330474,
+            401.5257510729614
+          ],
+          "samples": 233,
+          "errorCssPx": 0.5942037449281821
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            785.6000122070312,
+            401.71426587785993
+          ],
+          "observed": [
+            785.0364806866953,
+            401.5257510729614
+          ],
+          "samples": 233,
+          "errorCssPx": 0.5942268978075997
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            548.0000122070312,
+            231.9999801635742
+          ],
+          "observed": [
+            548,
+            232
+          ],
+          "samples": 248,
+          "errorCssPx": 0.00002329153062927212
+        }
+      ],
+      "maxErrorCssPx": 0.5942394849652168
+    },
+    {
+      "oriented": false,
+      "stage": "resize",
+      "width": 860,
+      "height": 440,
+      "zoom": 0.8000000000000002,
+      "pan": [
+        18.000012207031318,
+        11.999980163574207
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            210.40001220703124,
+            62.28569444928851
+          ],
+          "observed": [
+            210.96351931330472,
+            62.47424892703863
+          ],
+          "samples": 233,
+          "errorCssPx": 0.5942163325762146
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            685.6000122070312,
+            62.28569444928851
+          ],
+          "observed": [
+            685.0364806866953,
+            62.47424892703863
+          ],
+          "samples": 233,
+          "errorCssPx": 0.5942394849652168
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            210.40001220703124,
+            401.71426587785993
+          ],
+          "observed": [
+            210.96351931330472,
+            401.5257510729614
+          ],
+          "samples": 233,
+          "errorCssPx": 0.5942037449281551
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            685.6000122070312,
+            401.71426587785993
+          ],
+          "observed": [
+            685.0364806866953,
+            401.5257510729614
+          ],
+          "samples": 233,
+          "errorCssPx": 0.5942268978075997
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            448.0000122070312,
+            231.9999801635742
+          ],
+          "observed": [
+            448,
+            232
+          ],
+          "samples": 248,
+          "errorCssPx": 0.00002329153062927212
+        }
+      ],
+      "maxErrorCssPx": 0.5942394849652168
+    },
+    {
+      "oriented": true,
+      "stage": "initial",
+      "width": 860,
+      "height": 440,
+      "zoom": 0.6400000000000001,
+      "pan": [
+        0,
+        0
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            164.6285714285713,
+            109.4285714285714
+          ],
+          "observed": [
+            164.94692737430168,
+            109.47765363128492
+          ],
+          "samples": 179,
+          "errorCssPx": 0.322117324596336
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            695.3714285714287,
+            109.4285714285714
+          ],
+          "observed": [
+            695.0530726256983,
+            109.47765363128492
+          ],
+          "samples": 179,
+          "errorCssPx": 0.3221173245963922
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            164.6285714285713,
+            330.5714285714286
+          ],
+          "observed": [
+            164.94692737430168,
+            330.5223463687151
+          ],
+          "samples": 179,
+          "errorCssPx": 0.322117324596336
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            695.3714285714287,
+            330.5714285714286
+          ],
+          "observed": [
+            695.0530726256983,
+            330.5223463687151
+          ],
+          "samples": 179,
+          "errorCssPx": 0.3221173245963922
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            430,
+            220
+          ],
+          "observed": [
+            430,
+            220
+          ],
+          "samples": 160,
+          "errorCssPx": 0
+        }
+      ],
+      "maxErrorCssPx": 0.3221173245963922
+    },
+    {
+      "oriented": true,
+      "stage": "zoom-pan",
+      "width": 860,
+      "height": 440,
+      "zoom": 0.8000000000000002,
+      "pan": [
+        17.9999792916434,
+        11.999995958237434
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            116.28569357735758,
+            93.78571024395166
+          ],
+          "observed": [
+            116.5,
+            94
+          ],
+          "samples": 250,
+          "errorCssPx": 0.3030632645720229
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            779.7142650059293,
+            93.78571024395166
+          ],
+          "observed": [
+            779.5,
+            94
+          ],
+          "samples": 250,
+          "errorCssPx": 0.3030339788095364
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            116.28569357735758,
+            370.2142816725232
+          ],
+          "observed": [
+            116.5,
+            370
+          ],
+          "samples": 250,
+          "errorCssPx": 0.30305754893277054
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            779.7142650059293,
+            370.2142816725232
+          ],
+          "observed": [
+            779.5,
+            370
+          ],
+          "samples": 250,
+          "errorCssPx": 0.30302826261790383
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            447.9999792916434,
+            231.99999595823743
+          ],
+          "observed": [
+            448,
+            232
+          ],
+          "samples": 260,
+          "errorCssPx": 0.000021099096609874346
+        }
+      ],
+      "maxErrorCssPx": 0.3030632645720229
+    },
+    {
+      "oriented": true,
+      "stage": "resize",
+      "width": 860,
+      "height": 440,
+      "zoom": 0.8000000000000002,
+      "pan": [
+        17.9999792916434,
+        11.999995958237434
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            116.28569357735758,
+            93.78571024395166
+          ],
+          "observed": [
+            116.5,
+            94
+          ],
+          "samples": 250,
+          "errorCssPx": 0.3030632645720229
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            779.7142650059293,
+            93.78571024395166
+          ],
+          "observed": [
+            779.5,
+            94
+          ],
+          "samples": 250,
+          "errorCssPx": 0.3030339788095364
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            116.28569357735758,
+            370.2142816725232
+          ],
+          "observed": [
+            116.5,
+            370
+          ],
+          "samples": 250,
+          "errorCssPx": 0.30305754893277054
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            779.7142650059293,
+            370.2142816725232
+          ],
+          "observed": [
+            779.5,
+            370
+          ],
+          "samples": 250,
+          "errorCssPx": 0.30302826261790383
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            447.9999792916434,
+            231.99999595823743
+          ],
+          "observed": [
+            448,
+            232
+          ],
+          "samples": 260,
+          "errorCssPx": 0.000021099096609874346
+        }
+      ],
+      "maxErrorCssPx": 0.3030632645720229
+    }
+  ],
+  "pageErrors": [],
+  "cacheRelease": [
+    {
+      "imageId": "dicomfile:0",
+      "before": {
+        "bytes": 17920,
+        "metadata": true
+      },
+      "after": {
+        "bytes": 0,
+        "image": false,
+        "metadata": false
+      }
+    },
+    {
+      "imageId": "dicomfile:0",
+      "before": {
+        "bytes": 17920,
+        "metadata": true
+      },
+      "after": {
+        "bytes": 0,
+        "image": false,
+        "metadata": false
+      }
+    }
+  ]
+}

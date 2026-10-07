@@ -1,0 +1,264 @@
+{
+  "schema": "clinical-canvas-local-integration-release/v1",
+  "status": "CLINICAL_CANVAS_LOCAL_INTEGRATION_PARTIAL_PASS",
+  "date": "2026-10-04",
+  "timezone": "Asia/Shanghai",
+  "source": {
+    "worktree": "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai",
+    "branch": "feature/clinical-canvas-v1",
+    "opening_head": "7ada03b76142e6f45fea9c531f634e36a44cebf8",
+    "candidate_source_sha": "273e76aa3e540cdf14a600452e4980167c158e35",
+    "frontend_tree": "2e2261e6b9ff23ae3a931d45a56b4a9395746a3b",
+    "source_file_inventory": "clinical-canvas-integration-evidence-v1/source-files.json"
+  },
+  "api": {
+    "source_sha": "273e76aa3e540cdf14a600452e4980167c158e35",
+    "backend_gateway_unchanged_from_opening_head": true,
+    "last_change_sha": "9f06fbd1a3a6cec88dbcfd0e867d768ba9c40b5e",
+    "contract_version": "Backend API v2.0 Freeze; Result 2.0; Phase5 Session Gateway",
+    "registered_backend_sha_not_equivalent": "fbd3c5802fef23df2d1ef66257c323910d383518",
+    "contract_paths": [
+      "docs/backend/backend_api_contract_phase5.md",
+      "docs/backend/session_gateway_contract_phase5.md",
+      "docs/backend/frontend_integration_guide_phase5.md"
+    ]
+  },
+  "build": {
+    "node": "24.19.0",
+    "npm": "11.17.0",
+    "mode": "production",
+    "base": "/mvp/",
+    "command": "VITE_PUBLIC_BASE=/mvp/ npm run build -- --outDir .local/integration-20261004-v1/release-dist",
+    "preview_command": "VITE_PUBLIC_BASE=/mvp/ npm run preview -- --host 127.0.0.1 --port 5197 --strictPort --outDir <release-dist>",
+    "api_proxy": "loopback HTTPS harness -> real Gateway HTTP 5200 -> real Backend HTTP 5199",
+    "archive_path": "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/.local/integration-20261004-v1/clinical-canvas-production-273e76aa3e54.tar.gz",
+    "archive_sha256": "42321d170b168702fb8edbdd4ca697416749c5418d9b14113bc4660515712727",
+    "archive_bytes": 1715903,
+    "files": 34,
+    "file_inventory": "clinical-canvas-integration-evidence-v1/artifact-files.json",
+    "file_inventory_sha256": "45e8a0c3b97bc3ad884ffd9d404040c85cc7bff722c216b8bbb5ce9cc6f63497",
+    "all_preview_files_byte_equal": true,
+    "database": "SQLite isolated test schema; not PostgreSQL/Alembic acceptance",
+    "storage": "TEST_STORAGE filesystem adapter; not S3/MinIO acceptance",
+    "model_registry": "synthetic metadata only, no checkpoint loaded",
+    "worker_started": false
+  },
+  "tests": {
+    "baseline_vitest": {
+      "files": 18,
+      "passed": 121
+    },
+    "candidate_vitest": {
+      "files": 18,
+      "passed": 126
+    },
+    "vue_tsc_vite_build": "PASS",
+    "local_integration": {
+      "passed": 14,
+      "screenshots": 12,
+      "evidence": "clinical-canvas-integration-evidence-v1/local/browser-acceptance.json",
+      "database_final": {
+        "workers": 0,
+        "results": 0,
+        "jobs": [
+          {
+            "id": "job_543d54b301dd098adf0d1304a2c8ea75",
+            "status": "CREATED",
+            "attempt_no": 0
+          }
+        ]
+      }
+    },
+    "mock_api": {
+      "passed": 10,
+      "screenshots": 11,
+      "evidence": "clinical-canvas-integration-evidence-v1/mock/browser-acceptance.json",
+      "new_jobs": 0,
+      "completed_result": "pre-existing synthetic wire-contract fixture only"
+    },
+    "production_geometry": {
+      "groups": 6,
+      "markers_per_group": 5,
+      "max_error_css_px": 0.45566673285130727,
+      "limit_css_px": 1
+    },
+    "page_errors": [],
+    "external_requests": []
+  },
+  "screenshots": [
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/01-login.png",
+      "sha256": "9031aea669ecb2d60fd86d6bcccb20d1fcc1a1f0187b91c01658e14b9d07efe0"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/02-case-cornerstone.png",
+      "sha256": "3c65353af4ec56b94d32b04a86ff7a0a03b471e46d63dcc76c3a842d89f49478"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/03a-accepted-job-navigation-recovery.png",
+      "sha256": "65882cbb2c390c552a55b8091b8002493a41258b49b1e4efb24c04264717ab12"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/03-job-no-worker.png",
+      "sha256": "a71ff0d9c59eee3b3c3d99229b473381a3d70138cd5e4d577e6a32afaf6f8a47"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/04-dashboard.png",
+      "sha256": "b4fa87a03802a6b72e92ac3c85ef9259306a5a0f870b19e66f77391955008e4b"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/05-worker-unobserved.png",
+      "sha256": "ac023ec03058b4a7c46c2e1b07f48392efe340d48e8ea81370b7cbd7fb4fcfd6"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/06-bob-isolation.png",
+      "sha256": "f9f202c6e6e7ae82064056b90ce212a8d83ed0d727e1efa431e0dc3dbc99d5e1"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/07-expired-input.png",
+      "sha256": "0350229e6877aece855855cba5659350d90b28d5a872fda2e1c946d874f96bd1"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/08-not-found.png",
+      "sha256": "2e942329eae6a1d334ddbda2384bc94af09a3cb331dbb3b67c71c21772a44a1b"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/09-backend-unavailable.png",
+      "sha256": "835b6b47ead58f323427ecec2dc76b412d7adf1b26f6d5fa027bd7cb95bcd0cd"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/10-job-service-unavailable.png",
+      "sha256": "5dc3ee2a3ed025075c8b4d7fef03eb1149ce7301a2ce618d01c3af446a7fe450"
+    },
+    {
+      "environment": "local",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/local/11-login-service-unavailable.png",
+      "sha256": "fd1ac7dc8477b94b4f7cb4376aa558994a84ccbe2bd14b7195bb18ca688e4769"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/01-result-fixture.png",
+      "sha256": "e6b6e17760e8806ae3c16f1b6b6f20abc1e3470cbcb343535d0419271b5136c0"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/02-geometry-normal.png",
+      "sha256": "c55f5a89c0447763bb6965503194514422495b0ea2bcb0721ff3bd9e24f28395"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/03-geometry-oriented.png",
+      "sha256": "7885f8296b4ff4595eb2f869c519d52828a1f270b2aa2eb7a0c5bd45c28b4617"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/04-result-mobile.png",
+      "sha256": "cb7d8e99909522b7dbcac42b6696f8d37419250a0bdad9bd7c40092565b3bcee"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/05-gate-hash.png",
+      "sha256": "33398e0061073ee68fec0be0f84149191bff18bf77420948c8510cd970eb3dca"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/05-gate-slice.png",
+      "sha256": "8cd0d74f3e333f8ab1823a99fcdbf1b67e92b9e4ecc57062698fd580f502a8f7"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/05-gate-version.png",
+      "sha256": "f63b9373aeeb57c753943cbb9d857450894bed2e7bfa9b34825f521c189fc69e"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/05-gate-dimensions.png",
+      "sha256": "f208bba634116f8631769b00dc67afd226b911014553bb76179af9ee8001e8e2"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/06-corrupt-layer.png",
+      "sha256": "116fbee219e33236f4a3ec3695d2deea4021541c2690af9e82294ad658fe2f41"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/07-expired-input-independent-layer.png",
+      "sha256": "7b23ff22fdbfbf85e92c57f8194fa331c88938f7b579df47e9f6ede821be985b"
+    },
+    {
+      "environment": "mock",
+      "path": "docs/frontend/clinical-canvas-integration-evidence-v1/mock/08-dashboard.png",
+      "sha256": "618506efccf819a26a8b64e009bc89eb029f5b833a890a7ae94815f110baf573"
+    }
+  ],
+  "not_accepted": [
+    "PostgreSQL production-like migrations/concurrency",
+    "S3/MinIO storage/asset lifecycle",
+    "positive real local Result/assets from actual inference",
+    "remote real account E2E",
+    "GPU Worker register/heartbeat/claim/inference/result/refresh",
+    "clinical validity"
+  ],
+  "future_versions": {
+    "implemented_display": [
+      "model_id",
+      "model_version",
+      "preprocessing_version",
+      "protocol_id",
+      "contract_version"
+    ],
+    "draft_only": [
+      "operator_version",
+      "search_protocol_version"
+    ],
+    "unknown_geometry_blocks_overlay": true
+  },
+  "cleanup": {
+    "task_services_stopped": true,
+    "ports_5197_5200_closed": true,
+    "shared_services_modified": false
+  },
+  "publication": {
+    "push": false,
+    "merge": false,
+    "deploy": false
+  },
+  "earlier_attempts": {
+    "preserved_root": "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/.local/integration-20261004-v1",
+    "notes": "Startup directory permission and FastAPI annotation harness failures; test waits/selectors/request attribution repaired; real cached lazy-module failure prompted recovery-link fix; earlier reports retained separately, not counted as final passes."
+  },
+  "raw_log_digests": [
+    {
+      "path": "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/.local/integration-20261004-v1/baseline-tests.log",
+      "sha256": "29cd181b8ee87fe19627749834fa7588d8454ebea7eda492e2cee29fd96951a9"
+    },
+    {
+      "path": "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/.local/integration-20261004-v1/tests.log",
+      "sha256": "a5c2730dbc0adb713e55f76c7e50b4b7544ec5910eec8294b6e9f1aafa2384f7"
+    },
+    {
+      "path": "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/.local/integration-20261004-v1/build.log",
+      "sha256": "e2aa641bcd9798a2b2cf80f3a44775b199fa8ad54afbf0949dda20b331627058"
+    },
+    {
+      "path": "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/.local/integration-20261004-v1/local-pass.log",
+      "sha256": "e53c40439f77c8ea2c3b5b7a1f85c9c66ed0f4e777192fc0752d3d6eb116af60"
+    },
+    {
+      "path": "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/.local/integration-20261004-v1/mock-pass.log",
+      "sha256": "7b1d3efb6bcb523811dd5b3885f265ff2d2ab5970e469fffe67b6c6f90868e6b"
+    }
+  ],
+  "copied_logs": "Whitespace-normalized presentation copies; original raw bytes retained at raw_log_digests paths."
+}

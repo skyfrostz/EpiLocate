@@ -11,6 +11,8 @@ __pycache__/
 # Internal project material must stay local.
 *.doc
 *.docx
+!docs/handoff/*.docx
+docs/handoff/~$*.docx
 *.pdf
 *.ppt
 *.pptx
@@ -24,6 +26,8 @@ __pycache__/
 
 # Never commit raw medical images or locally generated patient manifests
 *.dcm
+*.s5cmd
+!docs/interfaces/fixtures/p0_synthetic_ct.dcm
 data/raw/
 data/full_raw/
 data/data_manifest.csv
@@ -37,3 +41,24 @@ logs/
 *.ckpt
 *.pt
 *.pth
+.venv-p0/
+backend_v2/.local/
+.local/
+
+# Vue Frontend v1 build and local tooling
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+frontend/.vite/
+frontend/.env.local
+frontend/.env.*.local
+frontend/.playwright-cli/
+.playwright-cli/
+output/playwright/
+!output/playwright/
+output/playwright/*
+!output/playwright/p1_phase35_case_refresh.png
+!output/playwright/p1_phase35_job_completed.png
+!output/playwright/p1_phase35_result_16.png
+!output/playwright/p1_phase35_result_32.png
+!output/playwright/p1_phase35_result_64.png

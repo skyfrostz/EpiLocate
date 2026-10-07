@@ -1,0 +1,83 @@
+{
+  "environment": "SYNTHETIC_API_FIXTURE — local intercepted APIs, generated pixel values, actual Cornerstone rendering, no inference or deployment access",
+  "phase": "jobs",
+  "scenarios": [
+    {
+      "name": "Clinical Canvas route and theme screenshot matrix, loopback-only synthetic APIs",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "clinical-job-detail-light-1440.png",
+    "clinical-tasks-light-1440.png",
+    "clinical-system-status-light-1440.png",
+    "clinical-job-detail-light-390.png",
+    "clinical-tasks-light-390.png",
+    "clinical-system-status-light-390.png"
+  ],
+  "geometry": [],
+  "pageErrors": [],
+  "blockedExternalRequests": [],
+  "visualMatrix": [
+    {
+      "route": "/jobs/job_failed",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 1440,
+      "heading": "任务详情",
+      "screenshot": "clinical-job-detail-light-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/jobs",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 1440,
+      "heading": "任务记录",
+      "screenshot": "clinical-tasks-light-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/system",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 1440,
+      "heading": "系统状态",
+      "screenshot": "clinical-system-status-light-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/jobs/job_failed",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 390,
+      "heading": "任务详情",
+      "screenshot": "clinical-job-detail-light-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/jobs",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 390,
+      "heading": "任务记录",
+      "screenshot": "clinical-tasks-light-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/system",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 390,
+      "heading": "系统状态",
+      "screenshot": "clinical-system-status-light-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    }
+  ]
+}
