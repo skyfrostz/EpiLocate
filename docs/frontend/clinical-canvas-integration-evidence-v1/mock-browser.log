@@ -1,0 +1,10 @@
+PASS pre-existing MOCK_API completed Job → Result link, uppercase DICOM SHA, actual production viewer
+PASS production Cornerstone six geometry groups: non-square, rotated, unequal spacing, zoom/pan/resize, five markers
+PASS production Result refresh restores scale/layer/overlay/camera
+PASS MOCK_API hash mismatch blocks overlay, retains independent layer
+PASS MOCK_API slice mismatch blocks overlay, retains independent layer
+PASS MOCK_API version mismatch blocks overlay, retains independent layer
+PASS MOCK_API asset dimensions mismatch rejects unsafe layer, another valid layer remains available
+PASS MOCK_API corrupt PNG rejects layer and explicit retry recovers
+PASS MOCK_API expired DICOM preserves independent result layer and blocks overlay
+PASS MOCK_API Dashboard displays no concrete probabilities

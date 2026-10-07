@@ -1,0 +1,17 @@
+
+> epilocate-frontend-v1@1.0.0 test
+> vitest run
+
+
+ RUN  v5.0.2 /Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend
+
+Not implemented: Window's scrollTo() method
+
+ Test Files  18 passed (18)
+      Tests  126 passed (126)
+   Start at  11:17:34
+   Duration  1.04s (environment 55%, transform 29%, import 11%, tests 5%)
+
+  Transform  transforming modules took 2.85s · 29% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

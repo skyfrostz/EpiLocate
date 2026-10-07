@@ -1,0 +1,18 @@
+{
+  "alice": {
+    "assets_via_api": 9,
+    "positions_via_api": {
+      "16": 729,
+      "32": 169,
+      "64": 36
+    }
+  },
+  "bob": {
+    "assets_via_api": 9,
+    "positions_via_api": {
+      "16": 729,
+      "32": 169,
+      "64": 36
+    }
+  }
+}

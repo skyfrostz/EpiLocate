@@ -1,0 +1,14 @@
+
+> epilocate-frontend-v1@1.0.0 test
+> vitest run
+
+
+ RUN  v5.0.2 /Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend
+
+Not implemented: Window's scrollTo() method
+
+ Test Files  18 passed (18)
+      Tests  121 passed (121)
+   Start at  13:38:08
+   Duration  1.72s (environment 61%, transform 24%, import 10%, tests 4%, worker 1%)
+

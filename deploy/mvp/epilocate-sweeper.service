@@ -1,0 +1,21 @@
+[Unit]
+Description=EpiLocate MVP job and retention sweeper
+After=network-online.target postgresql.service epilocate-minio.service
+Wants=network-online.target
+Requires=epilocate-minio.service
+
+[Service]
+Type=simple
+User=epilocate-backend
+Group=epilocate-backend
+WorkingDirectory=/opt/epilocate-mvp/current
+EnvironmentFile=/etc/epilocate-mvp/backend.env
+ExecStart=/opt/epilocate-mvp/current/.venv/bin/python -m backend_v2.workers.sweeper
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target

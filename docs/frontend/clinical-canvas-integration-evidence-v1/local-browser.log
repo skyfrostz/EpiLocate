@@ -1,0 +1,14 @@
+PASS real HTTPS login, invalid password, Cookie flags, next deep-link
+PASS real Gateway CSRF rejection
+PASS real upload de-identification validator rejects identified synthetic tags
+PASS real create/upload and protected DICOM, actual production Cornerstone
+PASS real case deep-link refresh restores authorized DICOM
+PASS production chunk failure full-page recovery link opens the one real accepted Job without a second POST
+PASS real accepted Job and refresh remain CREATED without Worker or Result
+PASS real Dashboard case state without AI probabilities
+PASS real System request evidence, unsupported GPU/Worker metrics remain unconnected
+PASS real cross-tab logout, account switch, owner-scoped case/DICOM/Job and absent Result/assets 404
+PASS real retention 410, no CT, disabled new analysis
+PASS production /mvp/ fallback and application 404
+PASS actual stopped Backend produces Gateway 503 for cases/Job/login
+PASS isolated database proves zero Workers/results, no inference attempts

@@ -1,0 +1,39 @@
+{
+  "environment": "SYNTHETIC_API_FIXTURE — local intercepted APIs, generated pixel values, actual Cornerstone rendering, no inference or deployment access",
+  "phase": "shell",
+  "scenarios": [
+    {
+      "name": "Clinical Canvas route and theme screenshot matrix, loopback-only synthetic APIs",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "clinical-dashboard-light-1440.png",
+    "clinical-cases-light-1440.png"
+  ],
+  "geometry": [],
+  "pageErrors": [],
+  "blockedExternalRequests": [],
+  "visualMatrix": [
+    {
+      "route": "/",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 1440,
+      "heading": "影像研究工作台",
+      "screenshot": "clinical-dashboard-light-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/cases",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 1440,
+      "heading": "病例中心",
+      "screenshot": "clinical-cases-light-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    }
+  ]
+}

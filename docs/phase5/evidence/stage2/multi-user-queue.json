@@ -1,0 +1,29 @@
+{
+  "job_ids": {
+    "alice": "job_8535ff72b40a18ad877c03d3342bf4d3",
+    "bob": "job_3b112789cfeb8a21cabb70320105eb42"
+  },
+  "status_before_worker": {
+    "alice": "QUEUED",
+    "bob": "QUEUED"
+  },
+  "status_after_worker": {
+    "alice": "COMPLETED",
+    "bob": "COMPLETED"
+  },
+  "attempts": [
+    {
+      "user": "alice",
+      "leased_at": "2026-09-27T19:50:05.400397+00:00",
+      "finished_at": "2026-09-27T19:50:05.435428+00:00",
+      "outcome": "SUCCEEDED"
+    },
+    {
+      "user": "bob",
+      "leased_at": "2026-09-27T19:50:10.463437+00:00",
+      "finished_at": "2026-09-27T19:50:10.512572+00:00",
+      "outcome": "SUCCEEDED"
+    }
+  ],
+  "sequential": true
+}

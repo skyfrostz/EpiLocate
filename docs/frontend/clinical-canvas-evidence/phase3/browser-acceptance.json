@@ -1,0 +1,61 @@
+{
+  "environment": "SYNTHETIC_API_FIXTURE — local intercepted APIs, generated pixel values, actual Cornerstone rendering, no inference or deployment access",
+  "phase": "cases",
+  "scenarios": [
+    {
+      "name": "Clinical Canvas route and theme screenshot matrix, loopback-only synthetic APIs",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "clinical-cases-light-1440.png",
+    "clinical-case-detail-light-1440.png",
+    "clinical-cases-light-390.png",
+    "clinical-case-detail-light-390.png"
+  ],
+  "geometry": [],
+  "pageErrors": [],
+  "blockedExternalRequests": [],
+  "visualMatrix": [
+    {
+      "route": "/cases",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 1440,
+      "heading": "病例中心",
+      "screenshot": "clinical-cases-light-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/cases/case_synthetic_01234567890123456789012345678901234567890123456789",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 1440,
+      "heading": "病例工作区",
+      "screenshot": "clinical-case-detail-light-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": true
+    },
+    {
+      "route": "/cases",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 390,
+      "heading": "病例中心",
+      "screenshot": "clinical-cases-light-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/cases/case_synthetic_01234567890123456789012345678901234567890123456789",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 390,
+      "heading": "病例工作区",
+      "screenshot": "clinical-case-detail-light-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": true
+    }
+  ]
+}

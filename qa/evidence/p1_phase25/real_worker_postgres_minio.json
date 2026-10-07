@@ -1,0 +1,112 @@
+{
+  "case_id": "case_88a44291469a56b8deaba7d7032bacf5",
+  "results": {
+    "prediction": {
+      "result_id": "result_72c9962ae57b4cfa8c2b6c94886ffbad",
+      "job_id": "job_62ea3941af9961b5f54e7deefd627826",
+      "job_status": "COMPLETED",
+      "source": "LIVE_CASE",
+      "model_id": "baseline_resnet18",
+      "model_version": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "prediction": {
+        "class_label": "negative",
+        "predicted_class": 0,
+        "inference_time_ms": 23,
+        "positive_probability": 0.025618407875299454,
+        "predicted_class_confidence": 0.9743815921247005
+      },
+      "scales": [],
+      "assets": []
+    },
+    "occlusion": {
+      "result_id": "result_c9ff71b7e52045cd83667f72562fb0a0",
+      "job_id": "job_acc0c777302809f3cf822da44fd3260b",
+      "job_status": "COMPLETED",
+      "source": "LIVE_CASE",
+      "model_id": "baseline_resnet18",
+      "model_version": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "prediction": {
+        "class_label": "negative",
+        "predicted_class": 0,
+        "inference_time_ms": 8,
+        "positive_probability": 0.025618407875299454,
+        "predicted_class_confidence": 0.9743815921247005
+      },
+      "scales": [
+        {
+          "block_size": 16,
+          "positions_count": 729
+        },
+        {
+          "block_size": 32,
+          "positions_count": 169
+        },
+        {
+          "block_size": 64,
+          "positions_count": 36
+        }
+      ],
+      "assets": [
+        {
+          "asset_id": "candidate-16.png",
+          "url": "/api/v2/results/result_c9ff71b7e52045cd83667f72562fb0a0/assets/candidate-16.png",
+          "status": 200,
+          "bytes": 294
+        },
+        {
+          "asset_id": "candidate-32.png",
+          "url": "/api/v2/results/result_c9ff71b7e52045cd83667f72562fb0a0/assets/candidate-32.png",
+          "status": 200,
+          "bytes": 263
+        },
+        {
+          "asset_id": "candidate-64.png",
+          "url": "/api/v2/results/result_c9ff71b7e52045cd83667f72562fb0a0/assets/candidate-64.png",
+          "status": 200,
+          "bytes": 298
+        },
+        {
+          "asset_id": "comparison-16.png",
+          "url": "/api/v2/results/result_c9ff71b7e52045cd83667f72562fb0a0/assets/comparison-16.png",
+          "status": 200,
+          "bytes": 210
+        },
+        {
+          "asset_id": "comparison-32.png",
+          "url": "/api/v2/results/result_c9ff71b7e52045cd83667f72562fb0a0/assets/comparison-32.png",
+          "status": 200,
+          "bytes": 209
+        },
+        {
+          "asset_id": "comparison-64.png",
+          "url": "/api/v2/results/result_c9ff71b7e52045cd83667f72562fb0a0/assets/comparison-64.png",
+          "status": 200,
+          "bytes": 151
+        },
+        {
+          "asset_id": "response-16.png",
+          "url": "/api/v2/results/result_c9ff71b7e52045cd83667f72562fb0a0/assets/response-16.png",
+          "status": 200,
+          "bytes": 1176
+        },
+        {
+          "asset_id": "response-32.png",
+          "url": "/api/v2/results/result_c9ff71b7e52045cd83667f72562fb0a0/assets/response-32.png",
+          "status": 200,
+          "bytes": 694
+        },
+        {
+          "asset_id": "response-64.png",
+          "url": "/api/v2/results/result_c9ff71b7e52045cd83667f72562fb0a0/assets/response-64.png",
+          "status": 200,
+          "bytes": 536
+        }
+      ]
+    }
+  },
+  "case_status": "READY",
+  "dicom": {
+    "status": 200,
+    "bytes": 18522
+  }
+}

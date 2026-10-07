@@ -1,0 +1,2671 @@
+{
+  "environment": "MOCK_API",
+  "started_at": "2026-10-04T03:23:17.663659+00:00",
+  "url": "https://127.0.0.1:5198/mvp/",
+  "scenarios": [
+    {
+      "name": "pre-existing MOCK_API completed Job → Result link, uppercase DICOM SHA, actual production viewer",
+      "passed": true
+    },
+    {
+      "name": "production Cornerstone six geometry groups: non-square, rotated, unequal spacing, zoom/pan/resize, five markers",
+      "passed": true
+    },
+    {
+      "name": "production Result refresh restores scale/layer/overlay/camera",
+      "passed": true,
+      "before": {
+        "zoom": 1,
+        "pan": [
+          22.49995831080841,
+          14.99999655996055
+        ]
+      },
+      "after": {
+        "zoom": 1,
+        "pan": [
+          22.49995831080841,
+          14.99999655996055
+        ]
+      }
+    },
+    {
+      "name": "MOCK_API hash mismatch blocks overlay, retains independent layer",
+      "passed": true
+    },
+    {
+      "name": "MOCK_API slice mismatch blocks overlay, retains independent layer",
+      "passed": true
+    },
+    {
+      "name": "MOCK_API version mismatch blocks overlay, retains independent layer",
+      "passed": true
+    },
+    {
+      "name": "MOCK_API asset dimensions mismatch rejects unsafe layer, another valid layer remains available",
+      "passed": true
+    },
+    {
+      "name": "MOCK_API corrupt PNG rejects layer and explicit retry recovers",
+      "passed": true
+    },
+    {
+      "name": "MOCK_API expired DICOM preserves independent result layer and blocks overlay",
+      "passed": true
+    },
+    {
+      "name": "MOCK_API Dashboard displays no concrete probabilities",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "01-result-fixture.png",
+    "02-geometry-normal.png",
+    "03-geometry-oriented.png",
+    "04-result-mobile.png",
+    "05-gate-hash.png",
+    "05-gate-slice.png",
+    "05-gate-version.png",
+    "05-gate-dimensions.png",
+    "06-corrupt-layer.png",
+    "07-expired-input-independent-layer.png",
+    "08-dashboard.png"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/mvp/jobs/job_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/JobDetailView-D_y_nPl7.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/jobs/job_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/64-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/64-CANDIDATE_TOP10.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/64-CANDIDATE_TOP10.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/64-CANDIDATE_TOP10.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_TOP10.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/32-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/32-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/32-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "status": 410
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/32-CANDIDATE_RESPONSE.png",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/DashboardView-uXXrLrYc.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "status": 200
+    }
+  ],
+  "initiated_requests": [
+    {
+      "method": "GET",
+      "path": "/mvp/jobs/job_fixture_completed",
+      "document_path": "blank"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/JobDetailView-D_y_nPl7.js",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/jobs/job_fixture_completed",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/jobs/job_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/64-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/64-CANDIDATE_TOP10.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/64-CANDIDATE_TOP10.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/64-CANDIDATE_TOP10.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_TOP10.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/16-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/32-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/ResultDetailView-OPZrvvcl.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/CornerstoneSliceViewer-D8J00gG5.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/32-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-BQ03oNGD.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CrYH-n9j.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/esm-CSTQOL4i.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/decodeImageFrameWorker-CIzGMghT.js",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/32-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases/case_mock/dicom",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/results/result_fixture_completed/assets/32-CANDIDATE_RESPONSE.png",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/",
+      "document_path": "/mvp/results/result_fixture_completed"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/DashboardView-uXXrLrYc.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/"
+    }
+  ],
+  "page_errors": [],
+  "external_requests": [],
+  "geometry": [
+    {
+      "oriented": false,
+      "stage": "initial",
+      "width": 858,
+      "height": 570,
+      "zoom": 0.6400000000000001,
+      "pan": [
+        0,
+        0
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            182.75999999999993,
+            109.1142857142857
+          ],
+          "observed": [
+            182.96351931330472,
+            109.47424892703863
+          ],
+          "samples": 233,
+          "errorCssPx": 0.4135137548177341
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            675.2400000000001,
+            109.1142857142857
+          ],
+          "observed": [
+            675.0364806866953,
+            109.47424892703863
+          ],
+          "samples": 233,
+          "errorCssPx": 0.4135137548177481
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            182.75999999999993,
+            460.8857142857143
+          ],
+          "observed": [
+            182.96351931330472,
+            460.5257510729614
+          ],
+          "samples": 233,
+          "errorCssPx": 0.4135137548177218
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            675.2400000000001,
+            460.8857142857143
+          ],
+          "observed": [
+            675.0364806866953,
+            460.5257510729614
+          ],
+          "samples": 233,
+          "errorCssPx": 0.4135137548177358
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            429,
+            285
+          ],
+          "observed": [
+            429,
+            285
+          ],
+          "samples": 248,
+          "errorCssPx": 0
+        }
+      ],
+      "maxErrorCssPx": 0.4135137548177481
+    },
+    {
+      "oriented": false,
+      "stage": "zoom-pan",
+      "width": 858,
+      "height": 570,
+      "zoom": 0.8000000000000002,
+      "pan": [
+        18.000018310546807,
+        12.000041198730571
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            139.20001831054685,
+            77.14289834158757
+          ],
+          "observed": [
+            139.44601542416453,
+            77.45886889460154
+          ],
+          "samples": 389,
+          "errorCssPx": 0.40043972115685683
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            754.8000183105469,
+            77.14289834158757
+          ],
+          "observed": [
+            754.5539845758354,
+            77.45886889460154
+          ],
+          "samples": 389,
+          "errorCssPx": 0.40046221917680147
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            139.20001831054685,
+            516.8571840558734
+          ],
+          "observed": [
+            139.44601542416453,
+            516.5411311053984
+          ],
+          "samples": 389,
+          "errorCssPx": 0.40050474081108217
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            754.8000183105469,
+            516.8571840558734
+          ],
+          "observed": [
+            754.5539845758354,
+            516.5411311053984
+          ],
+          "samples": 389,
+          "errorCssPx": 0.4005272351788071
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            447.00001831054686,
+            297.00004119873046
+          ],
+          "observed": [
+            447,
+            297
+          ],
+          "samples": 380,
+          "errorCssPx": 4.508449309624317e-05
+        }
+      ],
+      "maxErrorCssPx": 0.4005272351788071
+    },
+    {
+      "oriented": false,
+      "stage": "resize",
+      "width": 790,
+      "height": 513,
+      "zoom": 0.8000000000000002,
+      "pan": [
+        16.200016479492206,
+        10.800037078857429
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            134.18001647949214,
+            69.4286085074288
+          ],
+          "observed": [
+            134.46815286624204,
+            69.47770700636943
+          ],
+          "samples": 314,
+          "errorCssPx": 0.292289650804658
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            688.2200164794922,
+            69.4286085074288
+          ],
+          "observed": [
+            688,
+            69.5
+          ],
+          "samples": 300,
+          "errorCssPx": 0.23130930906403033
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            134.18001647949214,
+            465.17146565028605
+          ],
+          "observed": [
+            134.46815286624204,
+            465.4777070063694
+          ],
+          "samples": 314,
+          "errorCssPx": 0.42048346643485485
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            688.2200164794922,
+            465.17146565028605
+          ],
+          "observed": [
+            688.0317725752508,
+            465.47658862876256
+          ],
+          "samples": 299,
+          "errorCssPx": 0.3585188969614013
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            411.2000164794922,
+            267.30003707885743
+          ],
+          "observed": [
+            411.43610223642173,
+            267.5
+          ],
+          "samples": 313,
+          "errorCssPx": 0.30938916344445155
+        }
+      ],
+      "maxErrorCssPx": 0.42048346643485485
+    },
+    {
+      "oriented": true,
+      "stage": "initial",
+      "width": 858,
+      "height": 570,
+      "zoom": 0.64,
+      "pan": [
+        0,
+        0
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            164.2457142857142,
+            174.68571428571425
+          ],
+          "observed": [
+            164,
+            175
+          ],
+          "samples": 160,
+          "errorCssPx": 0.3989373640161331
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            693.7542857142859,
+            174.68571428571425
+          ],
+          "observed": [
+            694,
+            175
+          ],
+          "samples": 160,
+          "errorCssPx": 0.39893736401609803
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            164.2457142857142,
+            395.31428571428575
+          ],
+          "observed": [
+            164,
+            395
+          ],
+          "samples": 160,
+          "errorCssPx": 0.3989373640161331
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            693.7542857142859,
+            395.31428571428575
+          ],
+          "observed": [
+            694,
+            395
+          ],
+          "samples": 160,
+          "errorCssPx": 0.39893736401609803
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            429,
+            285
+          ],
+          "observed": [
+            429,
+            285
+          ],
+          "samples": 160,
+          "errorCssPx": 0
+        }
+      ],
+      "maxErrorCssPx": 0.3989373640161331
+    },
+    {
+      "oriented": true,
+      "stage": "zoom-pan",
+      "width": 858,
+      "height": 570,
+      "zoom": 0.8,
+      "pan": [
+        17.999966648646705,
+        11.999997247968395
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            116.05710950578948,
+            159.10714010511117
+          ],
+          "observed": [
+            116.5,
+            159
+          ],
+          "samples": 250,
+          "errorCssPx": 0.45566543865567427
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            777.9428237915041,
+            159.10714010511117
+          ],
+          "observed": [
+            777.5,
+            159
+          ],
+          "samples": 250,
+          "errorCssPx": 0.4556006062828593
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            116.05710950578948,
+            434.8928543908256
+          ],
+          "observed": [
+            116.5,
+            435
+          ],
+          "samples": 250,
+          "errorCssPx": 0.45566673285130727
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            777.9428237915041,
+            434.8928543908256
+          ],
+          "observed": [
+            777.5,
+            435
+          ],
+          "samples": 250,
+          "errorCssPx": 0.455601900662657
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            446.99996664864676,
+            296.9999972479684
+          ],
+          "observed": [
+            447,
+            297
+          ],
+          "samples": 260,
+          "errorCssPx": 3.346470440296276e-05
+        }
+      ],
+      "maxErrorCssPx": 0.45566673285130727
+    },
+    {
+      "oriented": true,
+      "stage": "resize",
+      "width": 790,
+      "height": 513,
+      "zoom": 0.781974683544304,
+      "pan": [
+        16.19996998378207,
+        10.799997523171555
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            113.35139855521057,
+            143.19642609460004
+          ],
+          "observed": [
+            113.44660194174757,
+            143.48058252427185
+          ],
+          "samples": 206,
+          "errorCssPx": 0.299680765702348
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            709.0485414123536,
+            143.19642609460004
+          ],
+          "observed": [
+            709,
+            143.5
+          ],
+          "samples": 198,
+          "errorCssPx": 0.3074302925104631
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            113.35139855521057,
+            391.40356895174307
+          ],
+          "observed": [
+            113.5,
+            391.5
+          ],
+          "samples": 207,
+          "errorCssPx": 0.17714778141833484
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            709.0485414123536,
+            391.40356895174307
+          ],
+          "observed": [
+            709,
+            391.5
+          ],
+          "samples": 198,
+          "errorCssPx": 0.10795932466080498
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            411.19996998378207,
+            267.29999752317156
+          ],
+          "observed": [
+            411.4466019417476,
+            267.4805825242718
+          ],
+          "samples": 206,
+          "errorCssPx": 0.3056767333512476
+        }
+      ],
+      "maxErrorCssPx": 0.3074302925104631
+    }
+  ],
+  "dashboard_requests": [
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-CmuL5uhi.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/runtime-core.esm-bundler-CWFkj-uh.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/index-Dx273_Ri.css",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/session",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/favicon.svg",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/DashboardView-uXXrLrYc.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/format-DOKr8WSA.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/workspace-CmxT_0Hf.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/clinical-Db_vhlMg.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/EpStatus-iK71UgCy.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/useCreateCase-BwaqkUQj.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/jobs-C1xfF41D.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/mvp/assets/cases-Cdvilrvk.js",
+      "document_path": "/mvp/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/cases",
+      "document_path": "/mvp/"
+    }
+  ],
+  "mock_new_jobs": 0,
+  "status": "PASS",
+  "finished_at": "2026-10-04T03:23:27.442930+00:00"
+}

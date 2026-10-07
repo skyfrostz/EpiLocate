@@ -1,0 +1,66 @@
+
+> epilocate-frontend-v1@1.0.0 build
+> vue-tsc -b && vite build
+
+vite v8.3.1 building client environment for production...
+transforming...
+[plugin rolldown:vite-resolve] Module "fs" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-openjph/dist/openjphjs.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "fs" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-charls/dist/charlswasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "path" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-openjph/dist/openjphjs.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "fs" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-openjpeg/dist/openjpegwasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "path" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-openjpeg/dist/openjpegwasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "path" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-charls/dist/charlswasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "fs" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-libjpeg-turbo-8bit/dist/libjpegturbowasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "path" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-libjpeg-turbo-8bit/dist/libjpegturbowasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "fs" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-charls/dist/charlswasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "path" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-charls/dist/charlswasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "fs" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-openjph/dist/openjphjs.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "path" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-openjph/dist/openjphjs.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "fs" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-openjpeg/dist/openjpegwasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "path" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-openjpeg/dist/openjpegwasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "fs" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-libjpeg-turbo-8bit/dist/libjpegturbowasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "path" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@cornerstonejs/codec-libjpeg-turbo-8bit/dist/libjpegturbowasm_decode.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "url" has been externalized for browser compatibility, imported by "/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend/node_modules/@oozcitak/url/lib/URLAlgorithm.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+✓ 4392 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                        0.72 kB │ gzip:   0.43 kB
+dist/assets/charlswasm_decode-CEN7ucFR.wasm          145.43 kB │ gzip:  47.01 kB
+dist/assets/libjpegturbowasm_decode-B4UEe-KN.wasm    180.50 kB │ gzip:  70.82 kB
+dist/assets/decodeImageFrameWorker-CIzGMghT.js       233.16 kB
+dist/assets/openjpegwasm_decode-BP3l1OXH.wasm        260.33 kB │ gzip:  87.15 kB
+dist/assets/openjphjs-odeu-u12.wasm                  299.94 kB │ gzip:  97.51 kB
+dist/assets/jpegxlwasm_decode-D5WHnpK-.wasm        1,090.78 kB │ gzip: 381.08 kB
+dist/assets/index-Dx273_Ri.css                        30.60 kB │ gzip:   6.97 kB
+dist/assets/EpStatus-iK71UgCy.js                       0.25 kB │ gzip:   0.21 kB
+dist/assets/workspace-Dqzfk5bT.js                      0.30 kB │ gzip:   0.24 kB
+dist/assets/NotFoundView-CLkBDiUA.js                   0.69 kB │ gzip:   0.50 kB
+dist/assets/clinical-Db_vhlMg.js                       0.80 kB │ gzip:   0.46 kB
+dist/assets/cases-Dh_PwB25.js                          1.35 kB │ gzip:   0.72 kB
+dist/assets/PreferencesView-w_Iace2c.js                2.02 kB │ gzip:   1.05 kB
+dist/assets/jobs-Dfj29Y67.js                           2.07 kB │ gzip:   1.16 kB
+dist/assets/LoginView-rucB3ELk.js                      2.69 kB │ gzip:   1.54 kB
+dist/assets/useCreateCase-DPnKk_ZY.js                  2.71 kB │ gzip:   1.37 kB
+dist/assets/SystemView-Bjp9JSMM.js                     2.82 kB │ gzip:   1.66 kB
+dist/assets/JobsView-DehfzzjI.js                       3.57 kB │ gzip:   1.94 kB
+dist/assets/CasesView-7PnWwm74.js                      3.90 kB │ gzip:   1.98 kB
+dist/assets/format-Cbfu7P70.js                         4.29 kB │ gzip:   1.78 kB
+dist/assets/JobDetailView-Z0HXMDIg.js                  5.06 kB │ gzip:   2.27 kB
+dist/assets/DashboardView-DiWxOAak.js                  7.64 kB │ gzip:   3.36 kB
+dist/assets/CaseDetailView-BIBhXjdB.js                 7.91 kB │ gzip:   3.49 kB
+dist/assets/jpeg-DX29txDl.js                          10.35 kB │ gzip:   4.36 kB
+dist/assets/CornerstoneSliceViewer-TWUDWmwX.js        12.22 kB │ gzip:   5.43 kB
+dist/assets/lossless-NoYY42n_.js                      14.35 kB │ gzip:   4.25 kB
+dist/assets/ResultDetailView-BaM2fhhv.js              14.42 kB │ gzip:   5.85 kB
+dist/assets/runtime-core.esm-bundler-CWFkj-uh.js      61.01 kB │ gzip:  23.94 kB
+dist/assets/index-D5eJ65oZ.js                        171.55 kB │ gzip:  62.17 kB
+dist/assets/esm-EbiALLXr.js                          292.42 kB │ gzip:  68.32 kB
+dist/assets/esm-CrYH-n9j.js                          776.37 kB │ gzip: 217.91 kB
+dist/assets/esm-BQ03oNGD.js                        2,136.33 kB │ gzip: 576.74 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 496ms

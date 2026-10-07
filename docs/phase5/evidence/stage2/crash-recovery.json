@@ -1,0 +1,7 @@
+{
+  "job_id": "job_409be07c570f35bec6db5e0d261e79da",
+  "killed_worker_pid": 65636,
+  "status_at_kill": "RUNNING",
+  "attempt_no_at_kill": 1,
+  "lease_expire_time": "2026-09-27T19:46:49.038572+00:00"
+}

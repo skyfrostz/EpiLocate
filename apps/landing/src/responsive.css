@@ -1,0 +1,45 @@
+@media (min-width: 768px) and (max-height: 800px) {
+  .page-shell { padding: 32px; }
+  .hero-section { padding-top: 24px; }
+  .hero-title { font-size: 80px; }
+  .hero-copy { margin-top: 24px; font-size: 13px; line-height: 1.5; }
+  .cta-wrap { margin-top: 24px; }
+  .cta-button { padding-top: 12px; padding-bottom: 12px; }
+  .frame-counter { font-size: 80px; }
+  .frame-stack { gap: 12px; }
+  .frame-thumb { width: 72px; height: 72px; }
+}
+
+@media (min-width: 768px) and (max-height: 620px) {
+  .page-shell { padding: 20px 32px; }
+  .hero-section { padding-top: 12px; }
+  .hero-title { font-size: 60px; }
+  .hero-copy { margin-top: 16px; font-size: 12px; }
+  .cta-wrap { margin-top: 16px; }
+  .cta-button { padding-top: 10px; padding-bottom: 10px; }
+  .frame-counter { font-size: 60px; }
+  .frame-stack { gap: 8px; }
+  .frame-gallery { gap: 8px; }
+  .frame-thumb { width: 56px; height: 56px; }
+  .frame-arrow { width: 36px; height: 36px; }
+}
+
+@media (max-width: 767px) and (max-height: 650px) {
+  .page-shell { padding: 16px; }
+  .hero-section { padding-top: 12px; }
+  .hero-title { font-size: 40px; }
+  .hero-copy { margin-top: 14px; font-size: 12px; line-height: 1.5; }
+  .cta-wrap { margin-top: 14px; }
+  .cta-button { padding-top: 10px; padding-bottom: 10px; }
+  .frame-footer { gap: 16px; }
+  .frame-arrow { width: 36px; height: 36px; }
+  .frame-counter { font-size: 32px; }
+  .frame-stack { gap: 8px; }
+  .frame-thumb { width: 48px; height: 48px; }
+}
+
+@media (max-height: 480px) {
+  body { overflow-y: auto; }
+  .viewport-scene { height: auto; min-height: 100vh; overflow-y: visible; }
+  .page-shell { height: auto; min-height: 100vh; }
+}

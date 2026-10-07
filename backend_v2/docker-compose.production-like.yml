@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: epilocate
+      POSTGRES_USER: epilocate
+      POSTGRES_PASSWORD: change-me
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - epilocate-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U epilocate -d epilocate"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: change-me
+      MINIO_ROOT_PASSWORD: change-me-change-me
+    ports:
+      - "127.0.0.1:59000:9000"
+      - "127.0.0.1:59001:9001"
+    volumes:
+      - epilocate-minio:/data
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: ["/bin/sh", "-c"]
+    command: >-
+      "until mc alias set local http://minio:9000 change-me change-me-change-me; do sleep 2; done &&
+      mc mb --ignore-existing local/epilocate-private &&
+      mc anonymous set none local/epilocate-private &&
+      mc ilm add --expiry-days 7 --prefix input/ local/epilocate-private || true"
+
+volumes:
+  epilocate-postgres:
+  epilocate-minio:

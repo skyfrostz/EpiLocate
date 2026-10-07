@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "fixture_sha256": "8e73851ac16215180f7a3e17d72c85814886fa25ef62fbfbc618686dc8df54ee",
+  "http_health": {
+    "status": "ok",
+    "mode": "real",
+    "contract_version": "0.1",
+    "real_ready": true
+  },
+  "http_source": "LIVE_CASE",
+  "gradio_source": "LIVE_CASE",
+  "positive_probability": 0.025618407875299454,
+  "http_gradio_probability_absolute_error": 0.0,
+  "mask_positions": {
+    "16": 729,
+    "32": 169,
+    "64": 36
+  },
+  "preview_size": [
+    112,
+    80
+  ],
+  "response_asset_size": [
+    224,
+    224
+  ],
+  "test_pixels_read": false
+}

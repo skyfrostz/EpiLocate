@@ -1,0 +1,65 @@
+{
+  "environment": "SYNTHETIC_API_FIXTURE — local intercepted APIs, generated pixel values, actual Cornerstone rendering, no inference or deployment access",
+  "phase": "settings",
+  "scenarios": [
+    {
+      "name": "Clinical Canvas route and theme screenshot matrix, loopback-only synthetic APIs",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "clinical-preferences-light-1440.png",
+    "clinical-preferences-light-390.png",
+    "clinical-preferences-dark-1440.png",
+    "clinical-preferences-dark-390.png",
+    "clinical-login-light-1440.png",
+    "clinical-login-light-390.png",
+    "clinical-login-dark-1440.png",
+    "clinical-login-dark-390.png"
+  ],
+  "geometry": [],
+  "pageErrors": [],
+  "blockedExternalRequests": [],
+  "visualMatrix": [
+    {
+      "route": "/preferences",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 1440,
+      "heading": "显示偏好",
+      "screenshot": "clinical-preferences-light-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/preferences",
+      "theme": "light",
+      "actualTheme": "light",
+      "width": 390,
+      "heading": "显示偏好",
+      "screenshot": "clinical-preferences-light-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/preferences",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "width": 1440,
+      "heading": "显示偏好",
+      "screenshot": "clinical-preferences-dark-1440.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    },
+    {
+      "route": "/preferences",
+      "theme": "dark",
+      "actualTheme": "dark",
+      "width": 390,
+      "heading": "显示偏好",
+      "screenshot": "clinical-preferences-dark-390.png",
+      "noOverflow": true,
+      "actualSyntheticDicom": false
+    }
+  ]
+}
