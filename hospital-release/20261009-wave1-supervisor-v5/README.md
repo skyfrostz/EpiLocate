@@ -8,7 +8,7 @@
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/absolute/fixed-bundle-parent \
- /absolute/approved/python -m epinext_wave1_supervisor_v1.wave1_supervisor \
+ /absolute/approved/python -c 'from epinext_wave1_supervisor_v1.wave1_supervisor import main; raise SystemExit(main())' \
  --spec /absolute/locked-spec.json --output-root /absolute/new-local-output \
  --dependency-root /absolute/full-dependency-lock --dependency-sha LOCK_SHA \
  -- /absolute/approved/python -m pinned_runner
@@ -19,3 +19,5 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/absolute/fixed-bundle-parent \
 ChildGuard.from_environment在加载前创建；before_forward/before_backward只在真实调用前预留attempt，actual另记；DATA无模型只check/heartbeat。正常/部分完成先保全资产，再guard.complete(status,reason,device_recovered,actual_forward,actual_backward)。SUCCESS和NO_RELIABLE_RESPONSE为正常完成exit0；其他exit2，槽是否释放由退出/恢复而非算法增益决定。MPS最终driver/tensor来自实际子进程，需ENCODER同步/empty_cache后明确恢复。
 
 测试覆盖零调用、隔离bundle、跨设备门禁、计数不重置、预停/超时/缺测/监测故障、身份及无关进程保护、资产保存。一次clean回归系统ps超时导致注入测试预期原因不匹配，按fail-closed终止；保留原失败日志，定向复核通过。采样峰值不代表瞬时峰值，不把旧hardcap注释当当前保证。采样延迟、同UID绕过、旧runner未接入等限制保留。医院展示、MVP三次E2E仍未获本轮授权。
+
+调用方式更正：使用上述显式import入口，不能直接以 `-m epinext_wave1_supervisor_v1.wave1_supervisor` 启动。`-m`把入口装载为 `__main__`，固定版verify_loaded_bundle按完整模块名查sys.modules可能KeyError；显式import保留该完整模块绑定。只更正文档，固定源码/bundle/manifest SHA和既有日志不变。总控已报告DATA真实标签任务SUCCESS、槽恢复、模型calls0；该结果由DATA/总控原收据负责，不是本轮重验收。

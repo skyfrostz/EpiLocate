@@ -1377,3 +1377,8 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 
 **Wave1固定bundle补录：** clean源码 `aca34f99ce3e642331bf82e71e6fd625f6e02409`，监督器文件SHA `5d960171e1477266e1418ef045d252c42908e000904384d363d09241c4ddff86`，bundle receipt SHA `62d7d2a87d4e8653c8fd0368cca49ee648fe22a4c9436c28e604c4aed4589ac8`。独立包名实际八模块导入路径/字节核验exit0。clean定向回归39PASS/1FAIL：系统ps超时触发fail-closed而非压力注入预期原因，保留失败日志；受影响项定向复核PASS。已有提交前40PASS不改写；新增实证见hospital-release/20261009-wave1-supervisor-v5/manifest.json。DATA八模块loader兼容，geometry-only执行依赖锁必须补齐，最终DATA入口握手由DATA负责，本线未扩读/运行真实。固定package与依赖只读字节/目录，所有真实forward/backward/MPS/production state写入0。
+
+
+### 2026-10-09｜Wave1调用文档更正
+
+开始HEAD `e146a83c129d26695ac55ea7aa7f2a0161579cb2`。总控/ENCODER接缝反馈固定版verify_loaded_bundle按完整模块名查sys.modules，直接-m入口为__main__可能KeyError。仅更正调用契约和准备文档为显式import wave1_supervisor.main()后SystemExit，固定运行源码/bundle/收据及旧日志不改、不重跑模型或fixture。总控报告DATA真实标签任务SUCCESS、槽恢复、模型calls0；不扩成本线独立验收。文档检查与diff check通过。

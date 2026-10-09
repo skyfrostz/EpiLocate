@@ -32,9 +32,11 @@ guard.complete(status='SUCCESS', reason=None, device_recovered=False,
 
 `complete`先关闭heartbeat、写最终样本，再不可覆盖写 `directory/runner-complete.json`。schema字段是 `{job_id,status,reason,monotonic,actual_forward,actual_backward}`。MPS先由ENCODER同步/释放/测量，再传device_recovered=True；CPU无需该标记。仅调用 `close(device_recovered=False)`不会生成完成标记，会判缺失completion。算法拒绝用 `NO_RELIABLE_RESPONSE`，与SUCCESS均CLI exit0；partial/failed/blocked等exit2；slot释放取决于退出/恢复，独立于科学结果。runner自己的原始算法状态和已有资产另存，监督器只追加 `supervisor-receipt.json`。
 
-CLI准备形态（总控固定spec/runner/dependencies后执行，本线不启动真实）：`python -m epinext_wave1_supervisor_v1.wave1_supervisor --spec SPEC --output-root LOCAL_NEW_OUTPUT --dependency-root IMMUTABLE_LOCK --dependency-sha SHA -- python -m PINNED_RUNNER`。科学参数/申请中的旧PENDING/hardcap为历史，当前有效资源语义绑定本契约首部修订SHA。
+CLI准备形态（总控固定spec/runner/dependencies后执行，本线不启动真实）：`python -c 'from epinext_wave1_supervisor_v1.wave1_supervisor import main; raise SystemExit(main())' --spec SPEC --output-root LOCAL_NEW_OUTPUT --dependency-root IMMUTABLE_LOCK --dependency-sha SHA -- python -m PINNED_RUNNER`。科学参数/申请中的旧PENDING/hardcap为历史，当前有效资源语义绑定本契约首部修订SHA。
 
 本轮仅小型合成/故障注入；真实准备命令由总控绑定上述参数、数据与各runner SHA后执行。既有MVP只增加必要接缝，不新增三次真实E2E。
 
 
 依赖锁必须含上述八个运行模块及numpy版本/Python版本；旧DATA fixture只锁geometry不兼容，须升级为八模块+自身runner/config的完整依赖锁。无__init__的DATA隔离loader兼容；父子双方verify_loaded_bundle核对每个实际加载模块文件字节与依赖锁。固定snapshot若不再消费活跃源，可在entry明确设置live_replay_check=false，执行时仍核验不可变snapshot和实际加载字节；默认保持live源漂移检查。所有Wave1消费者必须固定共享queue路径，不得另设生产queue。
+
+入口注意：固定版本verify_loaded_bundle要求完整模块名存在sys.modules中，直接-m将入口命名__main__可能KeyError；必须显式import main后调用，或用只包含该import/call的独立launcher。不会修改已固定bundle来追补此文档更正。旧验证日志保留。
