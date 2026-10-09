@@ -1,0 +1,74 @@
+{
+  "algorithm_config_sha256": "81b130d518b749df4629a4d30d81e38c5d0553ea5e286c9c01aafcb719ed54bf",
+  "cases": [
+    {
+      "case_index": 1,
+      "geometry_sha256": "ca70b1d1970395f10f89b410755ec18184682a0aba5f7db6286e22ea311ffe27",
+      "input_array_sha256": "433ea48bb1c0875c1a0dfe595ab0528d417e29360a81077f8f5f1192beeb407a",
+      "input_shape_yx": [
+        224,
+        224
+      ],
+      "model_tensor_sha256": "b9626ba126500dc6f77f89eaf72e34f695a8e761c7074255de954143640e8bd3",
+      "native_slice_index": 111,
+      "padding_status": "TAG_PRESENT_NOT_MASKED_BY_FROZEN_PIPELINE",
+      "roundtrip_error_model_voxels": 0.0,
+      "status": "TECHNICAL_PASS",
+      "world_error_mm": 5.684341886080802e-14
+    },
+    {
+      "case_index": 2,
+      "geometry_sha256": "0a41d5423abe6b0012229e0d5ea5363f9964fd8cee962a75c9ca9529174ab539",
+      "input_array_sha256": "dcba01d8a19ec7ac19548cebc653352aaf8048616b6bce3ec72f34879d632c28",
+      "input_shape_yx": [
+        224,
+        224
+      ],
+      "model_tensor_sha256": "17ed9c1f1ae9b14003344d3ae7753ef414b55c5ea22ff35bf3ea1870a6ca7ca9",
+      "native_slice_index": 121,
+      "padding_status": "UNKNOWN",
+      "roundtrip_error_model_voxels": 2.842170943040401e-14,
+      "status": "TECHNICAL_PASS",
+      "world_error_mm": 5.684341886080802e-14
+    },
+    {
+      "case_index": 3,
+      "geometry_sha256": "097b57bc78602dd86e232bdd2973f126946ec09ef48f82e2ea6451e12f3339d5",
+      "input_array_sha256": "95b844420cf2e7a97d89a85d1f8bc37616c3a2aa367b1a023d02d0ff0a2f0596",
+      "input_shape_yx": [
+        224,
+        224
+      ],
+      "model_tensor_sha256": "6dc5f87cc9246de768e7076073a5ebfd4fb3e7ecc55ab9d26e1c6a741d489631",
+      "native_slice_index": 123,
+      "padding_status": "TAG_PRESENT_NOT_MASKED_BY_FROZEN_PIPELINE",
+      "roundtrip_error_model_voxels": 2.842170943040401e-14,
+      "status": "TECHNICAL_PASS",
+      "world_error_mm": 5.684341886080802e-14
+    }
+  ],
+  "checkpoint_sha256": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+  "clinical_validation": "NOT RUN",
+  "data_delivery_sha256": "c3e6e7e9ead2435b38473648877694da7b09a4ba13cbbc970dcc4e531a39a3a6",
+  "data_receive_receipt_sha256": "22c792e26a3fce9da7ff90a27e9052d00f15a52800404268fcb89c4c08875815",
+  "date": "2026-10-09",
+  "final_freeze": "NOT RUN",
+  "hospital_default_algorithm": null,
+  "hospital_display_authorized": false,
+  "hospital_e2e": "WAITING_FOR_ACCEPTED_RUNTIME_AND_APPLICATION_BINDING",
+  "model_forwards": 0,
+  "mps_forwards": 0,
+  "prepared_delivery_path": "research/next-hospital-20261014/.local/phase2/first-real-e1e2/prepared_delivery.json",
+  "prepared_delivery_sha256": "b85eaf6c78d1547e2aa4b93458734f533d34be5de1ed056fd152c30b92ebaa99",
+  "preprocessing_sha256": "0a283e01a3f4a5116abd6ea1bfa9f7640df6dea4d04d4dac573c54d93390fdfb",
+  "real_model_results": "WAITING_FOR_LOCALIZATION",
+  "schema": "EPI-NEXT-PREPARED-INTEGRATION-STATUS-2",
+  "selected_real_case_count": 3,
+  "selected_real_slice_count": 3,
+  "slice_lock_sha256": "e8568c9d6054759fa0901bf71ee15fbc35afbefc287134027d78f87c22605043",
+  "source_dirty": false,
+  "source_git_sha": "a13bbcc90140d4d8d2ba308b54fd6ad76a400f09",
+  "status": "READY_FOR_LOCALIZATION_CPU",
+  "timezone": "Asia/Shanghai",
+  "upstream_sop_count": 715
+}

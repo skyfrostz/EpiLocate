@@ -146,7 +146,7 @@ def test_mps_owner_unknown_and_formal_data_handoff(tmp_path, monkeypatch):
     bound = registered(r,forbidden)
     assert runtime.execute_registered(r,bound,tmp_path / "out")["reason"] == "MPS_RESERVED_FOR_ENCODER"
     r["source"] = "LIVE_CASE"; r["access_approval_sha256"] = "f" * 64
-    assert runtime.execute_registered(r,registered(r,forbidden),tmp_path / "out")["reason"] == "BLOCKED_BY_DATA_HANDOFF"
+    assert runtime.execute_registered(r,registered(r,forbidden),tmp_path / "out")["reason"] == "BLOCKED_BY_HOSPITAL_RUNTIME_HANDOFF"
     r = request(); (tmp_path / "out" / r["run_id"]).mkdir(parents=True)
     assert runtime.execute_registered(r,registered(r,forbidden),tmp_path / "out")["reason"] == "UNKNOWN_TRANSACTION"
 

@@ -966,3 +966,8 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 新增 `epi_next/first_real_preparation.py`，消费DATA v3 native HU/ordered SOP/affine/inverse与总控每例floor((N-1)/2)锁；严格绑定原CT SHA/Study/Series/SOP，调用已冻结 `src/preprocessing.py`，不复制/修改原算法。HU窗-600/1500，224双线性antialias，无crop/pad，RGB+ImageNet normalization。调用LOCALIZATION `8ac99308a123bee468374fff68df4c4f1ec08414` Prepared2DInput.validate，不独立实现定位。支持域明确完整原模型FOV，padding未知不推成lungmask或无padding。以实际源DICOM头独立检验model→native→LPS及逆映射，原HU与DATA数组逐值、完整tensor与旧流程严格相等。
 
 4项新增合成测试PASS；源码固定之后才执行三真实切片准备并补录实际收据。首次接收检查发现DATA manifest的HU路径相对manifest、v3入口为绝对路径；按原发布基址解析比较，无修改DATA资产。真实定位/模型forward不在本准备器中。准备成功后立即发布 `.local/phase2/first-real-e1e2/prepared_delivery.json` 供总控转交，三例数据接收收据不是新批准文件；模型2D映射阶段不再笼统记DATA_HANDOFF阻断。医院展示与最终默认模型仍未批准，临床验证NOT RUN。
+
+
+**DATA v3/三切片实际交付补录：** 固定源码 `a13bbcc90140d4d8d2ba308b54fd6ad76a400f09` clean source，真实三切片111/121/123均preparation TECHNICAL_PASS；prepared_delivery SHA `b85eaf6c78d1547e2aa4b93458734f533d34be5de1ed056fd152c30b92ebaa99`，data_v3_receive_receipt SHA `22c792e26a3fce9da7ff90a27e9052d00f15a52800404268fcb89c4c08875815`，preprocessing spec SHA `0a283e01a3f4a5116abd6ea1bfa9f7640df6dea4d04d4dac573c54d93390fdfb`。18产物SHA复核PASS；原HU/旧完整tensor严格一致，真实DICOM独立world公式maxerr5.684341886080802e-14mm、逆链maxerr2.842170943040401e-14model voxel。两例padding tag存在但旧流程不mask，一例UNKNOWN；工程支持域不是肺mask。
+
+数据/标签/GT仍由DATA唯一发布，未新造allowlist/授权收据。原生manifest含GT元数据，未打开GT mask资产或按其改选。三例native handoff已就绪，不再笼统报告DATA_HANDOFF阻断；Prepared输入READY_FOR_LOCALIZATION_CPU，准备器模型forward0，无训练/MPS/远程。私有实际命令与完整资产引用留 `.local/phase2/first-real-e1e2/`；无患者ID的增量摘要在 `hospital-release/20261009-prepared-v2/`，旧v1包不覆盖。模型结果/浏览器叠加/医院端到端与最终审批仍未完成。医院侧车阻断原因改为具体HOSPITAL_RUNTIME_HANDOFF并保留新旧算法门禁。

@@ -140,9 +140,9 @@ def execute_registered(request, runtime, output_root, *, owner="INTEGRATION"):
     if observed["state"] != "ABSENT":
         return output_envelope(request, {"status": "BLOCKED", "reason": observed["state"]})
     if request["source"] == "LIVE_CASE":
-        # Formal DATA-EVAL / model delivery is not present yet. Do not invent
-        # an authorization adapter from the development proposal or hash.
-        return output_envelope(request, {"status": "BLOCKED", "reason": "BLOCKED_BY_DATA_HANDOFF"})
+        # Native DATA v3 and the standalone first-real preparer are available.
+        # Hospital endpoint wiring/accepted runtime is still a separate gate.
+        return output_envelope(request, {"status": "BLOCKED", "reason": "BLOCKED_BY_HOSPITAL_RUNTIME_HANDOFF"})
     if runtime is None:
         return output_envelope(request, {"status": "NOT RUN", "reason": "NO_ACCEPTED_RUNTIME_REGISTERED"})
     if not runtime.matches(request):

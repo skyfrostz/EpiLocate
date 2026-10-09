@@ -12,6 +12,13 @@ the historical Phase 1 policy remains unchanged. Real workflows are
 for ENCODER under the root coordinator. No new UI or clinical acceptance follows
 from these interfaces or generated-DICOM tests.
 
+Incremental DATA v3 reception supersedes the earlier DATA-handoff blocker for
+the local development path: three coordinator-locked real slices now have
+original frozen preprocessing, `Prepared2DInput` validation and native inverse
+assets. See [prepared-v2 delivery](../../hospital-release/20261009-prepared-v2/README.md).
+The hospital endpoint remains gated by accepted runtime/application handoff;
+hospital display and clinical validation have not been approved.
+
 The actual 2026-10-09 findings and task states are in [PREFLIGHT.md](reports/PREFLIGHT.md).
 Read [DATA_EVAL.md](reports/DATA_EVAL.md), [ENCODER.md](reports/ENCODER.md), and
 [LOCALIZATION.md](reports/LOCALIZATION.md) for exact implementation differences.
