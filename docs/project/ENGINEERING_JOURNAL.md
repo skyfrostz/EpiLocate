@@ -1347,3 +1347,10 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **DATA v3/三切片实际交付补录：** 固定源码 `a13bbcc90140d4d8d2ba308b54fd6ad76a400f09` clean source，真实三切片111/121/123均preparation TECHNICAL_PASS；prepared_delivery SHA `b85eaf6c78d1547e2aa4b93458734f533d34be5de1ed056fd152c30b92ebaa99`，data_v3_receive_receipt SHA `22c792e26a3fce9da7ff90a27e9052d00f15a52800404268fcb89c4c08875815`，preprocessing spec SHA `0a283e01a3f4a5116abd6ea1bfa9f7640df6dea4d04d4dac573c54d93390fdfb`。18产物SHA复核PASS；原HU/旧完整tensor严格一致，真实DICOM独立world公式maxerr5.684341886080802e-14mm、逆链maxerr2.842170943040401e-14model voxel。两例padding tag存在但旧流程不mask，一例UNKNOWN；工程支持域不是肺mask。
 
 数据/标签/GT仍由DATA唯一发布，未新造allowlist/授权收据。原生manifest含GT元数据，未打开GT mask资产或按其改选。三例native handoff已就绪，不再笼统报告DATA_HANDOFF阻断；Prepared输入READY_FOR_LOCALIZATION_CPU，准备器模型forward0，无训练/MPS/远程。私有实际命令与完整资产引用留 `.local/phase2/first-real-e1e2/`；无患者ID的增量摘要在 `hospital-release/20261009-prepared-v2/`，旧v1包不覆盖。模型结果/浏览器叠加/医院端到端与最终审批仍未完成。医院侧车阻断原因改为具体HOSPITAL_RUNTIME_HANDOFF并保留新旧算法门禁。
+
+
+### 2026-10-09｜增量：已有真实 E1/E2 本地对照绑定
+
+开始 HEAD `cb87b3699fe744d203f107cbb60d783721cc5c24`。消费总控固定的 LOCALIZATION run-2 SHA `aadd59ca4b9439387f4f439c5140720b6d2142affe77454e4888ce2b26055130` 和 DATA 独立 evaluation SHA `55dbe1c71dbb3836f28ae3a4352f2a9c0d257b403b97e6ac4a7f65929856b477`（candidate inverse mapping PASS）。新增隔离本地 HTML/PNG 资产绑定器，读取发布的 native NPZ 与全部官方部分参考 union，校验 SOP/切片/manifest/数组 SHA；不重算算法、GT或统计，不新增应用页面。E1三个margin响应尺度分别显示，E2零候选保留 NO_FEASIBLE_MASK。部分参考未标注区 UNKNOWN，非完整/共识GT。
+
+医疗派生产物限 ignored .local，不可覆盖收据及重复读取校验；源码固定后执行一次绑定，三次读取不等三次模型或医院端到端演示。独立DATA映射PASS不自动冻结模型；医院默认null、医院展示未批准、临床验证及最终冻结NOT RUN。只读审计本树（含ignored Python）无总控状态路径/state_path引用，未定位状态回退源；未写总控state。测试与实际产物SHA在后续固定源码补录。
