@@ -957,3 +957,12 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 
 
 **INTEGRATION 固定源码验收补录（2026-10-09）：** `a2f3cef899ece07b3743d4ae91f6058bd0d8419f` clean source 上全量研究包172 tests PASS（1.74s）；documentation range与diff check、只读算法对照CLI exit0。源码提交之后只补交付manifest/报告/证据和两份工程日志，无算法或应用源码修改。命令、环境、日志、源码及文件SHA在 `hospital-release/20261009-integration-v1/evidence/verification.json` 和 `DELIVERY_RECEIPT.json`。当前交付15个原始代码/文档路径，加后续证据；原应用/冻结路径无diff。真实CT模型运行0、MPS0、remote0，无遗留本会话任务；真实E2E BLOCKED_BY_DATA_HANDOFF，最终冻结与临床验证NOT RUN。未push/merge/deploy，未自行决定默认模型。正式交付由总控汇总并交钟佳桦审阅。
+
+
+### 2026-10-09｜增量：DATA v3 固定三切片真实预处理
+
+**专项与授权：** 总控转交既有3train/715SOP本地研发许可及v3 SHA；INTEGRATION唯一prepared-input writer，不建allowlist/GT，不训练、不替其他线执行定位。**开始HEAD：** `9c1dff3f47f890240c76f70364879b5961c3907c`。
+
+新增 `epi_next/first_real_preparation.py`，消费DATA v3 native HU/ordered SOP/affine/inverse与总控每例floor((N-1)/2)锁；严格绑定原CT SHA/Study/Series/SOP，调用已冻结 `src/preprocessing.py`，不复制/修改原算法。HU窗-600/1500，224双线性antialias，无crop/pad，RGB+ImageNet normalization。调用LOCALIZATION `8ac99308a123bee468374fff68df4c4f1ec08414` Prepared2DInput.validate，不独立实现定位。支持域明确完整原模型FOV，padding未知不推成lungmask或无padding。以实际源DICOM头独立检验model→native→LPS及逆映射，原HU与DATA数组逐值、完整tensor与旧流程严格相等。
+
+4项新增合成测试PASS；源码固定之后才执行三真实切片准备并补录实际收据。首次接收检查发现DATA manifest的HU路径相对manifest、v3入口为绝对路径；按原发布基址解析比较，无修改DATA资产。真实定位/模型forward不在本准备器中。准备成功后立即发布 `.local/phase2/first-real-e1e2/prepared_delivery.json` 供总控转交，三例数据接收收据不是新批准文件；模型2D映射阶段不再笼统记DATA_HANDOFF阻断。医院展示与最终默认模型仍未批准，临床验证NOT RUN。
