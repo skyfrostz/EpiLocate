@@ -1389,3 +1389,6 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 开始HEAD `412fc560f2384c0dafd0a72d736ff99c09736f9c`。只读E1实际收据：child SUCCESS792前向，complete时间266848.783347、末心跳266848.78299175，supervisor stale触发266849.106835041、退出266849.12291325，末采样已无group活成员；固定FAILED收据SHA `f7b675db91ba1d0016b7296fc5ec66d90a1bc3ccdf4823f80d665585e8b6c757`不改。确认完成关闭heartbeat后Python teardown超过250ms，旧顺序先stale再退出导致误判。
 
 仅对合法同job/原child完成标记停止stale检查并进入退出等待；未完成/伪标记继续保护，deadline、归属、压力和恢复持续。20项监督器fixture PASS（7.47s）；新增正常complete慢退出/真失效/其他job标记/deadline四项，无真实calls、科学参数变更或权威state写入。旧bundle保留，新固定bundle另版；clean源码后补导入/日志SHA。
+
+
+**完成闭环追加：** child完成标记后check/新forward/backward均拒绝；父在合法complete后持续核对预留counts/sequence，任何变化FAIL。补完成后禁止新工作和父检测计数变更fixture；旧错误job fixture因child新保护立即退出，调整为非合作活进程以验证父stale仍有效。最终22监督fixture PASS（8.01s），无真实调用。新版固定源码以本次追加提交为准，初步0b252e8不作为最终bundle。

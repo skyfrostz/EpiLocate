@@ -197,7 +197,7 @@ def test_active_stale_heartbeat_still_stops(tmp_path,monkeypatch):
 
 
 def test_other_job_completion_does_not_disable_stale_guard(tmp_path,monkeypatch):
-    body=IMPORT+"g.done.set();g.thread.join()\n(g.directory/'runner-complete.json').write_text('{\"job_id\":\"other\",\"status\":\"SUCCESS\"}')\ntry:\n while True:g.check();time.sleep(.01)\nexcept StopWork:pass\n"
+    body=IMPORT+"g.done.set();g.thread.join()\n(g.directory/'runner-complete.json').write_text('{\"job_id\":\"other\",\"status\":\"SUCCESS\"}')\ntime.sleep(.6)\n"
     result=run(tmp_path,monkeypatch,body)
     assert result['reason']=='STALE_CHILD_TELEMETRY'
 
@@ -205,3 +205,20 @@ def test_other_job_completion_does_not_disable_stale_guard(tmp_path,monkeypatch)
 def test_completion_does_not_extend_global_deadline(tmp_path,monkeypatch):
     result=run(tmp_path,monkeypatch,IMPORT+"g.complete(actual_forward=0,actual_backward=0)\ntime.sleep(3)\n",timeout=.4)
     assert result['reason']=='GLOBAL_DEADLINE' and result['exit_monotonic'] is not None
+
+
+def test_guard_completion_fences_check_and_new_calls(tmp_path):
+    spec=SupervisionSpec('job','task','cpu','DATA',1,1,2)
+    (tmp_path/'ADMITTED').write_text('{}')
+    (tmp_path/'counters.json').write_bytes(canonical_json({'job_id':'job','forward':0,'backward':0,'sequence':0,'cases':{}}))
+    guard=ChildGuard(tmp_path,spec,time.monotonic())
+    guard.complete(actual_forward=0,actual_backward=0)
+    for method in (guard.check,guard.before_forward,guard.before_backward):
+        with pytest.raises(StopWork,match='ALREADY_COMPLETED'):method()
+    assert json.loads((tmp_path/'counters.json').read_bytes())['sequence']==0
+
+
+def test_parent_detects_counter_write_after_completion(tmp_path,monkeypatch):
+    body=IMPORT+"import json\ng.complete(actual_forward=0,actual_backward=0)\ntime.sleep(.15)\np=g.directory/'counters.json'\nd=json.loads(p.read_text());d['forward']=1;d['sequence']=1\np.write_text(json.dumps(d))\ntime.sleep(.5)\n"
+    result=run(tmp_path,monkeypatch,body)
+    assert result['reason']=='CHILD_COUNTER_CHANGED_AFTER_COMPLETION' and result['status']=='FAILED'

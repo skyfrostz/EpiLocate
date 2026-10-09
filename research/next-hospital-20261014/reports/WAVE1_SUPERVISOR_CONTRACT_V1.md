@@ -45,3 +45,5 @@ CLI准备形态（总控固定spec/runner/dependencies后执行，本线不启�
 ## 完成后退出等待修订（独立v2 bundle）
 
 已有E1实际运行child SUCCESS792/792，但旧监督器关闭心跳后在Python teardown期间误报STALE_CHILD_TELEMETRY；原FAILED收据SHA `f7b675db91ba1d0016b7296fc5ec66d90a1bc3ccdf4823f80d665585e8b6c757`保留，不能追溯改PASS。新版本只在验证同job/原child PID、合法终态、完成时间>=最终样本、实际计数不超过预留及预算后停止stale检查，记录VALID_CHILD_COMPLETION_EXIT_WAIT。非法/其他job标记不解除心跳保护；全局deadline、资源/归属/进程退出/恢复检查持续。新包名epinext_wave1_supervisor_v2，API及显式import main调用方式不变。不得重跑真实E1补证据。
+
+完成闭环：guard.check/before_forward/before_backward看见runner-complete即拒绝新工作（包括非法标记，fail-closed）。父监督器只接受合法同job/原child完成标记，保存最终预留计数和sequence；退出等待期间持续核对telemetry及持久账本不变，变化触发CHILD_COUNTER_CHANGED_AFTER_COMPLETION。不能因停止stale而继续算新calls。

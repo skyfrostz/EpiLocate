@@ -125,6 +125,7 @@ class ChildGuard:
 
     def check(self):
         now=time.monotonic()
+        if (self.directory/'runner-complete.json').exists():raise StopWork('JOB_ALREADY_COMPLETED_NO_NEW_WORK')
         if self.stop.is_set() or (self.directory/'STOP').exists():raise StopWork('STOP_REQUESTED')
         if now-self.started>=self.spec.timeout_seconds:raise StopWork('GLOBAL_DEADLINE')
         if self.case_started is not None and self.spec.per_case_seconds is not None and now-self.case_started>=self.spec.per_case_seconds:
@@ -305,6 +306,7 @@ def _run_supervised(spec, command, output_root, dependency_root, dependency_sha,
         initial=None;process=None;identity=None;reason=None;trigger=None;exit_at=None;recovered_at=None
         last_telemetry=None;last_counts=(0,0,0);last_sample=started;requested=False;terminated=False;killed=False
         accepted_completion=None
+        completion_counts=None
         def event(kind, **values):events.append(dict(kind=kind,monotonic=time.monotonic(),**values))
         def request(why):
             nonlocal reason,trigger,requested
@@ -366,9 +368,15 @@ def _run_supervised(spec, command, output_root, dependency_root, dependency_sha,
                             request('CASE_DEADLINE')
                         completion=validated_completion(directory,spec,telemetry,process.pid,started,time.monotonic())
                         if completion is not None and accepted_completion is None:
-                            accepted_completion=completion;event('VALID_CHILD_COMPLETION_EXIT_WAIT')
+                            accepted_completion=completion;completion_counts=counts
+                            event('VALID_CHILD_COMPLETION_EXIT_WAIT')
                         if accepted_completion is not None and completion!=accepted_completion:
                             request('CHILD_COMPLETION_CHANGED')
+                        if accepted_completion is not None:
+                            ledger=json.loads((directory/'counters.json').read_bytes())
+                            durable_counts=(ledger['forward'],ledger['backward'],ledger['sequence'])
+                            if ledger['job_id']!=spec.job_id or counts!=completion_counts or durable_counts!=completion_counts:
+                                request('CHILD_COUNTER_CHANGED_AFTER_COMPLETION')
                         if accepted_completion is None and now-telemetry['monotonic']>spec.telemetry_max_gap_seconds:
                             request('STALE_CHILD_TELEMETRY')
                     else:
