@@ -1,0 +1,17 @@
+{
+  "protocol_id": "EPI-NEXT-HOSPITAL-20261014-v1",
+  "clinical_training_status": "BLOCKED",
+  "reason": "Manifest labels equal collection membership; independent clinical label and imaging-abnormality semantics have not been reverified.",
+  "historical_target_index": 1,
+  "historical_target_semantics": "RICORD-1A collection proxy; not a per-slice lesion label",
+  "patient_level_covid_status": "REQUIRES_SOURCE_VERIFICATION",
+  "imaging_infection_status": "unknown",
+  "absence_of_polygon_means": "unknown",
+  "covid_negative_implies_normal_ct": false,
+  "approved_real_case_smoke_allowlist": null,
+  "approved_gpu": null,
+  "real_training_enabled": false,
+  "synthetic_numeric_checks_enabled": true,
+  "allowed_patient_splits": ["train", "observed_validation"],
+  "allow_sealed": false
+}

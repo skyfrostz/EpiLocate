@@ -933,3 +933,12 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 **日期：** 2026-10-07。**分支：** `codex/epilocate-main-consolidation`，起点为公开 `origin/main` `14c114ab26226561615315f7d3d25e42fcec64cc`。本阶段按文件导入独立 Clinical Canvas `117ce7a61c6bd8ba6893ecb83445d8647c9965a1`，再适配 `8a5928fcdabfb0326e1f76182f6f54f4278eb022` 的会话、超时、任务幂等与焦点行为和 `f548a624588deb922131c0c07b83336e2bc0ff15` 的 Worker 安全诊断；导入冻结 D10 的公开离线工具及 Stage 1 测试。保留原公开 `main` 祖先，不把内部开发、研究或交付历史作为祖先合入。
 
 **验证与边界：** 前端 155 项、Backend/Gateway 51 项、Worker 协议 28 项、D10 53 项及 25 个子测试、Stage 1 8 项通过；`/mvp/` 构建及真实本地 14 场景、Mock 10 场景通过。真实本地库无 Worker/Result；PostgreSQL/MinIO、真实正向推理、GPU、生产与临床验收不在本阶段。研究结论以 `docs/research/REPOSITORY_STATUS_20261007.md` 为准。来源、测试和发布恢复门槛详见 `docs/consolidation/MAINLINE_INTEGRATION_20261007.md`。此记录说明候选内容，PR 合并及分支退役须以之后实际 Git 记录为准。
+
+
+## 阶段二十六：EPI-NEXT 本机算法开发与合成验证
+
+**日期 / 负责人：** 2026-10-09，钟佳桦。**基线：** `169bb42b94365ae0eeccae10e425fa1e167f3ce1`；四个独立 `codex/epi-next-*` 工作树，主控整合仅在 `codex/epi-next-integration-20261009`。
+
+新增隔离研究包和单命令 CPU 验证入口。E1 固定target margin、E2 HSPI独立参考变体、F1原型、数据/几何评价、冻结encoder/head/CAM/cache与结果收据独立测试。初次整合115测试通过；真实baseline权重合成输入 E1/E2执行25次调用，E2不可行结果保留。源码/最终测试提交与产物哈希见本阶段交付补录。
+
+现场确认186患者130/28/28划分和61患者811SOP开发GT；未访问封存影像或GT。用户暂不启动GPU，无远程/付费计算、前端重构、冻结资产改动或主线合并。合成PASS不代表CTFM可行或病灶定位改善；真实GT-vNext/患者比较/三次端到端医院验收尚待完成。详见 `research/next-hospital-20261014/reports/PREFLIGHT.md`。

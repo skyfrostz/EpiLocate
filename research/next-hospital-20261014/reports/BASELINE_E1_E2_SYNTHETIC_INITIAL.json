@@ -1,0 +1,959 @@
+{
+  "E1": {
+    "algorithm": "EPI-NEXT-E1-fixed-target-margin-v1",
+    "candidates": [
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            0,
+            64
+          ],
+          [
+            0,
+            64
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.05603167414665222,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.2797194719314575,
+          0.26644328236579895
+        ],
+        "perturbed_margin": 0.5461627542972565,
+        "perturbed_probability": 0.6332448633042467,
+        "probability_delta": 0.012913332944636813,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            64,
+            128
+          ],
+          [
+            0,
+            64
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.14873166382312775,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.22760309278964996,
+          0.22585967183113098
+        ],
+        "perturbed_margin": 0.45346276462078094,
+        "perturbed_probability": 0.6114622211406259,
+        "probability_delta": 0.034695975108257615,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            64,
+            128
+          ],
+          [
+            64,
+            128
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.10298444330692291,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.2388114184141159,
+          0.2603985667228699
+        ],
+        "perturbed_margin": 0.4992099851369858,
+        "perturbed_probability": 0.6222736568229982,
+        "probability_delta": 0.02388453942588531,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            128,
+            192
+          ],
+          [
+            0,
+            64
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.9131066799163818,
+        "perturbed_argmax": 0,
+        "perturbed_logits": [
+          0.1270274519920349,
+          -0.18388479948043823
+        ],
+        "perturbed_margin": -0.31091225147247314,
+        "perturbed_probability": 0.4228920842636815,
+        "probability_delta": 0.22326611198520196,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            128,
+            192
+          ],
+          [
+            64,
+            128
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.6720484308898449,
+        "perturbed_argmax": 0,
+        "perturbed_logits": [
+          0.034552741795778275,
+          -0.03530126065015793
+        ],
+        "perturbed_margin": -0.0698540024459362,
+        "perturbed_probability": 0.48254359713990225,
+        "probability_delta": 0.16361459910898124,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            128,
+            192
+          ],
+          [
+            128,
+            192
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.6250986382365227,
+        "perturbed_argmax": 0,
+        "perturbed_logits": [
+          0.013613149523735046,
+          -0.009291060268878937
+        ],
+        "perturbed_margin": -0.022904209792613983,
+        "perturbed_probability": 0.49427419786398985,
+        "probability_delta": 0.15188399838489364,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            128,
+            192
+          ],
+          [
+            192,
+            224
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.1862366944551468,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.23324047029018402,
+          0.18271726369857788
+        ],
+        "perturbed_margin": 0.4159577339887619,
+        "perturbed_probability": 0.6025155676410459,
+        "probability_delta": 0.04364262860783763,
+        "scale_pixels": 64,
+        "support_pixels": 2048,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            192,
+            224
+          ],
+          [
+            192,
+            224
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.14450278878211975,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.25804102420806885,
+          0.1996506154537201
+        ],
+        "perturbed_margin": 0.45769163966178894,
+        "perturbed_probability": 0.6124664262515829,
+        "probability_delta": 0.033691769997300614,
+        "scale_pixels": 64,
+        "support_pixels": 1024,
+        "target": 1
+      }
+    ],
+    "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+    "model_calls": 17,
+    "records": [
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            0,
+            64
+          ],
+          [
+            0,
+            64
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.05603167414665222,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.2797194719314575,
+          0.26644328236579895
+        ],
+        "perturbed_margin": 0.5461627542972565,
+        "perturbed_probability": 0.6332448633042467,
+        "probability_delta": 0.012913332944636813,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": false,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            0,
+            64
+          ],
+          [
+            64,
+            128
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": -0.008771449327468872,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.2947131395339966,
+          0.316252738237381
+        ],
+        "perturbed_margin": 0.6109658777713776,
+        "perturbed_probability": 0.64816110036193,
+        "probability_delta": -0.0020029041130464886,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": false,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            0,
+            64
+          ],
+          [
+            128,
+            192
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": -0.12850800156593323,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.33947890996932983,
+          0.3912235200405121
+        ],
+        "perturbed_margin": 0.7307024300098419,
+        "perturbed_probability": 0.6749593970818725,
+        "probability_delta": -0.028801200832988982,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": false,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            0,
+            64
+          ],
+          [
+            192,
+            224
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": -0.12947502732276917,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.3693237900733948,
+          0.3623456656932831
+        ],
+        "perturbed_margin": 0.7316694557666779,
+        "perturbed_probability": 0.6751715161930936,
+        "probability_delta": -0.02901331994421008,
+        "scale_pixels": 64,
+        "support_pixels": 2048,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            64,
+            128
+          ],
+          [
+            0,
+            64
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.14873166382312775,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.22760309278964996,
+          0.22585967183113098
+        ],
+        "perturbed_margin": 0.45346276462078094,
+        "perturbed_probability": 0.6114622211406259,
+        "probability_delta": 0.034695975108257615,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            64,
+            128
+          ],
+          [
+            64,
+            128
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.10298444330692291,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.2388114184141159,
+          0.2603985667228699
+        ],
+        "perturbed_margin": 0.4992099851369858,
+        "perturbed_probability": 0.6222736568229982,
+        "probability_delta": 0.02388453942588531,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": false,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            64,
+            128
+          ],
+          [
+            128,
+            192
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": -0.13427281379699707,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.33147478103637695,
+          0.4049924612045288
+        ],
+        "perturbed_margin": 0.7364672422409058,
+        "perturbed_probability": 0.6762228568446612,
+        "probability_delta": -0.030064660595777726,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": false,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            64,
+            128
+          ],
+          [
+            192,
+            224
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": -0.16005641222000122,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.3825637102127075,
+          0.3796871304512024
+        ],
+        "perturbed_margin": 0.7622508406639099,
+        "perturbed_probability": 0.6818422160546594,
+        "probability_delta": -0.03568401980577596,
+        "scale_pixels": 64,
+        "support_pixels": 2048,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            128,
+            192
+          ],
+          [
+            0,
+            64
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.9131066799163818,
+        "perturbed_argmax": 0,
+        "perturbed_logits": [
+          0.1270274519920349,
+          -0.18388479948043823
+        ],
+        "perturbed_margin": -0.31091225147247314,
+        "perturbed_probability": 0.4228920842636815,
+        "probability_delta": 0.22326611198520196,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            128,
+            192
+          ],
+          [
+            64,
+            128
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.6720484308898449,
+        "perturbed_argmax": 0,
+        "perturbed_logits": [
+          0.034552741795778275,
+          -0.03530126065015793
+        ],
+        "perturbed_margin": -0.0698540024459362,
+        "perturbed_probability": 0.48254359713990225,
+        "probability_delta": 0.16361459910898124,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            128,
+            192
+          ],
+          [
+            128,
+            192
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.6250986382365227,
+        "perturbed_argmax": 0,
+        "perturbed_logits": [
+          0.013613149523735046,
+          -0.009291060268878937
+        ],
+        "perturbed_margin": -0.022904209792613983,
+        "perturbed_probability": 0.49427419786398985,
+        "probability_delta": 0.15188399838489364,
+        "scale_pixels": 64,
+        "support_pixels": 4096,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            128,
+            192
+          ],
+          [
+            192,
+            224
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.1862366944551468,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.23324047029018402,
+          0.18271726369857788
+        ],
+        "perturbed_margin": 0.4159577339887619,
+        "perturbed_probability": 0.6025155676410459,
+        "probability_delta": 0.04364262860783763,
+        "scale_pixels": 64,
+        "support_pixels": 2048,
+        "target": 1
+      },
+      {
+        "accepted": false,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            192,
+            224
+          ],
+          [
+            0,
+            64
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": -0.09368264675140381,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.36657994985580444,
+          0.32929712533950806
+        ],
+        "perturbed_margin": 0.6958770751953125,
+        "perturbed_probability": 0.6672730336560684,
+        "probability_delta": -0.021114837407184894,
+        "scale_pixels": 64,
+        "support_pixels": 2048,
+        "target": 1
+      },
+      {
+        "accepted": false,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            192,
+            224
+          ],
+          [
+            64,
+            128
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": -0.20773747563362122,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.41354435682296753,
+          0.3963875472545624
+        ],
+        "perturbed_margin": 0.8099319040775299,
+        "perturbed_probability": 0.6920949932836572,
+        "probability_delta": -0.04593679703477371,
+        "scale_pixels": 64,
+        "support_pixels": 2048,
+        "target": 1
+      },
+      {
+        "accepted": false,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            192,
+            224
+          ],
+          [
+            128,
+            192
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": -0.17347502708435059,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.3993324041366577,
+          0.37633705139160156
+        ],
+        "perturbed_margin": 0.7756694555282593,
+        "perturbed_probability": 0.6847460328244352,
+        "probability_delta": -0.03858783657555176,
+        "scale_pixels": 64,
+        "support_pixels": 2048,
+        "target": 1
+      },
+      {
+        "accepted": true,
+        "baseline_argmax": 1,
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "baseline_margin": 0.6021944284439087,
+        "baseline_probability": 0.6461581962488835,
+        "bounds_yx": [
+          [
+            192,
+            224
+          ],
+          [
+            192,
+            224
+          ]
+        ],
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "margin_delta": 0.14450278878211975,
+        "perturbed_argmax": 1,
+        "perturbed_logits": [
+          -0.25804102420806885,
+          0.1996506154537201
+        ],
+        "perturbed_margin": 0.45769163966178894,
+        "perturbed_probability": 0.6124664262515829,
+        "probability_delta": 0.033691769997300614,
+        "scale_pixels": 64,
+        "support_pixels": 1024,
+        "target": 1
+      }
+    ],
+    "scale_units": "pixels",
+    "status": "OK",
+    "target": 1
+  },
+  "E2": {
+    "algorithm": "EPI-NEXT-E2-HSPI-independent-projected-Adam-v1",
+    "candidates": [],
+    "config": {
+      "benchmark_scale": 0,
+      "epochs": 3,
+      "grids": [
+        [
+          4,
+          4
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "initial_mask": 0.5,
+      "learning_rate": 0.01,
+      "mask_weight": 0.1,
+      "min_other_scale_support": 1,
+      "min_peak_gap": 0.0,
+      "similarity_threshold": 0.005,
+      "sparsity_threshold": 0.08,
+      "stages": 1
+    },
+    "evidence_type": "FULL_LOGITS_CONSISTENCY_MASK",
+    "model_calls": 8,
+    "optimization": "PROJECTED_ADAM",
+    "paper_reproduction": false,
+    "psmi_selection": [],
+    "stages": [
+      {
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "grid": [
+          4,
+          4
+        ],
+        "scale_index": 0,
+        "stage": 1,
+        "status": "NO_FEASIBLE_MASK",
+        "trace": [
+          {
+            "epoch": 0,
+            "feasible": false,
+            "logits": [
+              -0.3527820110321045,
+              0.2907349169254303
+            ],
+            "peak_gap": 0.0,
+            "similarity": 0.000916160293854773,
+            "sparsity": 0.5
+          },
+          {
+            "epoch": 1,
+            "feasible": false,
+            "logits": [
+              -0.3528951406478882,
+              0.29042157530784607
+            ],
+            "peak_gap": 2.9802322387695312e-08,
+            "similarity": 0.0009127617231570184,
+            "sparsity": 0.49000000953674316
+          },
+          {
+            "epoch": 2,
+            "feasible": false,
+            "logits": [
+              -0.35275399684906006,
+              0.2897931933403015
+            ],
+            "peak_gap": 1.341104507446289e-05,
+            "similarity": 0.0008871821337379515,
+            "sparsity": 0.47999757528305054
+          }
+        ]
+      },
+      {
+        "baseline_logits": [
+          -0.326535701751709,
+          0.2756587266921997
+        ],
+        "grid": [
+          7,
+          7
+        ],
+        "scale_index": 1,
+        "stage": 1,
+        "status": "NO_FEASIBLE_MASK",
+        "trace": [
+          {
+            "epoch": 0,
+            "feasible": false,
+            "logits": [
+              -0.3527820110321045,
+              0.2907349169254303
+            ],
+            "peak_gap": 0.0,
+            "similarity": 0.000916160293854773,
+            "sparsity": 0.5
+          },
+          {
+            "epoch": 1,
+            "feasible": false,
+            "logits": [
+              -0.35089707374572754,
+              0.2884657084941864
+            ],
+            "peak_gap": 5.364418029785156e-07,
+            "similarity": 0.0007574952323921025,
+            "sparsity": 0.4912245273590088
+          },
+          {
+            "epoch": 2,
+            "feasible": false,
+            "logits": [
+              -0.34872323274612427,
+              0.2858888804912567
+            ],
+            "peak_gap": 0.001241445541381836,
+            "similarity": 0.0005969425546936691,
+            "sparsity": 0.4822709858417511
+          }
+        ]
+      }
+    ],
+    "status": "NO_FEASIBLE_MASK"
+  },
+  "actual_model_calls": 25,
+  "checkpoint_sha256": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+  "config_sha256": "882493398faa678108217de88ef965a40e86ea3dd8a9517150e2ceb27b7050d8",
+  "elapsed_seconds": 0.4933625420089811,
+  "environment": {
+    "device": "cpu",
+    "numpy": "2.4.6",
+    "python": "3.11.15",
+    "threads": 1,
+    "torch": "2.14.0"
+  },
+  "evidence_scope": "SYNTHETIC_INPUT_REAL_CHECKPOINT_EXECUTABILITY",
+  "experiment": "EPI-NEXT-E1-E2-REAL-WEIGHTS-SYNTHETIC-v1",
+  "failure_or_infeasibility_is_not_normal_ct": true,
+  "git_sha": "169bb42b94365ae0eeccae10e425fa1e167f3ce1",
+  "input_sha256": "aec36d5e0747f6dd85f32ab4ed38232e9cdf0411689dd01d5b8ce8b3dad57dd4",
+  "lesion_quality_comparison": "NOT RUN",
+  "native_ct_overlay": "NOT RUN",
+  "patient_count": 0,
+  "peak_gpu_memory_bytes": null,
+  "source_dirty": true,
+  "status": "PASS",
+  "timestamp": "2026-10-09T08:28:24.391281+00:00"
+}

@@ -1,0 +1,2 @@
+/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/lib/python3.11/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(

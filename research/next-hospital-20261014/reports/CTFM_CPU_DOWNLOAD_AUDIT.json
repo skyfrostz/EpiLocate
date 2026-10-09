@@ -1,0 +1,56 @@
+{
+  "packages": [
+    {
+      "package": "monai",
+      "version": "1.5.1",
+      "filename": "monai-1.5.1-py3-none-any.whl",
+      "size": 2674860,
+      "sha256": "3112e6ce63352f2ebb8a324a5c199b026aa8e61e914b4912cda3e890e6f7e7c5"
+    },
+    {
+      "package": "safetensors",
+      "version": "0.5.3",
+      "filename": "safetensors-0.5.3-cp38-abi3-macosx_11_0_arm64.whl",
+      "size": 418419,
+      "sha256": "21d01c14ff6c415c485616b8b0bf961c46b3b343ca59110d38d744e577f9cce7"
+    }
+  ],
+  "initial_download": {
+    "status": "BLOCKED_DOWNLOAD",
+    "error_type": "RuntimeError",
+    "bytes": 225443840,
+    "seconds": 181.1699816250184
+  },
+  "resume_download": {
+    "offset": 224395264,
+    "attempt": 2,
+    "allowed_resume_seconds": 120,
+    "http_status": 206,
+    "content_range": "bytes 224395264-311116175/311116176",
+    "sha256": "b521ff13764ad0fce67f8ad2e5aa9ccc0823f69e4544b446581d8a2dee686215",
+    "status": "VERIFIED_DOWNLOADED",
+    "received_bytes": 86720912,
+    "seconds": 69.774297750002
+  },
+  "official_file_metadata": {
+    "type": "file",
+    "oid": "c68817a1df7db6e6980a814d9dbca17c17aab218",
+    "size": 311116176,
+    "lfs": {
+      "oid": "b521ff13764ad0fce67f8ad2e5aa9ccc0823f69e4544b446581d8a2dee686215",
+      "size": 311116176,
+      "pointerSize": 134
+    },
+    "xetHash": "1ac58b497b01868220f1826d0f75791d31425d03e000bbdc95757b2016ffba3d",
+    "path": "model.safetensors"
+  },
+  "safetensors_scalar_counts": {
+    "F32": 77774944,
+    "I64": 26
+  },
+  "safetensors_tensor_counts": {
+    "F32": 135,
+    "I64": 26
+  },
+  "reviewed_monai_source_sha256": "5b634c1f7077b12e1c87e3de2bf2bf4588341592c3e312b12cda13e955f3982f"
+}

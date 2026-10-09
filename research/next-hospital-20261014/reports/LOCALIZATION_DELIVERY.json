@@ -1,0 +1,24 @@
+{
+  "source_commit_sha": "64906c70f9b44c7cddf312a1e75678c2be01a32e",
+  "branch": "codex/epi-next-localization-20261009",
+  "date": "2026-10-09",
+  "evidence_type": "SYNTHETIC_NUMERICAL_ONLY",
+  "test_exit_code": 0,
+  "smoke_exit_code": 0,
+  "test_count": 32,
+  "smoke_checks": 10,
+  "gpu": "NOT RUN",
+  "real_CT": "NOT RUN",
+  "planned_residual_input_f1": "NOT IMPLEMENTED",
+  "remaining_processes_started_by_this_workline": 0,
+  "artifacts_sha256": {
+    "research/next-hospital-20261014/epi_next/localization_smoke.py": "139d4c5ee5a9e4180e51444b0044493721fe762c6a5d76d690905cd51f2f3949",
+    "research/next-hospital-20261014/epi_next/localization.py": "72bdd1273a33c7a5643fe6994304ea116ff600f0a5ec368b7e64a240e9dc489f",
+    "research/next-hospital-20261014/epi_next/hspi.py": "d3ab41bb7cc04a00d7524a4d930157dbc99444240530f9c1c17ffc78343624d9",
+    "research/next-hospital-20261014/tests/test_localization.py": "546ec60c124a6f9c8842b12ca5a10acd845470d7600e29cc86ed70a436f854fa",
+    "research/next-hospital-20261014/tests/test_hspi.py": "0331de8a59d71a6b8a3cee0ec49e16eb9da1fb098a0304bff2b3691d95a80add",
+    "research/next-hospital-20261014/reports/LOCALIZATION_TESTS.txt": "a9ec939b7bad1ca080c5e31d078eba746c2df0caf037e969a37cca9f9507de64",
+    "research/next-hospital-20261014/reports/LOCALIZATION_SYNTHETIC.json": "e5582386d99f75d4220755f33ff43cbc1dc47bcdf7ded888470a2b42482077df",
+    "research/next-hospital-20261014/reports/LOCALIZATION.md": "e908f21451d73f82a3a25db52d7e3517c4039bab0919a0d07880bb807c072c81"
+  }
+}

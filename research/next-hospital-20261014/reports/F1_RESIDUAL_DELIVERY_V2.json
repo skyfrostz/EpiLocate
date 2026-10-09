@@ -1,0 +1,19 @@
+{
+  "source_commit_sha": "268b98843545c5f272cdac37cf16a04b46da98ad",
+  "algorithm": "EPI-NEXT-F1-residual-input-refreshed-coarse-v2",
+  "test_count": 17,
+  "smoke_checks": 7,
+  "test_exit_code": 0,
+  "smoke_exit_code": 0,
+  "real_CT": "NOT RUN",
+  "CTFM": "NOT RUN",
+  "gpu": "NOT RUN",
+  "process_running": false,
+  "artifacts_sha256": {
+    "research/next-hospital-20261014/epi_next/residual_localization.py": "0dfcf7e5cac4729a15814d900300f7853dbaa2993542104f6afce9ed99385954",
+    "research/next-hospital-20261014/tests/test_residual_localization.py": "56ae5a43fe0bd3851343bc26a56e7aa706e6246733fae6cecd0423811d9375db",
+    "research/next-hospital-20261014/reports/F1_RESIDUAL.md": "07cf3e9e6c2987542517d431a4ddc2d659fecd1a602ab98f8ac9f06e303176a8",
+    "research/next-hospital-20261014/reports/F1_RESIDUAL_TESTS_V2.txt": "1fd8ea768d3828437a6c045cd265b7e1573a616dd90e55f058ec34a6985daf11",
+    "research/next-hospital-20261014/reports/F1_RESIDUAL_SYNTHETIC_V2.json": "6d3eaad12d69ab0bbb71975dd898665d6ecf653df0866fb7cd108aff7ebdb7ec"
+  }
+}

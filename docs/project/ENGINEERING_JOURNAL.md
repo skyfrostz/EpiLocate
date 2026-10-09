@@ -1303,3 +1303,14 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **验证：** 前端 155/155 测试、18 文件，TypeScript 和 Vite `/mvp/` 构建通过；Backend/Gateway 51 项、Worker 协议 28 项、D10 53 项及 25 个子测试、Stage 1 8 项通过。真实本地 HTTPS/Gateway/Backend 使用 SQLite/TEST_STORAGE 通过 14 场景，Mock API 正向 Result 与六组实际 Cornerstone 几何通过 10 场景；两类均零 page error/外部请求。最终真实测试库 1 个 CREATED Job、0 attempt、0 Worker、0 Result。浏览器证据在 ignored `frontend/.local/consolidation-20261007/`。
 **公开对象审计：** 候选 `4a6af279fc6fca82f5b447d27cab4e66efd803d9` 的完整可达 closure 有 6 commits、120 trees、809 blobs；新增 710 blobs 仅命中合成 DICOM 与两份无凭证值的示例环境模板。旧公开 `main` 历史仍可达 `MIDRC-RICORD-01.s5cmd` 的 S3 对象定位信息，已在本次 tip 删除但不重写历史。最终文档提交须再扫；私有审计 JSON 留在 `EpiLocate-private/manifests/`。
 **剩余：** 最终提交审计、PR、合并、远端/本地主线核验、归档标签与分支逐条去向仍须按实际执行记录收尾。未做服务器部署、GPU 操作、PostgreSQL/MinIO 或真实正向推理验收。见 `docs/consolidation/MAINLINE_INTEGRATION_20261007.md`。
+
+
+### 2026-10-09｜EPI-NEXT 本机算法与评价开发
+
+**负责人：** 钟佳桦。**执行者：** 本轮 Codex 主控与 DATA-EVAL、ENCODER、LOCALIZATION 子代理。**分支 / Worktree：** `codex/epi-next-integration-20261009`；`/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`。**开发前 HEAD：** `169bb42b94365ae0eeccae10e425fa1e167f3ce1`。最终受测源码提交和产物 SHA 在本阶段后续交付补录记录。
+
+新增 `research/next-hospital-20261014/` 隔离模块，包含固定 target margin、HSPI 全 logits 连续 Mask/CPF/PSMI 独立变体、冻结编码器/患者级线性头/CAM/cache、共同支持域评价与 DICOM LPS 几何、研究接口和本地不可覆盖收据。用户明确本轮不启动 GPU；保留原 A/B/C、GT-v1、测试集和应用。未 push/merge/deploy。
+
+实查 split 186=130/28/28，开发 GT 61/811 字节哈希匹配；仅技术 QA、临床未裁定。baseline 原路径失效，经归档索引定位并现场复算 SHA `548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734`。首次合并后115测试及六步骤单命令均exit0；真实权重+合成图像 E1/E2 25 forward，E1 OK、E2 NO_FEASIBLE_MASK，未调松约束。后续最终合并验收单独补录。
+
+交叉审查修复预测图误标专家GT、无logits失败序列化、重算前对账、坏收据类型和真实输入membership检查。当前本地收据不是远端receiver/GPU队列验收。真实CTFM三例、F0训练、GT-vNext真实overlay、患者定位比较、医院冻结与临床有效性均未完成。详见 `research/next-hospital-20261014/reports/PREFLIGHT.md` 和三线报告。
