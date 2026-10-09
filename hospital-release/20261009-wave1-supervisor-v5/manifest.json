@@ -1,0 +1,64 @@
+{
+  "schema": "EPI-NEXT-WAVE1-SUPERVISOR-DELIVERY-1",
+  "source_commit": "aca34f99ce3e642331bf82e71e6fd625f6e02409",
+  "bundle": {
+    "dependency_root": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-aca34f9-v1/dependencies/EPI-NEXT-shared-supervisor-v1",
+    "dependency_sha256": "ab5d0c54d96a7d086624dfae63f9994db3b5343a69b5c3061ff34cc2c9a7ad6b",
+    "files": {
+      "artifacts.py": "3ba97a3bc226991a3b15d144c34ef082f0bad14467aeef3af83f85a8bd31631c",
+      "contracts.py": "2b67e80410672a7547d0d117db76d6f91a18b0f68822d08a1721891f5e42f9e5",
+      "coordinator_writer.py": "b87111c88b5f14744c9570fb46b9f4f386e56a48e0957755e5a98c45e1fcd496",
+      "execution_lock.py": "a5b764d50e50c7ba6069a74a71561b8c79816d1f8ed4b4467c0bf6b84761ee61",
+      "geometry.py": "5ef5ee0e0680d014034ee0ae206e707f70de848397f1611096d7b574e52db630",
+      "hospital_contract.py": "299d43d9c04662235770c23013342857c67afe424ef7ef29af2d352771a4922f",
+      "hospital_runtime.py": "75b50d9e5d204e647906a3970dcd5f0163db9e216bc2bb4b572f3712c40bde3e",
+      "wave1_supervisor.py": "5d960171e1477266e1418ef045d252c42908e000904384d363d09241c4ddff86"
+    },
+    "import_manifest_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-aca34f9-v1/imports.json",
+    "import_manifest_sha256": "ed9f50b9ad06b600c8d260e0c37ccb8a0858eea62577e87d8a612bf7ce158662",
+    "initializer_sha256": "c77ee7e5fcf2949033eece06227ca961bc0d7b1add1fc235a432d01b0469453d",
+    "numpy_version": "2.4.6",
+    "package_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-aca34f9-v1/epinext_wave1_supervisor_v1",
+    "resource_revision_sha256": "1011506834d7e5c54c60ef7d67f89900fa9259669d6bde2fb6141c197c6481de",
+    "schema": "EPI-NEXT-WAVE1-SUPERVISOR-BUNDLE-1",
+    "source_commit": "aca34f99ce3e642331bf82e71e6fd625f6e02409",
+    "source_dirty": false
+  },
+  "bundle_receipt_sha256": "62d7d2a87d4e8653c8fd0368cca49ee648fe22a4c9436c28e604c4aed4589ac8",
+  "tests": {
+    "precommit_targeted": "40 passed in 5.86s; exit0",
+    "clean_source_recheck": "39 passed / 1 failed: injected pressure case instead saw MONITOR_FAILURE_TimeoutExpired; fail-closed; original log preserved",
+    "affected_case_recheck": {
+      "command": [
+        "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "research/next-hospital-20261014/tests/test_wave1_supervisor.py::test_sampled_pre_stop_preserves_partial_and_own_exit[pressure-SYSTEM_FREE_PRESTOP]"
+      ],
+      "exit_code": 0,
+      "stdout": ".                                                                        [100%]\n1 passed in 0.63s"
+    },
+    "fixed_bundle_import": "8 loaded modules paths and bytes verified; exit0"
+  },
+  "evidence_hashes": {
+    "fixed-bundle-import.json": "f5a3baffbea1e48ab416b351df687e10caab5ab23098da817ef84e556f85476f",
+    "pressure-recheck.log": "1ab9905d8b0f34f6d791ff7da4efa2de0f7f3e282a078758cc0496cc0230c0f0",
+    "integration-tests.log": "f79c7163ea47af1cbcd9310ba3477e244d92ee030cffe32c7fbdfbad7a9a02ba",
+    "fixed-bundle-import.log": "df95482adfb08417ab314d72f17df74a0f5b45b2919536d1181ba5d5f7edd23c"
+  },
+  "new_real_forward_calls": 0,
+  "new_real_backward_calls": 0,
+  "mps_compute_calls": 0,
+  "production_state_writes": 0,
+  "DATA_full_entry_acceptance": "DATA_OWNED_PENDING_FINAL_HANDSHAKE",
+  "known_limits": [
+    "sampling targets and stop latency are not instantaneous caps",
+    "same OS user can bypass cooperative queue and source protection",
+    "MPS callback/cleanup owned by ENCODER; missing final recovery sample pauses slot",
+    "existing runtime consumers must use identical queue and complete dependency closure",
+    "unexpected ps timeout fail-closes job; no automatic retry"
+  ]
+}
