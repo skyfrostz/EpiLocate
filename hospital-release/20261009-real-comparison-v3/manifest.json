@@ -1,0 +1,121 @@
+{
+  "F0_F1_real_comparison": "NOT RUN",
+  "binding_manifest_sha256": "24048a6a94c13ae5bbd6d60fcaadcb4154e0725b259cb239d7f384c173c0c8c9",
+  "candidate_inverse_mapping": "PASS_AS_PUBLISHED_BY_DATA",
+  "cases": [
+    {
+      "E1_candidates": 194,
+      "E1_model_id": "EPI-NEXT-E1-baseline-resnet18-fixed-target-margin-v1",
+      "E1_status": "OK",
+      "E2_candidates": 0,
+      "E2_model_id": "EPI-NEXT-E2-baseline-resnet18-HSPI-inspired-single-stage-v1",
+      "E2_status": "NO_FEASIBLE_MASK",
+      "GT_categories": [
+        "Infectious opacity"
+      ],
+      "actual_classifier_forwards": 466,
+      "actual_model_calls": 466,
+      "annotation_complete": false,
+      "baseline_logits": [
+        -5.272228240966797,
+        4.8572678565979
+      ],
+      "case_index": 1,
+      "coverage_status": "ANNOTATED_PARTIAL_REFERENCE",
+      "native_plot_shape_rc": [
+        512,
+        512
+      ],
+      "native_slice_index": 111,
+      "source_ct_sha256": "f9e55d1534c047475fd57cf231e1fe1b6973b8970ac93e13386e475a7c654fa6",
+      "source_geometry_sha256": "ca70b1d1970395f10f89b410755ec18184682a0aba5f7db6286e22ea311ffe27",
+      "source_model_elapsed_seconds": 6.87867250002455,
+      "source_result_sha256": "1a00ac24ca802f02beabd2677adce8acde51c8aebdbd0030fa2f674f1b105605",
+      "unannotated_region_status": "UNKNOWN"
+    },
+    {
+      "E1_candidates": 195,
+      "E1_model_id": "EPI-NEXT-E1-baseline-resnet18-fixed-target-margin-v1",
+      "E1_status": "OK",
+      "E2_candidates": 0,
+      "E2_model_id": "EPI-NEXT-E2-baseline-resnet18-HSPI-inspired-single-stage-v1",
+      "E2_status": "NO_FEASIBLE_MASK",
+      "GT_categories": [
+        "Infectious opacity"
+      ],
+      "actual_classifier_forwards": 466,
+      "actual_model_calls": 466,
+      "annotation_complete": false,
+      "baseline_logits": [
+        -5.787787914276123,
+        5.183139324188232
+      ],
+      "case_index": 2,
+      "coverage_status": "ANNOTATED_PARTIAL_REFERENCE",
+      "native_plot_shape_rc": [
+        512,
+        512
+      ],
+      "native_slice_index": 121,
+      "source_ct_sha256": "2afab5719cfd17a35549a685e079511c10e932810a523dd73462bcb6e34ffc9f",
+      "source_geometry_sha256": "0a41d5423abe6b0012229e0d5ea5363f9964fd8cee962a75c9ca9529174ab539",
+      "source_model_elapsed_seconds": 6.778044000006048,
+      "source_result_sha256": "257aa737ead25e13da29e4af86f27234bcfc7f49dee79023e762c98c1897954c",
+      "unannotated_region_status": "UNKNOWN"
+    },
+    {
+      "E1_candidates": 157,
+      "E1_model_id": "EPI-NEXT-E1-baseline-resnet18-fixed-target-margin-v1",
+      "E1_status": "OK",
+      "E2_candidates": 0,
+      "E2_model_id": "EPI-NEXT-E2-baseline-resnet18-HSPI-inspired-single-stage-v1",
+      "E2_status": "NO_FEASIBLE_MASK",
+      "GT_categories": [
+        "Infectious opacity"
+      ],
+      "actual_classifier_forwards": 466,
+      "actual_model_calls": 466,
+      "annotation_complete": false,
+      "baseline_logits": [
+        -4.552244663238525,
+        3.989609956741333
+      ],
+      "case_index": 3,
+      "coverage_status": "ANNOTATED_PARTIAL_REFERENCE",
+      "native_plot_shape_rc": [
+        512,
+        512
+      ],
+      "native_slice_index": 123,
+      "source_ct_sha256": "109f548bde385d80ffd99e4a24ede637997d3fe07e1b08f1b7f5734a5dc6ab43",
+      "source_geometry_sha256": "097b57bc78602dd86e232bdd2973f126946ec09ef48f82e2ea6451e12f3339d5",
+      "source_model_elapsed_seconds": 6.769733833003556,
+      "source_result_sha256": "6df96148d1c29621be3830e6f9c5c44178b445aeac10f7fd40f8c94f023382f7",
+      "unannotated_region_status": "UNKNOWN"
+    }
+  ],
+  "clinical_validation": "NOT RUN",
+  "date": "2026-10-09",
+  "experimental_algorithms": [
+    "E1",
+    "E2"
+  ],
+  "fallback": "Original FrozenBaseline and 16/32/64 Occlusion application path; no replacement enabled.",
+  "final_hospital_freeze": "NOT RUN",
+  "hospital_default_algorithm": null,
+  "hospital_display_authorized": false,
+  "independent_DATA_evaluation_sha256": "55dbe1c71dbb3836f28ae3a4352f2a9c0d257b403b97e6ac4a7f65929856b477",
+  "local_index_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/EPI-NEXT-REAL-COMPARISON-v1/index.html",
+  "local_verification_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/comparison-readback-v1/verification.json",
+  "model_calls_by_integration": 0,
+  "new_GT_computation": false,
+  "receipt_sha256": "ed04dc8186075d382a99eb2a10d703e487a4043fbc2c5a780c76c4f0e1c8517d",
+  "run_delivery_sha256": "aadd59ca4b9439387f4f439c5140720b6d2142affe77454e4888ce2b26055130",
+  "schema": "EPI-NEXT-REAL-COMPARISON-HANDOFF-3",
+  "source_dirty": false,
+  "source_git_sha": "2701e69c8b891ea7c761f12ec14f5c28a51909a1",
+  "status": "LOCAL_RESEARCH_COMPARISON_READY",
+  "test_summary": "180 passed; exit 0",
+  "three_hospital_e2e_demos": "NOT RUN",
+  "three_readbacks_identical": true
+}

@@ -978,3 +978,6 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 开始 HEAD `cb87b3699fe744d203f107cbb60d783721cc5c24`。消费总控固定的 LOCALIZATION run-2 SHA `aadd59ca4b9439387f4f439c5140720b6d2142affe77454e4888ce2b26055130` 和 DATA 独立 evaluation SHA `55dbe1c71dbb3836f28ae3a4352f2a9c0d257b403b97e6ac4a7f65929856b477`（candidate inverse mapping PASS）。新增隔离本地 HTML/PNG 资产绑定器，读取发布的 native NPZ 与全部官方部分参考 union，校验 SOP/切片/manifest/数组 SHA；不重算算法、GT或统计，不新增应用页面。E1三个margin响应尺度分别显示，E2零候选保留 NO_FEASIBLE_MASK。部分参考未标注区 UNKNOWN，非完整/共识GT。
 
 医疗派生产物限 ignored .local，不可覆盖收据及重复读取校验；源码固定后执行一次绑定，三次读取不等三次模型或医院端到端演示。独立DATA映射PASS不自动冻结模型；医院默认null、医院展示未批准、临床验证及最终冻结NOT RUN。只读审计本树（含ignored Python）无总控状态路径/state_path引用，未定位状态回退源；未写总控state。测试与实际产物SHA在后续固定源码补录。
+
+
+**真实本地对照实跑补录：** clean源码 `2701e69c8b891ea7c761f12ec14f5c28a51909a1`，构建exit0，新增forward0，三张2100×1400 PNG与HTML仅保留获准ignored目录。binding manifest SHA `24048a6a94c13ae5bbd6d60fcaadcb4154e0725b259cb239d7f384c173c0c8c9`，receipt SHA `ed04dc8186075d382a99eb2a10d703e487a4043fbc2c5a780c76c4f0e1c8517d`。180 tests PASS（1.65s），三次readback exit0、产物及上游结果/NPZ/官方mask哈希一致。源码之后仅追加 `hospital-release/20261009-real-comparison-v3/` 元数据摘要和工程日志，无医疗像素进入Git。E1三例OK（194/195/157），E2三例NO_FEASIBLE_MASK零候选；DATA独立候选映射PASS按固定evaluation引用，非临床有效性。未执行浏览器视觉审阅；重复读取不等三次医院模型流程。医院默认null、最终冻结及临床验证NOT RUN，F0/F1真实对照NOT RUN。
