@@ -945,3 +945,12 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 
 
 **EPI-NEXT 最终本机交付补录（2026-10-09）：** 固定受测源码提交 `8aa5138a2b51b292eb5b8762f4d908ceb493d29d`，单命令在 clean source 上运行，137 tests PASS，8步骤exit0。新增实际CT-FM适配器小试：官方权重SHA `b521ff13764ad0fce67f8ad2e5aa9ccc0823f69e4544b446581d8a2dee686215`，CPU 32³合成输入→[1,512,2,2,2]；推理0.079812s、整进程峰RSS1285603328bytes，非全病例/非GPU性能。E1/E2真实旧权重合成对照219calls，E2两个尺度CPF可行但PSMI无支持，NO_RELIABLE_RESPONSE且零候选。残余输入F1刷新baseline/粗图，8calls（7extra含2probe）到stage上限PARTIAL_BUDGET。最终receipt SHA `e83ba9e260721bc8246f3f4c183dea60c9169db9733c8860e0318b82495e05a4`。公开原始合成数值及哈希位于 `research/next-hospital-20261014/reports/final/` 和 `DELIVERY_RECEIPT.json`；完整实跑命令保留本地ignored收据。首次下载超时、一次测试断言不匹配记录保留；没有覆盖历史证据。GPU未启动，真实患者/GT-vNext/native overlay/临床效能仍NOT RUN。受测代码之后只补文档和数值证据。
+
+
+## 阶段二十七：医院版本接口与集成交付候选
+
+**日期：** 2026-10-09，Asia/Shanghai。**分支 / Worktree：** `codex/epi-next-integration-20261009`，`/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`。**开发前 HEAD：** `2ed840ff00fcddf812150637b23f6a5a2af13435`。
+
+在总控唯一writer交接后接管未提交 `volume_io.py` 与生成 DICOM 测试，增加医院侧车输入输出、空间ledger消费、全生命周期设备锁/预算checkpoint、不可覆盖结果与未知事务对账、算法flag和原协议fallback接缝、验收门禁及 `hospital-release/20261009-integration-v1/`。未新增前端页面，未把新运行器安装到 Backend/Worker。Phase1资源策略保留，Phase2说明明确CPU/MPS授权、当前MPS仅ENCODER、远程付费暂停。
+
+新接口/生成DICOM定向35项合成测试通过；全量测试和固定受测提交以交付后续补录及 `evidence/verification.json` 为准。真实数据只消费DATA经总控SHA固定发布的v2交付，不另建allowlist/GT/授权收据；正式空间资产和模型运行器未到齐。真实端到端 `BLOCKED_BY_DATA_HANDOFF`，医院默认算法待定，10月14最终冻结和临床验证 `NOT RUN`。历史A/B/C、GT-v1、FrozenBaseline及核心应用协议未修改，未push/merge/deploy。

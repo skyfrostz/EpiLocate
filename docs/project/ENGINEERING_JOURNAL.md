@@ -1317,3 +1317,16 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 
 **EPI-NEXT 最终本机交付补录（2026-10-09）：** 固定受测源码提交 `8aa5138a2b51b292eb5b8762f4d908ceb493d29d`，单命令在 clean source 上运行，137 tests PASS，8步骤exit0。新增实际CT-FM适配器小试：官方权重SHA `b521ff13764ad0fce67f8ad2e5aa9ccc0823f69e4544b446581d8a2dee686215`，CPU 32³合成输入→[1,512,2,2,2]；推理0.079812s、整进程峰RSS1285603328bytes，非全病例/非GPU性能。E1/E2真实旧权重合成对照219calls，E2两个尺度CPF可行但PSMI无支持，NO_RELIABLE_RESPONSE且零候选。残余输入F1刷新baseline/粗图，8calls（7extra含2probe）到stage上限PARTIAL_BUDGET。最终receipt SHA `e83ba9e260721bc8246f3f4c183dea60c9169db9733c8860e0318b82495e05a4`。公开原始合成数值及哈希位于 `research/next-hospital-20261014/reports/final/` 和 `DELIVERY_RECEIPT.json`；完整实跑命令保留本地ignored收据。首次下载超时、一次测试断言不匹配记录保留；没有覆盖历史证据。GPU未启动，真实患者/GT-vNext/native overlay/临床效能仍NOT RUN。受测代码之后只补文档和数值证据。
+
+
+### 2026-10-09｜INTEGRATION 医院版本接口、空间与结果保全
+
+**负责人：** 钟佳桦；首席算法工程师通过总控协调。**执行：** 本会话唯一专项writer；子代理仅只读QA，不修改文件或真实模型。**分支 / Worktree：** `codex/epi-next-integration-20261009`，`/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`。**开始 HEAD：** `2ed840ff00fcddf812150637b23f6a5a2af13435`；开始tracked干净，后核对总控在途两个untracked文件并接管，不reset/clean。
+
+**范围：** 接管 `epi_next/volume_io.py`、`tests/test_volume_io.py`；新增hospital_contract/runtime/release，版本接口、LPS八角点/SOP/transform ledger、共享设备租约、调用计数及协作预算、全球intent与不可覆盖收据、版本flag/原handler回退和真实证据准入。建立独立 `hospital-release/20261009-integration-v1/`，含manifest、接口说明、八项验收与流程回退；前端不改。
+
+**审查修正：** 失败/无logits候选拒绝；响应按算法限定有限数值；输入dtype/channel最低字节预算；intent跨设备竞争转BLOCKED；门禁拒绝未注册/未验收版本、不同参数/预算/任务身份、失败备用结果，验证资产SHA与录屏播放审阅收据。实测新接口/生成DICOM35项PASS（本机CPU、现有.venv、pytest -q -p no:cacheprovider），此前29/32项中间测试也为合成。实际HU/非对称斜位/反向normal/重采样与半像素resize验证不扩成真实病例验收。最终完整测试、SHA及命令见补录。
+
+**依赖：** DATA唯一正式发布，proposal批准不等医院allowlist；v2开发交付SHA `42c5e2eb4ebfdb3d1d3c85a9db0095b2c24dca539750468b917ec90bd3337934`、allowlist SHA `3f2c5b5fb2b8b788c5d2f68d9b39554edd079941da58222e9292b62ba6d1ae00`由总控转交。正式空间ledger/真实GT-vNext与接收后的模型handler仍待交付；volume候选schema不能通过另造approval文件直接替代DATA schema。
+
+**限制与状态：** 全局租约只约束采用该API的运行器；deadline为BETWEEN_FORWARDS，不保证硬中断/峰内存。INTEGRATION未启动真实CT模型、MPS或远程任务，未上传数据、推送、部署；未改历史冻结证据或应用协议。实际接入正向运行待上游，真实E2E `BLOCKED_BY_DATA_HANDOFF`，默认医院模型null，最终冻结/临床验证 `NOT RUN`。最终批准由钟佳桦审阅；本地交付包先供总控汇总。

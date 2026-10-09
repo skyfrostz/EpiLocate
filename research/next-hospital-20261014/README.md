@@ -4,6 +4,14 @@ This directory is an opt-in research package. It does not change the deployed
 Worker, Backend, frontend, historical checkpoints, A/B/C, GT-v1, or frozen splits.
 New code is integrated only in `codex/epi-next-integration-20261009`, not `main`.
 
+The additive hospital sidecar and versioned integration delivery are documented
+in [hospital-release/20261009-integration-v1](../../hospital-release/20261009-integration-v1/README.md).
+Phase 2 resource scope is recorded separately in `configs/resource_policy_phase2_v1.json`;
+the historical Phase 1 policy remains unchanged. Real workflows are
+`BLOCKED_BY_DATA_HANDOFF`, hospital final freeze is `NOT RUN`, and MPS is reserved
+for ENCODER under the root coordinator. No new UI or clinical acceptance follows
+from these interfaces or generated-DICOM tests.
+
 The actual 2026-10-09 findings and task states are in [PREFLIGHT.md](reports/PREFLIGHT.md).
 Read [DATA_EVAL.md](reports/DATA_EVAL.md), [ENCODER.md](reports/ENCODER.md), and
 [LOCALIZATION.md](reports/LOCALIZATION.md) for exact implementation differences.
