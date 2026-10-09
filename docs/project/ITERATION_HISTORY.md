@@ -988,3 +988,6 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 开始HEAD `8baec8b9260586bd6412a0656b559cbcea182a50`，沿用INTEGRATION工作树。按负责人v2.0包只交总控调用工具：同flock内CAS/递增/fsync/replace，append-only hash-chain事件、不可覆盖旧/新snapshot及未知事务门禁；权限pointer白名单、保留授权字段和唯一task_key。隔离fixture并发仅一次提交，四阶段真实子进程退出模拟中断，旧快照/权限/重复及坏快照拒绝。最小依赖源码/包版本锁和同共享device flock的PID/start/job/资源slot；registered子进程未完成不接收终态，无终态slot不自动重跑。新工具未迁移既有运行器，不声称同UID防篡改或跨会话认证。
 
 只读生产state观察rev11 SHA `7295b62901a54ae6094263e619aad9b265a80110c43f9583f4e0e015ef26ffaf`；本树/主项目相关代码和进程未定位rev4回退根因，UNKNOWN。总控已结束update_state_v9存在锁外比较/replace但不能归因；三个私有脚本未执行。无生产policy/state写入，无新增真实forward/backward/MPS/远程。9项新增隔离测试PASS；包含既有医院/资产接缝的定向65 tests PASS（1.02s），纯fixture/合成。一次错误cwd导致0tests/exit4，随后纠正到指定工作树通过，未污染主项目。CLI/权限/恢复边界与MVP真实接入缺口见 `hospital-release/20261009-state-tools-v4/README.md`。固定源码后补证据/文件SHA，医院最终审批及真实三次流程NOT RUN。
+
+
+**S0 clean源码补录：** `a0a5fdfc399454bd3dc5c7f69d49888ad031eed2` 上65定向fixture/合成测试PASS（1.03s），隔离CLI update及reconcile exit0，fixture 11→12 COMMITTED/CONSISTENT。writer文件SHA `b87111c88b5f14744c9570fb46b9f4f386e56a48e0957755e5a98c45e1fcd496`。具体模块依赖SHA、实际命令/退出码/时间见 `hospital-release/20261009-state-tools-v4/verification.json`，stdout留本树ignored `state-tools-v4`。生产policy创建0、生产state写0、真实forward/backward/MPS/remote均0。提交后只补此受测证据及日志，根因UNKNOWN，同UID绕过可能、旧运行器未迁移和MVP真实链路接续缺口保持。

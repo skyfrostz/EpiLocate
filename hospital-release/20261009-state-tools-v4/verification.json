@@ -1,0 +1,85 @@
+{
+  "schema": "EPI-NEXT-S0-TOOLS-VERIFICATION-1",
+  "source_commit": "a0a5fdfc399454bd3dc5c7f69d49888ad031eed2",
+  "source_dirty": false,
+  "module_sha256": {
+    "research/next-hospital-20261014/epi_next/__init__.py": "627d1b52291921a3181cec7c0a05def522df9642c65627c6e484891eeaeb292c",
+    "research/next-hospital-20261014/epi_next/coordinator_writer.py": "b87111c88b5f14744c9570fb46b9f4f386e56a48e0957755e5a98c45e1fcd496",
+    "research/next-hospital-20261014/epi_next/artifacts.py": "3ba97a3bc226991a3b15d144c34ef082f0bad14467aeef3af83f85a8bd31631c",
+    "research/next-hospital-20261014/epi_next/execution_lock.py": "222816ae8643e3a9e27268bba74edaeb12a00f9154e9e5b27447f603a1aec386",
+    "research/next-hospital-20261014/tests/test_coordinator_writer.py": "adf873c8ace4d9db0fd84ca701579091fee3c2acd3d48a31f806e6482099a184",
+    "research/next-hospital-20261014/tests/test_execution_lock.py": "78c46754f71582ec2262c9180131c74c2fe1c5992f94e979e562fbc6b1e45635"
+  },
+  "commands": [
+    {
+      "command": [
+        "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "research/next-hospital-20261014/tests/test_coordinator_writer.py",
+        "research/next-hospital-20261014/tests/test_execution_lock.py",
+        "research/next-hospital-20261014/tests/test_hospital_integration.py",
+        "research/next-hospital-20261014/tests/test_contracts_artifacts.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.2202066659810953,
+      "log": "tests.log"
+    },
+    {
+      "command": [
+        "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+        "-m",
+        "epi_next.coordinator_writer",
+        "update",
+        "--state",
+        "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/state-tools-v4/isolated-fixture/state.json",
+        "--policy",
+        "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/state-tools-v4/isolated-fixture/policy.json",
+        "--policy-sha",
+        "d7d475ebbf39ec693eb1c983ea65fb6f30089310f6467dac029f202c5dfa4722",
+        "--expected-revision",
+        "11",
+        "--expected-sha",
+        "0a20309ed19ed57ad5d882c82d4c8bfe609051269e332a4f8f6f7c7786a193a1",
+        "--writer-id",
+        "CHIEF",
+        "--task-key",
+        "isolated-cli-proof",
+        "--reason",
+        "synthetic fixture only",
+        "--patch",
+        "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/state-tools-v4/isolated-fixture/patch.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.02994437501183711,
+      "log": "fixture-cli-update.log"
+    },
+    {
+      "command": [
+        "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+        "-m",
+        "epi_next.coordinator_writer",
+        "reconcile",
+        "--state",
+        "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/state-tools-v4/isolated-fixture/state.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.023078083992004395,
+      "log": "fixture-cli-reconcile.log"
+    }
+  ],
+  "regression_scope": "65 isolated/synthetic tests; concurrency, process interruption, CAS, permission, snapshot, dependency and device admission",
+  "real_model_calls": 0,
+  "real_backward_calls": 0,
+  "mps_calls": 0,
+  "remote_calls": 0,
+  "production_state_writes": 0,
+  "production_policy_created": false,
+  "state_regression_root_cause": "UNKNOWN",
+  "same_uid_direct_write_bypass_possible": true,
+  "existing_runtimes_migrated_to_new_slot": false,
+  "MVP_live_runtime_and_three_model_demos": "NOT RUN"
+}
