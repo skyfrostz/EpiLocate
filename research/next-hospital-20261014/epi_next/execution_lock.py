@@ -10,6 +10,7 @@ import json
 import math
 import os
 from pathlib import Path
+import platform
 import subprocess
 import sys
 import types
@@ -48,7 +49,8 @@ def dependency_snapshot(root, run_id, entries, packages):
         if importlib.metadata.version(package) != version:
             raise ValueError('PACKAGE_VERSION_DRIFT')
     manifest = {'schema': 'EPI-NEXT-DEPENDENCY-LOCK-1', 'entries': records,
-                'packages': packages, 'scope': 'DECLARED_DEPENDENCIES_ONLY'}
+                'packages': packages, 'python_version':platform.python_version(),
+                'scope': 'DECLARED_DEPENDENCIES_ONLY'}
     artifacts['dependency_lock.json'] = canonical_json(manifest)
     persist_run(Path(root), run_id, artifacts)
     return sha256(artifacts['dependency_lock.json'])
@@ -62,12 +64,14 @@ def verify_dependencies(root, expected_sha):
     if sha256(raw) != expected_sha:
         raise ValueError('DEPENDENCY_LOCK_SHA_MISMATCH')
     manifest = json.loads(raw)
+    if manifest.get('python_version',platform.python_version()) != platform.python_version():
+        raise ValueError('PYTHON_VERSION_DRIFT')
     for entry in manifest['entries']:
         if sha256((root / entry['name']).read_bytes()) != entry['sha256']:
             raise ValueError('SNAPSHOT_DEPENDENCY_DRIFT')
         # Refuse changed source when replay claims the same live dependency set.
         path = Path(entry['repo']) / entry['relative_path']
-        if sha256(path.read_bytes()) != entry['sha256']:
+        if entry.get('live_replay_check', True) and sha256(path.read_bytes()) != entry['sha256']:
             raise ValueError('LIVE_DEPENDENCY_DRIFT')
     for name, version in manifest['packages'].items():
         if importlib.metadata.version(name) != version:
@@ -139,7 +143,8 @@ def tracked_device_slot(device, *, owner, job_id, task_key, budget,
     job_id = _safe_name(job_id); task_key = _safe_name(task_key)
     for field in ('max_model_calls','max_seconds','max_rss_bytes'):
         value = budget[field]
-        if isinstance(value, bool) or not isinstance(value, (int,float)) or not math.isfinite(value) or value <= 0:
+        minimum_ok=value>=0 if field=='max_model_calls' and isinstance(value,(int,float)) else isinstance(value,(int,float)) and value>0
+        if isinstance(value, bool) or not isinstance(value, (int,float)) or not math.isfinite(value) or not minimum_ok:
             raise ValueError('POSITIVE_FINITE_RESOURCE_LIMIT_REQUIRED')
     if type(budget['max_model_calls']) is not int or type(budget['max_rss_bytes']) is not int:
         raise ValueError('INTEGER_CALL_AND_MEMORY_LIMIT_REQUIRED')

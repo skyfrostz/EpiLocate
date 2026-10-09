@@ -1367,3 +1367,10 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 
 **S0 clean源码补录：** `a0a5fdfc399454bd3dc5c7f69d49888ad031eed2` 上65定向fixture/合成测试PASS（1.03s），隔离CLI update及reconcile exit0，fixture 11→12 COMMITTED/CONSISTENT。writer文件SHA `b87111c88b5f14744c9570fb46b9f4f386e56a48e0957755e5a98c45e1fcd496`。具体模块依赖SHA、实际命令/退出码/时间见 `hospital-release/20261009-state-tools-v4/verification.json`，stdout留本树ignored `state-tools-v4`。生产policy创建0、生产state写0、真实forward/backward/MPS/remote均0。提交后只补此受测证据及日志，根因UNKNOWN，同UID绕过可能、旧运行器未迁移和MVP真实链路接续缺口保持。
+
+
+### 2026-10-09｜Wave1独立共享监督器增量
+
+开始HEAD `dc8dae673d3d8b8c8ed10ded0064a83b36a3c083`。资源修订SHA `1011506834d7e5c54c60ef7d67f89900fa9259669d6bde2fb6141c197c6481de` 已由负责人授权；本线只交共享工具，不启动真实。新模块wave1_supervisor及child guard复用execution_lock：全Wave1 serial flock、跨设备UNKNOWN及重复task预算闸门；加载计入deadline，20ms目标子进程心跳、50ms目标RSS/系统采样，5GiB预停/6GiB目标，macOS memory_pressure -Q原口径free20%、swap增1GiB；实际PID-group归属复查、stop信号/文件、有限TERM/KILL、退出与恢复未知不完成slot，保全部分资产。零forward/backward DATA可用；预留attempt与runner actual分开。MPS恢复需实际child driver/tensor及明确收尾，非父进程假0。
+
+隔离bundle八运行模块SHA/Python/numpy锁，父子实际__file__核验，DATA无__init__loader兼容；其旧fixture仅geometry依赖锁不足，需八模块闭包接续。本轮测试含小型合成/故障注入，无内存压力实验、真实模型调用、科学参数变更、生产state写入。首次回归发现安全文件名禁止__init__，改用八运行模块闭包；早期进程退出采样race及系统free口径问题已修正，旧失败证据不覆盖。定向40项接缝测试通过，clean源码后生成固定bundle与实跑日志。医院MVP在线接缝/三次真实E2E尚NOT RUN；接口契约见reports/WAVE1_SUPERVISOR_CONTRACT_V1.md。
