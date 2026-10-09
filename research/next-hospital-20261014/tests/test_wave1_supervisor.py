@@ -181,3 +181,27 @@ def test_independent_bundle_imports_never_borrow_loaded_epi_next(tmp_path):
     assert result.returncode==0,result.stderr
     files=json.loads(result.stdout)
     assert len(files)==9 and all(Path(p).parent==bundle for p in files.values())
+
+
+def test_legal_completion_allows_slow_python_teardown(tmp_path,monkeypatch):
+    result=run(tmp_path,monkeypatch,IMPORT+"g.complete(actual_forward=0,actual_backward=0)\ntime.sleep(.45)\n")
+    assert result['status']=='SUCCESS' and result['reason'] is None and result['slot_completed']
+    assert any(e['kind']=='VALID_CHILD_COMPLETION_EXIT_WAIT' for e in result['events'])
+    assert result['exit_monotonic']-result['samples'][0]['monotonic']>.25
+
+
+def test_active_stale_heartbeat_still_stops(tmp_path,monkeypatch):
+    body=IMPORT+"g.done.set();g.thread.join()\ntry:\n while True:g.check();time.sleep(.01)\nexcept StopWork:g.complete('PARTIAL_BUDGET',actual_forward=0,actual_backward=0)\n"
+    result=run(tmp_path,monkeypatch,body)
+    assert result['status']=='FAILED' and result['reason']=='STALE_CHILD_TELEMETRY'
+
+
+def test_other_job_completion_does_not_disable_stale_guard(tmp_path,monkeypatch):
+    body=IMPORT+"g.done.set();g.thread.join()\n(g.directory/'runner-complete.json').write_text('{\"job_id\":\"other\",\"status\":\"SUCCESS\"}')\ntry:\n while True:g.check();time.sleep(.01)\nexcept StopWork:pass\n"
+    result=run(tmp_path,monkeypatch,body)
+    assert result['reason']=='STALE_CHILD_TELEMETRY'
+
+
+def test_completion_does_not_extend_global_deadline(tmp_path,monkeypatch):
+    result=run(tmp_path,monkeypatch,IMPORT+"g.complete(actual_forward=0,actual_backward=0)\ntime.sleep(3)\n",timeout=.4)
+    assert result['reason']=='GLOBAL_DEADLINE' and result['exit_monotonic'] is not None

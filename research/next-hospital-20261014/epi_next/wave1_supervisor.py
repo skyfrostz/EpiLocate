@@ -244,6 +244,28 @@ def owned_group(table, process, identity):
     return members
 
 
+def validated_completion(directory, spec, telemetry, child_pid, started, now):
+    """Only the owned child's same-job terminal marker ends heartbeat duty.
+
+    Completion does not confirm process exit, recovery or extend the deadline.
+    Invalid/unbound markers leave active-heartbeat safeguards in force.
+    """
+    path=directory/'runner-complete.json'
+    if not path.exists() or path.is_symlink() or telemetry is None:return None
+    try:
+        marker=json.loads(path.read_bytes())
+        if (marker['job_id']!=spec.job_id or telemetry['job_id']!=spec.job_id
+                or telemetry['pid']!=child_pid
+                or marker['status'] not in {'SUCCESS','NO_RELIABLE_RESPONSE','PARTIAL_BUDGET','FAILED','BLOCKED','NOT RUN'}
+                or not started<=telemetry['monotonic']<=marker['monotonic']<=now):return None
+        for kind,limit in (('forward',spec.max_forward),('backward',spec.max_backward)):
+            actual=marker['actual_'+kind]
+            if actual is not None and (type(actual) is not int or not 0<=actual<=telemetry[kind]<=limit):return None
+        return marker
+    except (OSError,ValueError,TypeError,KeyError):
+        return None
+
+
 def run_supervised(spec, command, output_root, dependency_root, dependency_sha, *, _monitor=None):
     queue=hospital_runtime.QUEUE_ROOT;queue.mkdir(parents=True,exist_ok=True)
     descriptor=os.open(queue/'wave1.serial.lock',os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600)
@@ -282,6 +304,7 @@ def _run_supervised(spec, command, output_root, dependency_root, dependency_sha,
         started=time.monotonic();events=[];samples=[];missing=[];intervals=[]
         initial=None;process=None;identity=None;reason=None;trigger=None;exit_at=None;recovered_at=None
         last_telemetry=None;last_counts=(0,0,0);last_sample=started;requested=False;terminated=False;killed=False
+        accepted_completion=None
         def event(kind, **values):events.append(dict(kind=kind,monotonic=time.monotonic(),**values))
         def request(why):
             nonlocal reason,trigger,requested
@@ -341,10 +364,16 @@ def _run_supervised(spec, command, output_root, dependency_root, dependency_sha,
                         elif spec.device=='mps' and telemetry['mps_driver_bytes']>=PRE_STOP:request('MPS_DRIVER_PRESTOP')
                         if telemetry['case_started'] is not None and spec.per_case_seconds is not None and now-telemetry['case_started']>=spec.per_case_seconds:
                             request('CASE_DEADLINE')
-                        if now-telemetry['monotonic']>spec.telemetry_max_gap_seconds:request('STALE_CHILD_TELEMETRY')
+                        completion=validated_completion(directory,spec,telemetry,process.pid,started,time.monotonic())
+                        if completion is not None and accepted_completion is None:
+                            accepted_completion=completion;event('VALID_CHILD_COMPLETION_EXIT_WAIT')
+                        if accepted_completion is not None and completion!=accepted_completion:
+                            request('CHILD_COMPLETION_CHANGED')
+                        if accepted_completion is None and now-telemetry['monotonic']>spec.telemetry_max_gap_seconds:
+                            request('STALE_CHILD_TELEMETRY')
                     else:
                         missing.append({'monotonic':now,'kind':'TELEMETRY'})
-                        if now-started>spec.telemetry_startup_seconds:request('CHILD_TELEMETRY_MISSING')
+                        if accepted_completion is None and now-started>spec.telemetry_startup_seconds:request('CHILD_TELEMETRY_MISSING')
                     if requested and members:
                         if not terminated and time.monotonic()-trigger>=spec.request_grace_seconds:
                             # Re-read immediately before group signaling; unknown means no signal.
@@ -386,10 +415,7 @@ def _run_supervised(spec, command, output_root, dependency_root, dependency_sha,
                 except BaseException as exc:event('RECOVERY_MONITOR_FAILURE',error_type=type(exc).__name__);break
                 time.sleep(.05)
         counters=json.loads((directory/'counters.json').read_bytes())
-        complete=None
-        if (directory/'runner-complete.json').exists():
-            complete=json.loads((directory/'runner-complete.json').read_bytes())
-            if complete.get('job_id')!=spec.job_id:complete=None
+        complete=accepted_completion
         if reason is None and (process is None or process.returncode!=0 or complete is None):reason='RUNNER_FAILURE_OR_MISSING_COMPLETION'
         status=('BLOCKED' if exit_at is None or recovered_at is None else
                 complete['status'] if reason is None else

@@ -1382,3 +1382,10 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 ### 2026-10-09｜Wave1调用文档更正
 
 开始HEAD `e146a83c129d26695ac55ea7aa7f2a0161579cb2`。总控/ENCODER接缝反馈固定版verify_loaded_bundle按完整模块名查sys.modules，直接-m入口为__main__可能KeyError。仅更正调用契约和准备文档为显式import wave1_supervisor.main()后SystemExit，固定运行源码/bundle/收据及旧日志不改、不重跑模型或fixture。总控报告DATA真实标签任务SUCCESS、槽恢复、模型calls0；不扩成本线独立验收。文档检查与diff check通过。
+
+
+### 2026-10-09｜Wave1完成后心跳误判最小修复
+
+开始HEAD `412fc560f2384c0dafd0a72d736ff99c09736f9c`。只读E1实际收据：child SUCCESS792前向，complete时间266848.783347、末心跳266848.78299175，supervisor stale触发266849.106835041、退出266849.12291325，末采样已无group活成员；固定FAILED收据SHA `f7b675db91ba1d0016b7296fc5ec66d90a1bc3ccdf4823f80d665585e8b6c757`不改。确认完成关闭heartbeat后Python teardown超过250ms，旧顺序先stale再退出导致误判。
+
+仅对合法同job/原child完成标记停止stale检查并进入退出等待；未完成/伪标记继续保护，deadline、归属、压力和恢复持续。20项监督器fixture PASS（7.47s）；新增正常complete慢退出/真失效/其他job标记/deadline四项，无真实calls、科学参数变更或权威state写入。旧bundle保留，新固定bundle另版；clean源码后补导入/日志SHA。
