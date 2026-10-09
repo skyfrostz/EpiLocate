@@ -96,7 +96,13 @@
   "date": "2026-10-09",
   "delivery_channel": "LOCAL_VERSIONED_PACKAGE_THEN_ROOT_COORDINATOR_THEN_PROJECT_OWNER",
   "development_base_sha": "2ed840ff00fcddf812150637b23f6a5a2af13435",
-  "engineering_evidence": null,
+  "engineering_evidence": {
+    "path": "evidence/verification.json",
+    "scope": "SYNTHETIC_UNIT_AND_GENERATED_DICOM_ONLY",
+    "sha256": "40b24d23507c2f8020a6e49db6fa86a3d9c7575abc1090bec6ac055fbf54d812",
+    "source_dirty_at_verification": false,
+    "tests_passed": 172
+  },
   "fallback_algorithms": [
     "FrozenBaseline",
     "Occlusion16",
@@ -137,7 +143,7 @@
     "sha256": "2ff998f0b3416239a3442f415b1dc6124e322f56be644d22432a8e28b157b126"
   },
   "schema": "EPI-NEXT-HOSPITAL-RELEASE-1",
-  "source_git_sha": null,
+  "source_git_sha": "a2f3cef899ece07b3743d4ae91f6058bd0d8419f",
   "task_definition_sha256": null,
   "timezone": "Asia/Shanghai"
 }

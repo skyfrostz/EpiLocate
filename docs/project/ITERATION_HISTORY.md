@@ -954,3 +954,6 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 在总控唯一writer交接后接管未提交 `volume_io.py` 与生成 DICOM 测试，增加医院侧车输入输出、空间ledger消费、全生命周期设备锁/预算checkpoint、不可覆盖结果与未知事务对账、算法flag和原协议fallback接缝、验收门禁及 `hospital-release/20261009-integration-v1/`。未新增前端页面，未把新运行器安装到 Backend/Worker。Phase1资源策略保留，Phase2说明明确CPU/MPS授权、当前MPS仅ENCODER、远程付费暂停。
 
 新接口/生成DICOM定向35项合成测试通过；全量测试和固定受测提交以交付后续补录及 `evidence/verification.json` 为准。真实数据只消费DATA经总控SHA固定发布的v2交付，不另建allowlist/GT/授权收据；正式空间资产和模型运行器未到齐。真实端到端 `BLOCKED_BY_DATA_HANDOFF`，医院默认算法待定，10月14最终冻结和临床验证 `NOT RUN`。历史A/B/C、GT-v1、FrozenBaseline及核心应用协议未修改，未push/merge/deploy。
+
+
+**INTEGRATION 固定源码验收补录（2026-10-09）：** `a2f3cef899ece07b3743d4ae91f6058bd0d8419f` clean source 上全量研究包172 tests PASS（1.74s）；documentation range与diff check、只读算法对照CLI exit0。源码提交之后只补交付manifest/报告/证据和两份工程日志，无算法或应用源码修改。命令、环境、日志、源码及文件SHA在 `hospital-release/20261009-integration-v1/evidence/verification.json` 和 `DELIVERY_RECEIPT.json`。当前交付15个原始代码/文档路径，加后续证据；原应用/冻结路径无diff。真实CT模型运行0、MPS0、remote0，无遗留本会话任务；真实E2E BLOCKED_BY_DATA_HANDOFF，最终冻结与临床验证NOT RUN。未push/merge/deploy，未自行决定默认模型。正式交付由总控汇总并交钟佳桦审阅。

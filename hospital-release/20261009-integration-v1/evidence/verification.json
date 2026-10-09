@@ -1,0 +1,86 @@
+{
+  "clinical_validation": "NOT RUN",
+  "environment": {
+    "device": "cpu",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]"
+  },
+  "evidence_scope": "SYNTHETIC_UNIT_AND_GENERATED_DICOM_ONLY",
+  "hospital_final_freeze": "NOT RUN",
+  "jobs": [
+    {
+      "command": [
+        "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+        "-m",
+        "pytest",
+        "research/next-hospital-20261014/tests",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "elapsed_seconds": 2.356797375017777,
+      "exit_code": 0,
+      "log": "tests.log",
+      "log_sha256": "ba67a6cc2e256fb4d5a441a759b976ccf34acde2af668804661f29aede79f0eb",
+      "name": "tests"
+    },
+    {
+      "command": [
+        "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+        "scripts/check_project_documentation.py",
+        "--range",
+        "2ed840ff00fcddf812150637b23f6a5a2af13435..a2f3cef899ece07b3743d4ae91f6058bd0d8419f"
+      ],
+      "elapsed_seconds": 0.029140166006982327,
+      "exit_code": 0,
+      "log": "documentation.log",
+      "log_sha256": "c0e45d85a5aa133acfef87ea0b1933ba275198e0c151d85feeeda75d009f6cfe",
+      "name": "documentation"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "2ed840ff00fcddf812150637b23f6a5a2af13435..a2f3cef899ece07b3743d4ae91f6058bd0d8419f"
+      ],
+      "elapsed_seconds": 0.01002916699508205,
+      "exit_code": 0,
+      "log": "diff-check.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "diff-check"
+    },
+    {
+      "command": [
+        "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+        "-m",
+        "epi_next.hospital_release",
+        "--manifest",
+        "hospital-release/20261009-integration-v1/manifest.json"
+      ],
+      "elapsed_seconds": 0.050233624991960824,
+      "exit_code": 0,
+      "log": "compare-cli.log",
+      "log_sha256": "7923ee558ae53d1aa7451482cec7d542417d4a9ca7d9fe88077bb3a31e8d938d",
+      "name": "compare-cli"
+    }
+  ],
+  "mps_runs": 0,
+  "processes_started": [
+    "pytest synchronous synthetic tests"
+  ],
+  "processes_still_running": false,
+  "real_e2e_status": "BLOCKED_BY_DATA_HANDOFF",
+  "real_patient_model_runs": 0,
+  "remote_runs": 0,
+  "schema": "EPI-NEXT-INTEGRATION-VERIFICATION-1",
+  "source_dirty_before_verification": false,
+  "source_files_sha256": {
+    "research/next-hospital-20261014/epi_next/hospital_contract.py": "299d43d9c04662235770c23013342857c67afe424ef7ef29af2d352771a4922f",
+    "research/next-hospital-20261014/epi_next/hospital_release.py": "fdd47389d9ede2defbb75068098f727ec1fff9ee33f2ab61b06058325cafe0cc",
+    "research/next-hospital-20261014/epi_next/hospital_runtime.py": "03752b5b749069dfd67512b8cd7a2835fc402c9729a788a4ce1820415bd9f9e8",
+    "research/next-hospital-20261014/epi_next/volume_io.py": "9da0807a7339739e9f14901b229fb3fe100eab80cd4b003b64a40ad15d2f89d8"
+  },
+  "source_git_sha": "a2f3cef899ece07b3743d4ae91f6058bd0d8419f",
+  "tests_passed": 172
+}

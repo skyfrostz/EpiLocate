@@ -1,0 +1,43 @@
+{
+  "artifact_hashes": {
+    "ACCEPTANCE.md": "25e81c6ef02fb282aebdcfc9fcf79f958fbbbe2916afa581bdc71a3c7835c97a",
+    "DEMO_AND_ROLLBACK.md": "596d8d2a1a182a0af193ce3411f180cd0249e6ce1c5907fa9bcab02c19f42e4e",
+    "INTERFACE.md": "ee93a4fd90079b5d04b8b5182d00353178b8492b5df1d1f8c38cc1a4a2d6a19e",
+    "README.md": "274495d8301463da96985bfe80c7d3fbc793aae7fba82dbcdf3b4154ae9c97c5",
+    "evidence/compare-cli.log": "7923ee558ae53d1aa7451482cec7d542417d4a9ca7d9fe88077bb3a31e8d938d",
+    "evidence/diff-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence/documentation.log": "c0e45d85a5aa133acfef87ea0b1933ba275198e0c151d85feeeda75d009f6cfe",
+    "evidence/final-compare-cli.log": "68f6918b4065f38d68b94611f4c06551ac528c66558f954b988de7f46424379d",
+    "evidence/tests.log": "ba67a6cc2e256fb4d5a441a759b976ccf34acde2af668804661f29aede79f0eb",
+    "evidence/verification.json": "40b24d23507c2f8020a6e49db6fa86a3d9c7575abc1090bec6ac055fbf54d812",
+    "manifest.json": "a2f23bee951358a12e9baf37df385817a109a5d72b969d2fc6aa527301c68aba"
+  },
+  "branch": "codex/epi-next-integration-20261009",
+  "clinical_validation": "NOT RUN",
+  "final_compare_command": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "-m",
+    "epi_next.hospital_release",
+    "--manifest",
+    "hospital-release/20261009-integration-v1/manifest.json"
+  ],
+  "final_compare_exit_code": 0,
+  "final_freeze_status": "NOT RUN",
+  "initial_git_sha": "2ed840ff00fcddf812150637b23f6a5a2af13435",
+  "manifest_sha256": "a2f23bee951358a12e9baf37df385817a109a5d72b969d2fc6aa527301c68aba",
+  "outbound_publication": "NOT RUN",
+  "processes_still_running": false,
+  "project_owner_decision": "NOT RUN",
+  "real_ct_model_runs": 0,
+  "real_e2e_status": "BLOCKED_BY_DATA_HANDOFF",
+  "schema": "EPI-NEXT-INTEGRATION-DELIVERY-RECEIPT-1",
+  "scope": "INTEGRATION_ONLY",
+  "source_files_sha256": {
+    "research/next-hospital-20261014/epi_next/hospital_contract.py": "299d43d9c04662235770c23013342857c67afe424ef7ef29af2d352771a4922f",
+    "research/next-hospital-20261014/epi_next/hospital_release.py": "fdd47389d9ede2defbb75068098f727ec1fff9ee33f2ab61b06058325cafe0cc",
+    "research/next-hospital-20261014/epi_next/hospital_runtime.py": "03752b5b749069dfd67512b8cd7a2835fc402c9729a788a4ce1820415bd9f9e8",
+    "research/next-hospital-20261014/epi_next/volume_io.py": "9da0807a7339739e9f14901b229fb3fe100eab80cd4b003b64a40ad15d2f89d8"
+  },
+  "tested_source_git_sha": "a2f3cef899ece07b3743d4ae91f6058bd0d8419f",
+  "tests_passed": 172
+}

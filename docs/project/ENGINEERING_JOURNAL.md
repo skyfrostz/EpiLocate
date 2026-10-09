@@ -1330,3 +1330,6 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **依赖：** DATA唯一正式发布，proposal批准不等医院allowlist；v2开发交付SHA `42c5e2eb4ebfdb3d1d3c85a9db0095b2c24dca539750468b917ec90bd3337934`、allowlist SHA `3f2c5b5fb2b8b788c5d2f68d9b39554edd079941da58222e9292b62ba6d1ae00`由总控转交。正式空间ledger/真实GT-vNext与接收后的模型handler仍待交付；volume候选schema不能通过另造approval文件直接替代DATA schema。
 
 **限制与状态：** 全局租约只约束采用该API的运行器；deadline为BETWEEN_FORWARDS，不保证硬中断/峰内存。INTEGRATION未启动真实CT模型、MPS或远程任务，未上传数据、推送、部署；未改历史冻结证据或应用协议。实际接入正向运行待上游，真实E2E `BLOCKED_BY_DATA_HANDOFF`，默认医院模型null，最终冻结/临床验证 `NOT RUN`。最终批准由钟佳桦审阅；本地交付包先供总控汇总。
+
+
+**INTEGRATION 固定源码验收补录（2026-10-09）：** `a2f3cef899ece07b3743d4ae91f6058bd0d8419f` clean source 上全量研究包172 tests PASS（1.74s）；documentation range与diff check、只读算法对照CLI exit0。源码提交之后只补交付manifest/报告/证据和两份工程日志，无算法或应用源码修改。命令、环境、日志、源码及文件SHA在 `hospital-release/20261009-integration-v1/evidence/verification.json` 和 `DELIVERY_RECEIPT.json`。当前交付15个原始代码/文档路径，加后续证据；原应用/冻结路径无diff。真实CT模型运行0、MPS0、remote0，无遗留本会话任务；真实E2E BLOCKED_BY_DATA_HANDOFF，最终冻结与临床验证NOT RUN。未push/merge/deploy，未自行决定默认模型。正式交付由总控汇总并交钟佳桦审阅。

@@ -1,0 +1,27 @@
+Changed paths:
+  - docs/project/ENGINEERING_JOURNAL.md
+  - docs/project/ITERATION_HISTORY.md
+  - hospital-release/20261009-integration-v1/ACCEPTANCE.md
+  - hospital-release/20261009-integration-v1/DEMO_AND_ROLLBACK.md
+  - hospital-release/20261009-integration-v1/INTERFACE.md
+  - hospital-release/20261009-integration-v1/README.md
+  - hospital-release/20261009-integration-v1/manifest.json
+  - research/next-hospital-20261014/README.md
+  - research/next-hospital-20261014/configs/resource_policy_phase2_v1.json
+  - research/next-hospital-20261014/epi_next/hospital_contract.py
+  - research/next-hospital-20261014/epi_next/hospital_release.py
+  - research/next-hospital-20261014/epi_next/hospital_runtime.py
+  - research/next-hospital-20261014/epi_next/volume_io.py
+  - research/next-hospital-20261014/tests/test_hospital_integration.py
+  - research/next-hospital-20261014/tests/test_volume_io.py
+Classification: engineering-change
+Engineering paths:
+  - hospital-release/20261009-integration-v1/manifest.json
+  - research/next-hospital-20261014/configs/resource_policy_phase2_v1.json
+  - research/next-hospital-20261014/epi_next/hospital_contract.py
+  - research/next-hospital-20261014/epi_next/hospital_release.py
+  - research/next-hospital-20261014/epi_next/hospital_runtime.py
+  - research/next-hospital-20261014/epi_next/volume_io.py
+  - research/next-hospital-20261014/tests/test_hospital_integration.py
+  - research/next-hospital-20261014/tests/test_volume_io.py
+PASS: engineering changes include docs/project/ITERATION_HISTORY.md and docs/project/ENGINEERING_JOURNAL.md

@@ -24,3 +24,5 @@
 三次记录必须有独立 workflow_run_id、连续 sequence、全部六流程检查 PASS、blocking_faults=0。
 预计算必须验证请求/结果和全部资产 SHA；回退必须是 PASS 和精确 legacy 算法；录屏必须有容器头及绑定其 SHA 的实际播放核验记录。
 这些检查证明记录关联与完整性，真实影像正确性依赖实际运行/人工审阅，最终批准仅由钟佳桦作出。
+
+**固定源码实测：** `a2f3cef899ece07b3743d4ae91f6058bd0d8419f`，clean source，172 tests PASS，pytest 1.74s；documentation/diff/compare CLI exit0。未运行真实模型病例。日志及SHA见 evidence/verification.json；DELIVERY_RECEIPT.json保存包内引用（最后文档补录后的哈希以最终收据为准）。
