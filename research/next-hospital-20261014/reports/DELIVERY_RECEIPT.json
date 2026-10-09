@@ -1,0 +1,83 @@
+{
+  "source_git_sha": "8aa5138a2b51b292eb5b8762f4d908ceb493d29d",
+  "source_dirty": false,
+  "tests": 137,
+  "all_job_exit_codes": {
+    "tests": 0,
+    "doctor": 0,
+    "data_eval": 0,
+    "encoder": 0,
+    "localization": 0,
+    "residual_f1": 0,
+    "baseline_e1_e2": 0,
+    "ctfm_cpu": 0
+  },
+  "receipt_sha256": "e83ba9e260721bc8246f3f4c183dea60c9169db9733c8860e0318b82495e05a4",
+  "artifact_hashes": {
+    "baseline_e1_e2.json": "796b266201d23339cb89846a0bff018d27af15b4cbe70d43fdd8d68261380b88",
+    "baseline_e1_e2.log": "cfaddfc6f93a98ddd04b6f25c1fd255a388580ee745455ed02f2888db67b74d3",
+    "ctfm_cpu.log": "a6ea105068926b3a6c5df322af1b9f6dd73205b7c3e634153d357be646a807f7",
+    "ctfm_encoder_result.json": "8579341982901f20933aeb64862fbe9840e85edd7a0ae5818b3d26788269e21b",
+    "ctfm_encoder_result.log": "98a1835e7b33fbcfd98388ead0baf8d00c061160fe98f14647fb202bdd12cad0",
+    "data_eval.log": "dd176b6e2b0ac60da5415098f90c0b7610716cd3c4a5a5434895083bdc80ef3f",
+    "doctor.log": "825e5ae7e0cb678b680551aaa62abcec7dd66d1bed24f2238dfb773d415ea13f",
+    "encoder.json": "af43d2e1d514abe6ac24f4f3fd7f2257e0d854f1f26b08ecfe31d24e02eea64c",
+    "encoder.log": "cafa32b0db1cc83d7825b118708468db6592b60434524b5b5b6b02bc4a410598",
+    "localization.json": "8d057203fdd418e027d2633e382569009f3a945c743809d5d070a18ccd6065e5",
+    "localization.log": "f5a12c5d66460e13f73f7c19ada7200e39c5b9334764cf95704daa6970a370de",
+    "residual_f1.json": "27795434de2ab5f107b6384bb3eafcbbe88770059353ace6c2b15f20ec6a975c",
+    "residual_f1.log": "da95d14e845c732e8785ca2c027def4fd81826f293535c596e60c5e4c853f8a6",
+    "tests.log": "a84bb28d81a81cf21891dc4fd293bae5a2d10ac58e24ba924ccc8edc64015513"
+  },
+  "baseline_e1_e2": {
+    "calls": 219,
+    "seconds": 4.620598792011151,
+    "e1_status": "OK",
+    "e1_candidates": 8,
+    "e2_status": "NO_RELIABLE_RESPONSE",
+    "e2_reason": "NO_MULTISCALE_SUPPORT",
+    "e2_candidates": 0,
+    "e2_stage_status": [
+      "OK",
+      "OK"
+    ]
+  },
+  "ctfm": {
+    "checkpoint_sha256": "b521ff13764ad0fce67f8ad2e5aa9ccc0823f69e4544b446581d8a2dee686215",
+    "input_shape": [
+      1,
+      1,
+      32,
+      32,
+      32
+    ],
+    "feature_shape": [
+      1,
+      512,
+      2,
+      2,
+      2
+    ],
+    "pooled_shape": [
+      1,
+      512
+    ],
+    "loading_seconds": 0.36189262502011843,
+    "inference_seconds": 0.07981216697953641,
+    "peak_process_rss_bytes": 1285603328,
+    "actual_encoder_calls": 1,
+    "feature_sha256": "99357963e44ac8a7d9d8eb2d3c94faa33eadb160a41aa7655b7849e964a2223b"
+  },
+  "f1": {
+    "status": "PARTIAL_BUDGET",
+    "reason": "STAGE_LIMIT",
+    "model_calls": 8,
+    "extra_evaluations": 7,
+    "random_probes_completed": 2
+  },
+  "gpu_executed": false,
+  "real_patient_evaluation": "NOT RUN",
+  "processes_still_running": false,
+  "public_artifact_directory": "reports/final",
+  "full_local_commands_logs_and_receipt": ".local/verification-committed-v1/receipt.json"
+}

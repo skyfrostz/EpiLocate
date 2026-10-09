@@ -1314,3 +1314,6 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 实查 split 186=130/28/28，开发 GT 61/811 字节哈希匹配；仅技术 QA、临床未裁定。baseline 原路径失效，经归档索引定位并现场复算 SHA `548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734`。首次合并后115测试及六步骤单命令均exit0；真实权重+合成图像 E1/E2 25 forward，E1 OK、E2 NO_FEASIBLE_MASK，未调松约束。后续最终合并验收单独补录。
 
 交叉审查修复预测图误标专家GT、无logits失败序列化、重算前对账、坏收据类型和真实输入membership检查。当前本地收据不是远端receiver/GPU队列验收。真实CTFM三例、F0训练、GT-vNext真实overlay、患者定位比较、医院冻结与临床有效性均未完成。详见 `research/next-hospital-20261014/reports/PREFLIGHT.md` 和三线报告。
+
+
+**EPI-NEXT 最终本机交付补录（2026-10-09）：** 固定受测源码提交 `8aa5138a2b51b292eb5b8762f4d908ceb493d29d`，单命令在 clean source 上运行，137 tests PASS，8步骤exit0。新增实际CT-FM适配器小试：官方权重SHA `b521ff13764ad0fce67f8ad2e5aa9ccc0823f69e4544b446581d8a2dee686215`，CPU 32³合成输入→[1,512,2,2,2]；推理0.079812s、整进程峰RSS1285603328bytes，非全病例/非GPU性能。E1/E2真实旧权重合成对照219calls，E2两个尺度CPF可行但PSMI无支持，NO_RELIABLE_RESPONSE且零候选。残余输入F1刷新baseline/粗图，8calls（7extra含2probe）到stage上限PARTIAL_BUDGET。最终receipt SHA `e83ba9e260721bc8246f3f4c183dea60c9169db9733c8860e0318b82495e05a4`。公开原始合成数值及哈希位于 `research/next-hospital-20261014/reports/final/` 和 `DELIVERY_RECEIPT.json`；完整实跑命令保留本地ignored收据。首次下载超时、一次测试断言不匹配记录保留；没有覆盖历史证据。GPU未启动，真实患者/GT-vNext/native overlay/临床效能仍NOT RUN。受测代码之后只补文档和数值证据。

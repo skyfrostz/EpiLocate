@@ -942,3 +942,6 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 新增隔离研究包和单命令 CPU 验证入口。E1 固定target margin、E2 HSPI独立参考变体、F1原型、数据/几何评价、冻结encoder/head/CAM/cache与结果收据独立测试。初次整合115测试通过；真实baseline权重合成输入 E1/E2执行25次调用，E2不可行结果保留。源码/最终测试提交与产物哈希见本阶段交付补录。
 
 现场确认186患者130/28/28划分和61患者811SOP开发GT；未访问封存影像或GT。用户暂不启动GPU，无远程/付费计算、前端重构、冻结资产改动或主线合并。合成PASS不代表CTFM可行或病灶定位改善；真实GT-vNext/患者比较/三次端到端医院验收尚待完成。详见 `research/next-hospital-20261014/reports/PREFLIGHT.md`。
+
+
+**EPI-NEXT 最终本机交付补录（2026-10-09）：** 固定受测源码提交 `8aa5138a2b51b292eb5b8762f4d908ceb493d29d`，单命令在 clean source 上运行，137 tests PASS，8步骤exit0。新增实际CT-FM适配器小试：官方权重SHA `b521ff13764ad0fce67f8ad2e5aa9ccc0823f69e4544b446581d8a2dee686215`，CPU 32³合成输入→[1,512,2,2,2]；推理0.079812s、整进程峰RSS1285603328bytes，非全病例/非GPU性能。E1/E2真实旧权重合成对照219calls，E2两个尺度CPF可行但PSMI无支持，NO_RELIABLE_RESPONSE且零候选。残余输入F1刷新baseline/粗图，8calls（7extra含2probe）到stage上限PARTIAL_BUDGET。最终receipt SHA `e83ba9e260721bc8246f3f4c183dea60c9169db9733c8860e0318b82495e05a4`。公开原始合成数值及哈希位于 `research/next-hospital-20261014/reports/final/` 和 `DELIVERY_RECEIPT.json`；完整实跑命令保留本地ignored收据。首次下载超时、一次测试断言不匹配记录保留；没有覆盖历史证据。GPU未启动，真实患者/GT-vNext/native overlay/临床效能仍NOT RUN。受测代码之后只补文档和数值证据。

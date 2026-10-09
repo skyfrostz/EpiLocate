@@ -1,0 +1,687 @@
+{
+  "run_id": "EPI-NEXT-F1-RESIDUAL-CPU-SYNTHETIC-20261009-V2",
+  "status": "PASS",
+  "checks": {
+    "baselines_updated": true,
+    "coarse_maps_updated": true,
+    "refreshed_search_centers": true,
+    "residual_responses": true,
+    "budget_counts_all_refreshes": true,
+    "probes_diagnostic_only": true,
+    "stage_limit_preserved": true
+  },
+  "evidence_type": "SYNTHETIC_INTERACTION_MODEL_ONLY",
+  "git_sha": "8aa5138a2b51b292eb5b8762f4d908ceb493d29d",
+  "source_sha256": "0dfcf7e5cac4729a15814d900300f7853dbaa2993542104f6afce9ed99385954",
+  "config_sha256": "33a05b1689cbc91c8c98fd126dd481f472cf993933fb345b917f72430949ad99",
+  "input_manifest_sha256": "d1babe6f485775fbe94749a628e941d8063cd5799f1efd4001c36b32741db1ec",
+  "checkpoint_sha256": null,
+  "model_definition": "score=4*a+2*b+3*(1-a)*c; spatial coarse changes with a",
+  "environment": {
+    "python": "3.11.15 (main, Jun 11 2026, 04:04:09) [Clang 22.1.3 ]",
+    "numpy": "2.4.6",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "device": "cpu"
+  },
+  "GPU": "NOT RUN",
+  "real_CT": "NOT RUN",
+  "process_running": false,
+  "result": {
+    "algorithm": "EPI-NEXT-F1-residual-input-refreshed-coarse-v2",
+    "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+    "status": "PARTIAL_BUDGET",
+    "reason": "STAGE_LIMIT",
+    "config": {
+      "stages": 3,
+      "max_extra_evaluations": 32,
+      "timeout_seconds": 120.0,
+      "random_probes": 2,
+      "seed": 17,
+      "scales_mm": [
+        1.0
+      ],
+      "min_response": 0.0
+    },
+    "target": 1,
+    "volume_shape_zyx": [
+      5,
+      5,
+      5
+    ],
+    "spacing_zyx_mm": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "model_calls": 8,
+    "extra_evaluations": 7,
+    "random_probes_completed": 2,
+    "probes": [
+      {
+        "target": 1,
+        "baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "perturbed_logits": [
+          0.0,
+          6.0
+        ],
+        "baseline_margin": 6.0,
+        "perturbed_margin": 6.0,
+        "margin_delta": 0.0,
+        "baseline_probability": 0.9975273768433653,
+        "perturbed_probability": 0.9975273768433653,
+        "probability_delta": 0.0,
+        "baseline_argmax": 1,
+        "perturbed_argmax": 1,
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "probe_index": 0,
+        "call_index": 2,
+        "center_zyx": [
+          3,
+          3,
+          2
+        ],
+        "bounds_zyx": [
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "mask_flat_indices": [
+          92
+        ],
+        "support_voxels": 1,
+        "scale_mm": 1.0,
+        "supporting_response": false,
+        "accepted": false,
+        "candidate_eligible": false
+      },
+      {
+        "target": 1,
+        "baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "perturbed_logits": [
+          0.0,
+          6.0
+        ],
+        "baseline_margin": 6.0,
+        "perturbed_margin": 6.0,
+        "margin_delta": 0.0,
+        "baseline_probability": 0.9975273768433653,
+        "perturbed_probability": 0.9975273768433653,
+        "probability_delta": 0.0,
+        "baseline_argmax": 1,
+        "perturbed_argmax": 1,
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "probe_index": 1,
+        "call_index": 3,
+        "center_zyx": [
+          4,
+          1,
+          0
+        ],
+        "bounds_zyx": [
+          [
+            4,
+            5
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "mask_flat_indices": [
+          105
+        ],
+        "support_voxels": 1,
+        "scale_mm": 1.0,
+        "supporting_response": false,
+        "accepted": false,
+        "candidate_eligible": false
+      }
+    ],
+    "stages": [
+      {
+        "stage": 1,
+        "baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "baseline_call_index": 1,
+        "baseline_input_sha256": "d1babe6f485775fbe94749a628e941d8063cd5799f1efd4001c36b32741db1ec",
+        "coarse_sha256": "37fa76f5c1f15e3c4a2a60f5525816df53dbb04cecc6b5bef6c6c4fe19ca689e",
+        "coarse_min": 0.0,
+        "coarse_max": 10.0,
+        "removed_voxels": 0,
+        "remaining_valid_voxels": 125,
+        "candidate_record_indices": [
+          0
+        ],
+        "accepted_union_voxels": 1,
+        "status": "OK",
+        "center_zyx": [
+          1,
+          1,
+          1
+        ],
+        "accepted_union_flat_indices": [
+          31
+        ]
+      },
+      {
+        "stage": 2,
+        "baseline_logits": [
+          0.0,
+          5.0
+        ],
+        "baseline_call_index": 5,
+        "baseline_input_sha256": "754ab16bdd53b5c1aca86afb94447c230c2bb96593ed2c828236562939e9b104",
+        "coarse_sha256": "292a221178ff86403a6ed83e4425de6549f0a75d74b9110af0e288695eda265a",
+        "coarse_min": 0.0,
+        "coarse_max": 20.0,
+        "removed_voxels": 1,
+        "remaining_valid_voxels": 124,
+        "candidate_record_indices": [
+          1
+        ],
+        "accepted_union_voxels": 1,
+        "status": "OK",
+        "center_zyx": [
+          1,
+          3,
+          1
+        ],
+        "accepted_union_flat_indices": [
+          41
+        ]
+      },
+      {
+        "stage": 3,
+        "baseline_logits": [
+          0.0,
+          2.0
+        ],
+        "baseline_call_index": 7,
+        "baseline_input_sha256": "cd386f80730545fb306df6a3dc462c82a434e80298cdc2295611fad887e17f0f",
+        "coarse_sha256": "0e55e9e6b42aeed61e70edb27e92825e93bacc1468e2cc646534823ad0ace1db",
+        "coarse_min": 0.0,
+        "coarse_max": 8.0,
+        "removed_voxels": 2,
+        "remaining_valid_voxels": 123,
+        "candidate_record_indices": [
+          2
+        ],
+        "accepted_union_voxels": 1,
+        "status": "OK",
+        "center_zyx": [
+          3,
+          3,
+          3
+        ],
+        "accepted_union_flat_indices": [
+          93
+        ]
+      }
+    ],
+    "records": [
+      {
+        "target": 1,
+        "baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "perturbed_logits": [
+          0.0,
+          5.0
+        ],
+        "baseline_margin": 6.0,
+        "perturbed_margin": 5.0,
+        "margin_delta": 1.0,
+        "baseline_probability": 0.9975273768433653,
+        "perturbed_probability": 0.9933071490757153,
+        "probability_delta": 0.0042202277676500755,
+        "baseline_argmax": 1,
+        "perturbed_argmax": 1,
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "stage": 1,
+        "call_index": 4,
+        "stage_baseline_call_index": 1,
+        "original_baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "cumulative_margin_drop_from_original": 1.0,
+        "scale_mm": 1.0,
+        "bounds_zyx": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "center_zyx": [
+          1,
+          1,
+          1
+        ],
+        "mask_flat_indices": [
+          31
+        ],
+        "support_voxels": 1,
+        "accepted": true
+      },
+      {
+        "target": 1,
+        "baseline_logits": [
+          0.0,
+          5.0
+        ],
+        "perturbed_logits": [
+          0.0,
+          2.0
+        ],
+        "baseline_margin": 5.0,
+        "perturbed_margin": 2.0,
+        "margin_delta": 3.0,
+        "baseline_probability": 0.9933071490757153,
+        "perturbed_probability": 0.8807970779778823,
+        "probability_delta": 0.11251007109783295,
+        "baseline_argmax": 1,
+        "perturbed_argmax": 1,
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "stage": 2,
+        "call_index": 6,
+        "stage_baseline_call_index": 5,
+        "original_baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "cumulative_margin_drop_from_original": 4.0,
+        "scale_mm": 1.0,
+        "bounds_zyx": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "center_zyx": [
+          1,
+          3,
+          1
+        ],
+        "mask_flat_indices": [
+          41
+        ],
+        "support_voxels": 1,
+        "accepted": true
+      },
+      {
+        "target": 1,
+        "baseline_logits": [
+          0.0,
+          2.0
+        ],
+        "perturbed_logits": [
+          0.0,
+          0.0
+        ],
+        "baseline_margin": 2.0,
+        "perturbed_margin": 0.0,
+        "margin_delta": 2.0,
+        "baseline_probability": 0.8807970779778823,
+        "perturbed_probability": 0.5,
+        "probability_delta": 0.3807970779778823,
+        "baseline_argmax": 1,
+        "perturbed_argmax": 0,
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "stage": 3,
+        "call_index": 8,
+        "stage_baseline_call_index": 7,
+        "original_baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "cumulative_margin_drop_from_original": 6.0,
+        "scale_mm": 1.0,
+        "bounds_zyx": [
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "center_zyx": [
+          3,
+          3,
+          3
+        ],
+        "mask_flat_indices": [
+          93
+        ],
+        "support_voxels": 1,
+        "accepted": true
+      }
+    ],
+    "candidates": [
+      {
+        "target": 1,
+        "baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "perturbed_logits": [
+          0.0,
+          5.0
+        ],
+        "baseline_margin": 6.0,
+        "perturbed_margin": 5.0,
+        "margin_delta": 1.0,
+        "baseline_probability": 0.9975273768433653,
+        "perturbed_probability": 0.9933071490757153,
+        "probability_delta": 0.0042202277676500755,
+        "baseline_argmax": 1,
+        "perturbed_argmax": 1,
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "stage": 1,
+        "call_index": 4,
+        "stage_baseline_call_index": 1,
+        "original_baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "cumulative_margin_drop_from_original": 1.0,
+        "scale_mm": 1.0,
+        "bounds_zyx": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "center_zyx": [
+          1,
+          1,
+          1
+        ],
+        "mask_flat_indices": [
+          31
+        ],
+        "support_voxels": 1,
+        "accepted": true
+      },
+      {
+        "target": 1,
+        "baseline_logits": [
+          0.0,
+          5.0
+        ],
+        "perturbed_logits": [
+          0.0,
+          2.0
+        ],
+        "baseline_margin": 5.0,
+        "perturbed_margin": 2.0,
+        "margin_delta": 3.0,
+        "baseline_probability": 0.9933071490757153,
+        "perturbed_probability": 0.8807970779778823,
+        "probability_delta": 0.11251007109783295,
+        "baseline_argmax": 1,
+        "perturbed_argmax": 1,
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "stage": 2,
+        "call_index": 6,
+        "stage_baseline_call_index": 5,
+        "original_baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "cumulative_margin_drop_from_original": 4.0,
+        "scale_mm": 1.0,
+        "bounds_zyx": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "center_zyx": [
+          1,
+          3,
+          1
+        ],
+        "mask_flat_indices": [
+          41
+        ],
+        "support_voxels": 1,
+        "accepted": true
+      },
+      {
+        "target": 1,
+        "baseline_logits": [
+          0.0,
+          2.0
+        ],
+        "perturbed_logits": [
+          0.0,
+          0.0
+        ],
+        "baseline_margin": 2.0,
+        "perturbed_margin": 0.0,
+        "margin_delta": 2.0,
+        "baseline_probability": 0.8807970779778823,
+        "perturbed_probability": 0.5,
+        "probability_delta": 0.3807970779778823,
+        "baseline_argmax": 1,
+        "perturbed_argmax": 0,
+        "evidence_type": "INPUT_OCCLUSION_RESPONSE",
+        "stage": 3,
+        "call_index": 8,
+        "stage_baseline_call_index": 7,
+        "original_baseline_logits": [
+          0.0,
+          6.0
+        ],
+        "cumulative_margin_drop_from_original": 6.0,
+        "scale_mm": 1.0,
+        "bounds_zyx": [
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "center_zyx": [
+          3,
+          3,
+          3
+        ],
+        "mask_flat_indices": [
+          93
+        ],
+        "support_voxels": 1,
+        "accepted": true
+      }
+    ],
+    "calls": [
+      {
+        "index": 1,
+        "stage": 1,
+        "kind": "ORIGINAL_BASELINE",
+        "extra": false,
+        "input_sha256": "d1babe6f485775fbe94749a628e941d8063cd5799f1efd4001c36b32741db1ec",
+        "status": "OK",
+        "logits": [
+          0.0,
+          6.0
+        ],
+        "coarse_sha256": "37fa76f5c1f15e3c4a2a60f5525816df53dbb04cecc6b5bef6c6c4fe19ca689e"
+      },
+      {
+        "index": 2,
+        "stage": 0,
+        "kind": "SEEDED_UNSEARCHED_DIAGNOSTIC_PROBE",
+        "extra": true,
+        "input_sha256": "d1babe6f485775fbe94749a628e941d8063cd5799f1efd4001c36b32741db1ec",
+        "status": "OK",
+        "logits": [
+          0.0,
+          6.0
+        ],
+        "coarse_sha256": "37fa76f5c1f15e3c4a2a60f5525816df53dbb04cecc6b5bef6c6c4fe19ca689e"
+      },
+      {
+        "index": 3,
+        "stage": 0,
+        "kind": "SEEDED_UNSEARCHED_DIAGNOSTIC_PROBE",
+        "extra": true,
+        "input_sha256": "d1babe6f485775fbe94749a628e941d8063cd5799f1efd4001c36b32741db1ec",
+        "status": "OK",
+        "logits": [
+          0.0,
+          6.0
+        ],
+        "coarse_sha256": "37fa76f5c1f15e3c4a2a60f5525816df53dbb04cecc6b5bef6c6c4fe19ca689e"
+      },
+      {
+        "index": 4,
+        "stage": 1,
+        "kind": "RESIDUAL_INPUT_OCCLUSION",
+        "extra": true,
+        "input_sha256": "754ab16bdd53b5c1aca86afb94447c230c2bb96593ed2c828236562939e9b104",
+        "status": "OK",
+        "logits": [
+          0.0,
+          5.0
+        ],
+        "coarse_sha256": "292a221178ff86403a6ed83e4425de6549f0a75d74b9110af0e288695eda265a"
+      },
+      {
+        "index": 5,
+        "stage": 2,
+        "kind": "RESIDUAL_BASELINE_AND_COARSE_REFRESH",
+        "extra": true,
+        "input_sha256": "754ab16bdd53b5c1aca86afb94447c230c2bb96593ed2c828236562939e9b104",
+        "status": "OK",
+        "logits": [
+          0.0,
+          5.0
+        ],
+        "coarse_sha256": "292a221178ff86403a6ed83e4425de6549f0a75d74b9110af0e288695eda265a"
+      },
+      {
+        "index": 6,
+        "stage": 2,
+        "kind": "RESIDUAL_INPUT_OCCLUSION",
+        "extra": true,
+        "input_sha256": "cd386f80730545fb306df6a3dc462c82a434e80298cdc2295611fad887e17f0f",
+        "status": "OK",
+        "logits": [
+          0.0,
+          2.0
+        ],
+        "coarse_sha256": "0e55e9e6b42aeed61e70edb27e92825e93bacc1468e2cc646534823ad0ace1db"
+      },
+      {
+        "index": 7,
+        "stage": 3,
+        "kind": "RESIDUAL_BASELINE_AND_COARSE_REFRESH",
+        "extra": true,
+        "input_sha256": "cd386f80730545fb306df6a3dc462c82a434e80298cdc2295611fad887e17f0f",
+        "status": "OK",
+        "logits": [
+          0.0,
+          2.0
+        ],
+        "coarse_sha256": "0e55e9e6b42aeed61e70edb27e92825e93bacc1468e2cc646534823ad0ace1db"
+      },
+      {
+        "index": 8,
+        "stage": 3,
+        "kind": "RESIDUAL_INPUT_OCCLUSION",
+        "extra": true,
+        "input_sha256": "0844bca10eb1cda3ceb67932d459bf6a48cf2488a36bc4a1c48cbb9e603c5636",
+        "status": "OK",
+        "logits": [
+          0.0,
+          0.0
+        ],
+        "coarse_sha256": "0844bca10eb1cda3ceb67932d459bf6a48cf2488a36bc4a1c48cbb9e603c5636"
+      }
+    ],
+    "original_baseline_logits": [
+      0.0,
+      6.0
+    ],
+    "elapsed_seconds": 0.005359958013286814,
+    "probe_policy": "DIAGNOSTIC_ONLY_ALLOW_FULL_REEVALUATION_IN_FORMAL_SEARCH",
+    "timeout_enforcement": "BETWEEN_FORWARDS",
+    "recomputation": "FULL_RESIDUAL_INPUT_AND_MAP",
+    "original_coarse_sha256": "37fa76f5c1f15e3c4a2a60f5525816df53dbb04cecc6b5bef6c6c4fe19ca689e",
+    "probe_status": "OK",
+    "accepted_union_flat_indices": [
+      31,
+      41,
+      93
+    ],
+    "accepted_union_voxels": 3
+  }
+}
