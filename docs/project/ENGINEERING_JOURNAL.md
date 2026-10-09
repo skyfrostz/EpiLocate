@@ -1357,3 +1357,10 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 
 **真实本地对照实跑补录：** clean源码 `2701e69c8b891ea7c761f12ec14f5c28a51909a1`，构建exit0，新增forward0，三张2100×1400 PNG与HTML仅保留获准ignored目录。binding manifest SHA `24048a6a94c13ae5bbd6d60fcaadcb4154e0725b259cb239d7f384c173c0c8c9`，receipt SHA `ed04dc8186075d382a99eb2a10d703e487a4043fbc2c5a780c76c4f0e1c8517d`。180 tests PASS（1.65s），三次readback exit0、产物及上游结果/NPZ/官方mask哈希一致。源码之后仅追加 `hospital-release/20261009-real-comparison-v3/` 元数据摘要和工程日志，无医疗像素进入Git。E1三例OK（194/195/157），E2三例NO_FEASIBLE_MASK零候选；DATA独立候选映射PASS按固定evaluation引用，非临床有效性。未执行浏览器视觉审阅；重复读取不等三次医院模型流程。医院默认null、最终冻结及临床验证NOT RUN，F0/F1真实对照NOT RUN。
+
+
+### 2026-10-09｜S0 增量：受控状态writer、依赖与设备slot
+
+开始HEAD `8baec8b9260586bd6412a0656b559cbcea182a50`，沿用INTEGRATION工作树。按负责人v2.0包只交总控调用工具：同flock内CAS/递增/fsync/replace，append-only hash-chain事件、不可覆盖旧/新snapshot及未知事务门禁；权限pointer白名单、保留授权字段和唯一task_key。隔离fixture并发仅一次提交，四阶段真实子进程退出模拟中断，旧快照/权限/重复及坏快照拒绝。最小依赖源码/包版本锁和同共享device flock的PID/start/job/资源slot；registered子进程未完成不接收终态，无终态slot不自动重跑。新工具未迁移既有运行器，不声称同UID防篡改或跨会话认证。
+
+只读生产state观察rev11 SHA `7295b62901a54ae6094263e619aad9b265a80110c43f9583f4e0e015ef26ffaf`；本树/主项目相关代码和进程未定位rev4回退根因，UNKNOWN。总控已结束update_state_v9存在锁外比较/replace但不能归因；三个私有脚本未执行。无生产policy/state写入，无新增真实forward/backward/MPS/远程。9项新增隔离测试PASS；包含既有医院/资产接缝的定向65 tests PASS（1.02s），纯fixture/合成。一次错误cwd导致0tests/exit4，随后纠正到指定工作树通过，未污染主项目。CLI/权限/恢复边界与MVP真实接入缺口见 `hospital-release/20261009-state-tools-v4/README.md`。固定源码后补证据/文件SHA，医院最终审批及真实三次流程NOT RUN。
