@@ -1,0 +1,36 @@
+{
+  "schema": "EPI-NEXT-INTEGRATION-STATUS-CORRECTION-1",
+  "supersedes_status_only": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261010-recovery-gate-v8/manifest.json",
+    "sha256": "aef1598214a255e45c6b09f0d79d378c0c0d9983b656054fc3076b71b337bf6f"
+  },
+  "historical_records_preserved": true,
+  "coordinator_snapshot": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/EPI_NEXT_PHASE2_DELIVERY_STATE.json",
+    "sha256": "deaf3718effe5993ed4a3e9b9b143f904afc14b55c701ae2719d5931c374d392",
+    "revision": 24
+  },
+  "data_v3_acceptance": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/data_v3_acceptance_v1.json",
+    "sha256": "760e71b338178e3767aa9ca99c8042c846d1d129d7d8c47c6465eef2c4995522"
+  },
+  "first_real_round_report": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/PHASE2_FIRST_REAL_BASELINE_REPORT_V1.md",
+    "sha256": "abeae3e45140052dea69456c555830616217b3a7a27c6f5a5a8fec45c11fb33b"
+  },
+  "data_handoff": "ACCEPTED_DATA_V3_NATIVE_ASSETS",
+  "first_real_results": "ACCEPTED_FIRST_ROUND_RESULTS",
+  "new_real_execution": "BLOCKED_PENDING_OWNER_ADMINISTRATIVE_RECOVERY_AND_NEW_DEPENDENCY_BINDING",
+  "coordinator_execution_gate": "WAIT_OWNER_EXPLICIT_ADMINISTRATIVE_RECOVERY; NO_REAL_DISPATCH",
+  "P1_engineering": "VERIFIED_10_GENERATED_TESTS_REAL_NOT_RUN_FINAL_QUEUE_DEPENDENCY_PENDING",
+  "localization_source_git_sha": "5087c6f9f1e418250269d48ae150f31f958892e8",
+  "localization_source_claim_basis": "COORDINATOR_DELIVERY_MESSAGE",
+  "P1_C1_new_recovery_binding": "PENDING_CONSUMER_NEW_READINESS_RECORD",
+  "hospital_final_freeze": "NOT RUN",
+  "clinical_validation": "NOT RUN",
+  "hospital_display_authorization": "NOT_AUTHORIZED_BY_LOCAL_DATA_ACCEPTANCE",
+  "consumption_index": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261010-recovery-readiness-v9/CONSUMPTION_INDEX.json",
+    "sha256": "89242e18cfc5ad67f762c32384496c450f111b1c5c6e9cddd90f11a3f92885a3"
+  }
+}

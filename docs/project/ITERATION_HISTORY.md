@@ -1049,3 +1049,8 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 
 
 **恢复门禁固定包补录：** clean源码 `c9f5369b7384f4e132365616f8b6f64b624dbea2`，八模块依赖锁SHA `69bf2a28956b688a81d23f1bcfd4f6378edd50dcf5b2843d66a1ff480dfed871`、bundle receipt SHA `aba7f4444dcbd32121dab291289d0069e86e7f4d979451b4fafb92d7d89a9446`。独立命名包epinext_wave1_supervisor_recovery_v3导入及verify_loaded_bundle PASS，文件只读，本机忽略目录wave1-supervisor-c9f5369-recovery-v3。生成测试33 PASS复用，无追加模型调用/真实解除；BUNDLE_RECEIPT.json记录完整模块SHA与本地位置，旧v1/v2包不变。
+
+
+### 2026-10-10｜集成交付阻塞状态更正与P1/C1消费索引（文档）
+
+开始HEAD `65640819bda7f3b8aef1bf0ff101d1a87e1e1ad4`，干净工作树。总控指出旧BLOCKED_BY_DATA_HANDOFF过时；只读revision24 SHA `deaf3718effe5993ed4a3e9b9b143f904afc14b55c701ae2719d5931c374d392`，核验DATA v3验收收据SHA `760e71b338178e3767aa9ca99c8042c846d1d129d7d8c47c6465eef2c4995522`与首轮报告SHA `abeae3e45140052dea69456c555830616217b3a7a27c6f5a5a8fec45c11fb33b`。数据及首轮真实结果已验收，当前新真实运行等待负责人R0独立行政恢复确认及新依赖绑定；医院冻结/临床验证仍NOT RUN。新增hospital-release/20261010-recovery-readiness-v9更正/消费索引，保留旧v8原字节及历史。八模块固定包、契约、依赖锁和33测试原日志SHA复核PASS，无重采/重测/模型/生产槽写。P1工程HEAD5087c6f9由总控交付消息提供，10生成测试结论引用总控；本线不重验peer测试。P1/C1需新增readiness及完整runner依赖锁，不静默改旧记录。无代码修改。

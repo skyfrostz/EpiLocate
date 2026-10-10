@@ -1,0 +1,11 @@
+# 恢复接缝交付状态更正（追加，不替换历史）
+
+原65640819交付及最终回复中的BLOCKED_BY_DATA_HANDOFF已过时。DATA v3原生资产与首轮真实结果已由总控验收；当前新真实运行等待负责人R0独立行政恢复确认及新依赖绑定。医院最终冻结与临床验证仍NOT RUN；本机开发数据验收不构成医院显示批准。
+
+本目录STATUS_CORRECTION.json记录总控revision 24快照SHA及数据验收/首轮报告原SHA；CONSUMPTION_INDEX.json给出恢复契约、固定源码包、八模块、依赖锁、原测试日志和收据的绝对路径及原字节SHA。旧v8 manifest/收据及旧槽均保持不变。
+
+P1工程HEAD由总控提供为5087c6f9f1e418250269d48ae150f31f958892e8，10项生成测试通过但仍绑定旧监督器。P1/C1消费必须整体采用epinext_wave1_supervisor_recovery_v3，并新增readiness记录及各自runner完整依赖锁；不得静默更新旧记录。新监督包与原runtime依赖锁SHA不同，不能仅改import而沿用旧依赖锁。任何模型dispatch仍由总控在负责人批准后执行。
+
+固定源码c9f5369b7384f4e132365616f8b6f64b624dbea2，生产入口run_supervised显式传recovery_decision_path、recovery_decision_sha，在原全局串行锁下验证并传至device slot。决议内部引用字段是path/digest；交付索引用path/sha256，消费构造决议时须显式转换字段名。不要使用python -m运行模块，使用命名包导入并调用入口。
+
+仅重核现有字节SHA；未重跑33项测试、R0采样、模型或生产恢复。没有发布实际行政恢复批准/决议。
