@@ -1405,3 +1405,6 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 
 **HSPI sidecar固定源码补录：** `265dce5923da972b5a27a08b458c034510a49a8c` clean源上38生成/资产定向测试PASS，exit0；命令/耗时/模块字节SHA见hospital-release/20261010-hspi-result-v7/verification.json。e2_result_handoff SHA `edf47a12660f3c00c27126d53bb98289b835879d05ea0079905a8c91dfdbf363`。没有真实模型、反向或checkpoint加载，旧监督v2无diff，UNKNOWN槽写0。只补交付元数据/工程日志，映射/数学/临床评价非本sidecar验收范围。
+
+
+**LOC trace同步补录（文档）：** 收到LOCALIZATION消息后只读契约HSPI_TRACE_CONTRACT_V3 SHA `67feb9d41bd7ef4cb1b215a9c698b273475d7f987af93434d0f199cf102143df`，确认mode/计划分母/partial/trace身份可对应；补原索引显式转换、PARTIAL_BUDGET→OPTIMIZATION_PARTIAL及NO_MULTISCALE_SUPPORT保持原status说明。不改算法/sidecar代码、不重跑测试、不写其他树或发送未获授权消息。对方代码实现/消费本sidecar仍不冒称完成。

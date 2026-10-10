@@ -16,3 +16,8 @@ INTEGRATION仅负责消费/保全，不改LOC算法、阈值或GT，不改医院
 保存前校验原result SHA、分支计划覆盖、状态一致与trace字节SHA；调用既有persist_run不可覆盖事务收据。历史结果只在新目录另建sidecar，未知事务先reconcile，不能盲目重写。mode不同不自动映射旧E2 runtime注册表、不启用新医院handler。LOC收到本契约后可在自己的owner路径产生manifest/trace；本线不动态导入仍编辑的LOC源，也不替它实现算法adapter。
 
 任何CPF未满足不等“证明无解”；E2-REF不是作者源码复现，partial或NOT RUN不等全机制PASS。10月14日MVP快照不要求E2阳性或新增真实E2E。
+
+
+## LOCALIZATION契约对应（2026-10-10）
+
+已收到并只读核对LOC `HSPI_TRACE_CONTRACT_V3.md`（当前提案字节SHA `67feb9d41bd7ef4cb1b215a9c698b273475d7f987af93434d0f199cf102143df`，后续实现变更需另绑定）。其Omega/残余logits/同轮mask-Ls-Lm-D/CPF/PSMI/成本/checkpoint记录作为原trace字节，由LOC发布，sidecar不解析或重算数学。LOC stage/epoch需显式转换到本契约stage一基/selected_iteration一基，并在source_result保留原索引；未固定规则不得猜测。LOC PARTIAL_BUDGET分支在sidecar为OPTIMIZATION_PARTIAL，原status继续保留在原结果；NO_MULTISCALE_SUPPORT在algorithm_status原样保留，可为NO_RELIABLE_RESPONSE执行终态；全流程未完成时PSMI不得FINALIZED。LOC逐尺度阶段计划应完整列出，包括未运行分支，不由缺失数组自动填零。trace_asset可为一份完整run trace被多个分支共同引用，SHA保留Omega/完整logits/checkpoint等身份；本sidecar不宣称核验这些数学内容或恢复完备性。
