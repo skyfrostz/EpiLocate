@@ -1,0 +1,37 @@
+{
+  "schema": "EPI-NEXT-P1-IO-RACE-DIAGNOSIS-1",
+  "original_receipt": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/.local/phase2/p1-approved-v5/supervision/EPI-NEXT-HSPI-P1-CPU-20261010-01/supervisor-receipt.json",
+    "sha256": "c842a949006db7eb020691030ad98b8eb0e8eb3ca6fdf20970f65de9baff8f64"
+  },
+  "runner_completion": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/.local/phase2/p1-approved-v5/supervision/EPI-NEXT-HSPI-P1-CPU-20261010-01/runner-complete.json",
+    "sha256": "1c49a85e62522e7c018303012e97cb337128bc9e6de1f7b8ee047848e87aa773"
+  },
+  "original_status": "FAILED",
+  "original_reason": "RUNNER_FAILURE_OR_MISSING_COMPLETION",
+  "process_returncode": 2,
+  "actual_counts": {
+    "backward": 0,
+    "forward": 0
+  },
+  "reserved_counts": {
+    "forward": 0,
+    "backward": 0,
+    "sequence": 0
+  },
+  "missing_samples": 5,
+  "total_samples": 8,
+  "old_fixed_bundle_modules_unchanged": true,
+  "fixture_original_writer_body_verbatim": true,
+  "fixture_original_writer_body_sha256": "9708cadec364d09be7b6eee4bddd372e8c367cd280ebd0291790cf9bfce3b350",
+  "diagnosis": "REPRODUCIBLE_ATOMIC_RENAME_VS_UNSYNCHRONIZED_OUTPUT_STAT_RACE",
+  "actual_stack_trace_available": false,
+  "actual_constructor_failure": "INFERRED_FROM_EMPTY_OUTPUT_AND_CODE_NOT_TRACEBACK_CONFIRMED",
+  "fix_requires_LOC_reader_adoption": true,
+  "real_retry": "PROHIBITED",
+  "C1_execution": "NOT RUN",
+  "production_queue_writes": 0,
+  "medical_model_calls": 0,
+  "R0_sampling_runs": 0
+}

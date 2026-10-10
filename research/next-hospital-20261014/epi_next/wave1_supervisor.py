@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import re
 import signal
+import stat
 import subprocess
 import sys
 import threading
@@ -43,11 +44,68 @@ def verify_loaded_bundle(root, expected_sha):
     return loaded
 
 
+IO_CONTRACT_VERSION = 'EPI-NEXT-SUPERVISOR-IO-LOCK-4'
+
+
+@contextmanager
+def supervisor_output_lock(directory, *, timeout_seconds=.1):
+    """Serialize atomic temporary-file lifetimes with output accounting.
+
+    This is an IO lock, not queue admission. No ledger acquisition while held.
+    A bounded wait failure propagates; it must never be treated as zero bytes.
+    """
+    if (isinstance(timeout_seconds, bool) or not isinstance(timeout_seconds, (int, float))
+            or not 0 < timeout_seconds < float('inf')):
+        raise ValueError('POSITIVE_FINITE_IO_LOCK_TIMEOUT_REQUIRED')
+    directory = Path(directory)
+    if any(p.is_symlink() for p in (directory, *directory.parents)):
+        raise ValueError('OUTPUT_SYMLINK_REFUSED')
+    descriptor = os.open(directory / 'supervisor-output.lock',
+                         os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(descriptor, 'a+b') as stream:
+        deadline = time.monotonic() + timeout_seconds
+        while True:
+            try:
+                fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                break
+            except BlockingIOError:
+                if time.monotonic() >= deadline:
+                    raise TimeoutError('SUPERVISOR_OUTPUT_LOCK_TIMEOUT')
+                time.sleep(.001)
+        try:
+            yield
+        finally:
+            fcntl.flock(stream, fcntl.LOCK_UN)
+
+
+def supervisor_output_size(directory, *, timeout_seconds=.1):
+    """Snapshot supervisor bytes under the same lock as atomic_json.
+
+    Charge every file, including any retained temporary file. Refuse symlinks,
+    missing entries and walk errors instead of weakening output budget checks.
+    Append-only logs can still grow after this observation; this is no hard cap.
+    """
+    def walk_error(error):
+        raise error
+    total = 0
+    with supervisor_output_lock(directory, timeout_seconds=timeout_seconds):
+        for folder, dirs, files in os.walk(directory, followlinks=False, onerror=walk_error):
+            for name in (*dirs, *files):
+                entry = (Path(folder) / name).lstat()
+                if stat.S_ISLNK(entry.st_mode):
+                    raise ValueError('OUTPUT_SYMLINK_REFUSED')
+                if name in files:
+                    total += entry.st_size
+    return total
+
+
 def atomic_json(path, value):
-    temporary = path.with_name(path.name + f'.{os.getpid()}.{threading.get_ident()}.tmp')
-    with temporary.open('xb') as stream:
-        stream.write(canonical_json(value)); stream.flush(); os.fsync(stream.fileno())
-    os.replace(temporary, path); fsync_dir(path.parent)
+    path = Path(path)
+    with supervisor_output_lock(path.parent):
+        temporary = path.with_name(path.name + f'.{os.getpid()}.{threading.get_ident()}.tmp')
+        with temporary.open('xb') as stream:
+            stream.write(canonical_json(value)); stream.flush(); os.fsync(stream.fileno())
+        os.replace(temporary, path); fsync_dir(path.parent)
 
 
 @dataclass(frozen=True)
@@ -448,6 +506,7 @@ def _run_supervised(spec, command, output_root, dependency_root, dependency_sha,
                  'rss_and_mps_not_added':True,'slot_completed':exit_at is not None and recovered_at is not None,
                  'asset_hashes':assets,'dependency_sha256':dependency_sha}
         receipt['actual_loaded_supervisor_modules']=loaded
+        receipt['io_contract_version']=IO_CONTRACT_VERSION
         write_new(directory/'supervisor-receipt.json',canonical_json(receipt))
         if receipt['slot_completed']:
             slot.complete(directory/'supervisor-receipt.json',sha256((directory/'supervisor-receipt.json').read_bytes()))

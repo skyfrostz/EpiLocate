@@ -1064,3 +1064,10 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 ### 2026-10-10｜LOCALIZATION P1恢复v5交付只读消费（文档）
 
 开始HEAD `697a544287388bd29b6c4bc47ecdcf900dc23d08`。LOC发布source `d678a2546830292b81bab08d22ad6549d25940d3`，核验readiness-v5 SHA `427aae7ade672943ef62a24548dde880c660f33382c44bedc2f813abe407e728`与final-delivery-v5 SHA `8ead897461ef1845cd2ac708f14d1902649cea59564d6290697cc9c141ac67e0`、8交付产物、owner/decision/R0/旧收据/原槽/八模块/dependency绑定SHA，commit存在。原test log记录14生成PASS/2.55s，本线不重跑；LOC声称隔离scalar1F/1B、生产交易0/新医学调用0，未推为真实科学验收。新增v9/LOC_P1_V5_CONSUMPTION_RECEIPT.json，旧交付不改。P1 readiness PREPARED_NOT_DISPATCH，等待总控精确dispatch/唯一准入；真实P1 NOT RUN，医院冻结与临床验证NOT RUN。本线模型、R0采样、生产队列写0；无代码改动。
+
+
+### 2026-10-10｜P1监督FAILED的IO竞态复现与v4修复候选
+
+开始HEAD `5139f12bebeba4516bd44a38fae9132a0ba1cff3`。核验P1旧job监督收据SHA `c842a949006db7eb020691030ad98b8eb0e8eb3ca6fdf20970f65de9baff8f64`：FAILED/return2/实际与预留F/B0，父确认恢复及finished；禁止重跑。原v3 atomic_json:47-50临时文件rename与LOC BoundedStore.size:19-26未同步os.walk/stat可确定性复现ENOENT；LOC runner:266将监督目录纳入输出预算。空run-1目录支持构造ensure失败，但原无traceback，实际调用栈只作推断；5/8启动期遥测缺测非父触发原因。
+
+新IO_CONTRACT_VERSION=EPI-NEXT-SUPERVISOR-IO-LOCK-4，共用有界flock覆盖writer临时文件生命周期及supervisor_output_size快照，保留临时残留计费/软链错误/IO错误失败关闭；不放宽预算/遥测/deadline，不新增调度器。LOC必须独立接入shared size callback并锁新完整依赖，仅writer改动不能修复旧reader。43项隔离生成竞态/监督/队列回归PASS（9.74s），原writer fixture函数体经AST提取原固定包逐字核验；旧v3八模块字节不变。候选hospital-release/20261010-supervisor-io-race-v10，待LOC接入/总控审阅，不代表重试授权。真实模型、C1、P1重试、R0采样、生产槽写均0；医院冻结/临床验证NOT RUN。

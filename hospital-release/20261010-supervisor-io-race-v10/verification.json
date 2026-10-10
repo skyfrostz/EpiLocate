@@ -1,0 +1,24 @@
+{
+  "schema": "EPI-NEXT-SUPERVISOR-IO-CANDIDATE-4",
+  "status": "ENGINEERING_CANDIDATE_REQUIRES_LOC_ADOPTION_AND_CHIEF_REVIEW",
+  "source_base_git_sha": "5139f12bebeba4516bd44a38fae9132a0ba1cff3",
+  "io_contract_version": "EPI-NEXT-SUPERVISOR-IO-LOCK-4",
+  "tests": {
+    "passed": 43,
+    "elapsed_seconds": 9.74,
+    "scope": "ISOLATED_GENERATED_RACE_AND_SUPERVISOR_REGRESSION",
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:research/next-hospital-20261014 /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python -m pytest -q research/next-hospital-20261014/tests/test_supervisor_output_race.py research/next-hospital-20261014/tests/test_wave1_supervisor.py research/next-hospital-20261014/tests/test_execution_lock.py research/next-hospital-20261014/tests/test_administrative_recovery.py"
+  },
+  "old_v3_bundle_overwritten": false,
+  "LOC_reader_adoption": "PENDING",
+  "P1_retry": "PROHIBITED",
+  "C1_execution": "NOT RUN",
+  "real_model_calls": 0,
+  "production_queue_writes": 0,
+  "R0_sampling_runs": 0,
+  "assets": {
+    "DIAGNOSIS_AND_ADOPTION.md": "731c729dee72905ce4e410651c3e30a27e303463bd7a140508afc5b8fbec9b45",
+    "INCIDENT_CONSUMPTION.json": "75de43427d3f990aacaebd767bc9f370a8b615e06cae9cb366058375956e6559",
+    "tests.log": "3cba627b5873494ee2e64f1c3452d54b3a1f5502b714f94ddee577453cd7dab1"
+  }
+}
