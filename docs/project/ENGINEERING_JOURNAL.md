@@ -1408,3 +1408,10 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 
 **LOC trace同步补录（文档）：** 收到LOCALIZATION消息后只读契约HSPI_TRACE_CONTRACT_V3 SHA `67feb9d41bd7ef4cb1b215a9c698b273475d7f987af93434d0f199cf102143df`，确认mode/计划分母/partial/trace身份可对应；补原索引显式转换、PARTIAL_BUDGET→OPTIMIZATION_PARTIAL及NO_MULTISCALE_SUPPORT保持原status说明。不改算法/sidecar代码、不重跑测试、不写其他树或发送未获授权消息。对方代码实现/消费本sidecar仍不冒称完成。
+
+
+### 2026-10-10｜LOC实际sidecar零调用消费与恢复审阅配置
+
+开始HEAD `d6828b80d3acbbc905c5772e6294522207181a66`。仅核验总控固定generated-run2 delivery SHA `7f491e2ba0471eab4e766f798853f7a7152ccb5fa8fd1c4703a5da529755805a`，原source_result/trace同字节SHA `1f31ee20207ab2c0a9d76044b356cda6dbd13d450538a9a71b08c9753d7055ba`；sidecar immutable receipt COMMITTED、六分支各180一基observation，selected57/51/56/53/61/56对应原history，optimizer_updates单列各180。消费收据SHA `bc5ff68fce1b33033141d2c073a8c770ddef63f52118a62a5c7531e617242cc7`，耗时0.0365s；PASS仅字节/分支身份，不重算CPF/GT、不重跑优化/测试/模型。
+
+补CTFM独立待批准外部审阅配置：60秒目标1秒含端点61样本，memory_pressure free>=20%、sysctl swap相对新t0增长<1GiB、无缺测及原自有身份无活成员核对；允许采样偏差需另锁，即使通过也仅必要非充分。未执行采样、解锁或行政写入，无新GPU probe/reboot。38项既有fixture证据复用；没有新代码。

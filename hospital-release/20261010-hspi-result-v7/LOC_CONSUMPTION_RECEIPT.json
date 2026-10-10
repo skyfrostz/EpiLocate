@@ -1,0 +1,104 @@
+{
+  "schema": "EPI-NEXT-LOC-SIDECAR-CONSUMPTION-1",
+  "status": "PASS_BYTES_AND_BRANCH_IDENTITY_ONLY",
+  "source_git_sha": "d6828b80d3acbbc905c5772e6294522207181a66",
+  "source_dirty": false,
+  "upstream_delivery_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/.local/phase2/hspi-recovery-v3/generated-run2/delivery.json",
+  "upstream_delivery_sha256": "7f491e2ba0471eab4e766f798853f7a7152ccb5fa8fd1c4703a5da529755805a",
+  "sidecar_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/.local/phase2/hspi-recovery-v3/generated-run2/integration-sidecar/EPI-NEXT-HSPI-v3-generated-two-peaks",
+  "handoff_sha256": "2b13115b570604ae9c61aee1e7807575e91bf84f2c5c0aa636ae743f88dd4332",
+  "local_receipt_sha256": "d6e4d83228ed71b51b27c90d9e9a36abe7c65ddc467e6f844fcb97fdf70d24e4",
+  "source_result_sha256": "1f31ee20207ab2c0a9d76044b356cda6dbd13d450538a9a71b08c9753d7055ba",
+  "trace_sha256": "1f31ee20207ab2c0a9d76044b356cda6dbd13d450538a9a71b08c9753d7055ba",
+  "branches": [
+    {
+      "scale_index": 0,
+      "grid_yx": [
+        5,
+        5
+      ],
+      "stage": 1,
+      "observations": 180,
+      "selected_iteration": 57,
+      "optimizer_updates_separate": 180,
+      "selected_record_matches_saved_history": true
+    },
+    {
+      "scale_index": 0,
+      "grid_yx": [
+        5,
+        5
+      ],
+      "stage": 2,
+      "observations": 180,
+      "selected_iteration": 51,
+      "optimizer_updates_separate": 180,
+      "selected_record_matches_saved_history": true
+    },
+    {
+      "scale_index": 1,
+      "grid_yx": [
+        6,
+        6
+      ],
+      "stage": 1,
+      "observations": 180,
+      "selected_iteration": 56,
+      "optimizer_updates_separate": 180,
+      "selected_record_matches_saved_history": true
+    },
+    {
+      "scale_index": 1,
+      "grid_yx": [
+        6,
+        6
+      ],
+      "stage": 2,
+      "observations": 180,
+      "selected_iteration": 53,
+      "optimizer_updates_separate": 180,
+      "selected_record_matches_saved_history": true
+    },
+    {
+      "scale_index": 2,
+      "grid_yx": [
+        7,
+        7
+      ],
+      "stage": 1,
+      "observations": 180,
+      "selected_iteration": 61,
+      "optimizer_updates_separate": 180,
+      "selected_record_matches_saved_history": true
+    },
+    {
+      "scale_index": 2,
+      "grid_yx": [
+        7,
+        7
+      ],
+      "stage": 2,
+      "observations": 180,
+      "selected_iteration": 56,
+      "optimizer_updates_separate": 180,
+      "selected_record_matches_saved_history": true
+    }
+  ],
+  "one_based_observation_not_zero_based_update_index": true,
+  "cost_from_upstream": {
+    "backward": 1080,
+    "elapsed_seconds": 0.6591722499579191,
+    "extra_autograd": 0,
+    "forward": 1086,
+    "optimizer_steps": 1080,
+    "stop_reason": null
+  },
+  "wall_seconds": 0.03646874998230487,
+  "new_model_calls": 0,
+  "new_backward_calls": 0,
+  "CPF_recomputed": false,
+  "GT_read_or_recomputed": false,
+  "full_test_suite_rerun": false,
+  "clinical_validity": "NOT RUN",
+  "evidence_scope": "validate SHA/immutable receipt/6 branch identities and saved selected record only; not an independent optimization or formula test"
+}
