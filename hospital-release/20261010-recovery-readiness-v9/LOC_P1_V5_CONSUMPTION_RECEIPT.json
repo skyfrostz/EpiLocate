@@ -1,0 +1,64 @@
+{
+  "schema": "EPI-NEXT-LOCALIZATION-P1-RECOVERY-CONSUMPTION-1",
+  "peer_source_commit": "d678a2546830292b81bab08d22ad6549d25940d3",
+  "peer_branch": "codex/epi-next-localization-20261009",
+  "readiness": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/.local/phase2/p1-recovery-v5/readiness-v5.json",
+    "sha256": "427aae7ade672943ef62a24548dde880c660f33382c44bedc2f813abe407e728"
+  },
+  "delivery": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/.local/phase2/p1-recovery-v5/final-delivery-v5.json",
+    "sha256": "8ead897461ef1845cd2ac708f14d1902649cea59564d6290697cc9c141ac67e0"
+  },
+  "artifact_sha_verification": {
+    "status": "PASS",
+    "count": 8
+  },
+  "recovery_reference_sha_verification": {
+    "status": "PASS",
+    "references": [
+      "index",
+      "decision",
+      "owner_approval",
+      "old_started",
+      "old_supervisor_receipt",
+      "r0",
+      "dependency_lock"
+    ],
+    "raw_files": 6,
+    "supervisor_modules": 8
+  },
+  "bound_decision": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/ADMINISTRATIVE_RECOVERY_DECISION_20261010_V1.json",
+    "sha256": "e58097389d1a2345e22e15c27b182dda9ca4f61876b8c39b12f6c0fdad0d7009"
+  },
+  "bound_owner_approval": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/OWNER_ADMINISTRATIVE_RECOVERY_APPROVAL_20261010_V1.json",
+    "sha256": "867efcb499ac2d80bc467bb590ebcecee2bca6ed8187a890b3fd03ae8119ab59"
+  },
+  "bound_dependency_lock": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-c9f5369-recovery-v3/dependencies/EPI-NEXT-shared-supervisor-recovery-v3/dependency_lock.json",
+    "sha256": "69bf2a28956b688a81d23f1bcfd4f6378edd50dcf5b2843d66a1ff480dfed871"
+  },
+  "task_key": "EPI-NEXT-HSPI-P1-CPU-EXACT-CONTINUATION-V4",
+  "peer_readiness_status": "PREPARED_NOT_DISPATCH",
+  "peer_test_evidence": {
+    "test_log": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/.local/phase2/p1-recovery-v5/tests-attempt1.txt",
+      "sha256": "5e373f2db18e3d794c1df0aa31dab9aaaaace584bc6c07835d22a6f9d5c35dee"
+    },
+    "status": "14_PASS_GENERATED_ONLY_2.55_SECONDS",
+    "rerun_by_integration": false,
+    "scope": "4 recovery fixtures + 10 generated P1 regression; isolated queue scalar 1F/1B as peer reported"
+  },
+  "new_medical_model_calls_by_peer": 0,
+  "peer_production_queue_transactions": 0,
+  "actual_dispatch_issued": false,
+  "integration_model_calls": 0,
+  "integration_sampling_runs": 0,
+  "integration_production_queue_writes": 0,
+  "status": "READINESS_CONSUMED_WAIT_CHIEF_EXACT_DISPATCH_AND_UNIQUE_QUEUE_ADMISSION",
+  "clinical_validation": "NOT RUN",
+  "hospital_final_freeze": "NOT RUN",
+  "evidence_limit": "Metadata/source presence/binding SHA and saved test log only; no scientific rerun or permission expansion"
+}

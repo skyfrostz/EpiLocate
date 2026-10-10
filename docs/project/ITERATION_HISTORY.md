@@ -1059,3 +1059,8 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 ### 2026-10-10｜负责人独立行政恢复批准只读消费（文档）
 
 开始HEAD `e7ffcdf2c3a0b7489bc5e83c01fc5903a5f221ca`。总控发布OWNER批准SHA `867efcb499ac2d80bc467bb590ebcecee2bca6ed8187a890b3fd03ae8119ab59`及决议SHA `e58097389d1a2345e22e15c27b182dda9ca4f61876b8c39b12f6c0fdad0d7009`，核验revision25 SHA `1c58c8764d504da06735b2dc13cbd376573dde235f4875a0b989ecf5b1015967`。导入既有c9f5369固定包并核验八模块锁，只读validator对决议列明P1/C1两个任务键PASS；旧槽文件/目录成员前后不变，finished仍缺失，历史UNKNOWN保留。追加hospital-release/20261010-recovery-readiness-v9的新OWNER消费/状态更正文件，原v8/v9所有既有文件及WAIT_OWNER索引快照原字节保留。当前阻塞更正为WAIT_FINAL_READINESS_AND_SERIAL_DISPATCH，非等待负责人回复/非等待数据；行政决议不扩展科学权限或P2/P3/医院显示范围。采样、模型、dispatch、槽写均0，无代码修改/无测试重跑。
+
+
+### 2026-10-10｜LOCALIZATION P1恢复v5交付只读消费（文档）
+
+开始HEAD `697a544287388bd29b6c4bc47ecdcf900dc23d08`。LOC发布source `d678a2546830292b81bab08d22ad6549d25940d3`，核验readiness-v5 SHA `427aae7ade672943ef62a24548dde880c660f33382c44bedc2f813abe407e728`与final-delivery-v5 SHA `8ead897461ef1845cd2ac708f14d1902649cea59564d6290697cc9c141ac67e0`、8交付产物、owner/decision/R0/旧收据/原槽/八模块/dependency绑定SHA，commit存在。原test log记录14生成PASS/2.55s，本线不重跑；LOC声称隔离scalar1F/1B、生产交易0/新医学调用0，未推为真实科学验收。新增v9/LOC_P1_V5_CONSUMPTION_RECEIPT.json，旧交付不改。P1 readiness PREPARED_NOT_DISPATCH，等待总控精确dispatch/唯一准入；真实P1 NOT RUN，医院冻结与临床验证NOT RUN。本线模型、R0采样、生产队列写0；无代码改动。
