@@ -1046,3 +1046,6 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 开始HEAD `084f8abc3a95de2e7f2d7de9b6304bff0f2a458a`，原集成树干净。总控完成唯一R0采样，本线仅核验result SHA `8e238721357f0c36f0d1922626c8a0cf8c19c5254d76d13886204636d1bd99d9`及7份raw文件，未重采。R0条件满足不构成恢复证明，行政决议仍WAIT_OWNER_EXPLICIT_DECISION，旧UNKNOWN/旧收据/finished缺失保留。
 
 新增execution_lock只读决议消费，绑定独立钟佳桦批准、scope SHA、原started/监督receipt/R0原始SHA；在既有监督serial锁和device lease内复验，允许仅一个绑定旧槽为新批准task让行，重复task及其他UNKNOWN阻断。新started保存decision SHA；不写旧槽、不增加调度器、不改旧只读bundle。8模块新源码必须整体锁定给LOC/C1，实际dispatch仍总控所有；直接tracked_device_slot不代替run_supervised的全局串行锁。33项生成门禁/执行锁/监督回归PASS（8.55s）；初次fixture因MPS owner及旧fixture复用task_key失败后修正测试，保留一次性任务限制。新真实模型calls、采样、生产队列写入、生产解除均0。交付hospital-release/20261010-recovery-gate-v8，医院真实E2E BLOCKED_BY_DATA_HANDOFF、final freeze/clinical NOT RUN。
+
+
+**恢复门禁固定包补录：** clean源码 `c9f5369b7384f4e132365616f8b6f64b624dbea2`，八模块依赖锁SHA `69bf2a28956b688a81d23f1bcfd4f6378edd50dcf5b2843d66a1ff480dfed871`、bundle receipt SHA `aba7f4444dcbd32121dab291289d0069e86e7f4d979451b4fafb92d7d89a9446`。独立命名包epinext_wave1_supervisor_recovery_v3导入及verify_loaded_bundle PASS，文件只读，本机忽略目录wave1-supervisor-c9f5369-recovery-v3。生成测试33 PASS复用，无追加模型调用/真实解除；BUNDLE_RECEIPT.json记录完整模块SHA与本地位置，旧v1/v2包不变。

@@ -42,6 +42,7 @@
     "负责人PASS/CONDITIONAL PASS/NO-GO决定"
   ],
   "assets": {
+    "BUNDLE_RECEIPT.json": "81abd958e083b179485d6c19e8db82a84b10515401e9175985828bf47adc278b",
     "RECOVERY_CONTRACT.md": "7167a51ebec47b82863fbf4bd0ec95be2bb107f6ed0c6730067c136f60231323",
     "R0_CONSUMPTION_RECEIPT.json": "11b564adbc289b0976b41804888b15736a685238400132a16dbac6c7963eab1e",
     "tests.log": "def626bb7410319872de3df9f072a44f65c2cfc591574b0ff55b5242ea625abd"
@@ -52,5 +53,6 @@
     "passed": 33,
     "elapsed_seconds": 8.55,
     "scope": "GENERATED_FIXTURES_ONLY"
-  }
+  },
+  "source_git_sha": "c9f5369b7384f4e132365616f8b6f64b624dbea2"
 }
