@@ -1,0 +1,41 @@
+{
+  "schema": "EPI-NEXT-ISOLATED-IO-RACE-TRACE-1",
+  "status": "EXPECTED_LEGACY_RACE_REPRODUCED",
+  "events": [
+    {
+      "kind": "TMP_WRITTEN_FSYNCED_BEFORE_REPLACE",
+      "monotonic": 291039.42625825,
+      "thread": 6147829760,
+      "source_name": "telemetry.json.98885.6147829760.tmp"
+    },
+    {
+      "kind": "READER_WALK_ENUMERATED_TMP_ABOUT_TO_STAT",
+      "monotonic": 291039.426352208,
+      "thread": 8358018944,
+      "source_name": "telemetry.json.98885.6147829760.tmp"
+    },
+    {
+      "kind": "REPLACE_COMPLETED_TMP_NAME_GONE",
+      "monotonic": 291039.426462125,
+      "thread": 6147829760
+    },
+    {
+      "kind": "READER_STAT_AFTER_RENAME",
+      "monotonic": 291039.426503833,
+      "thread": 8358018944
+    },
+    {
+      "kind": "EXPECTED_FILENOTFOUND_REPRODUCED",
+      "monotonic": 291039.427539333,
+      "thread": 8358018944
+    }
+  ],
+  "failure": "[Errno 2] No such file or directory: '/var/folders/ky/5fj1w6ds5dj5pj6mksvy8qcr0000gn/T/epinext-io-race-tunqjfdr/telemetry.json.98885.6147829760.tmp'",
+  "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 23, in <module>\n  File \"<legacy-BoundedStore-size-reproduction>\", line 17, in old_size\n  File \"<legacy-BoundedStore-size-reproduction>\", line 17, in <genexpr>\n  File \"<stdin>\", line 20, in stat_after_replace\n  File \"/Users/skyfrost/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/pathlib.py\", line 1013, in stat\n    return os.stat(self, follow_symlinks=follow_symlinks)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/var/folders/ky/5fj1w6ds5dj5pj6mksvy8qcr0000gn/T/epinext-io-race-tunqjfdr/telemetry.json.98885.6147829760.tmp'\n",
+  "original_writer_source": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-c9f5369-recovery-v3/epinext_wave1_supervisor_recovery_v3/wave1_supervisor.py",
+  "source_git_sha": "c9f5369b7384f4e132365616f8b6f64b624dbea2",
+  "queue_writes": 0,
+  "model_calls": 0,
+  "old_v3_bundle_writes": 0,
+  "is_actual_P1_traceback": false
+}

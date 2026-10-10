@@ -17,8 +17,16 @@
   "production_queue_writes": 0,
   "R0_sampling_runs": 0,
   "assets": {
-    "DIAGNOSIS_AND_ADOPTION.md": "731c729dee72905ce4e410651c3e30a27e303463bd7a140508afc5b8fbec9b45",
+    "DIAGNOSIS_AND_ADOPTION.md": "ce6b868c97384a21ec9816277410fadd53cdbdb2471d65d853af48a6f02c24b3",
     "INCIDENT_CONSUMPTION.json": "75de43427d3f990aacaebd767bc9f370a8b615e06cae9cb366058375956e6559",
-    "tests.log": "3cba627b5873494ee2e64f1c3452d54b3a1f5502b714f94ddee577453cd7dab1"
-  }
+    "BUNDLE_RECEIPT.json": "942b8191d9e0db5b873d2b308e21151778b46ecf0db37fdb42e02ed5898976a7",
+    "tests.log": "3cba627b5873494ee2e64f1c3452d54b3a1f5502b714f94ddee577453cd7dab1",
+    "REPRODUCTION_TRACE.json": "a5e1b8919ea2f920c566d57d88b0015e87dc9748ad47a6a6939b27b29d136036"
+  },
+  "source_git_sha": "11c2c6c706cf0c2e0b8d07e45217f912ce00effe",
+  "bundle_receipt_sha256": "942b8191d9e0db5b873d2b308e21151778b46ecf0db37fdb42e02ed5898976a7",
+  "dependency_lock_sha256": "f4fa697c31af62a93f0f28a97938e51251cd4f2c34c56b1a76076a085d7a10ab",
+  "preferred_route": "LOC_ONLY_BOUNDED_FULL_RESCAN_FIX_PENDING_LOC_IMPLEMENTATION_AND_REVIEW",
+  "supervisor_v4_required": false,
+  "v4_candidate_route": "OPTIONAL_SHARED_IO_LOCK_WITH_LOC_READER_ADOPTION"
 }

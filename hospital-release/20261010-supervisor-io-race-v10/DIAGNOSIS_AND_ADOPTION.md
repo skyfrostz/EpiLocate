@@ -15,7 +15,7 @@
 
 INTEGRATION新源码提供IO_CONTRACT_VERSION=EPI-NEXT-SUPERVISOR-IO-LOCK-4：atomic_json持task目录supervisor-output.lock覆盖临时文件生命周期，supervisor_output_size(directory)在同一锁内枚举/lstat；锁等待默认上限0.1秒，超时明确失败，不能当0字节。临时残留文件仍计费，软链接、walk错误及无法解释的缺失仍失败关闭；没有删除临时文件、忽略全部ENOENT或放宽输出预算。
 
-LOC必须在自己的新版本BoundedStore中显式采用同一固定包的supervisor_output_size统计extra_roots，不能继续os.walk未同步读取supervisor目录。建议注入参数supervisor_size_fn：root继续原有统计，每个extra_root调用该函数计费；没有该回调的真实接缝必须阻断。只改supervisor writer不修复旧reader。不得在持IO锁期间再获取counter ledger锁；size callback本身只拿IO锁，不调用guard/模型/ledger。
+若采用本v4候选，LOC必须在自己的新版本BoundedStore中显式采用同一固定包的supervisor_output_size统计extra_roots，不能继续os.walk未同步读取supervisor目录。建议注入参数supervisor_size_fn：root继续原有统计，每个extra_root调用该函数计费；没有该回调的真实接缝必须阻断。只改supervisor writer不修复旧reader。不得在持IO锁期间再获取counter ledger锁；size callback本身只拿IO锁，不调用guard/模型/ledger。
 
 同一命名包的父、ChildGuard和统计回调必须整体消费新的八模块包及新依赖SHA，不混用v3 writer和v4 reader。新LOC源码/runner依赖锁/readiness/生成fixture由LOC独立发布；本线不改LOC工作树。旧v3固定包保全。C1在总控审阅之前不启动。
 
@@ -26,3 +26,10 @@ IO锁不是调度器或队列准入。全局串行锁、行政决议绑定、设
 test_supervisor_output_race.py使用原v3 atomic_json函数体与旧size语义，Event固定os.walk→rename→stat时序，稳定复现FileNotFoundError；固定版本统计被writer锁阻挡，release后返回正确字节数。另覆盖残留临时文件计费、软链接拒绝、锁超时非零字节降级、遍历错误失败关闭和非法timeout。所有目录均临时隔离；无生产queue或医学模型。
 
 该候选是工程修复，不是P1重试授权。真实P1已FAILED；新实验若获准必须由总控另定义任务及账本，不能自动重投旧事务。P1/C1本轮实际调用0、生产队列写0、R0重采0；医院冻结及临床验证仍NOT RUN。
+
+
+## 最新总控方向：优先LOC-only修复
+
+v4不是修复的必要条件，先由LOCALIZATION修复其BoundedStore.size。可审查的最小方向是在识别到监督telemetry.json.<pid>.<thread>.tmp的ENOENT后，从零重扫整个统计范围；锁定最多重扫次数及总时间，若无法在界限内取得完整快照则安全停止。不能跳过消失文件、返回部分累计数、忽略权限/其他已提交文件缺失或放宽cap/reserve。所有现存tmp仍须计费；并发监督输出的cap仍是现有观察值语义，不把重扫宣称为瞬时硬上限保证。LOC需用同一可控竞争时序测试首扫失败→完整重扫成功、持续竞争→有界安全停止、临时文件计费和cap边界；本线没有实现/验收LOC-only重扫。
+
+本v4共同IO锁包仅作备选，未经总控审阅不替换现行v3依赖。原v3固定包保留，P1/C1实际运行0。REPRODUCTION_TRACE.json是本轮隔离生成栈和时序证据，不是原P1缺失的真实traceback。

@@ -1071,3 +1071,9 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 开始HEAD `5139f12bebeba4516bd44a38fae9132a0ba1cff3`。核验P1旧job监督收据SHA `c842a949006db7eb020691030ad98b8eb0e8eb3ca6fdf20970f65de9baff8f64`：FAILED/return2/实际与预留F/B0，父确认恢复及finished；禁止重跑。原v3 atomic_json:47-50临时文件rename与LOC BoundedStore.size:19-26未同步os.walk/stat可确定性复现ENOENT；LOC runner:266将监督目录纳入输出预算。空run-1目录支持构造ensure失败，但原无traceback，实际调用栈只作推断；5/8启动期遥测缺测非父触发原因。
 
 新IO_CONTRACT_VERSION=EPI-NEXT-SUPERVISOR-IO-LOCK-4，共用有界flock覆盖writer临时文件生命周期及supervisor_output_size快照，保留临时残留计费/软链错误/IO错误失败关闭；不放宽预算/遥测/deadline，不新增调度器。LOC必须独立接入shared size callback并锁新完整依赖，仅writer改动不能修复旧reader。43项隔离生成竞态/监督/队列回归PASS（9.74s），原writer fixture函数体经AST提取原固定包逐字核验；旧v3八模块字节不变。候选hospital-release/20261010-supervisor-io-race-v10，待LOC接入/总控审阅，不代表重试授权。真实模型、C1、P1重试、R0采样、生产槽写均0；医院冻结/临床验证NOT RUN。
+
+
+**IO v4候选固定包补录：** clean源码 `11c2c6c706cf0c2e0b8d07e45217f912ce00effe`，八模块命名包epinext_wave1_supervisor_io_v4实际import/verify_loaded_bundle PASS，dependency SHA `f4fa697c31af62a93f0f28a97938e51251cd4f2c34c56b1a76076a085d7a10ab`、原bundle receipt SHA `2d0a6ceccd6bc4e0e1897c107bf14e07134af202b9f976dde7e18cbc742c0386`。本地只读新包wave1-supervisor-11c2c6c-io-v4-candidate，旧v3未覆盖；完整路径/模块SHA见v10/BUNDLE_RECEIPT.json。43生成测试证据复用；LOC reader adoption待完成，P1无重试、C1未运行。
+
+
+**总控最新方向及复现栈补录：** 新REPRODUCTION_TRACE.json保存隔离原v3 writer与旧size语义的os.walk→rename→stat事件和生成FileNotFound栈；不伪称原P1 traceback。总控优先LOC-only size有界完整重扫：仅识别监督tmp ENOENT时从零重扫，次数/时间内未完成即安全停止，不跳过tmp或返回部分总量、不放宽cap/reserve；本线未实施LOC-only修复。已保存v4共同锁仅备选，不强制升级、未部署；P1/C1均未运行。
