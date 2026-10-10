@@ -1,0 +1,25 @@
+{
+  "schema": "EPI-NEXT-INTEGRATION-HSPI-V3-HANDOFF-1",
+  "mode_contract": "EPI-NEXT-E2-RESULT-HANDOFF-3",
+  "source_start_commit": "986485a517e81033dd9af36538091d8ffb0247e2",
+  "authorization_package_zip_sha256": "1b5aa4f9e28cf9d141eaccaa5dff378bc7eb4754fced5886ee16523b0336203e",
+  "contract_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/reports/E2_RESULT_HANDOFF_V3.md",
+  "recovery_review_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261010-hspi-result-v7/CTFM_EXTERNAL_RECOVERY_REVIEW.md",
+  "recovery_status": "UNKNOWN; no slot change",
+  "tested_scope": "38 generated/immutable artifact tests; 4 new E2 tests; no medical inputs",
+  "real_forward_calls": 0,
+  "real_backward_calls": 0,
+  "checkpoint_loads": 0,
+  "training": false,
+  "production_state_writes": 0,
+  "unknown_slot_unlocks": 0,
+  "supervisor_v2_modified": false,
+  "clinical_validation": "NOT RUN",
+  "MVP_new_real_E2E": "NOT RUN",
+  "LOC_consumer_adapter": "CONTRACT_PUBLISHED_FOR_COORDINATOR_HANDOFF; not claiming peer consumption",
+  "limits": [
+    "sidecar validates metadata/trace identity only; does not independently verify algorithm math or candidate spatial mapping",
+    "LOC must populate exact plan and trace fields without silent epoch convention changes",
+    "external recovery requires separate evidence and approval; current v2 does not consume administrative recovery decisions"
+  ]
+}

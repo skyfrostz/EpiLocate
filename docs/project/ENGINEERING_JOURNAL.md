@@ -1395,3 +1395,10 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 
 **v2固定bundle补录：** clean源码 `2ba7068662efc6004797ccc76144e0faa0229c22`，22监督fixture再次PASS、固定八模块实际导入exit0；bundle receipt SHA `01d659d17a116fd2e913bd853d3bf2f1f33a122aeee837f1438d542cf90c9888`，wave1_supervisor SHA `a0a6f3f17f39ed013bfa343900d3cc05be0ce9f1ed626ff7756a9c5a38c1bcf4`。本地新包wave1-supervisor-2ba7068-v2只读保全，公开无患者像素摘要hospital-release/20261009-wave1-supervisor-v6。原E1 FAILED收据保留无重分类/无真实重跑，新真实calls/state写0。
+
+
+### 2026-10-10｜HSPI v3最小结果接缝与UNKNOWN恢复提案
+
+开始HEAD `986485a517e81033dd9af36538091d8ffb0247e2`、原INTEGRATION工作树干净。读取总控v3包00/01/02/04，保持源码/已保存结果及生成fixture许可，新增e2_result_handoff独立sidecar：E2-W1/REF/CT mode、profile、全计划scale/stage、selected_iteration、partial/unrun/no-feasible、trace SHA与分别验收轴。复用persist_run不可覆盖；无LOC算法/GT重写，无新handler/UI/监督v2改动。契约文件交总控转LOC，不宣称peer已收到。38定向生成/资产测试PASS（0.08s），其中4新增验证mode、partial/unrun与trace/选择身份及不可覆盖保存。
+
+只读原CTFM self-task身份/收据/槽、state19；槽无finished/完成标记，父66331/子66338当前ps exit1无记录，已记录旧组退出但无设备恢复。未在有界后续恢复入口发现合法恢复证据，仍UNKNOWN；不能把旧driver458752/tensor0且recovered=false补成恢复。外部恢复审查支持证据/独立批准项见hospital-release/20261010-hspi-result-v7/CTFM_EXTERNAL_RECOVERY_REVIEW.md。无解锁、伪旧child标记、GPU probe、科学参数/配额改写、真实forward/backward/训练/production state写入。MVP无需E2阳性，新增真实E2E NOT RUN。
