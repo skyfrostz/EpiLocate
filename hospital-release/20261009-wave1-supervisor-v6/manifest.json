@@ -1,0 +1,60 @@
+{
+  "bundle": {
+    "dependency_root": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-2ba7068-v2/dependencies/EPI-NEXT-shared-supervisor-v2",
+    "dependency_sha256": "88bfed1d523a2379922bf91a5eceeb465475bf7dc92a566ee377efa4afb34e52",
+    "files": {
+      "artifacts.py": "3ba97a3bc226991a3b15d144c34ef082f0bad14467aeef3af83f85a8bd31631c",
+      "contracts.py": "2b67e80410672a7547d0d117db76d6f91a18b0f68822d08a1721891f5e42f9e5",
+      "coordinator_writer.py": "b87111c88b5f14744c9570fb46b9f4f386e56a48e0957755e5a98c45e1fcd496",
+      "execution_lock.py": "a5b764d50e50c7ba6069a74a71561b8c79816d1f8ed4b4467c0bf6b84761ee61",
+      "geometry.py": "5ef5ee0e0680d014034ee0ae206e707f70de848397f1611096d7b574e52db630",
+      "hospital_contract.py": "299d43d9c04662235770c23013342857c67afe424ef7ef29af2d352771a4922f",
+      "hospital_runtime.py": "75b50d9e5d204e647906a3970dcd5f0163db9e216bc2bb4b572f3712c40bde3e",
+      "wave1_supervisor.py": "a0a6f3f17f39ed013bfa343900d3cc05be0ce9f1ed626ff7756a9c5a38c1bcf4"
+    },
+    "import_manifest_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-2ba7068-v2/imports.json",
+    "import_manifest_sha256": "d8feb6fb4b32610693ad32fc5266f495ed1ce2eed5c98400d46b4017fc570fd1",
+    "initializer_sha256": "8de915bf4e0a23550fa498facebdbd42eab170eb3abfdafd29de1d0cfcb9dcf7",
+    "package_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-2ba7068-v2/epinext_wave1_supervisor_v2",
+    "preserved_E1_failed_receipt_sha256": "f7b675db91ba1d0016b7296fc5ec66d90a1bc3ccdf4823f80d665585e8b6c757",
+    "resource_revision_sha256": "1011506834d7e5c54c60ef7d67f89900fa9259669d6bde2fb6141c197c6481de",
+    "schema": "EPI-NEXT-WAVE1-SUPERVISOR-BUNDLE-2",
+    "source_commit": "2ba7068662efc6004797ccc76144e0faa0229c22",
+    "source_dirty": false
+  },
+  "bundle_receipt_sha256": "01d659d17a116fd2e913bd853d3bf2f1f33a122aeee837f1438d542cf90c9888",
+  "commands": [
+    {
+      "command": [
+        "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "research/next-hospital-20261014/tests/test_wave1_supervisor.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a0ceeba1f20927284cf8bfb07bcbf073ee24b3dc47bbe281481a5ce1e9d40c56",
+      "seconds": 8.329175499966368
+    },
+    {
+      "command": [
+        "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+        "-c",
+        "from epinext_wave1_supervisor_v2.wave1_supervisor import verify_loaded_bundle; import sys,json; print(json.dumps(verify_loaded_bundle(sys.argv[1],sys.argv[2])))",
+        "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-2ba7068-v2/dependencies/EPI-NEXT-shared-supervisor-v2",
+        "88bfed1d523a2379922bf91a5eceeb465475bf7dc92a566ee377efa4afb34e52"
+      ],
+      "exit_code": 0,
+      "log_sha256": "96646bb4b186f16793772777392951c36be1a8af6685cb8814f6cb5ff9650bb8",
+      "seconds": 0.06200862501282245
+    }
+  ],
+  "historical_failed_not_reclassified": true,
+  "historical_failed_receipt_preserved": true,
+  "new_real_backward_calls": 0,
+  "new_real_forward_calls": 0,
+  "production_state_writes": 0,
+  "schema": "EPI-NEXT-WAVE1-COMPLETION-FIX-DELIVERY-2"
+}

@@ -1392,3 +1392,6 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 
 **完成闭环追加：** child完成标记后check/新forward/backward均拒绝；父在合法complete后持续核对预留counts/sequence，任何变化FAIL。补完成后禁止新工作和父检测计数变更fixture；旧错误job fixture因child新保护立即退出，调整为非合作活进程以验证父stale仍有效。最终22监督fixture PASS（8.01s），无真实调用。新版固定源码以本次追加提交为准，初步0b252e8不作为最终bundle。
+
+
+**v2固定bundle补录：** clean源码 `2ba7068662efc6004797ccc76144e0faa0229c22`，22监督fixture再次PASS、固定八模块实际导入exit0；bundle receipt SHA `01d659d17a116fd2e913bd853d3bf2f1f33a122aeee837f1438d542cf90c9888`，wave1_supervisor SHA `a0a6f3f17f39ed013bfa343900d3cc05be0ce9f1ed626ff7756a9c5a38c1bcf4`。本地新包wave1-supervisor-2ba7068-v2只读保全，公开无患者像素摘要hospital-release/20261009-wave1-supervisor-v6。原E1 FAILED收据保留无重分类/无真实重跑，新真实calls/state写0。
