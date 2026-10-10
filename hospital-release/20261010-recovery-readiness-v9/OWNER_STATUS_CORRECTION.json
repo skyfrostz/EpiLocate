@@ -1,0 +1,39 @@
+{
+  "schema": "EPI-NEXT-INTEGRATION-STATUS-CORRECTION-2",
+  "previous_correction": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261010-recovery-readiness-v9/STATUS_CORRECTION.json",
+    "sha256": "f1b0536529210aab7832e81ab0849a04aa8d78fc0b612d3e0d0baf7539b18989"
+  },
+  "historical_records_preserved": true,
+  "coordinator_snapshot": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/EPI_NEXT_PHASE2_DELIVERY_STATE.json",
+    "sha256": "1c58c8764d504da06735b2dc13cbd376573dde235f4875a0b989ecf5b1015967",
+    "revision": 25
+  },
+  "owner_approval": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/OWNER_ADMINISTRATIVE_RECOVERY_APPROVAL_20261010_V1.json",
+    "sha256": "867efcb499ac2d80bc467bb590ebcecee2bca6ed8187a890b3fd03ae8119ab59"
+  },
+  "administrative_decision": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/ADMINISTRATIVE_RECOVERY_DECISION_20261010_V1.json",
+    "sha256": "e58097389d1a2345e22e15c27b182dda9ca4f61876b8c39b12f6c0fdad0d7009"
+  },
+  "consumption_receipt": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261010-recovery-readiness-v9/OWNER_RECOVERY_CONSUMPTION_RECEIPT.json",
+    "sha256": "156b519f6bdfb6f546613a39a58b4400cb3cedfd04e390f1bc71e587a263edf3"
+  },
+  "consumption_index": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261010-recovery-readiness-v9/CONSUMPTION_INDEX_OWNER_APPROVED.json",
+    "sha256": "1456a1ab9b2e08207764e2d598e69a0b29c879b62c3d48967618da04bf6872da"
+  },
+  "owner_administrative_recovery": "EXPLICIT_APPROVAL_RECEIVED_AND_DECISION_VALIDATED",
+  "new_real_execution": "WAIT_FINAL_READINESS_AND_SERIAL_DISPATCH",
+  "coordinator_execution_gate": "OWNER_RECOVERY_CONFIRMED; ADMIN_DECISION_VALIDATED; WAIT_FINAL_READINESS_AND_SERIAL_DISPATCH",
+  "data_handoff": "ACCEPTED_DATA_V3_NATIVE_ASSETS",
+  "first_real_results": "ACCEPTED_FIRST_ROUND_RESULTS",
+  "hospital_final_freeze": "NOT RUN",
+  "clinical_validation": "NOT RUN",
+  "historical_slot": "UNCHANGED_UNKNOWN",
+  "permission_expansion": false,
+  "P2_P3_hospital_display": "NOT_AUTHORIZED_BY_THIS_DECISION"
+}

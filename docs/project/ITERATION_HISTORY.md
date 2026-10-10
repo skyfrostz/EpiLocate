@@ -1054,3 +1054,8 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 ### 2026-10-10｜集成交付阻塞状态更正与P1/C1消费索引（文档）
 
 开始HEAD `65640819bda7f3b8aef1bf0ff101d1a87e1e1ad4`，干净工作树。总控指出旧BLOCKED_BY_DATA_HANDOFF过时；只读revision24 SHA `deaf3718effe5993ed4a3e9b9b143f904afc14b55c701ae2719d5931c374d392`，核验DATA v3验收收据SHA `760e71b338178e3767aa9ca99c8042c846d1d129d7d8c47c6465eef2c4995522`与首轮报告SHA `abeae3e45140052dea69456c555830616217b3a7a27c6f5a5a8fec45c11fb33b`。数据及首轮真实结果已验收，当前新真实运行等待负责人R0独立行政恢复确认及新依赖绑定；医院冻结/临床验证仍NOT RUN。新增hospital-release/20261010-recovery-readiness-v9更正/消费索引，保留旧v8原字节及历史。八模块固定包、契约、依赖锁和33测试原日志SHA复核PASS，无重采/重测/模型/生产槽写。P1工程HEAD5087c6f9由总控交付消息提供，10生成测试结论引用总控；本线不重验peer测试。P1/C1需新增readiness及完整runner依赖锁，不静默改旧记录。无代码修改。
+
+
+### 2026-10-10｜负责人独立行政恢复批准只读消费（文档）
+
+开始HEAD `e7ffcdf2c3a0b7489bc5e83c01fc5903a5f221ca`。总控发布OWNER批准SHA `867efcb499ac2d80bc467bb590ebcecee2bca6ed8187a890b3fd03ae8119ab59`及决议SHA `e58097389d1a2345e22e15c27b182dda9ca4f61876b8c39b12f6c0fdad0d7009`，核验revision25 SHA `1c58c8764d504da06735b2dc13cbd376573dde235f4875a0b989ecf5b1015967`。导入既有c9f5369固定包并核验八模块锁，只读validator对决议列明P1/C1两个任务键PASS；旧槽文件/目录成员前后不变，finished仍缺失，历史UNKNOWN保留。追加hospital-release/20261010-recovery-readiness-v9的新OWNER消费/状态更正文件，原v8/v9所有既有文件及WAIT_OWNER索引快照原字节保留。当前阻塞更正为WAIT_FINAL_READINESS_AND_SERIAL_DISPATCH，非等待负责人回复/非等待数据；行政决议不扩展科学权限或P2/P3/医院显示范围。采样、模型、dispatch、槽写均0，无代码修改/无测试重跑。

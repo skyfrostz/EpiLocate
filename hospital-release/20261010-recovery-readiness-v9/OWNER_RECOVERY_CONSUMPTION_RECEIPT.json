@@ -1,0 +1,61 @@
+{
+  "schema": "EPI-NEXT-OWNER-RECOVERY-CONSUMPTION-1",
+  "source_git_sha": "c9f5369b7384f4e132365616f8b6f64b624dbea2",
+  "validator_module": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-c9f5369-recovery-v3/epinext_wave1_supervisor_recovery_v3/execution_lock.py",
+    "sha256": "3e47a12e6b7bdb02ae1e1961fbadcfa13ecf2b2a2c1be7f54d56b136ad401d6f"
+  },
+  "fixed_bundle_receipt": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-supervisor-c9f5369-recovery-v3/bundle_receipt.json",
+    "sha256": "aba7f4444dcbd32121dab291289d0069e86e7f4d979451b4fafb92d7d89a9446"
+  },
+  "owner_approval": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/OWNER_ADMINISTRATIVE_RECOVERY_APPROVAL_20261010_V1.json",
+    "sha256": "867efcb499ac2d80bc467bb590ebcecee2bca6ed8187a890b3fd03ae8119ab59"
+  },
+  "administrative_decision": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/ADMINISTRATIVE_RECOVERY_DECISION_20261010_V1.json",
+    "sha256": "e58097389d1a2345e22e15c27b182dda9ca4f61876b8c39b12f6c0fdad0d7009"
+  },
+  "r0_result": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/r0-review-v1/result.json",
+    "sha256": "8e238721357f0c36f0d1922626c8a0cf8c19c5254d76d13886204636d1bd99d9"
+  },
+  "original_supervisor_receipt": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-encoder/.local/ctfm-volume-wave1/supervisor/ctfm-fov128-wave1-20261009-01/supervisor-receipt.json",
+    "sha256": "20e2348ac436c0b1cccf5ee9d3d31dbd431744c750fb930edadc24c51abfa2c2"
+  },
+  "old_started": {
+    "path": "/Users/skyfrost/.codex/epi-next-device-queue/slots/ctfm-fov128-wave1-20261009-01/started.json",
+    "sha256": "e234b341273e88f4c723eb3d542d5c74a24b58e09fe3bb69bb5ac93557f94d70"
+  },
+  "read_only_validation": {
+    "EPI-NEXT-HSPI-P1-CPU-EXACT-CONTINUATION-V4": {
+      "status": "PASS",
+      "binding": {
+        "old_job_id": "ctfm-fov128-wave1-20261009-01",
+        "decision_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/ADMINISTRATIVE_RECOVERY_DECISION_20261010_V1.json",
+        "decision_sha256": "e58097389d1a2345e22e15c27b182dda9ca4f61876b8c39b12f6c0fdad0d7009",
+        "scope_sha256": "b8af4aea008d5e1ec2731166e768642177a59a36022d3a4a908bc038fde13a8b"
+      }
+    },
+    "CTFM-V3-ONECASE-FULLSERIES64-PAIR": {
+      "status": "PASS",
+      "binding": {
+        "old_job_id": "ctfm-fov128-wave1-20261009-01",
+        "decision_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/ADMINISTRATIVE_RECOVERY_DECISION_20261010_V1.json",
+        "decision_sha256": "e58097389d1a2345e22e15c27b182dda9ca4f61876b8c39b12f6c0fdad0d7009",
+        "scope_sha256": "b8af4aea008d5e1ec2731166e768642177a59a36022d3a4a908bc038fde13a8b"
+      }
+    }
+  },
+  "old_slot_files_unchanged": true,
+  "old_slot_entry_names_unchanged": true,
+  "old_finished_exists": false,
+  "historical_slot_status": "UNCHANGED_UNKNOWN",
+  "slot_writes": 0,
+  "dispatch_calls": 0,
+  "model_calls": 0,
+  "sampling_runs": 0,
+  "effect": "ADMINISTRATIVE_GATE_CONSUMPTION_ONLY"
+}

@@ -1,0 +1,9 @@
+# Owner行政恢复决议消费（追加）
+
+负责人独立批准及总控行政决议现已发布。固定c9f5369八模块包verify_loaded_bundle通过；只读validator对P1任务EPI-NEXT-HSPI-P1-CPU-EXACT-CONTINUATION-V4与C1任务CTFM-V3-ONECASE-FULLSERIES64-PAIR均PASS。
+
+决议只对这两个现有获准任务消除绑定旧槽的行政阻塞，不授予新科学/数据/计算权限、不证明设备恢复、不改变旧UNKNOWN收据。旧slot文件/目录成员前后不变、finished仍不存在。真实运行仍待各自最终readiness、runner完整依赖锁及总控串行dispatch。
+
+消费入口run_supervised显式传recovery_decision_path和recovery_decision_sha。CONSUMPTION_INDEX_OWNER_APPROVED.json包含精确路径/SHA与原固定包/测试证据索引；OWNER_RECOVERY_CONSUMPTION_RECEIPT.json记录此次实际只读验证。旧v8/v9交付保持原字节。
+
+本轮未写槽、未dispatch、未运行模型、未重复R0采样；医院最终冻结与临床验证仍NOT RUN。
