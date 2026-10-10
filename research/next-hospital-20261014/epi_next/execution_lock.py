@@ -137,9 +137,71 @@ class DeviceSlot:
             'children': [dict(identity, exit_code=process.returncode) for process, identity in self.children]}))
 
 
+def validate_administrative_recovery(queue_root, task_key, decision_path=None, decision_sha=None):
+    """Consume an explicit chief-published decision; never repair the old slot.
+
+    SHA binding is integrity, not authentication against a same-UID writer.
+    Scientific authorization and dispatch remain separate chief responsibilities.
+    """
+    if decision_path is None and decision_sha is None:
+        return None
+    def read_bound(path, digest):
+        path = Path(path)
+        if not path.is_absolute() or any(part.is_symlink() for part in (path, *path.parents)):
+            raise ValueError('RECOVERY_REFERENCE_PATH_UNSAFE')
+        raw = path.read_bytes()
+        if sha256(raw) != digest:
+            raise ValueError('RECOVERY_REFERENCE_SHA_MISMATCH')
+        return json.loads(raw)
+    decision = read_bound(decision_path, decision_sha)
+    if (decision.get('schema') != 'EPI-NEXT-ADMINISTRATIVE-RECOVERY-1'
+            or decision.get('status') != 'APPROVED_ADMINISTRATIVE_RECOVERY'
+            or decision.get('queue_root') != str(Path(queue_root).absolute())
+            or decision.get('historical_status_unchanged') is not True
+            or decision.get('model_authorization_granted') is not False):
+        raise ValueError('EXPLICIT_ADMINISTRATIVE_RECOVERY_REQUIRED')
+    scope = decision['scope']
+    approval = read_bound(**decision['approval_reference'])
+    if (approval.get('schema') != 'EPI-NEXT-OWNER-RECOVERY-APPROVAL-1'
+            or approval.get('status') != 'EXPLICIT_ADMINISTRATIVE_RECOVERY_APPROVED'
+            or approval.get('principal') != '钟佳桦'
+            or approval.get('scope_sha256') != sha256(canonical_json(scope))):
+        raise ValueError('INDEPENDENT_OWNER_APPROVAL_REQUIRED')
+    if task_key not in scope['allowed_next_task_keys'] or task_key == scope['old_task_key']:
+        raise ValueError('RECOVERY_NEXT_TASK_NOT_APPROVED')
+    job = _safe_name(scope['old_job_id'])
+    slot = Path(queue_root) / 'slots' / job
+    start = read_bound(slot / 'started.json', scope['started_sha256'])
+    receipt = read_bound(**scope['supervisor_reference'])
+    review = read_bound(**scope['r0_reference'])
+    if (start['job_id'] != job or start['task_key'] != scope['old_task_key']
+            or receipt['job_id'] != job or receipt['status'] not in {'BLOCKED', 'FAILED'}
+            or receipt.get('slot_completed') is not False
+            or (slot / 'finished.json').exists()
+            or review.get('status') != 'REVIEW_CONDITIONS_MET_NOT_DEVICE_RECOVERY_PROOF'
+            or review.get('schema') != 'EPI_NEXT_R0_ONCE_READONLY'
+            or review.get('samples') != 61
+            or set(review.get('checks', {})) != {'61_samples_no_missing', 'timing_bounds',
+                'free_all_at_least20', 'swap_delta_strict_less1GiB', 'no_registered_identity_rows'}
+            or any(value is not True for value in review['checks'].values())
+            or review.get('unknown_slot_changed') is not False
+            or review.get('finished_exists_after') is not False
+            or review.get('model_calls') != 0
+            or review.get('no_gpu_probe') is not True or review.get('no_process_signals') is not True):
+        raise ValueError('RECOVERY_ORIGINAL_EVIDENCE_INVALID')
+    for name, digest in review['raw_sha256'].items():
+        if Path(name).name != name:
+            raise ValueError('RECOVERY_RAW_REFERENCE_UNSAFE')
+        path = Path(scope['r0_reference']['path']).parent / name
+        if path.is_symlink() or sha256(path.read_bytes()) != digest:
+            raise ValueError('RECOVERY_RAW_SHA_MISMATCH')
+    return {'old_job_id': job, 'decision_path': str(decision_path),
+            'decision_sha256': decision_sha, 'scope_sha256': approval['scope_sha256']}
+
+
 @contextmanager
 def tracked_device_slot(device, *, owner, job_id, task_key, budget,
-                        dependency_root, dependency_sha):
+                        dependency_root, dependency_sha, recovery_decision_path=None, recovery_decision_sha=None):
     job_id = _safe_name(job_id); task_key = _safe_name(task_key)
     for field in ('max_model_calls','max_seconds','max_rss_bytes'):
         value = budget[field]
@@ -152,13 +214,18 @@ def tracked_device_slot(device, *, owner, job_id, task_key, budget,
         raise ValueError('MPS_MEMORY_LIMIT_REQUIRED')
     with hospital_runtime.device_lease(device, owner=owner):
         verify_dependencies(dependency_root, dependency_sha)
+        recovery = validate_administrative_recovery(hospital_runtime.QUEUE_ROOT, task_key,
+                                                    recovery_decision_path, recovery_decision_sha)
         slots = hospital_runtime.QUEUE_ROOT / 'slots'
         slots.mkdir(mode=0o700, exist_ok=True)
         for directory in slots.iterdir():
             if not directory.is_dir() or directory.is_symlink():
                 raise RuntimeError('UNRECOGNIZED_SLOT_RECONCILE_REQUIRED')
             start = json.loads((directory / 'started.json').read_bytes())
-            if start['device'] == device and not (directory / 'finished.json').exists():
+            if start['task_key'] == task_key:
+                raise RuntimeError('WAVE1_DUPLICATE_TASK_SCOPE_NO_COUNTER_RESET')
+            if (not (directory / 'finished.json').exists()
+                    and (recovery is None or directory.name != recovery['old_job_id'])):
                 raise RuntimeError('PRIOR_SLOT_UNKNOWN_RECONCILE_REQUIRED')
             if (directory / 'finished.json').exists():
                 terminal = json.loads((directory / 'finished.json').read_bytes())
@@ -169,6 +236,8 @@ def tracked_device_slot(device, *, owner, job_id, task_key, budget,
         record = dict(process_identity(), job_id=job_id, task_key=task_key, owner=owner,
                       device=device, resource_limits=budget, dependency_sha256=dependency_sha,
                       dependency_root=str(Path(dependency_root).absolute()))
+        if recovery is not None:
+            record['administrative_recovery'] = recovery
         write_new(directory / 'started.json', canonical_json(record))
         yield DeviceSlot(directory, record)
         # Missing terminal receipt deliberately remains UNKNOWN even after flock

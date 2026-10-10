@@ -1415,3 +1415,10 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 开始HEAD `d6828b80d3acbbc905c5772e6294522207181a66`。仅核验总控固定generated-run2 delivery SHA `7f491e2ba0471eab4e766f798853f7a7152ccb5fa8fd1c4703a5da529755805a`，原source_result/trace同字节SHA `1f31ee20207ab2c0a9d76044b356cda6dbd13d450538a9a71b08c9753d7055ba`；sidecar immutable receipt COMMITTED、六分支各180一基observation，selected57/51/56/53/61/56对应原history，optimizer_updates单列各180。消费收据SHA `bc5ff68fce1b33033141d2c073a8c770ddef63f52118a62a5c7531e617242cc7`，耗时0.0365s；PASS仅字节/分支身份，不重算CPF/GT、不重跑优化/测试/模型。
 
 补CTFM独立待批准外部审阅配置：60秒目标1秒含端点61样本，memory_pressure free>=20%、sysctl swap相对新t0增长<1GiB、无缺测及原自有身份无活成员核对；允许采样偏差需另锁，即使通过也仅必要非充分。未执行采样、解锁或行政写入，无新GPU probe/reboot。38项既有fixture证据复用；没有新代码。
+
+
+### 2026-10-10｜R0证据消费与独立行政恢复门禁
+
+开始HEAD `084f8abc3a95de2e7f2d7de9b6304bff0f2a458a`，原集成树干净。总控完成唯一R0采样，本线仅核验result SHA `8e238721357f0c36f0d1922626c8a0cf8c19c5254d76d13886204636d1bd99d9`及7份raw文件，未重采。R0条件满足不构成恢复证明，行政决议仍WAIT_OWNER_EXPLICIT_DECISION，旧UNKNOWN/旧收据/finished缺失保留。
+
+新增execution_lock只读决议消费，绑定独立钟佳桦批准、scope SHA、原started/监督receipt/R0原始SHA；在既有监督serial锁和device lease内复验，允许仅一个绑定旧槽为新批准task让行，重复task及其他UNKNOWN阻断。新started保存decision SHA；不写旧槽、不增加调度器、不改旧只读bundle。8模块新源码必须整体锁定给LOC/C1，实际dispatch仍总控所有；直接tracked_device_slot不代替run_supervised的全局串行锁。33项生成门禁/执行锁/监督回归PASS（8.55s）；初次fixture因MPS owner及旧fixture复用task_key失败后修正测试，保留一次性任务限制。新真实模型calls、采样、生产队列写入、生产解除均0。交付hospital-release/20261010-recovery-gate-v8，医院真实E2E BLOCKED_BY_DATA_HANDOFF、final freeze/clinical NOT RUN。

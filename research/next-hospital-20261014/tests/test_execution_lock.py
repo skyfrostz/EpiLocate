@@ -50,6 +50,8 @@ def test_slot_unknown_and_confirmed_completion(tmp_path,monkeypatch):
             slot.complete(receipt,sha256(receipt.read_bytes()))
         assert process.wait(timeout=5)==0
         slot.complete(receipt,sha256(receipt.read_bytes()))
+    args['task_key']='interrupted-scope'
     with tracked_device_slot('cpu',job_id='interrupted',**args):pass
+    args['task_key']='next-scope'
     with pytest.raises(RuntimeError,match='PRIOR_SLOT_UNKNOWN'):
         with tracked_device_slot('cpu',job_id='next',**args):pass

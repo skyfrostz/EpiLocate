@@ -20,7 +20,7 @@ import time
 
 from .artifacts import canonical_json, sha256, _safe_name
 from .coordinator_writer import write_new, fsync_dir
-from .execution_lock import tracked_device_slot, verify_dependencies
+from .execution_lock import tracked_device_slot, verify_dependencies, validate_administrative_recovery
 from . import hospital_runtime
 
 GIB = 1024**3
@@ -267,25 +267,29 @@ def validated_completion(directory, spec, telemetry, child_pid, started, now):
         return None
 
 
-def run_supervised(spec, command, output_root, dependency_root, dependency_sha, *, _monitor=None):
+def run_supervised(spec, command, output_root, dependency_root, dependency_sha, *, _monitor=None, recovery_decision_path=None, recovery_decision_sha=None):
     queue=hospital_runtime.QUEUE_ROOT;queue.mkdir(parents=True,exist_ok=True)
     descriptor=os.open(queue/'wave1.serial.lock',os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600)
     with os.fdopen(descriptor,'a+b') as stream:
         try:fcntl.flock(stream,fcntl.LOCK_EX|fcntl.LOCK_NB)
         except BlockingIOError as exc:raise RuntimeError('WAVE1_SERIAL_SLOT_BUSY') from exc
         try:
+            recovery=validate_administrative_recovery(queue,spec.task_key,recovery_decision_path,recovery_decision_sha)
             slots=queue/'slots'
             if slots.exists():
                 for slot in slots.iterdir():
-                    if slot.is_symlink() or not slot.is_dir() or not (slot/'finished.json').exists():
+                    if (slot.is_symlink() or not slot.is_dir()
+                            or (not (slot/'finished.json').exists()
+                                and (recovery is None or slot.name != recovery['old_job_id']))):
                         raise RuntimeError('WAVE1_GLOBAL_UNKNOWN_SLOT_RECONCILE_REQUIRED')
                     if json.loads((slot/'started.json').read_bytes())['task_key']==spec.task_key:
                         raise RuntimeError('WAVE1_DUPLICATE_TASK_SCOPE_NO_COUNTER_RESET')
-            return _run_supervised(spec,command,output_root,dependency_root,dependency_sha,_monitor=_monitor)
+            return _run_supervised(spec,command,output_root,dependency_root,dependency_sha,_monitor=_monitor,
+                                   recovery_decision_path=recovery_decision_path,recovery_decision_sha=recovery_decision_sha)
         finally:fcntl.flock(stream,fcntl.LOCK_UN)
 
 
-def _run_supervised(spec, command, output_root, dependency_root, dependency_sha, *, _monitor=None):
+def _run_supervised(spec, command, output_root, dependency_root, dependency_sha, *, _monitor=None, recovery_decision_path=None, recovery_decision_sha=None):
     """One job wraps the whole experiment; no subprocess restart/next-job reset.
 
     Scientific/data approval and command binding remain the chief's responsibility.
@@ -297,7 +301,8 @@ def _run_supervised(spec, command, output_root, dependency_root, dependency_sha,
     budget={'max_model_calls':spec.max_forward,'max_seconds':spec.timeout_seconds,
             'max_rss_bytes':6*GIB,'max_mps_driver_bytes':6*GIB,'max_backward':spec.max_backward}
     with tracked_device_slot(spec.device,owner=spec.owner,job_id=spec.job_id,task_key=spec.task_key,
-                             budget=budget,dependency_root=dependency_root,dependency_sha=dependency_sha) as slot:
+                             budget=budget,dependency_root=dependency_root,dependency_sha=dependency_sha,recovery_decision_path=recovery_decision_path,
+                             recovery_decision_sha=recovery_decision_sha) as slot:
         directory.mkdir(parents=True,exist_ok=False,mode=0o700)
         write_new(directory/'spec.json',canonical_json(asdict(spec)))
         write_new(directory/'counters.json',canonical_json({'job_id':spec.job_id,'forward':0,'backward':0,'sequence':0,'cases':{}}))

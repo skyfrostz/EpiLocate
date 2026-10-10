@@ -1,0 +1,21 @@
+{
+  "schema": "EPI-NEXT-R0-CONSUMPTION-1",
+  "source_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/r0-review-v1/result.json",
+  "source_sha256": "8e238721357f0c36f0d1922626c8a0cf8c19c5254d76d13886204636d1bd99d9",
+  "referenced_raw_files_verified": 6,
+  "verification": "RAW_SHA_MATCH",
+  "sampling_by_integration": false,
+  "production_queue_writes": 0,
+  "model_calls": 0,
+  "administrative_recovery": "WAIT_OWNER_EXPLICIT_DECISION",
+  "historical_slot": "UNKNOWN",
+  "review_summary": {
+    "status": "REVIEW_CONDITIONS_MET_NOT_DEVICE_RECOVERY_PROOF",
+    "samples": 61,
+    "free_min_percent": 54,
+    "free_max_percent": 56,
+    "swap_max_growth_bytes": 0.0,
+    "max_lateness_seconds": 0.010070750024169683,
+    "max_interval_seconds": 1.0088915830128826
+  }
+}
