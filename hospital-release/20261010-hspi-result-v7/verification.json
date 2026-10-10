@@ -1,0 +1,31 @@
+{
+  "schema": "EPI-NEXT-HSPI-RESULT-V3-VERIFICATION-1",
+  "source_commit": "265dce5923da972b5a27a08b458c034510a49a8c",
+  "source_dirty": false,
+  "command": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "research/next-hospital-20261014/tests/test_e2_result_handoff.py",
+    "research/next-hospital-20261014/tests/test_contracts_artifacts.py"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 0.3363500830018893,
+  "stdout": "......................................                                   [100%]\n38 passed in 0.08s",
+  "log_sha256": "4f762d12b9aae7292a76caff8b58c2158bc8af8c32c54a5253283bbb050dc73a",
+  "artifact_sha256": {
+    "research/next-hospital-20261014/epi_next/e2_result_handoff.py": "edf47a12660f3c00c27126d53bb98289b835879d05ea0079905a8c91dfdbf363",
+    "research/next-hospital-20261014/reports/E2_RESULT_HANDOFF_V3.md": "01af817055a552e4dbad96b80e827d75f5ea567434bdbfa43cbb4176d0dbea24",
+    "research/next-hospital-20261014/tests/test_e2_result_handoff.py": "331d2fbbb926e3a22e0ab6108ad057ce455502cadfb377e9f08a54297e87146d",
+    "hospital-release/20261010-hspi-result-v7/CTFM_EXTERNAL_RECOVERY_REVIEW.md": "c81aabefbcd8c6ea3243ed362480afa2f5d2d1af8f1a24b1d21b046b3c4496c5"
+  },
+  "new_model_calls": 0,
+  "new_backward_calls": 0,
+  "new_medical_checkpoint_loads": 0,
+  "unknown_slot_writes": 0,
+  "supervisor_changes": false,
+  "production_state_writes": 0
+}

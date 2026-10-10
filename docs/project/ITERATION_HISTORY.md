@@ -1026,3 +1026,6 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 开始HEAD `986485a517e81033dd9af36538091d8ffb0247e2`、原INTEGRATION工作树干净。读取总控v3包00/01/02/04，保持源码/已保存结果及生成fixture许可，新增e2_result_handoff独立sidecar：E2-W1/REF/CT mode、profile、全计划scale/stage、selected_iteration、partial/unrun/no-feasible、trace SHA与分别验收轴。复用persist_run不可覆盖；无LOC算法/GT重写，无新handler/UI/监督v2改动。契约文件交总控转LOC，不宣称peer已收到。38定向生成/资产测试PASS（0.08s），其中4新增验证mode、partial/unrun与trace/选择身份及不可覆盖保存。
 
 只读原CTFM self-task身份/收据/槽、state19；槽无finished/完成标记，父66331/子66338当前ps exit1无记录，已记录旧组退出但无设备恢复。未在有界后续恢复入口发现合法恢复证据，仍UNKNOWN；不能把旧driver458752/tensor0且recovered=false补成恢复。外部恢复审查支持证据/独立批准项见hospital-release/20261010-hspi-result-v7/CTFM_EXTERNAL_RECOVERY_REVIEW.md。无解锁、伪旧child标记、GPU probe、科学参数/配额改写、真实forward/backward/训练/production state写入。MVP无需E2阳性，新增真实E2E NOT RUN。
+
+
+**HSPI sidecar固定源码补录：** `265dce5923da972b5a27a08b458c034510a49a8c` clean源上38生成/资产定向测试PASS，exit0；命令/耗时/模块字节SHA见hospital-release/20261010-hspi-result-v7/verification.json。e2_result_handoff SHA `edf47a12660f3c00c27126d53bb98289b835879d05ea0079905a8c91dfdbf363`。没有真实模型、反向或checkpoint加载，旧监督v2无diff，UNKNOWN槽写0。只补交付元数据/工程日志，映射/数学/临床评价非本sidecar验收范围。

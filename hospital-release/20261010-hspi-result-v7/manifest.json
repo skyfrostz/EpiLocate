@@ -21,5 +21,8 @@
     "sidecar validates metadata/trace identity only; does not independently verify algorithm math or candidate spatial mapping",
     "LOC must populate exact plan and trace fields without silent epoch convention changes",
     "external recovery requires separate evidence and approval; current v2 does not consume administrative recovery decisions"
-  ]
+  ],
+  "source_commit": "265dce5923da972b5a27a08b458c034510a49a8c",
+  "source_dirty": false,
+  "verification_sha256": "180d3634f1ffa4f950d87de2494371883388c15b9e238e8140d25f532a7d9d67"
 }
