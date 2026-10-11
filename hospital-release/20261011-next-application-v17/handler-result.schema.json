@@ -1,0 +1,401 @@
+{
+  "$defs": {
+    "Candidate": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox_lps_mm": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            }
+          ],
+          "title": "Bbox Lps Mm",
+          "type": "array"
+        },
+        "evidence_type": {
+          "enum": [
+            "HSPI_CPF_PSMI_PATCH_SUPPORT",
+            "SIGNED_FEATURE_CONTRIBUTION"
+          ],
+          "title": "Evidence Type",
+          "type": "string"
+        },
+        "response": {
+          "title": "Response",
+          "type": "number"
+        },
+        "stage": {
+          "minimum": 1,
+          "title": "Stage",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "response",
+        "evidence_type",
+        "bbox_lps_mm",
+        "stage"
+      ],
+      "title": "Candidate",
+      "type": "object"
+    },
+    "Layer": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "pattern": "^[A-Za-z0-9_-]+\\.png$",
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "coordinate_space": {
+          "const": "RAW_PIXEL_EDGE",
+          "title": "Coordinate Space",
+          "type": "string"
+        },
+        "display_interpolation_only": {
+          "const": true,
+          "title": "Display Interpolation Only",
+          "type": "boolean"
+        },
+        "display_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Display Sha256",
+          "type": "string"
+        },
+        "evidence_type": {
+          "enum": [
+            "OPTIMIZED_INPUT_MASK",
+            "SIGNED_FEATURE_CONTRIBUTION",
+            "HSPI_CPF_GAP",
+            "HSPI_CPF_PSMI_PATCH_SUPPORT",
+            "HSPI_PSMI_WHOLE_PATCH_SUPPORT",
+            "SOURCE_ARRAY_PREVIEW"
+          ],
+          "title": "Evidence Type",
+          "type": "string"
+        },
+        "geometry_ledger_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Geometry Ledger Sha256",
+          "type": "string"
+        },
+        "height": {
+          "exclusiveMinimum": 0,
+          "title": "Height",
+          "type": "integer"
+        },
+        "layer_kind": {
+          "enum": [
+            "OPTIMIZED_INPUT_MASK",
+            "SIGNED_FEATURE_CONTRIBUTION",
+            "HSPI_CPF_GAP",
+            "HSPI_CPF_PSMI_PATCH_SUPPORT",
+            "HSPI_PSMI_WHOLE_PATCH_SUPPORT",
+            "BASE_IMAGE"
+          ],
+          "title": "Layer Kind",
+          "type": "string"
+        },
+        "mapping_qa_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Mapping Qa Sha256",
+          "type": "string"
+        },
+        "native_slice_index": {
+          "minimum": 0,
+          "title": "Native Slice Index",
+          "type": "integer"
+        },
+        "origin": {
+          "const": "TOP_LEFT_PIXEL_EDGE",
+          "title": "Origin",
+          "type": "string"
+        },
+        "raw_values": {
+          "anyOf": [
+            {
+              "items": {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Values"
+        },
+        "value_max": {
+          "title": "Value Max",
+          "type": "number"
+        },
+        "value_min": {
+          "title": "Value Min",
+          "type": "number"
+        },
+        "width": {
+          "exclusiveMinimum": 0,
+          "title": "Width",
+          "type": "integer"
+        },
+        "x_axis": {
+          "const": "RIGHT",
+          "title": "X Axis",
+          "type": "string"
+        },
+        "y_axis": {
+          "const": "DOWN",
+          "title": "Y Axis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "asset_id",
+        "layer_kind",
+        "evidence_type",
+        "width",
+        "height",
+        "coordinate_space",
+        "origin",
+        "x_axis",
+        "y_axis",
+        "display_interpolation_only",
+        "value_min",
+        "value_max",
+        "display_sha256",
+        "geometry_ledger_sha256",
+        "mapping_qa_sha256",
+        "native_slice_index"
+      ],
+      "title": "Layer",
+      "type": "object"
+    },
+    "Prediction": {
+      "additionalProperties": false,
+      "properties": {
+        "class_label": {
+          "title": "Class Label",
+          "type": "string"
+        },
+        "logits": {
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "title": "Logits",
+          "type": "array"
+        },
+        "predicted_class": {
+          "minimum": 0,
+          "title": "Predicted Class",
+          "type": "integer"
+        },
+        "probabilities": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Probabilities"
+        }
+      },
+      "required": [
+        "logits",
+        "predicted_class",
+        "class_label"
+      ],
+      "title": "Prediction",
+      "type": "object"
+    },
+    "StopEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "deadline_elapsed_seconds": {
+          "minimum": 0,
+          "title": "Deadline Elapsed Seconds",
+          "type": "number"
+        },
+        "elapsed_seconds": {
+          "minimum": 0,
+          "title": "Elapsed Seconds",
+          "type": "number"
+        },
+        "kind": {
+          "enum": [
+            "TIME_BUDGET",
+            "FORWARD_BUDGET",
+            "BACKWARD_BUDGET",
+            "UPDATE_BUDGET"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "new_work_after_stop": {
+          "const": false,
+          "title": "New Work After Stop",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "kind",
+        "elapsed_seconds",
+        "deadline_elapsed_seconds",
+        "new_work_after_stop"
+      ],
+      "title": "StopEvent",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "actual_backward": {
+      "minimum": 0,
+      "title": "Actual Backward",
+      "type": "integer"
+    },
+    "actual_forward": {
+      "minimum": 0,
+      "title": "Actual Forward",
+      "type": "integer"
+    },
+    "actual_updates": {
+      "minimum": 0,
+      "title": "Actual Updates",
+      "type": "integer"
+    },
+    "algorithm_status": {
+      "minLength": 1,
+      "title": "Algorithm Status",
+      "type": "string"
+    },
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/Candidate"
+      },
+      "title": "Candidates",
+      "type": "array"
+    },
+    "diagnostics": {
+      "additionalProperties": true,
+      "title": "Diagnostics",
+      "type": "object"
+    },
+    "execution_status": {
+      "enum": [
+        "SUCCESS",
+        "NO_RELIABLE_RESPONSE",
+        "PARTIAL_BUDGET",
+        "FAILED",
+        "BLOCKED",
+        "NOT RUN"
+      ],
+      "title": "Execution Status",
+      "type": "string"
+    },
+    "layers": {
+      "items": {
+        "$ref": "#/$defs/Layer"
+      },
+      "title": "Layers",
+      "type": "array"
+    },
+    "prediction": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Prediction"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Reason"
+    },
+    "runtime_seconds": {
+      "minimum": 0,
+      "title": "Runtime Seconds",
+      "type": "number"
+    },
+    "source_artifacts": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Source Artifacts",
+      "type": "object"
+    },
+    "stop_events": {
+      "items": {
+        "$ref": "#/$defs/StopEvent"
+      },
+      "title": "Stop Events",
+      "type": "array"
+    }
+  },
+  "required": [
+    "execution_status",
+    "algorithm_status",
+    "reason",
+    "prediction",
+    "candidates",
+    "layers",
+    "actual_forward",
+    "actual_backward",
+    "actual_updates",
+    "runtime_seconds",
+    "source_artifacts",
+    "diagnostics"
+  ],
+  "title": "HandlerResult",
+  "type": "object"
+}

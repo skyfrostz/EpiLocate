@@ -1,0 +1,356 @@
+{
+  "$defs": {
+    "Budget": {
+      "additionalProperties": false,
+      "properties": {
+        "backward": {
+          "minimum": 0,
+          "title": "Backward",
+          "type": "integer"
+        },
+        "forward": {
+          "minimum": 0,
+          "title": "Forward",
+          "type": "integer"
+        },
+        "output_bytes": {
+          "exclusiveMinimum": 0,
+          "maximum": 67108864,
+          "title": "Output Bytes",
+          "type": "integer"
+        },
+        "seconds": {
+          "exclusiveMinimum": 0,
+          "title": "Seconds",
+          "type": "number"
+        },
+        "updates": {
+          "minimum": 0,
+          "title": "Updates",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "forward",
+        "backward",
+        "updates",
+        "seconds",
+        "output_bytes"
+      ],
+      "title": "Budget",
+      "type": "object"
+    },
+    "Input": {
+      "additionalProperties": false,
+      "properties": {
+        "affine_lps": {
+          "items": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "title": "Affine Lps",
+          "type": "array"
+        },
+        "case_id": {
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "coordinate_convention": {
+          "const": "array_zyx_to_LPS_mm",
+          "default": "array_zyx_to_LPS_mm",
+          "title": "Coordinate Convention",
+          "type": "string"
+        },
+        "display_kind": {
+          "enum": [
+            "DICOM",
+            "RESEARCH_ARRAY"
+          ],
+          "title": "Display Kind",
+          "type": "string"
+        },
+        "display_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Display Sha256",
+          "type": "string"
+        },
+        "geometry_ledger_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Geometry Ledger Sha256",
+          "type": "string"
+        },
+        "input_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Input Sha256",
+          "type": "string"
+        },
+        "mapping_qa_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Mapping Qa Sha256",
+          "type": "string"
+        },
+        "mapping_verified": {
+          "title": "Mapping Verified",
+          "type": "boolean"
+        },
+        "model_shape": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Model Shape",
+          "type": "array"
+        },
+        "native_shape_zyx": {
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "title": "Native Shape Zyx",
+          "type": "array"
+        },
+        "native_slice_index": {
+          "minimum": 0,
+          "title": "Native Slice Index",
+          "type": "integer"
+        },
+        "scope": {
+          "enum": [
+            "SINGLE_SLICE",
+            "VOLUME"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "series_id": {
+          "minLength": 1,
+          "title": "Series Id",
+          "type": "string"
+        },
+        "slice_id": {
+          "minLength": 1,
+          "title": "Slice Id",
+          "type": "string"
+        },
+        "source_identity_status": {
+          "enum": [
+            "DICOM_CONFORMANT",
+            "DICOM_ID_NONCONFORMANT",
+            "SYNTHETIC"
+          ],
+          "title": "Source Identity Status",
+          "type": "string"
+        },
+        "study_id": {
+          "minLength": 1,
+          "title": "Study Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "study_id",
+        "series_id",
+        "slice_id",
+        "input_sha256",
+        "display_sha256",
+        "scope",
+        "display_kind",
+        "source_identity_status",
+        "native_shape_zyx",
+        "model_shape",
+        "native_slice_index",
+        "affine_lps",
+        "geometry_ledger_sha256",
+        "mapping_qa_sha256",
+        "mapping_verified"
+      ],
+      "title": "Input",
+      "type": "object"
+    },
+    "Model": {
+      "additionalProperties": false,
+      "properties": {
+        "checkpoint_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checkpoint Sha256",
+          "type": "string"
+        },
+        "encoder_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Encoder Sha256"
+        },
+        "head_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Head Sha256"
+        },
+        "model_id": {
+          "minLength": 1,
+          "title": "Model Id",
+          "type": "string"
+        },
+        "preprocessing_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Preprocessing Sha256",
+          "type": "string"
+        },
+        "preprocessing_version": {
+          "minLength": 1,
+          "title": "Preprocessing Version",
+          "type": "string"
+        },
+        "protocol_id": {
+          "minLength": 1,
+          "title": "Protocol Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model_id",
+        "checkpoint_sha256",
+        "preprocessing_version",
+        "preprocessing_sha256",
+        "protocol_id"
+      ],
+      "title": "Model",
+      "type": "object"
+    },
+    "Task": {
+      "additionalProperties": false,
+      "properties": {
+        "class_labels": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "title": "Class Labels",
+          "type": "array"
+        },
+        "definition_id": {
+          "minLength": 1,
+          "title": "Definition Id",
+          "type": "string"
+        },
+        "target_class": {
+          "minimum": 0,
+          "title": "Target Class",
+          "type": "integer"
+        },
+        "unit": {
+          "enum": [
+            "SLICE",
+            "SOURCE_CASE_SELECTED_SERIES"
+          ],
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "definition_id",
+        "unit",
+        "class_labels",
+        "target_class"
+      ],
+      "title": "Task",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "algorithm_mode": {
+      "enum": [
+        "E2",
+        "CTFM"
+      ],
+      "title": "Algorithm Mode",
+      "type": "string"
+    },
+    "algorithm_version": {
+      "minLength": 1,
+      "title": "Algorithm Version",
+      "type": "string"
+    },
+    "budget": {
+      "$ref": "#/$defs/Budget"
+    },
+    "config_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Config Sha256",
+      "type": "string"
+    },
+    "execution_mode": {
+      "enum": [
+        "LIVE",
+        "PRECOMPUTED",
+        "SYNTHETIC"
+      ],
+      "title": "Execution Mode",
+      "type": "string"
+    },
+    "input": {
+      "$ref": "#/$defs/Input"
+    },
+    "method_mode": {
+      "enum": [
+        "E2-CT",
+        "CTFM-VOLUME-HEAD"
+      ],
+      "title": "Method Mode",
+      "type": "string"
+    },
+    "model": {
+      "$ref": "#/$defs/Model"
+    },
+    "schema_version": {
+      "const": "EPI_NEXT_APPLICATION_REQUEST_V1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "task": {
+      "$ref": "#/$defs/Task"
+    }
+  },
+  "required": [
+    "schema_version",
+    "algorithm_mode",
+    "method_mode",
+    "algorithm_version",
+    "config_sha256",
+    "execution_mode",
+    "input",
+    "model",
+    "task",
+    "budget"
+  ],
+  "title": "ApplicationRequest",
+  "type": "object"
+}

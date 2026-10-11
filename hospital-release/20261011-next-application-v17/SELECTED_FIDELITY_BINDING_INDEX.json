@@ -1,0 +1,52 @@
+{
+  "status": "ENGINEERING_BOUND_NOT_DISPATCHED",
+  "binding_ref": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/next-application-v4/selected-fidelity-binding-v1.json",
+    "sha256": "cb5468820ab76aa0de5736ef1a6bac7ea630dc438743afe7c9428274ab48dc73"
+  },
+  "task_key": "EPI-NEXT-SELECTED-FIDELITY-5F-CPU-20261011-V4-INT-1",
+  "job_id": "selected-fidelity-5f-20261011-int-v4-1",
+  "output_root": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1",
+  "compute": {
+    "device": "CPU",
+    "forward": 5,
+    "backward": 0,
+    "updates": 0,
+    "seconds": 120,
+    "output_bytes": 67108864
+  },
+  "argv_metadata_only": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/next_selected_fidelity.py",
+    "--binding",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/next-application-v4/selected-fidelity-binding-v1.json",
+    "--binding-sha",
+    "cb5468820ab76aa0de5736ef1a6bac7ea630dc438743afe7c9428274ab48dc73"
+  ],
+  "new_receipts_created": false,
+  "source_bound_file_count": 18,
+  "medical_calls": 0,
+  "raw_CT_weights_prepared_arrays_reuse_mask_read": false,
+  "metadata_only_references_read": true,
+  "execute_argv_prefix_after_new_approval": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/next_selected_fidelity.py",
+    "--binding",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/next-application-v4/selected-fidelity-binding-v1.json",
+    "--binding-sha",
+    "cb5468820ab76aa0de5736ef1a6bac7ea630dc438743afe7c9428274ab48dc73"
+  ],
+  "required_external_argv_arguments": [
+    "--dispatch",
+    "<chief published dispatch path>",
+    "--dispatch-sha",
+    "<exact dispatch SHA256>",
+    "--execute"
+  ],
+  "approval_binding_design": "Immutable binding has no receipt references; external dispatch binds binding SHA + all source hashes + owner/admission references. No hash self-reference.",
+  "required_environment": {
+    "PYTHONPATH": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "supervisor_child_environment": "Existing ChildGuard.from_environment values supplied only by admitted supervisor"
+  }
+}

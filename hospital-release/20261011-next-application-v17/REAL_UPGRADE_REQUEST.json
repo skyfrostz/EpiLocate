@@ -1,0 +1,74 @@
+{
+  "schema": "EPI_NEXT_INTEGRATION_REAL_UPGRADE_REQUEST_V1",
+  "status": "NOT_DISPATCHED",
+  "source_commit": null,
+  "owner": "钟佳桦",
+  "delivery_via": "首席算法工程师本地汇总",
+  "new_approval_created": false,
+  "queue_dispatch": false,
+  "selected_fidelity": {
+    "status": "ENGINEERING_BOUND_NOT_DISPATCHED",
+    "binding_ref": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/next-application-v4/selected-fidelity-binding-v1.json",
+      "sha256": "cb5468820ab76aa0de5736ef1a6bac7ea630dc438743afe7c9428274ab48dc73"
+    },
+    "task_key": "EPI-NEXT-SELECTED-FIDELITY-5F-CPU-20261011-V4-INT-1",
+    "job_id": "selected-fidelity-5f-20261011-int-v4-1",
+    "output_root": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1",
+    "compute": {
+      "device": "CPU",
+      "forward": 5,
+      "backward": 0,
+      "updates": 0,
+      "seconds": 120,
+      "output_bytes": 67108864
+    },
+    "launch_index": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-next-application-v17/SELECTED_FIDELITY_BINDING_INDEX.json",
+    "missing": [
+      "new owner receipt",
+      "new admission decision",
+      "external chief dispatch SHA",
+      "existing admitted supervisor child environment"
+    ],
+    "scientific_config_sha256": "ab7b2df246a7b9c9c46dddce9b10304686158884fcb33bad06b25000a14f6f1c",
+    "reuse_file_sha256": "166ac42c0801ee5b35cfab2f030d485460aa6b944be7ef5eb85a550f23b72f76",
+    "reuse_canonical_sha256": "2227c6e1d39722dd0c77da1e8a79683031f382e8ae46bc66f5afc7e4fdeff0c4"
+  },
+  "e2_q": {
+    "status": "ENGINEERING_NOT_READY",
+    "scientific_config_sha256": "a37d9b5585afb548753c64d6aee6ed41e7136a325b29db1dabe1b6d3f24f2b46",
+    "requested_global": {
+      "cases": 3,
+      "forward": 130013,
+      "backward": 130000,
+      "updates": 130000,
+      "seconds": 7200,
+      "per_case_seconds": 2400,
+      "per_branch_seconds": 900,
+      "output_bytes": 536870912
+    },
+    "missing": [
+      "three-case shared global counters/time executable wrapper",
+      "new exact approval/admission/dispatch",
+      "new application Job/Worker bindings if first scientific execution uses application"
+    ],
+    "preferred_application_route": "PRECOMPUTED from one scientific execution; no duplicate E2-Q model computation"
+  },
+  "replay": {
+    "status": "NOT_READY_MISSING_NEW_E2_Q_RESULT",
+    "new_forward": 0,
+    "new_backward": 0,
+    "new_updates": 0
+  },
+  "ctfm": {
+    "status": "NOT_READY_MISSING_NEW_TRAINED_HEAD_AND_VOLUME_HANDLER"
+  },
+  "data": {
+    "existing_data_v3": "DELIVERED",
+    "prepared_delivery_sha256": "b85eaf6c78d1547e2aa4b93458734f533d34be5de1ed056fd152c30b92ebaa99",
+    "hospital_allowlist": "NOT_FROZEN",
+    "second_allowlist_created": false
+  },
+  "hospital_freeze": "NOT RUN",
+  "clinical_validity": "NOT_ESTABLISHED"
+}

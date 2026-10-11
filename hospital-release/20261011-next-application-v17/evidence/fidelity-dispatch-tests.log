@@ -1,0 +1,4 @@
+env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python -m pytest backend_v2/tests/test_next_fidelity_dispatch.py -q
+...... [100%]
+6 passed in 0.02s
+Generated constructible chain and tamper checks only; no actual owner receipt or queue.

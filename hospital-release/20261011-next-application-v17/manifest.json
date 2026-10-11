@@ -1,0 +1,213 @@
+{
+  "schema": "EPI_NEXT_HOSPITAL_INTEGRATION_MANIFEST_V17",
+  "created_date": "2026-10-11",
+  "worktree": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+  "branch": "codex/epi-next-integration-20261009",
+  "base_commit": "cad49f20d7f5d77027ca955e4a609abebb6fe58e",
+  "source_commit": null,
+  "status": "ENGINEERING_SYNTHETIC_ACCEPTANCE_ONLY",
+  "hospital_final_freeze": "NOT RUN",
+  "hospital_default_model": null,
+  "approval_authority": "钟佳桦",
+  "delivery_route": "本地版本化交付包 → 首席算法工程师汇总 → 负责人确认",
+  "execution_states": [
+    "SUCCESS",
+    "NO_RELIABLE_RESPONSE",
+    "PARTIAL_BUDGET",
+    "FAILED",
+    "BLOCKED",
+    "NOT RUN"
+  ],
+  "default_application_new_tasks_enabled": false,
+  "preserved": {
+    "legacy": [
+      "FrozenBaseline",
+      "Occlusion16",
+      "Occlusion32",
+      "Occlusion64",
+      "A/B/C",
+      "GT-v1",
+      "frozen preprocessing",
+      "original protocol"
+    ],
+    "m0": "COMPLETE_DEVELOPMENT_MVP",
+    "m0_source_commit": "54ff1565f6c11a6deea873feab0a011e879528fb",
+    "m0_delivery_commit": "510d387ef02d55c22f01f9cbd282137ea1274934",
+    "m0_manifest_sha256": "c8bcb4cc795cdafd36c93588b6d826ef8de69764e9b086618eb5b0fa038051c8",
+    "original_files_verified": 16
+  },
+  "algorithms": [
+    {
+      "id": "FrozenBaseline",
+      "role": "legacy fallback",
+      "hospital_default": false,
+      "clinical_validated": false
+    },
+    {
+      "id": "Occlusion16/32/64",
+      "role": "legacy fallback",
+      "evidence_type": "OCCLUSION_RESPONSE",
+      "clinical_validated": false
+    },
+    {
+      "id": "E1",
+      "role": "experimental research sidecar",
+      "application_real_status": "NOT RUN",
+      "clinical_validated": false
+    },
+    {
+      "id": "E2",
+      "role": "experimental application adapter",
+      "engineering_tests": "SYNTHETIC_PASS",
+      "full_q_launcher": "ENGINEERING_NOT_READY",
+      "real_application": "NOT RUN",
+      "evidence_types": [
+        "OPTIMIZED_INPUT_MASK",
+        "HSPI_CPF_GAP",
+        "HSPI_CPF_PSMI_PATCH_SUPPORT",
+        "HSPI_PSMI_WHOLE_PATCH_SUPPORT"
+      ],
+      "clinical_validated": false
+    },
+    {
+      "id": "F0",
+      "role": "unfinished research/application model",
+      "ctfm_volume_contract": "IMPLEMENTED_INJECTED_TESTS",
+      "real_head_handler": "NOT_READY",
+      "real_application": "NOT RUN",
+      "clinical_validated": false
+    },
+    {
+      "id": "F1",
+      "role": "unfinished research sidecar",
+      "real_application": "NOT RUN",
+      "clinical_validated": false
+    }
+  ],
+  "comparison_entry": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/epi_next/hospital_release.py",
+  "comparison_status": "existing independently versioned selector; no hospital default selected",
+  "tests": {
+    "backend": {
+      "passed": 78,
+      "seconds": 4.49
+    },
+    "frontend": {
+      "files": 19,
+      "passed": 164,
+      "seconds": 1.83
+    },
+    "spatial_hospital_contract": {
+      "passed": 34,
+      "seconds": 0.24
+    },
+    "loading_targeted": {
+      "passed": 3,
+      "seconds": 2.72,
+      "overlaps_backend": 2
+    },
+    "fidelity_external_binding": {
+      "passed": 6,
+      "seconds": 0.02
+    },
+    "typecheck": "exit0",
+    "build": "exit0; independent dist, 35 SHA-bound files"
+  },
+  "real_CT_end_to_end": "NEW_HOSPITAL_CONFIGURATION_NOT_RUN",
+  "limitations": [
+    "hospital allowlist not frozen",
+    "no new E2/CTFM real application execution",
+    "E2-Q lacks three-case shared global budget executable wrapper",
+    "CTFM new trained head, full volume resolver and real handler pending",
+    "real six-part Series spatial review pending",
+    "hospital three consecutive demos pending",
+    "approved hospital precomputed backup and recording pending",
+    "PostgreSQL migration/deployment and real new UI browser NOT RUN",
+    "existing Vite externalized codec/fs and chunk warnings"
+  ],
+  "new_medical_compute": {
+    "forward": 0,
+    "backward": 0,
+    "updates": 0
+  },
+  "remote_RTX3090": "PAUSED",
+  "new_queue_dispatch": false,
+  "third_party_upload": false,
+  "evidence_files": {
+    "ACCEPTANCE.md": {
+      "sha256": "14874d108d8cf09dff867e4a3cd4c1f804c5211bc144e412cfb84aaac0a5b699",
+      "bytes": 3979
+    },
+    "DEMO_AND_ROLLBACK.md": {
+      "sha256": "0b94ec3e41fe5632c523d43e1c95aef35bcdb719f335b6056362aa3527ee168b",
+      "bytes": 2891
+    },
+    "LOADING_ENTRIES.md": {
+      "sha256": "de714e6093a27bdbc16da2d3ad9d625a503c929fd02585ef0d2b139b2c31b5f5",
+      "bytes": 5094
+    },
+    "README.md": {
+      "sha256": "5f6d3a9af4067f3b0ed91ff8b8a7c5aca6f15834d9c277dd6015589b434b4b59",
+      "bytes": 2790
+    },
+    "REAL_UPGRADE_REQUEST.json": {
+      "sha256": "1c54c577c7ffdd43c3cf283f35e292983886889f5e39d4641eee2eba55afa56c",
+      "bytes": 2972
+    },
+    "SELECTED_FIDELITY_BINDING_INDEX.json": {
+      "sha256": "5afcbae54f70c8daea5c19b040cdcc1121c271111b1ffb3eaf1edd2b9fdff4bc",
+      "bytes": 2538
+    },
+    "application-request.schema.json": {
+      "sha256": "d3bbd2968f8f5319a9ef86795becb3ac7b22e6e0a49f1057afdfc1bea98bbff7",
+      "bytes": 8131
+    },
+    "evidence/fidelity-binding-metadata.log": {
+      "sha256": "5310c22c101a41a549ba04b9d9c27e34d4e1abb87f63c17e7259d74098e4a690",
+      "bytes": 272
+    },
+    "evidence/fidelity-dispatch-tests.log": {
+      "sha256": "7faed9dff267047e207aa973a895a904d61367bedc38139aa85d08bb6145e36b",
+      "bytes": 295
+    },
+    "evidence/frontend-build.json": {
+      "sha256": "97a2cad47b7b29c34de0bec73055af98b429c3d3c52adccb956369ea09d7d075",
+      "bytes": 7955
+    },
+    "evidence/frontend-tests.log": {
+      "sha256": "feb3a0359a59978cfdedb049e2bf37adb2bc3d61249953387f203c02b03e5402",
+      "bytes": 230
+    },
+    "evidence/historical-preservation.json": {
+      "sha256": "40582fb2ae586cb8cfd26506e4b1b479416735f41f125bdf06af6d74d906e8b4",
+      "bytes": 3525
+    },
+    "evidence/loading-entry-tests.log": {
+      "sha256": "473f1d7dd83cc232f1a1eb32d000d3be52599ce176edce9f2682f72a9120f0ca",
+      "bytes": 400
+    },
+    "evidence/loc-handoff-consumption.json": {
+      "sha256": "b45e6b5b58271d5ca351dacff9304bac4c1209cc8ece4e4832e617a7bcfd97d2",
+      "bytes": 3845
+    },
+    "evidence/loc-synthetic-chain.json": {
+      "sha256": "216b005c10ad2abb3a44cbe5e669e9dec8816a9a6fd4ce73be94a771325f942e",
+      "bytes": 1838
+    },
+    "evidence/receipt.json": {
+      "sha256": "8c1a435237415b5c2a9f2d6cd966c79b46b60406663b3c2c98dc16ef5a934d84",
+      "bytes": 1250
+    },
+    "evidence/spatial-tests.log": {
+      "sha256": "f78527d6d606290453817a482758a2b35f9a476dde46bcfe3812384ff6071204",
+      "bytes": 377
+    },
+    "evidence/tests.log": {
+      "sha256": "441b93a773b51692e120c7457e26c11062a08894ddfad9e35c25ab6b9a394a2d",
+      "bytes": 191
+    },
+    "handler-result.schema.json": {
+      "sha256": "5add90a4fd87ddb62244cf27d6ab690b7bae1008f1b7ea9a7603cdb93c387fce",
+      "bytes": 9172
+    }
+  }
+}

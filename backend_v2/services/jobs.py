@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import hmac
 import os
 import re
@@ -13,6 +14,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from backend_v2.models.entities import Asset, Case, InferenceJob, InferenceResult, JobAttempt, ModelVersion, Slice, WorkerNode
+from backend_v2.services import algorithms
 from backend_v2.services.common import aware, digest, fail, iso, now, public_id, valid_key
 
 LEASE_SECONDS = 90
@@ -84,7 +86,7 @@ def queue_created(db: Session):
     for job in jobs:
         sl = db.get(Slice, job.slice_id)
         model = db.get(ModelVersion, job.model_version_id)
-        if not sl or not sl.staging_object_key or not sl.staging_expires_at or aware(sl.staging_expires_at) <= now():
+        if (not algorithms.input_available(job) if job.kind == 'ALGORITHM' else (not sl or not sl.staging_object_key or not sl.staging_expires_at or aware(sl.staging_expires_at) <= now())):
             job.status = "FAILED"; job.failure_reason = "INPUT_EXPIRED"; job.error_message = "Input expired."; job.finished_at = now()
         elif not model or model.lifecycle_state != "ACTIVE":
             job.status = "FAILED"; job.failure_reason = "MODEL_UNAVAILABLE"; job.error_message = "Model unavailable."; job.finished_at = now()
@@ -95,7 +97,12 @@ def queue_created(db: Session):
 
 def job_payload(db: Session, job: InferenceJob):
     result = db.scalar(select(InferenceResult).where(InferenceResult.job_id == job.id)) if job.status == "COMPLETED" else None
-    return {"job_id": job.public_id, "kind": job.kind, "case_id": job.request_json["case_id"], "status": job.status, "attempt_no": job.attempt_no, "retry_count": job.retry_count, "lease_expire_time": iso(job.lease_expire_time), "last_heartbeat": iso(job.last_heartbeat), "failure_reason": job.failure_reason, "progress": None, "estimated_remaining_time_ms": None, "result_id": f"result_{result.id.hex}" if result else None, "error": {"code": job.failure_reason, "message": job.error_message or "Job failed."} if job.status == "FAILED" else None, "created_at": iso(job.created_at), "finished_at": iso(job.finished_at)}
+    body = {"job_id": job.public_id, "kind": job.kind, "case_id": job.request_json["case_id"], "status": job.status, "attempt_no": job.attempt_no, "retry_count": job.retry_count, "lease_expire_time": iso(job.lease_expire_time), "last_heartbeat": iso(job.last_heartbeat), "failure_reason": job.failure_reason, "progress": None, "estimated_remaining_time_ms": None, "result_id": f"result_{result.id.hex}" if result else None, "error": {"code": job.failure_reason, "message": job.error_message or "Job failed."} if job.status == "FAILED" else None, "created_at": iso(job.created_at), "finished_at": iso(job.finished_at)}
+
+    if job.kind == 'ALGORITHM':
+        body['algorithm_mode'] = job.request_json['application']['algorithm_mode']
+        body['algorithm_status'] = result.result_json['application']['execution_status'] if result else None
+    return body
 
 
 def current_attempt(db: Session, worker: WorkerNode, attempt_id: uuid.UUID, job_public_id: str, token: str):
@@ -122,7 +129,7 @@ def expire_and_retry(db: Session, job: InferenceJob, attempt: JobAttempt, code: 
     job.updated_at = at
     sl = db.get(Slice, job.slice_id)
     input_available = bool(sl and sl.staging_object_key and sl.staging_expires_at and aware(sl.staging_expires_at) > at)
-    if code in RETRYABLE_FAILURES and job.retry_count < 2 and input_available:
+    if job.kind != 'ALGORITHM' and code in RETRYABLE_FAILURES and job.retry_count < 2 and input_available:
         job.status = "QUEUED"
         job.next_attempt_at = at + timedelta(seconds=RETRY_DELAYS[job.attempt_no])
         job.queued_at = at
@@ -143,7 +150,7 @@ def recover_expired(db: Session, *, at=None):
     return len(jobs)
 
 
-def claim_job(db: Session, worker: WorkerNode, key: uuid.UUID, capacity: int, supported: list[dict], input_url):
+def claim_job(db: Session, worker: WorkerNode, key: uuid.UUID, capacity: int, supported: list[dict], input_url, *, application_worker=False):
     db.refresh(worker, with_for_update=True)
     normalized = sorted(supported, key=lambda x: (x["model_id"], x["checkpoint_sha256"]))
     request_digest = digest({"worker_id": worker.node_id, "supported_model_versions": normalized})
@@ -166,9 +173,11 @@ def claim_job(db: Session, worker: WorkerNode, key: uuid.UUID, capacity: int, su
     offered = {(x["model_id"], x["checkpoint_sha256"]) for x in normalized} & registered
     candidates = db.scalars(select(InferenceJob).where(InferenceJob.status == "QUEUED", InferenceJob.next_attempt_at <= now()).order_by(InferenceJob.created_at, InferenceJob.id).with_for_update(skip_locked=True)).all()
     for job in candidates:
+        if (job.kind == 'ALGORITHM') != application_worker:
+            continue
         model = db.get(ModelVersion, job.model_version_id)
         sl = db.get(Slice, job.slice_id)
-        if not sl or not sl.staging_object_key or not sl.staging_expires_at or aware(sl.staging_expires_at) <= now():
+        if (not algorithms.input_available(job) if job.kind == 'ALGORITHM' else (not sl or not sl.staging_object_key or not sl.staging_expires_at or aware(sl.staging_expires_at) <= now())):
             job.status = "FAILED"; job.failure_reason = "INPUT_EXPIRED"; job.error_message = "Input expired."; job.finished_at = now()
             continue
         if model.lifecycle_state != "ACTIVE" or (model.model_id, model.checkpoint_sha256) not in offered:
@@ -191,7 +200,12 @@ def claim_job(db: Session, worker: WorkerNode, key: uuid.UUID, capacity: int, su
 def _claim_payload(db, job, attempt, input_url):
     sl = db.get(Slice, job.slice_id)
     model = db.get(ModelVersion, job.model_version_id)
-    return {"job_id": job.public_id, "case_id": job.request_json["case_id"], "input_reference": {"url": input_url(sl), "sha256": sl.source_sha256, "expires_at": iso(min(aware(sl.staging_expires_at), now() + timedelta(minutes=5)))}, "model_version": {"model_id": model.model_id, "checkpoint_sha256": model.checkpoint_sha256, "preprocessing_version": model.preprocessing_version, "protocol_id": model.protocol_id}, "lease_expire_time": iso(attempt.lease_expire_time), "job_parameters": {"kind": job.kind, "slice_id": job.request_json["slice_id"], "scales": job.request_json["scales"]}, "attempt_id": str(attempt.id), "attempt_no": attempt.attempt_no, "lease_token": lease_token(attempt.id)}
+    if job.kind == 'ALGORITHM':
+        sl = algorithms.input_proxy(job)
+    payload = {"job_id": job.public_id, "case_id": job.request_json["case_id"], "input_reference": {"url": input_url(sl), "sha256": sl.source_sha256, "expires_at": iso(min(aware(sl.staging_expires_at), now() + timedelta(minutes=5)))}, "model_version": {"model_id": model.model_id, "checkpoint_sha256": model.checkpoint_sha256, "preprocessing_version": model.preprocessing_version, "protocol_id": model.protocol_id}, "lease_expire_time": iso(attempt.lease_expire_time), "job_parameters": {"kind": job.kind, "slice_id": job.request_json["slice_id"], "scales": job.request_json["scales"]}, "attempt_id": str(attempt.id), "attempt_no": attempt.attempt_no, "lease_token": lease_token(attempt.id)}
+    if job.kind == 'ALGORITHM':
+        payload['job_parameters']['application'] = job.request_json['application']
+    return payload
 
 
 def _probability(value):
@@ -281,28 +295,36 @@ def submit_result(db: Session, store, worker: WorkerNode, manifest: dict, assets
     sl = db.get(Slice, job.slice_id)
     if manifest["model_id"] != model.model_id or manifest["checkpoint_sha256"] != model.checkpoint_sha256:
         fail("MODEL_HASH_MISMATCH")
-    if manifest["input_sha256"] != sl.source_sha256:
+    if manifest["input_sha256"] != (job.request_json['algorithm_input']['sha256'] if job.kind == 'ALGORITHM' else sl.source_sha256):
         fail("INPUT_HASH_MISMATCH")
     at = now()
     result_id = None
     if manifest["outcome"] == "SUCCEEDED":
         result = manifest["result"]
-        permitted_keys = {"contract_version", "source", "case_id", "slice_id", "kind", "model_id", "model_version", "preprocessing_version", "protocol_id", "prediction", "scale_summaries", "cross_scale", "positions"}
-        if not isinstance(result, dict) or set(result) - permitted_keys:
-            fail("RESULT_SCHEMA_INVALID")
-        if not isinstance(result, dict) or any(result.get(k) != v for k, v in {"contract_version": "2.0", "source": "LIVE_CASE", "case_id": job.request_json["case_id"], "slice_id": job.request_json["slice_id"], "kind": job.kind, "model_id": model.model_id, "model_version": model.checkpoint_sha256, "preprocessing_version": model.preprocessing_version, "protocol_id": model.protocol_id}.items()):
-            fail("RESULT_SCHEMA_INVALID")
-        prediction = result.get("prediction")
-        if not isinstance(prediction, dict) or set(prediction) != {"predicted_class", "class_label", "positive_probability", "predicted_class_confidence", "inference_time_ms"}:
-            fail("RESULT_SCHEMA_INVALID")
-        if prediction["predicted_class"] not in (0, 1) or prediction["class_label"] not in {"negative", "positive"} or not all(isinstance(prediction[k], (float, int)) and 0 <= prediction[k] <= 1 for k in ("positive_probability", "predicted_class_confidence")) or not isinstance(prediction["inference_time_ms"], int) or prediction["inference_time_ms"] < 0:
-            fail("RESULT_SCHEMA_INVALID")
-        if (prediction["predicted_class"] == 1) != (prediction["class_label"] == "positive"):
-            fail("RESULT_SCHEMA_INVALID")
-        if job.kind == "OCCLUSION":
-            _validate_occlusion(result, job.request_json["scales"])
-        elif result.get("scale_summaries", []) or result.get("cross_scale", []) or result.get("positions", []):
-            fail("RESULT_SCHEMA_INVALID")
+        if job.kind == 'ALGORITHM':
+            try:
+                algorithms.validate_wire_result(result, job, model)
+                if len(json.dumps(result,sort_keys=True).encode())+sum(len(data) for data in assets.values())>job.request_json['application']['budget']['output_bytes']:
+                    fail('ALGORITHM_OUTPUT_BUDGET')
+            except (ValueError, TypeError, KeyError):
+                fail('RESULT_SCHEMA_INVALID')
+        else:
+            permitted_keys = {"contract_version", "source", "case_id", "slice_id", "kind", "model_id", "model_version", "preprocessing_version", "protocol_id", "prediction", "scale_summaries", "cross_scale", "positions"}
+            if not isinstance(result, dict) or set(result) - permitted_keys:
+                fail("RESULT_SCHEMA_INVALID")
+            if not isinstance(result, dict) or any(result.get(k) != v for k, v in {"contract_version": "2.0", "source": "LIVE_CASE", "case_id": job.request_json["case_id"], "slice_id": job.request_json["slice_id"], "kind": job.kind, "model_id": model.model_id, "model_version": model.checkpoint_sha256, "preprocessing_version": model.preprocessing_version, "protocol_id": model.protocol_id}.items()):
+                fail("RESULT_SCHEMA_INVALID")
+            prediction = result.get("prediction")
+            if not isinstance(prediction, dict) or set(prediction) != {"predicted_class", "class_label", "positive_probability", "predicted_class_confidence", "inference_time_ms"}:
+                fail("RESULT_SCHEMA_INVALID")
+            if prediction["predicted_class"] not in (0, 1) or prediction["class_label"] not in {"negative", "positive"} or not all(isinstance(prediction[k], (float, int)) and 0 <= prediction[k] <= 1 for k in ("positive_probability", "predicted_class_confidence")) or not isinstance(prediction["inference_time_ms"], int) or prediction["inference_time_ms"] < 0:
+                fail("RESULT_SCHEMA_INVALID")
+            if (prediction["predicted_class"] == 1) != (prediction["class_label"] == "positive"):
+                fail("RESULT_SCHEMA_INVALID")
+            if job.kind == "OCCLUSION":
+                _validate_occlusion(result, job.request_json["scales"])
+            elif result.get("scale_summaries", []) or result.get("cross_scale", []) or result.get("positions", []):
+                fail("RESULT_SCHEMA_INVALID")
         descriptors = manifest["assets"]
         if not isinstance(descriptors, list) or any(not isinstance(x, dict) for x in descriptors) or {x.get("part_name") for x in descriptors} != set(assets) or len(descriptors) != len(assets):
             fail("RESULT_SCHEMA_INVALID")
@@ -314,6 +336,8 @@ def submit_result(db: Session, store, worker: WorkerNode, manifest: dict, assets
                     layer = summary.get(field)
                     if isinstance(layer, dict) and layer.get("asset_id"):
                         layer_refs[layer["asset_id"]] = layer
+            if job.kind == 'ALGORITHM':
+                layer_refs = {layer['asset_id']: layer for layer in result['application']['layers']}
             if set(layer_refs) != {x.get("asset_id") for x in descriptors}:
                 fail("RESULT_SCHEMA_INVALID")
             for x in descriptors:
@@ -327,8 +351,8 @@ def submit_result(db: Session, store, worker: WorkerNode, manifest: dict, assets
                     fail("RESULT_SCHEMA_INVALID")
                 key = store.put(data, "image/png", "results")
                 stored.append({**x, "width": layer["width"], "height": layer["height"], "coordinate_space": layer["coordinate_space"], "object_key": key})
-            metadata = {"case_id": job.request_json["case_id"], "slice_id": job.request_json["slice_id"], "kind": job.kind, "model_id": model.model_id, "model_version": model.checkpoint_sha256, "preprocessing_version": model.preprocessing_version, "protocol_id": model.protocol_id, "source": "LIVE_CASE"}
-            row = InferenceResult(job_id=job.id, case_id=job.case_id, accepted_attempt_id=attempt.id, model_version_id=model.id, result_json=result, metadata_json=metadata, asset_manifest=stored)
+            metadata = {"case_id": job.request_json["case_id"], "slice_id": job.request_json["slice_id"], "kind": job.kind, "model_id": model.model_id, "model_version": model.checkpoint_sha256, "preprocessing_version": model.preprocessing_version, "protocol_id": model.protocol_id, "source": result["source"]}
+            row = InferenceResult(job_id=job.id, case_id=job.case_id, accepted_attempt_id=attempt.id, model_version_id=model.id, result_json=result, metadata_json=metadata, asset_manifest=stored, source=result["source"])
             db.add(row); db.flush()
             for item in stored:
                 db.add(Asset(result_id=row.id, asset_id=item["asset_id"], object_key=item["object_key"], layer_kind=item["layer_kind"], width=item["width"], height=item["height"], coordinate_space=item["coordinate_space"], media_type=item["media_type"], size_bytes=item["size_bytes"], sha256=item["sha256"]))

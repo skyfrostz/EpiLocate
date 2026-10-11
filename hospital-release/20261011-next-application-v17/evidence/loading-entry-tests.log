@@ -1,0 +1,3 @@
+Command: PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps python -m pytest backend_v2/tests/test_next_e2_launch.py -q --disable-warnings -x
+Actual final targeted result: 3 passed, 1 warning in 2.72s
+Scope: injected existing loader/guard boundary and zero medical model invocation; includes distinct selected-fidelity 5 logical guard callbacks; not real 5F acceptance.

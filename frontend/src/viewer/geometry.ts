@@ -15,8 +15,8 @@ export interface ViewerCameraState { zoom: number; pan: [number, number] }
 export interface VerifiedGeometry {
   rawWidth: number
   rawHeight: number
-  modelWidth: 224
-  modelHeight: 224
+  modelWidth: number
+  modelHeight: number
   rasterWidth: number
   rasterHeight: number
 }
@@ -98,6 +98,12 @@ export function resolveOverlayGeometry(
 export function overlayCompatible(overlay: ViewerOverlayInput | null, sliceId: string | null,
   width: number | null, height: number | null): boolean {
   const geometry = overlay?.geometry
+  if (overlay?.layer.coordinate_space === 'RAW_PIXEL_EDGE') {
+    return Boolean(geometry && sliceId && overlay.sliceId === sliceId && geometry.rawWidth === width && geometry.rawHeight === height &&
+      ['OPTIMIZED_INPUT_MASK','HSPI_CPF_GAP','HSPI_CPF_PSMI_PATCH_SUPPORT','HSPI_PSMI_WHOLE_PATCH_SUPPORT','SIGNED_FEATURE_CONTRIBUTION'].includes(overlay.layer.layer_kind) &&
+      geometry.modelWidth === width && geometry.modelHeight === height && overlay.layer.width === width && overlay.layer.height === height &&
+      overlay.layer.origin === 'TOP_LEFT_PIXEL_EDGE' && overlay.layer.x_axis === 'RIGHT' && overlay.layer.y_axis === 'DOWN' && overlay.layer.display_interpolation_only === true)
+  }
   return Boolean(overlay && geometry && sliceId && overlay.sliceId === sliceId &&
     geometry.rawWidth === width && geometry.rawHeight === height &&
     positiveInteger(geometry.rawWidth) && positiveInteger(geometry.rawHeight) &&

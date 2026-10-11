@@ -35,6 +35,10 @@
             <div class="inference-controls">
               <label>模型 ID <input v-model.trim="modelId" type="text" autocomplete="off" /></label>
               <div class="action-group"><a-button :loading="submitting" :disabled="!canSubmit" @click="submit('PREDICTION')">运行 Baseline 分类</a-button><a-button type="primary" :loading="submitting" :disabled="!canSubmit" @click="submit('OCCLUSION')">运行 16 / 32 / 64 px 遮挡</a-button></div>
+              <details v-if="nextEnabled"><summary>E2 / CT-FM 实验任务</summary>
+                <label>已绑定的任务配置 <textarea v-model="algorithmJson" rows="4" aria-label="新算法任务配置" /></label>
+                <a-button :loading="submitting" :disabled="!canSubmit" @click="submitAlgorithm">提交新算法任务</a-button>
+              </details>
             </div>
             <p v-if="jobError" class="notice notice-error" role="alert">{{ jobError }}</p>
             <a v-if="jobError && acceptedJobHref" :href="acceptedJobHref">打开已创建任务 →</a>
@@ -74,6 +78,8 @@ const previewError = ref<string | null>(null)
 const uploading = ref(false)
 const uploadError = ref<string | null>(null)
 const modelId = ref('baseline_resnet18')
+const nextEnabled = import.meta.env.VITE_NEXT_ALGORITHMS === 'true'
+const algorithmJson = ref('')
 const submitting = ref(false)
 const jobError = ref<string | null>(null)
 const uploadKey = ref<string | null>(null)
@@ -212,5 +218,30 @@ async function submit(kind: JobKind) {
   } finally {
     if (ownGeneration === pageGeneration && isSessionCurrent(epoch)) submitting.value = false
   }
+}
+async function submitAlgorithm() {
+  if (!nextEnabled || submitting.value) return
+  const epoch=sessionEpoch.value, ownGeneration=pageGeneration
+  const controller=mutationAbort=new AbortController()
+  submitting.value=true;jobError.value=null
+  try {
+    const request=JSON.parse(algorithmJson.value)
+    if (request.input?.case_id !== caseId.value) throw new Error('新算法配置与当前病例不一致。')
+    const action=`${caseId.value}:ALGORITHM:${JSON.stringify(request)}`
+    const key=jobKeys.get(action)??crypto.randomUUID();jobKeys.set(action,key)
+    let id=acceptedJobs.get(action)
+    if (!id) {
+      const created=await apiClient.createAlgorithm(request,key,controller.signal)
+      if (ownGeneration!==pageGeneration || !isSessionCurrent(epoch) || controller.signal.aborted)return
+      if (created.case_id!==caseId.value)throw new Error('新算法任务响应病例不一致。')
+      id=created.job_id;acceptedJobs.set(action,id)
+    }
+    acceptedJobId.value=id
+    const failure=await router.push(`/jobs/${encodeURIComponent(id)}`)
+    if (ownGeneration!==pageGeneration || !isSessionCurrent(epoch))return
+    if(failure)jobError.value='任务已创建，重试将打开同一任务。'
+    // Keep the same key for this exact request; an uncertain response cannot admit a second Job.
+  } catch(cause) {if(ownGeneration===pageGeneration && isSessionCurrent(epoch))jobError.value=errorText(cause)}
+  finally {if(ownGeneration===pageGeneration && isSessionCurrent(epoch))submitting.value=false}
 }
 </script>

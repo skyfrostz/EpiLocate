@@ -1,0 +1,1 @@
+{"status": "ENGINEERING_BOUND_NOT_DISPATCHED", "task_key": "EPI-NEXT-SELECTED-FIDELITY-5F-CPU-20261011-V4-INT-1", "compute": {"device": "CPU", "forward": 5, "backward": 0, "updates": 0, "seconds": 120, "output_bytes": 67108864}, "model_calls": 0, "queue_observations": 0}

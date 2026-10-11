@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "files": [
+    {
+      "path": "hospital-release/20261011-data-v2-ready-v15/COMMAND_INDEX.json",
+      "sha256": "e308fb82a2dc140fb5c715d71a40cfd2aaf6f15b672817ed462a7c381a142468",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-data-v2-ready-v15/README.md",
+      "sha256": "2c310db2876627a29e124ccdc9806728b25455750b8fe97e34b5467f16884480",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-data-v2-ready-v15/evidence/browser-acceptance.json",
+      "sha256": "48386e31cb1f2ec46da04b06bb4633f50b2a0437bc704f10c45db6753fe5b9ad",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-data-v2-ready-v15/evidence/finalization-receipt.json",
+      "sha256": "c427eea96e2d2558ccc72846c0a8e528ec92895109d1b718a8b12768917af426",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-data-v2-ready-v15/evidence/flow-3.png",
+      "sha256": "95da1df7eae3d5c553dd2542a2d9e34393088126893e95b4cd8a6922f2753d51",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-data-v2-ready-v15/evidence/owned-completion.json",
+      "sha256": "124021516f15b22bcf460d63c6470be906b881bf6681b072c3c38e0535fc01e7",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-data-v2-ready-v15/evidence/queue-sample.json",
+      "sha256": "7bb761ad9d3ec4892582c1373a7afd0c917ad1ed03f62844f86ee0fecf1a3bb3",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-data-v2-ready-v15/evidence/tests.log",
+      "sha256": "177b581086c2ba3a03044debc17a3e07ace1c398e057175ba9c1256aa316d3f2",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-data-v2-ready-v15/evidence/worker-generated-isolation.json",
+      "sha256": "8864e6adc4332d8546f4634b3f31b1b428822d0379cce8483d7312a9adf41678",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-data-v2-ready-v15/manifest.json",
+      "sha256": "a2c351c4d4843becb948fb995f7fbeec9fef641d39b11100d4b0814fbcd40fbf",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-real-mvp-acceptance-v16/ACCEPTANCE_REPORT.md",
+      "sha256": "8fc0e378d1353f2c48c3300be892d22a8e83fe33074acacfe429f80951dd0f44",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-real-mvp-acceptance-v16/COMMAND_RECEIPT.json",
+      "sha256": "0da4f80bfb653774690d9591b83020dd5a246c44689767d1dbfb10d2414fa298",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-real-mvp-acceptance-v16/DEMO_AND_ROLLBACK.md",
+      "sha256": "dadd1e7b6f27613630b1df9562a9767ce69ae954e7a1c9cbdc243513af3ee075",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-real-mvp-acceptance-v16/METRICS.json",
+      "sha256": "4a6bed201df931a5e4106a1c548a0b6d4bd3d5756378825b3bede92cd7a728a0",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-real-mvp-acceptance-v16/README.md",
+      "sha256": "0f81eab62008e80954c6aaf5bdfe64954232c0401b814863814810bc6d9e51e5",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "hospital-release/20261011-real-mvp-acceptance-v16/manifest.json",
+      "sha256": "c8bcb4cc795cdafd36c93588b6d826ef8de69764e9b086618eb5b0fa038051c8",
+      "status": "UNCHANGED"
+    }
+  ],
+  "original_v16_manifest_sha256": "c8bcb4cc795cdafd36c93588b6d826ef8de69764e9b086618eb5b0fa038051c8",
+  "new_real_runs": 0
+}

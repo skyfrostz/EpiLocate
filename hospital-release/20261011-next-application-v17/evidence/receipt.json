@@ -1,0 +1,21 @@
+{
+  "schema": "EPI_NEXT_GENERATED_APPLICATION_SMOKE_V1",
+  "status": "PASS",
+  "exit_code": 0,
+  "elapsed_seconds": 5.93785712501267,
+  "command": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "-c",
+    "import sys; sys.path.append('/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/backend/.venv/lib/python3.14/site-packages'); import pytest; sys.exit(pytest.main(['backend_v2/tests/test_next_application.py', 'backend_v2/tests/test_next_loc_adapter.py', 'backend_v2/tests/test_next_migration.py', 'backend_v2/tests/test_next_e2_launch.py', 'backend_v2/tests/test_phase1.py', 'backend_v2/tests/test_job_idempotency.py', 'backend_v2/tests/test_auth_security.py', '-q', '--disable-warnings', '--basetemp', '/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/next-application-v4/smoke-final-3/generated-test-tmp']))"
+  ],
+  "scope": "SYNTHETIC_ONLY",
+  "medical_forward": 0,
+  "medical_backward": 0,
+  "medical_updates": 0,
+  "real_CT_read": false,
+  "real_model_weights_read": false,
+  "real_browser_run": false,
+  "queue_dispatch": false,
+  "clinical_validity": "NOT_ESTABLISHED",
+  "test_log_sha256": "441b93a773b51692e120c7457e26c11062a08894ddfad9e35c25ab6b9a394a2d"
+}

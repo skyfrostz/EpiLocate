@@ -1,0 +1,66 @@
+{
+  "status": "MATCH",
+  "metadata_sha256": "1f6734d9616d1956158037877d23cf593acb201af599b800bc9b775081dc9e9a",
+  "source_commit": "9ae67d74ca695bac12bf3f2e2f0007438f72c79f",
+  "dependency_lock": {
+    "bytes": 1804,
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/configs/e2-handler-dependency-lock-v4.json",
+    "sha256": "100ea6936572c610ef989fa53d025b09694395b8864b3199ba5a982fb3d767bc"
+  },
+  "verified_public_files": [
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/docs/project/ENGINEERING_JOURNAL.md",
+      "sha256": "54e8d332586edaf6c11fee168cc857c0f281af4de07c053c67dd9cf771ab9a02"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/docs/project/ITERATION_HISTORY.md",
+      "sha256": "d641c60d0e35b7c4158e6bba69986eab94648604673a9fa9904bb9d8d3bb7cb0"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/configs/e2-handler-dependency-lock-v4.json",
+      "sha256": "100ea6936572c610ef989fa53d025b09694395b8864b3199ba5a982fb3d767bc"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/configs/e2-q-v4.json",
+      "sha256": "a37d9b5585afb548753c64d6aee6ed41e7136a325b29db1dabe1b6d3f24f2b46"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/configs/e2-selected-fidelity-v4.json",
+      "sha256": "ab7b2df246a7b9c9c46dddce9b10304686158884fcb33bad06b25000a14f6f1c"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/epi_next/e2_handler_v4.py",
+      "sha256": "062eff4e476280f0f415380d4a0c2bf1e5a2598a31869c7374ba39dd34ff168b"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/epi_next/e2_request_v4.py",
+      "sha256": "b961fbd9ec539d723aa43634e508a4ca227ab1efe86781fa103b1cc1e0debde4"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/reports/E2_HANDLER_CONTRACT_V4.md",
+      "sha256": "cc02157fc845b7cef7efffbd18120c50e4d2c74c480681329b0f8e05a84de722"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/reports/LOCALIZATION_V4_DELIVERY.md",
+      "sha256": "4ad1982df5eff05cf2e8faba237740f311703bdb3eaf5b113ebe60ec2c6db883"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/reports/P1_SAVED_MASK_ANALYSIS_V4.md",
+      "sha256": "4c2adba90496a8e46975dd3658a7c2e7687829e08c1e97dbc97f98bf06198708"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/scripts/analyze_p1_mask_v4.py",
+      "sha256": "ec0bd600096a1cd168924413524f8d3c31e25f83598badb3062266a1c442efdb"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/scripts/run_e2_handler_synthetic_v4.py",
+      "sha256": "28f2f67afd13a4360aba44ce669396ce88eae8c97d60539bfc4cc3d781cd8863"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/tests/test_e2_handler_v4.py",
+      "sha256": "827de81267f993c9d122a83d0daa6e23de8ebe4a5c090ebd44ace1c336041dd9"
+    }
+  ],
+  "protected_saved_analysis_read": false,
+  "medical_calls": 0
+}

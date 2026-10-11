@@ -1,0 +1,193 @@
+{
+  "status": "PASS",
+  "typecheck_exit": 0,
+  "typecheck_command": "node frontend/node_modules/vue-tsc/bin/vue-tsc.js -p frontend/tsconfig.app.json --noEmit",
+  "build_exit": 0,
+  "build_command": "node frontend/node_modules/vite/bin/vite.js build frontend --outDir .local/next-application-v4-dist",
+  "actual_build_milliseconds": 424,
+  "new_dist": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/next-application-v4-dist",
+  "old_m0_dist_overwritten": false,
+  "default_new_submission_enabled": false,
+  "browser_acceptance": "NOT RUN",
+  "warnings": [
+    "Existing Cornerstone codecs externalize path/fs modules for browser compatibility",
+    "Chunks exceed 500 kB"
+  ],
+  "files": [
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/CaseDetailView-KfP5OO3K.js",
+      "sha256": "bba1e63db3f4770f61425b53a93be6d80a8e0fedbf606ccb9d40377c1851d113",
+      "bytes": 8457
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/CasesView-BgRexcMO.js",
+      "sha256": "9270e03c44fc99c1f9611f06d5e21bcb6f1ce088f656a500752c868a46aa65c2",
+      "bytes": 3901
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/CornerstoneSliceViewer-BOEoDwXW.js",
+      "sha256": "2c2f8033ef2b48c8d38177022e840d91aee138b3719e6e3f1fcb28efe213b9e0",
+      "bytes": 12701
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/DashboardView-BKRF4Q53.js",
+      "sha256": "b23550e93c76de0202f48144fe24e282c9293f08559f47dbbf1ea15f7f665a6a",
+      "bytes": 7648
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/EpStatus-DjJKFmPV.js",
+      "sha256": "3a9cb60b4a219dbe038e38db775a2dbf235eb350fd0cfb4be0eb329f1119d7c9",
+      "bytes": 259
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/JobDetailView-Bk3qU4qQ.js",
+      "sha256": "29209322f1113bca396433c9695716efe40c0cdfc6eb50f37e668f250661c395",
+      "bytes": 5112
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/JobsView-BfwIFgoA.js",
+      "sha256": "cb7765c73ee97eaa5c5d10967a12bc6af20a512fac44a68f935fe21c555c76d1",
+      "bytes": 3612
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/LoginView-CEfk9ZwK.js",
+      "sha256": "b0390b447ed57a61e60d9f595a7497d1c4e6a7987fdc1aabdbfb8cc51bb7a837",
+      "bytes": 2698
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/NotFoundView-GeNDkbT7.js",
+      "sha256": "a4f7d7483b485a3b2207cbece9df6b8c56ca53039206cfdb455c16b32d7fcc99",
+      "bytes": 691
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/PreferencesView-CO188I_h.js",
+      "sha256": "c1c588d1fef2960008d3c5d946e6c68a07f979ac9ef1424dacbdabbd549b35ed",
+      "bytes": 2028
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/ResultDetailView-BVZ9A-yr.css",
+      "sha256": "2d45f6fcc4f2489dcd1d5d5691626db814db761d706b65d09db837207a54547d",
+      "bytes": 302
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/ResultDetailView-DYMcd-Fz.js",
+      "sha256": "da80b7356d118e6f3c7cc3a9915accbc6599b4402ab9a1cee02187c176a665b4",
+      "bytes": 22766
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/SystemView-CoiS2mjK.js",
+      "sha256": "f91c11b1761d0dd68e81d2bee0ee73844e6d8497f880e50058eaf8dd23e210cd",
+      "bytes": 2822
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/cases-1xqHHrg5.js",
+      "sha256": "8ebbfaf65078e95277d2298a3662187c513dbeba201eea4a65320547bf45bcd2",
+      "bytes": 1353
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/charlswasm_decode-CEN7ucFR.wasm",
+      "sha256": "7e3696ecffee534d7c188ff91790812710c0a267fcbf78620b19da6bc78979f4",
+      "bytes": 145438
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/clinical-Db_vhlMg.js",
+      "sha256": "b13f926cf012fa6e7f78babb9c58e98f4f0b89cacc2c2447a39ffa8ee6905c24",
+      "bytes": 805
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/decodeImageFrameWorker-9FyIK2lA.js",
+      "sha256": "e7558f1d4d56a62469889d74b0f3d54187013021b8d3c29967640d5579219885",
+      "bytes": 233142
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/esm-BQ03oNGD.js",
+      "sha256": "2e3eac0529164d98354324c852a50e49427e4f8d79a5d874afb0d749eea0ed2d",
+      "bytes": 2136332
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/esm-CBJJQD7k.js",
+      "sha256": "c9d2b5273d39d2cdb92b4a2b72441555f97ebb7f2054809fbaa5c23ca63630c9",
+      "bytes": 292397
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/esm-CrYH-n9j.js",
+      "sha256": "a8a1a27b847e4d28d9ee4bff09c0e6ee273f3e5a05a349462bb25ad2a11d29a6",
+      "bytes": 776372
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/format-BJ6x2QwZ.js",
+      "sha256": "56152223d7692dff9dc774a8f5a6d204140a2259c5f56574bc4fed2534d4e740",
+      "bytes": 5208
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/index-GxsM64Kb.js",
+      "sha256": "21f85ef2066fa25359679240998ea97b762fb553534586d3b0cd6998c8c917d4",
+      "bytes": 173006
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/index-LJu2hlyD.css",
+      "sha256": "328e1e9981f10a763df289eb82d368173333f467d6bb352be458866208ae91ae",
+      "bytes": 30882
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/jobs-sMH8oeHL.js",
+      "sha256": "71f779c16d24216c34ef6d2153193afbd3f308b75b17f14321e2b7b10157ceb5",
+      "bytes": 2077
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/jpeg-DX29txDl.js",
+      "sha256": "e11477b9023d4d3e22a6f46a1755e804250d8f0b31b9f42c69d74b6184013792",
+      "bytes": 10353
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/jpegxlwasm_decode-D5WHnpK-.wasm",
+      "sha256": "bc37b0f5ed04beb177182a65480371b9ffb1946f59d2ffbe8ddc86f02d6b4dbe",
+      "bytes": 1090788
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/libjpegturbowasm_decode-B4UEe-KN.wasm",
+      "sha256": "572510e3f5b0f46a7b5e69e1c5260ea97b2fd59851c83d5e9d54e59775944b20",
+      "bytes": 180508
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/lossless-NoYY42n_.js",
+      "sha256": "fdc61df855aba978b8902231b1a9c154bd781a0d5d43c21f5006b8e1da8e1bb7",
+      "bytes": 14352
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/openjpegwasm_decode-BP3l1OXH.wasm",
+      "sha256": "5aff4e65444480a402898fe7369a9d2bc77e8181f858fc0d10150b2dabf07dee",
+      "bytes": 260334
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/openjphjs-odeu-u12.wasm",
+      "sha256": "4f5d495f3eacd36a9e5e04c51dd94d48fdf2222120b28b9b006869478e757a39",
+      "bytes": 299948
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/runtime-core.esm-bundler-D1JgYh3h.js",
+      "sha256": "f5b3cfffcfdfa69dee1c883a817681319c1609b6760cefa29ad64b91dae0b415",
+      "bytes": 61025
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/useCreateCase-DaLgUWEN.js",
+      "sha256": "3e9bfcc8202d3d8f5867fbb626c22004cb59d3401618ffedc81b1682cc7e445e",
+      "bytes": 2712
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/assets/workspace-D98LgR1u.js",
+      "sha256": "6098029e4e0d78231a2d215aa4231c1861abdfc864074cdee66593b9d4c6f893",
+      "bytes": 309
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/favicon.svg",
+      "sha256": "d62e4907b29778cebde0f3eeea3e4950a5669fe92a66478b1fa1f865009db250",
+      "bytes": 321
+    },
+    {
+      "path": "frontend/.local/next-application-v4-dist/index.html",
+      "sha256": "542c8bae6e96dd18245891ce6e3900c254f5399030bb81a42ae9375874e5779e",
+      "bytes": 711
+    }
+  ]
+}

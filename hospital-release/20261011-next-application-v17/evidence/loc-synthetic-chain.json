@@ -1,0 +1,44 @@
+{
+  "scope": "SYNTHETIC_LOC_CORE_APPLICATION_CHAIN",
+  "medical_forward": 0,
+  "medical_backward": 0,
+  "medical_updates": 0,
+  "synthetic_forward": 6,
+  "synthetic_backward": 4,
+  "synthetic_updates": 4,
+  "source_hashes": {
+    "e2_handler_v4.py": "062eff4e476280f0f415380d4a0c2bf1e5a2598a31869c7374ba39dd34ff168b",
+    "hspi_core_v3.py": "10d71a6390094b578d6b41d593b03a850841451adc61cb97ae68c4f198bebede",
+    "first_real_e1_e2.py": "0debca405ff9ed247fff95548b8ebeab54c11fbaebb07b04849ac853f9b86e50",
+    "preprocessed_localization.py": "eccb61b8094c4ab0109d07eacc2e65688c66d714bf6ff19cb7679fa52eff30c4",
+    "hspi.py": "6607afb02580d1775ed60c02b2e528f07dafab1bc38490be44c17fd37665fc2b",
+    "localization.py": "f2ac48f799c677cd6508550f19a840f96bb7516da6691de729d2fad7ed78a57d",
+    "verification_vnext.py": "fd1d35d1ecd50517b88f2e0cda061f6f15c4bab4803d495ff49bfb87473a6567"
+  },
+  "configuration_sha256": "78b6adc0387398a9b3cb7741464c5fec4e721a2761bd4e2d3c6d1efe7b72014b",
+  "terminal": "NO_RELIABLE_RESPONSE",
+  "assets": [
+    {
+      "asset_id": "cpf-gap.png",
+      "sha256": "fe70b66dc65eb30141c7932818e28b15e182016d6172e79338864d1a4731c128"
+    },
+    {
+      "asset_id": "cpf-psmi-support.png",
+      "sha256": "fe70b66dc65eb30141c7932818e28b15e182016d6172e79338864d1a4731c128"
+    },
+    {
+      "asset_id": "psmi-whole-patch.png",
+      "sha256": "fe70b66dc65eb30141c7932818e28b15e182016d6172e79338864d1a4731c128"
+    }
+  ],
+  "job_id": "job_1bd15d3818be65430c347bae6edc355f",
+  "result_id": "result_c64a06b4744c4f3eaeb33391979fc745",
+  "precomputed_replay": {
+    "source": "SYNTHETIC",
+    "actual_forward": 0,
+    "actual_backward": 0,
+    "actual_updates": 0,
+    "result_id": "result_baf4e26d5e6d46a89d9dbf7f3a7a9a69",
+    "source_result_sha256": "8612047a039dd3532871c43921a5ded377a88aadfba1f2d78ca28a2b3e0116be"
+  }
+}

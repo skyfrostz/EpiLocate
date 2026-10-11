@@ -1,0 +1,6 @@
+Command: node frontend/node_modules/vitest/vitest.mjs run --root frontend
+Actual terminal output, copied without rerunning:
+Not implemented: Window scrollTo() method
+Test Files 19 passed (19)
+Tests 164 passed (164)
+Duration 1.83s

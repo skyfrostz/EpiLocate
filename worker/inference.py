@@ -147,6 +147,9 @@ class FrozenRunner:
 
 
 def manifest_for_success(worker_id: str, claim: dict, input_hash: str, output: InferenceOutput) -> dict:
+    if claim.get('job_parameters', {}).get('kind') == 'ALGORITHM':
+        from .next_application import manifest_for_application
+        return manifest_for_application(worker_id, claim, input_hash, output)
     descriptors = []
     layers = {layer["asset_id"]: layer for summary in output.result.get("scale_summaries", [])
               for layer in (summary.get("response_layer"), summary.get("candidate_layer"),

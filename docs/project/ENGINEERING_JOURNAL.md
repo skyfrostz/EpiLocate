@@ -1512,3 +1512,14 @@ INTEGRATION 原工作树/分支，整理前 HEAD `1057b03b9072029d1d3deba53801fd
 原 INTEGRATION 唯一工作树/分支，开始 HEAD `510d387ef02d55c22f01f9cbd282137ea1274934`。总控通知钟佳桦已接收 revision47 三条本地真实流程；只读状态 SHA `25294bed343786a56dccf5c1df0231f36c0229785a6e79667669ffa81b3d3a0a`，MVP PASS、v16交付/受测source `54ff1565f6c11a6deea873feab0a011e879528fb`/执行收据绑定一致。v16已完整验收，本轮只追加 RECEPTION_AND_SNAPSHOT_INDEX.json 和 LOCAL_REUSE.md；16个原v15/v16跟踪文件逐字匹配原提交，manifest SHA保持 `c8bcb4cc795cdafd36c93588b6d826ef8de69764e9b086618eb5b0fa038051c8`。接收明确为总控通知，不新造OWNER签署/医院批准；当前MVP不是READY未运行。
 
 快照指向既有受保护结果、资产/SQLite/监督/截图的原路径SHA及private-audit，无复制私有数据或凭据。提供metadata与SQLite mode=ro数量读取说明，但本轮未重执行查询、模型、浏览器、服务、录屏或重跑528项验收；队列/DB写和外传0。原服务已退出，快照不宣称在线恢复已完成；需要服务复用时总控明确新增计算关闭的启动范围，不能重放已消耗命令。E2收益/F0/F1头/医院授权不作为本地MVP新阻断。医院展示未批准/冻结及临床NOT RUN，六项完整Series真实空间检查和医院备份范围保留。仅本地提交，未修改权威状态/READY/代码/环境，未push/部署。
+
+
+### 2026-10-11｜E2/CTFM独立应用接缝 v17（仅生成与开发）
+
+INTEGRATION 原工作树epi-next-integration/分支codex/epi-next-integration-20261009，开始HEAD `cad49f20d7f5d77027ca955e4a609abebb6fe58e`。追加ALGORITHM/next-1独立接口，不改旧2.0/FrozenRunner计算/16/32/64/GT-v1/A-B-C；复用Job/Attempt/lease/store/认证，默认关闭。完整request派生单一Job，未知提交一次发送后查receipt，新旧Worker类型隔离，max_attempts1。输出6终态、原logits/数值/空间SHA和真实runtime；native overlay只SUCCESS且映射验证。连续Q Mask、CPF gap、PSMI整patch及valid支持图层区分，CTFM保留有符号贡献、完整3D/head接口。
+
+正式LOC source `9ae67d74ca695bac12bf3f2e2f0007438f72c79f`和dependency-lock逐项MATCH；薄adapter调用实际core，6/4/4生成函数F/B/update、NO_RELIABLE_RESPONSE如实保全，未降低阈值。合成原结果PRECOMPUTED回放0/0/0保存/刷新；原证据和成本保留，不称LIVE医学M1/M2。78项Backend/Worker/旧API/认证/幂等/SQLite生成迁移PASS4.49s，164项前端PASS1.83s、typecheck/build exit0（独立dist424ms）、34项生成空间/医院gatePASS0.24s。之后仅新增加载边界3项定向PASS2.72s，和78项有重叠，不累加。真实浏览器/模型/患者像素/权重/GT/队列/设备probe/录屏0；未安装依赖。既有Alembic pure-Python路径供生成迁移，原M0 DB没有迁移。
+
+补齐e2_launch.run_existing_e2_job及独立run_existing_selected_fidelity：复用LOC consume_inputs、既有hash验证ResNet loader、原DifferentiablePreparedModel与ChildGuard单一预算；5F仅case3/F5/B0/update0/120秒，不重做P1或偷偷合并Q预算。所有加载器测试使用注入double，5次逻辑guard不是医学前向。trace/stage/checkpoint/native原值有界压缩保全。已有RICORD DATA v3/Prepared2DInput已经交付，不等待DATA重交；真实新scope/具体应用Job/输入/监督argv绑定与E2-Q科学结果仍缺，CTFM缺真实新head/volume resolver/handler，真实launcher完整argvNOT_READY。医院展示授权不阻断纯开发，但医院allowlist/新算法真实空间三展示/备份录屏/最终冻结及临床NOT RUN，医院default null。原M0已完成3条旧真实开发流程，不倒退为NOT RUN；16原v15/v16文件SHA保持。只交本地hospital-release/20261011-next-application-v17供chief汇总，未写权威state、未消息其他线/上传/push/部署。受测源码完整SHA提交后补录。
+
+**5F绑定修正及工程状态补录：** 固定独立case3/F5/B0/update0/CPU120秒/64MiB的唯一task-key/Job/output目录，私有科学binding与外置chief dispatch分离；dispatch单向绑定binding及包含CLI的18源SHA，消除完整文件哈希自引用，不创建owner或新准入收据。6项生成chain定向测试PASS0.02s（完整链/四种篡改/无dispatch和已有输出），metadata argv exit0、输出目录未建/队列观察0。E2-Q只有单Job加载/执行函数，缺三例共享全局计数/时间启动封装，准确标ENGINEERING_NOT_READY；5F代码/参数绑定可交chief，实际新批准/准入/派发仍缺，医学NOT RUN。不重跑已有后端/前端整套。

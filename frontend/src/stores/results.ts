@@ -1,3 +1,4 @@
+import { applicationIdentityValid } from '../api/next-algorithm'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiClient, type ApiClient } from '../api/client'
@@ -38,7 +39,7 @@ export const useResultStore = defineStore('results', () => {
       const result = await client.getResult(resultId, controller.signal)
       if (ownResultGeneration !== resultGeneration) return
       if (result.result_id !== resultId || result.status !== 'COMPLETED' ||
-          result.source !== 'LIVE_CASE' || result.contract_version !== '2.0') {
+          (result.kind === 'ALGORITHM' ? !applicationIdentityValid(result) : result.source !== 'LIVE_CASE' || result.contract_version !== '2.0')) {
         throw new Error('结果来源或版本未通过校验。')
       }
       current.value = result

@@ -1,0 +1,3 @@
+Command: PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=research/next-hospital-20261014:. python -m pytest research/next-hospital-20261014/tests/test_geometry.py research/next-hospital-20261014/tests/test_hospital_integration.py -q --disable-warnings
+Actual terminal result: 34 passed in 0.24s
+Scope: generated geometry/contract, mock guard only; no device initialization or real queue.

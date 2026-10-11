@@ -1,3 +1,4 @@
+import type { ApplicationRequest } from './next-algorithm'
 import type {
   AcceptedJob,
   CaseDetail,
@@ -193,6 +194,11 @@ export class ApiClient {
       headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
       body: JSON.stringify({ case_id: caseId, slice_id: sliceId, model_id: modelId, protocol_id: protocolId, scales }),
     })
+  }
+
+  createAlgorithm(request: ApplicationRequest, key: string, signal?: AbortSignal): Promise<AcceptedJob> {
+    return this.request('/jobs/algorithm', { method: 'POST', signal,
+      headers: { 'Content-Type': 'application/json', 'Idempotency-Key': key }, body: JSON.stringify(request) })
   }
 
   getJob(jobId: string, signal?: AbortSignal): Promise<JobRecord> {
