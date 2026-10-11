@@ -1461,3 +1461,6 @@ INTEGRATION，原指定工作树epi-next-integration、分支codex/epi-next-inte
 只读消费LOC新v7 manifest SHA `ec18420e2a1196c51964ff59c88c559f59bb28896bfdee4edff935727a1f8831`、生成同入口acceptance SHA `ea40b9e902872159771e9012e56c5d2301d81f21d447852014e1cafa384174fc`；源码/CT bridge/v3八模块绑定PASS、不重跑peer测试。P1真实重试仍NOT RUN/无3540秒批准。消费ENC新C1 binding `604b5d…`与实际result SHA `7a2f1149a0d82fbed3c23f5e15b9b91c772f3ab3c0435df287cb7be00300644b`，源执行提交 `b37f85e86dddfe08065fef54a99aba09e6a6b6ed`；真实CPU1/MPS1数值PASS但cleanupFAIL，监督BLOCKED/slot_completed=false；本线无重跑/采样/probe/解除。权威revision36只读快照，不写状态；R1集中归总控。v4共同IO锁未接入，继续LOC-only修复+固定v3。
 
 交付hospital-release/20261011-mvp-v11一份manifest及增量报告、生成截图/日志/哈希。复用旧接口/空间/选择门禁和验证收据；产品E1/E2/F0/F1尚未注册，不冒称真实应用接入。医院真实E2E/预计算/录屏/冻结/临床NOT RUN；开发DATA已交付，不能再以旧BLOCKED_BY_DATA_HANDOFF概括当前阻塞。最小真实MVP申请3固定SOP、历史FrozenBaseline Occlusion3jobs、96模型batch前向（含3基准，2802扰动/总2805图像评估）、B0/update0、无预热/重试；数据和计算独立待批，展示精确资产/受众待锁定故NOT_REQUESTED。旧模型/协议/历史资产/前端源码无改动。实际源码提交与最终文档检查在本条后补录。
+
+
+**生成MVP固定源码补录：** 源码提交 `65651041800f05d464df3d0fa589f9c5b09e820a`，qa入口字节与attempt6受测源码一致；无追加浏览器/模型/peer测试。生产构建、三次生成闭环及失败持久化证据保存在v11；显式base文档检查/暂存diff检查PASS，只读算法对照拒绝未验收新算法。元数据将source_git_sha锁此提交，医院冻结/真实E2E仍NOT RUN、展示NOT_REQUESTED；真实共享计算暂停，R1归总控。

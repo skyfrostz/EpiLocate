@@ -222,10 +222,10 @@
     "sha256": "2ff998f0b3416239a3442f415b1dc6124e322f56be644d22432a8e28b157b126"
   },
   "schema": "EPI-NEXT-HOSPITAL-RELEASE-1",
-  "source_git_sha": "0e13a1f9167be9d6f2bf815b49cf3ff9e16650b1",
+  "source_git_sha": "65651041800f05d464df3d0fa589f9c5b09e820a",
   "task_definition_sha256": null,
   "timezone": "Asia/Shanghai",
-  "source_commit_binding": "PENDING_SOURCE_COMMIT_METADATA_APPEND",
+  "source_commit_binding": "COMMITTED_SOURCE_BYTES_MATCH_SUCCESSFUL_GENERATED_TEST",
   "real_e2e_blocker": "WAIT_MVP_DATA_AND_CALL_SCOPE_AND_VALID_SHARED_QUEUE",
   "consumed_incremental_evidence": {
     "P1": {

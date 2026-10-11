@@ -1085,3 +1085,6 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 科研不作为MVP阳性前置：E1冻结有局限，E2旧CPF零可行，F0未完成head，F1实验；产品当前保留FrozenBaseline及16/32/64。新增三次真实CPU旧版流程提案（3固定SOP、3jobs、96batch forward含3基准、2802扰动/2805总图像、B0/update0），不挪用P1/C1权限；医院展示因精确资产/受众未锁定保持NOT_REQUESTED，真实E2E/预计算/录屏/冻结/临床NOT RUN。原BLOCKED_BY_DATA_HANDOFF为历史开发状态，当前缺应用范围及共享队列准入。
 
 只读接收LOC-only storage+固定v3同入口生成证据，未接入共同IO锁v4、未重跑P1；C1真实两前向数值PASS但清理FAIL，整体BLOCKED/slot_completed=false，不能放行共享真实计算。权威revision36归总控，不写本线状态、不probe/恢复。接口/对照/回退文档复用，完整依赖/证据SHA在manifest；源码提交和最终检查后续补录。
+
+
+**生成MVP固定源码补录：** 源码提交 `65651041800f05d464df3d0fa589f9c5b09e820a`，qa入口字节与attempt6受测源码一致；无追加浏览器/模型/peer测试。生产构建、三次生成闭环及失败持久化证据保存在v11；显式base文档检查/暂存diff检查PASS，只读算法对照拒绝未验收新算法。元数据将source_git_sha锁此提交，医院冻结/真实E2E仍NOT RUN、展示NOT_REQUESTED；真实共享计算暂停，R1归总控。
