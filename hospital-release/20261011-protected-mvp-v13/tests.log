@@ -1,0 +1,6 @@
+Scope: generated lightweight fixtures only; no actual Torch, CT, weights or queue.
+Command: env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python -m pytest qa/test_hospital_mvp_protected.py -q
+.............................                                            [100%]
+29 passed in 0.03s
+Protected browser/generated three-flow acceptance: NOT RUN (P1 resource window).
+Actual three-SOP model/app acceptance: NOT RUN (pixel review and chief dispatch).

@@ -1,0 +1,264 @@
+{
+  "schema": "EPI_NEXT_PROTECTED_MVP_DELIVERY_V1",
+  "release_id": "20261011-protected-mvp-v13",
+  "date": "2026-10-11",
+  "timezone": "Asia/Shanghai",
+  "branch": "codex/epi-next-integration-20261009",
+  "development_base_sha": "05a4279177e5d09b80ce3c634fae65c714abca89",
+  "source_git_sha": null,
+  "status": "NOT READY",
+  "hospital_final_freeze": "NOT RUN",
+  "clinical_validation": "NOT RUN",
+  "hospital_default_algorithm": null,
+  "active_application_default": "PRESERVE_EXISTING_FROZEN_BASELINE",
+  "hospital_display_authorized": false,
+  "real_mvp": "NOT RUN",
+  "real_mvp_blockers": [
+    "BLOCKED_BY_DATA_HANDOFF_APPLICATION_DERIVATIVE_PIXEL_REVIEW",
+    "WAIT_CURRENT_PROTECTED_GENERATED_BROWSER",
+    "WAIT_P1_TERMINAL_RECOVERY_AND_CHIEF_EXACT_DISPATCH"
+  ],
+  "protected_generated_browser": "NOT RUN",
+  "canonical_data_delivery": null,
+  "chief_dispatch": null,
+  "metadata_fragment": null,
+  "new_medical_forward": 0,
+  "new_medical_backward": 0,
+  "new_updates": 0,
+  "new_torch_imports": 0,
+  "actual_device_queue_reads": 0,
+  "actual_device_queue_writes": 0,
+  "new_gpu_probes": 0,
+  "owner": "钟佳桦",
+  "delivery_channel": "LOCAL_PACKAGE_TO_CHIEF_THEN_PROJECT_OWNER",
+  "approved_local_scope": {
+    "request_sha256": "2dcc61df10fb2be0964dc4e0e0797e8f2d2c874367026b9a909e66fdc4f35e12",
+    "owner_sha256": "4a4e9cb141a689533498acdb1d2c77b83222a9a1bad15f9c210b15c7698af9a3",
+    "task_key": "EPI-NEXT-HOSPITAL-MVP-THREE-LEGACY-CPU-20261013-V1",
+    "compute": {
+      "device": "CPU",
+      "threads": 1,
+      "jobs": 3,
+      "kind": "OCCLUSION",
+      "scales": [
+        16,
+        32,
+        64
+      ],
+      "positions_per_scale": [
+        729,
+        169,
+        36
+      ],
+      "forward_batches_per_job": 32,
+      "forward_batches_total": 96,
+      "image_evaluations_per_job": 935,
+      "image_evaluations_total": 2805,
+      "backward": 0,
+      "updates": 0,
+      "warmups": 0,
+      "retries": 0,
+      "per_flow_seconds": 180,
+      "total_seconds": 540,
+      "output_total_bytes": 268435456,
+      "sampled_rss_pre_stop_bytes": 5368709120,
+      "sampled_rss_monitored_target_bytes": 6442450944,
+      "queue": "Chief sole dispatch, existing supervisor/serial device queue; any UNKNOWN/BLOCKED slot must first have valid recovery; no new scheduler or implicit release",
+      "no_separate_prediction_jobs": true,
+      "refresh_is_read_only_not_model_call": true,
+      "budget_includes": "Startup/model load, hash validation, upload/claim, all prediction/occlusion batches, save/readback, three browser workflows and exit; stop without auto retry",
+      "budget_algorithm": "Historical FrozenBaseline stage1-occlusion-instability-v1; not research E1",
+      "batch_size": 32,
+      "baseline_forward_batches_total": 3,
+      "perturbed_image_evaluations_per_job": 934,
+      "perturbed_image_evaluations_total": 2802,
+      "batch_sizes_per_job": {
+        "baseline": [
+          1
+        ],
+        "16": [
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          25
+        ],
+        "32": [
+          32,
+          32,
+          32,
+          32,
+          32,
+          9
+        ],
+        "64": [
+          32,
+          4
+        ]
+      },
+      "all_validation_forwards_included": true,
+      "extra_validation_forward_allowance": 0
+    },
+    "automatic_retry": false,
+    "hospital_display": false
+  },
+  "new_sources": {
+    "hospital_mvp_protected.py": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/hospital_mvp_protected.py",
+      "sha256": "4c9df372bff78a3157dd30227df2dd81978b8cb441d62da72ce41e667c05e0cd"
+    },
+    "hospital_mvp_protected_fake.py": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/hospital_mvp_protected_fake.py",
+      "sha256": "468a043f7df101ed7fdf9c5b299dec06368651d764c24fab2f7492daf0a2c3b5"
+    },
+    "hospital_mvp_binding.py": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/hospital_mvp_binding.py",
+      "sha256": "3fa422c7338d9a323d3ff1d08f48e67d207c02d686583f8b413f029a56daec3a"
+    },
+    "test_hospital_mvp_protected.py": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/test_hospital_mvp_protected.py",
+      "sha256": "a130cd37f2471c4c7cc78a6becdb22ad391dd96e8b51b09c27e53735376b15ec"
+    }
+  },
+  "tests": {
+    "scope": "GENERATED_LIGHTWEIGHT_FIXTURES_NO_TORCH",
+    "passed": 29,
+    "seconds": 0.03,
+    "evidence": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/tests.log",
+      "sha256": "0445292df500a01c12470c5a546f0a55d5d4896814d51fe23f6af9891d0e5e13"
+    }
+  },
+  "reused_evidence": [
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/manifest.json",
+      "sha256": "ede66f50a41936cb79f13c799c58579d730b27d471022d6f687debc30c78f460"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-recovery-chain-v12/manifest.json",
+      "sha256": "12e808bcf23f80571886fa0e8c68efa88a11fb833a51db002ab1820d20fc1a6d"
+    }
+  ],
+  "contracts": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261009-integration-v1/INTERFACE.md",
+    "sha256": "ee93a4fd90079b5d04b8b5182d00353178b8492b5df1d1f8c38cc1a4a2d6a19e"
+  },
+  "algorithm_compare": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261009-integration-v1/README.md",
+    "sha256": "274495d8301463da96985bfe80c7d3fbc793aae7fba82dbcdf3b4154ae9c97c5"
+  },
+  "demo_and_rollback": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/DEMO_AND_ROLLBACK.md",
+    "sha256": "093c0cc381ccb03c3587282b33733d660d93c1e12bd50b46c027f9f5a4ae50ad"
+  },
+  "report": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/INCREMENTAL_REPORT.md",
+    "sha256": "44a516eb65723bf73d364e86fc3d4b9cef9c138721dc6581afd102180dfd1a1c"
+  },
+  "data_upload_contract": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-recovery-chain-v12/DATA_MVP_UPLOAD_HANDOFF.md",
+    "sha256": "48e3156180a0d16189ae464b712c7f2891745341aabbdb574dbbdde0074b5c69"
+  },
+  "legacy_algorithms": [
+    "FrozenBaseline",
+    "Occlusion16",
+    "Occlusion32",
+    "Occlusion64"
+  ],
+  "new_algorithms": {
+    "E1": {
+      "role": "RESEARCH_BASELINE_FROZEN_WITH_LIMITATIONS",
+      "algorithm_version": "EPI-NEXT-E1-fixed-target-margin-v1",
+      "evidence_type": "INPUT_OCCLUSION",
+      "hospital_runtime": "NOT_REGISTERED",
+      "hospital_acceptance": "NOT RUN",
+      "clinical_validation": "NOT RUN"
+    },
+    "E2": {
+      "role": "EXPERIMENTAL",
+      "algorithm_version": "EPI-NEXT-E2-HSPI-independent-projected-Adam-v1",
+      "evidence_type": "OPTIMIZED_INPUT_MASK",
+      "hospital_runtime": "NOT_REGISTERED",
+      "hospital_acceptance": "NOT RUN",
+      "clinical_validation": "NOT RUN"
+    },
+    "F0": {
+      "role": "INCOMPLETE_MODEL",
+      "algorithm_version": "EPI-NEXT-F0-signed-CAM-v1",
+      "evidence_type": "CAM_CONTRIBUTION",
+      "hospital_runtime": "NOT_REGISTERED",
+      "hospital_acceptance": "NOT RUN",
+      "clinical_validation": "NOT RUN"
+    },
+    "F1": {
+      "role": "EXPERIMENTAL",
+      "algorithm_version": "EPI-NEXT-F1-residual-input-refreshed-coarse-v2",
+      "evidence_type": "INPUT_OCCLUSION",
+      "hospital_runtime": "NOT_REGISTERED",
+      "hospital_acceptance": "NOT RUN",
+      "clinical_validation": "NOT RUN"
+    }
+  },
+  "acceptance": [
+    {
+      "item": 1,
+      "status": "NOT RUN"
+    },
+    {
+      "item": 2,
+      "status": "NOT RUN"
+    },
+    {
+      "item": 3,
+      "status": "NOT RUN"
+    },
+    {
+      "item": 4,
+      "status": "NOT RUN"
+    },
+    {
+      "item": 5,
+      "status": "NOT RUN"
+    },
+    {
+      "item": 6,
+      "status": "NOT RUN"
+    },
+    {
+      "item": 7,
+      "status": "NOT RUN"
+    },
+    {
+      "item": 8,
+      "status": "NOT RUN"
+    }
+  ],
+  "limitations": [
+    "No approved hospital display allowlist or audience",
+    "Original three SOP burned-in status UNKNOWN pending human pixel review",
+    "Current protected generated browser flow NOT RUN; v11 evidence is historical reuse only",
+    "DATA canonical pixel-review field mapping pending handoff via chief",
+    "No accepted E1/E2/F0/F1 hospital runtime",
+    "Single-slice legacy MVP does not validate full Series registration",
+    "No real precomputed results or backup recording",
+    "Source/fixture acceptance does not establish clinical validity"
+  ]
+}

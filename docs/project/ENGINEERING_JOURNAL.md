@@ -1472,3 +1472,11 @@ INTEGRATION，原指定工作树epi-next-integration、分支codex/epi-next-inte
 
 
 **恢复链唯一固定bundle补录：** 两变化源码提交 `14bf16ebe05f4652204148a0faf0fc455cfb8667`；八模块命名包epinext_wave1_recovery_chain_v1导入/verify_loaded_bundle PASS，dependency SHA `093e0a7fd137ae9772dd30595fe39de845a7babe9de1617d633782a02707a192`，bundle receipt SHA `9ad2257237f859adad2267d33353cf87df6433270923ec2975385d617fe9ce48`。六模块逐字保持原v3，只有两门禁/恢复validator变化；没有共同IO锁v4。bundle/索引完整绝对路径见v12/manifest.json；20测试复用不重跑。本补录仅版本元数据，原始diff上下文空格导致diff-check失败，现改为零上下文diff，源码不变。医学F/B/update、真实队列写0。
+
+### 2026-10-11｜受保护MVP执行入口与真实上传阻断
+
+负责人INTEGRATION；原工作树epi-next-integration/分支codex/epi-next-integration-20261009，开始HEAD `05a4279177e5d09b80ce3c634fae65c714abca89`。qa/hospital_mvp_protected.py接现有FrozenRunner/WorkerAgent、三个自有loopback服务与原生产前端dist；fake helper和metadata binding独立，未修改前端/Backend/Gateway/Worker/FrozenBaseline核心源码。owner申请SHA `2dcc61df10fb2be0964dc4e0e0797e8f2d2c874367026b9a909e66fdc4f35e12`、批准SHA `4a4e9cb141a689533498acdb1d2c77b83222a9a1bad15f9c210b15c7698af9a3`、新C1决议SHA `ceb164cbca27c0e547da8c09b65fc8c10d78f0544e62bf4b9ead0920ab4eece4`与v12固定index绑定；scope仍只原3 SOP/96旧Occlusion批，不是医院展示许可。
+
+模型pre-hook先持久预约，post-hook保存全部原logits；935评估/32批每例、96批总量，无额外分类/预热/重算。case预算包括哈希/应用启动/模型加载，global540秒、输出256MiB。原生partial目录与资产独立保存；一次submit丢失响应核对本地Job/Attempt/Result/完整digest及对象字节，不盲目重发。非daemon Worker及心跳存活时complete不得标恢复。dispatch精确绑定源/包/运行命令/路径，外部发布SHA避免自引用循环。29项轻量fixtures PASS0.03s，命令及范围见v13/tests.log；覆预算、未完成前向、事务漂移、partial、隔离、dispatch和BurnedIn UNKNOWN门。
+
+按总控当前通知P1正占唯一模型槽，本轮无Torch/患者像素/权重/医学调用/真实队列读写/GPU probe/浏览器/重型构建。v11旧生成闭环及v12恢复20测试复用，不归为新入口浏览器PASS。DATA原3 SOP缺BurnedInAnnotation，真实上传BLOCKED，需负责人逐图本机复核证据经DATA/总控交接；不静默填NO、不代签。metadata工具只生成NOT READY源/包fragment，不碰队列或建立第二allowlist。新版生成浏览器、真实MVP、医院八项验收、预计算/录屏/冻结/临床均NOT RUN；新算法医院注册未完成，默认医院模型null。v13报告/回退/manifest本地交总控汇总，未自动消息/上传/push/部署。源提交和metadata收据提交后补录。

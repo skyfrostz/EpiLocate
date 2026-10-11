@@ -1096,3 +1096,9 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 
 
 **恢复链唯一固定bundle补录：** 两变化源码提交 `14bf16ebe05f4652204148a0faf0fc455cfb8667`；八模块命名包epinext_wave1_recovery_chain_v1导入/verify_loaded_bundle PASS，dependency SHA `093e0a7fd137ae9772dd30595fe39de845a7babe9de1617d633782a02707a192`，bundle receipt SHA `9ad2257237f859adad2267d33353cf87df6433270923ec2975385d617fe9ce48`。六模块逐字保持原v3，只有两门禁/恢复validator变化；没有共同IO锁v4。bundle/索引完整绝对路径见v12/manifest.json；20测试复用不重跑。本补录仅版本元数据，原始diff上下文空格导致diff-check失败，现改为零上下文diff，源码不变。医学F/B/update、真实队列写0。
+
+### 2026-10-11｜本机受保护医院MVP接缝候选
+
+INTEGRATION在原分支codex/epi-next-integration-20261009，开始HEAD `05a4279177e5d09b80ce3c634fae65c714abca89`。新增独立QA入口包装原FrozenRunner/WorkerAgent及应用协议，固化获批3旧Occlusion jobs、96批/2805图像评估、B0/update0、总540秒/例180秒与256MiB输出；全模型前后hook保留预约/完成计数、原logits及独立SHA产物。未知提交单次发送后只读对账原Job/Attempt/digest/对象字节，同Job换Attempt不得重算；partial原生产物保全，Worker/心跳未退出不得宣布恢复。只消费v12唯一恢复链，不改旧v3、LOC源码、共同IO锁或原前端。
+
+29个轻量生成fixtures PASS0.03s；没有新浏览器/构建、Torch导入、权重/患者像素、医学F/B/update、真实队列读写或GPU probe。源/报告/流程在hospital-release/20261011-protected-mvp-v13。metadata工具只准备NOT READY fragment，不创建allowlist/批准/dispatch。当前P1占唯一资源窗口，新入口生成浏览器验收NOT RUN；DATA原3 SOP的BurnedInAnnotation缺失保持UNKNOWN，负责人逐图像素复核前真实上传BLOCKED。scope批准有效但真实MVP等数据真实满足门及总控串行dispatch，不能宣称医院/临床PASS。原应用默认FrozenBaseline保留，医院默认null；E1/E2/F0/F1仍未注册医院应用。源提交/metadata SHA在提交后补录。
