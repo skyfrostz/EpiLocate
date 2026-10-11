@@ -1093,3 +1093,6 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 ### 2026-10-11｜固定v3恢复链与R1最小消费适配
 
 开始HEAD `fe36b2076edfb9b8a1ff351ea72850a93f31f2b5`，原INTEGRATION树。总控唯一委托恢复消费适配，保留c9f5369固定v3及v4 IO候选不动；runtime/recovery_chain_v1只从原v3派生execution_lock和wave1_supervisor两文件，逐一绑定旧CTFM128/R0及新C1/R1的start/receipt/review/raw/owner。前序决议按其当时允许的已消费C1键验证，并核对新槽started.administrative_recovery四个原字段；节点上限2、循环/过深/漂移/缺证据拒绝。两个既有串行/设备门禁仅对完整old_job_ids集合让行；旧单槽字段保持兼容，已消费任务/第三未知槽继续阻断。无新IO锁/调度器/finished伪造。20生成隔离fixtures PASS0.33s；只读实际新决议SHA `ceb164cbca27c0e547da8c09b65fc8c10d78f0544e62bf4b9ead0920ab4eece4` 对P1重试/MVP两键PASS。实际queue写/GPUprobe/观察/医学F/B/update0。源/差分/收据在hospital-release/20261011-recovery-chain-v12，固定bundle待提交后补录；MVP接入紧随，真实dispatch仍总控。
+
+
+**恢复链唯一固定bundle补录：** 两变化源码提交 `14bf16ebe05f4652204148a0faf0fc455cfb8667`；八模块命名包epinext_wave1_recovery_chain_v1导入/verify_loaded_bundle PASS，dependency SHA `093e0a7fd137ae9772dd30595fe39de845a7babe9de1617d633782a02707a192`，bundle receipt SHA `9ad2257237f859adad2267d33353cf87df6433270923ec2975385d617fe9ce48`。六模块逐字保持原v3，只有两门禁/恢复validator变化；没有共同IO锁v4。bundle/索引完整绝对路径见v12/manifest.json；20测试复用不重跑。本补录仅版本元数据，原始diff上下文空格导致diff-check失败，现改为零上下文diff，源码不变。医学F/B/update、真实队列写0。
