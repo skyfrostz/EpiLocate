@@ -1,0 +1,13 @@
+# 三图人工确认收据｜2026-10-11
+
+本包仅记录总控正式转交的负责人确认，未进行影像复核、CT派生、模型计算或设备队列操作。原v13受测源及生成工程收据保持不变。
+
+已核验中央OWNER_DECISION_V1 SHA `437158c573e126152f134eaf61789f010b6629cd27e47212808861fe0988e133`及OWNER_PIXEL_VISUAL_REVIEW_V1 SHA `6f97bb99f983869f214709b2cd98a0d62b16360fc6b57a0ffe8f283072c57a19`。三个case_index/原CT SHA与固定prepared_delivery对应，负责人钟佳桦已逐例确认全部预览panel及边缘检查，三例均记录未见烧录身份信息。INTEGRATION只核验记录身份与SHA，没有打开9张受保护PNG或复核患者像素。
+
+上游人工记录仍为`OWNER_RECORD_PENDING_DATA_AUDIT`。人工确认完成，不等于新派生ledger已正式发布。DATA唯一owner须按该确认完成新v2派生与审计，经总控转交正式ledger/path/SHA及当前MVP readiness；INTEGRATION不得修改BIA、GT或建立第二allowlist，也不把旧派生字节直接标ready。
+
+现有CPU1/96批/2805图像评估/540秒MVP批准保持有效，本线医学F/B/update0。下一步是消费DATA正式v2字段及人工确认链，验证readiness与全部受测源码/依赖、生成验收/退出收据关联，再发布确切argv供总控单槽dispatch。没有DATA正式v2时不能制造最终READY。真实MVP、医院冻结和临床验收均NOT RUN；医院展示和外传未获批准。
+
+DATA六成员File Meta诊断另由DATA唯一执行；INTEGRATION不执行、不读取其影像或占用其授权。
+
+本地路径、SHA及当前缺口见manifest.json。本文替代v13“等待负责人逐图确认”这一缺口；DATA新派生与正式交接缺口继续保留，不改写旧报告或历史资产。

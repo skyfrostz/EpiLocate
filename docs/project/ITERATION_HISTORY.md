@@ -1108,3 +1108,7 @@ INTEGRATION在原分支codex/epi-next-integration-20261009，开始HEAD `05a4279
 **P1退出后生成差分补录：** 总控通知唯一P1实际退出/队列恢复后，INTEGRATION运行受保护入口生成浏览器闭环。attempt6 exit0：3旧Occlusion jobs/3 Result/27资产，96假模型边界回调/2805生成评估、医学F/B/update0；Job/Result身份与SQLite逐项MATCH，截图包含非医学banner、原生CT与叠加及刷新64选项，实际Torch未导入。29轻量fixtures仍PASS0.03s。attempt1–4的Backend启动/登录/图层异步等待竞态修正；attempt5发现URL提前记录Case，修正后仅attempt6作为验收，所有六次自有线程/服务退出收据保全。该补录替代上文新入口浏览器NOT RUN；真实MVP仍需原3 SOP人工像素复核、DATA正式字段映射和总控单次dispatch，医院/临床/冻结仍NOT RUN。最终受测源和新metadata绑定提交后补录，旧baedeb2 fragment保持历史NOT READY不覆盖。
 
 **最终受测源码固定：** source Git SHA `9dad72a5ad3e5931340dc91444072c57d5f74d2c`；原3流程生成验收及29项fixtures均对应当前代码字节。98源码/构建绑定与生成receipt逐项一致，最终engineering-readiness fragment SHA `3b4bb987df4f66b707a73f0ad298de6d05d6ee9eb09abd4b99a022c4af71dde2`，绝对路径见manifest。其status仍NOT READY、data_delivery=null；仅附生成工程证据，剩余人工像素复核/DATA映射/总控MVP dispatch。原baedeb2 fragment不覆盖；v12唯一index SHA保持12e808bcf23f80571886fa0e8c68efa88a11fb833a51db002ab1820d20fc1a6d。未追加模型、GPU、队列观察或构建；医院最终冻结与临床NOT RUN。
+
+### 2026-10-11｜负责人三图人工确认与DATA v2等待
+
+INTEGRATION，开始HEAD `2ee9ab18c950d2d5c5a12dbccb777f9455205d2e`。总控转交负责人直接确认，中央decision SHA `437158c573e126152f134eaf61789f010b6629cd27e47212808861fe0988e133`及review SHA `6f97bb99f983869f214709b2cd98a0d62b16360fc6b57a0ffe8f283072c57a19`只读核验通过；三例原CT SHA与prepared一致，三图均NO、完整panel/边缘检查由负责人记录。人工确认缺口已解除，但记录status OWNER_RECORD_PENDING_DATA_AUDIT，正式DATA v2派生ledger尚未由总控转交。v14只保存消费摘要，不创建allowlist/GT、不改BIA、不打开9PNG或原CT、不调用模型/队列，不代替DATA审计。v13受测源码/29fixtures/生成三流程复用，不重跑；CPU96/2805/540秒授权仍有效，最终readiness/argv等DATA正式交接后发布，总控独占dispatch。医院展示、冻结、临床NOT RUN。

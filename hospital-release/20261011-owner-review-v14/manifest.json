@@ -1,0 +1,52 @@
+{
+  "schema": "EPI_NEXT_MVP_OWNER_REVIEW_CONSUMPTION_V1",
+  "date": "2026-10-11",
+  "status": "OWNER_CONFIRMED_WAIT_DATA_V2",
+  "source_git_sha": "9dad72a5ad3e5931340dc91444072c57d5f74d2c",
+  "development_base_sha": "2ee9ab18c950d2d5c5a12dbccb777f9455205d2e",
+  "owner_decision": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/two-data-blockers-owner-decision-v1/OWNER_DECISION_V1.json",
+    "sha256": "437158c573e126152f134eaf61789f010b6629cd27e47212808861fe0988e133"
+  },
+  "owner_pixel_review": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/two-data-blockers-owner-decision-v1/OWNER_PIXEL_VISUAL_REVIEW_V1.json",
+    "sha256": "6f97bb99f983869f214709b2cd98a0d62b16360fc6b57a0ffe8f283072c57a19"
+  },
+  "prepared_delivery_sha256": "b85eaf6c78d1547e2aa4b93458734f533d34be5de1ed056fd152c30b92ebaa99",
+  "checks": {
+    "owner_confirmation_sha": "PASS",
+    "three_source_case_identities": "PASS",
+    "full_frame_and_nine_panels_owner_record": "PASS_RECORD_ONLY_NOT_IMAGE_REREVIEW"
+  },
+  "upstream_review_status": "OWNER_RECORD_PENDING_DATA_AUDIT",
+  "canonical_data_v2": null,
+  "mvp_readiness": "NOT READY",
+  "real_mvp": "NOT RUN",
+  "hospital_freeze": "NOT RUN",
+  "hospital_display_authorized": false,
+  "actual_medical_forward": 0,
+  "actual_medical_backward": 0,
+  "updates": 0,
+  "patient_pixels_read": 0,
+  "model_weights_read": 0,
+  "device_queue_reads": 0,
+  "device_queue_writes": 0,
+  "new_allowlist": false,
+  "new_gt": false,
+  "new_bia_edit": false,
+  "remaining": [
+    "WAIT_CANONICAL_DATA_V2_LEDGER_VIA_CHIEF",
+    "WAIT_EXACT_DATA_SCHEMA_MAPPING_AND_READINESS",
+    "WAIT_CHIEF_SINGLE_MVP_DISPATCH"
+  ],
+  "existing_approved_mvp_budget": {
+    "cpu_threads": 1,
+    "forward_batches": 96,
+    "image_evaluations": 2805,
+    "total_seconds": 540
+  },
+  "engineering_delivery": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/manifest.json",
+    "sha256": "00b2424ce10c9678eaa0ee6b1ee1630f10fdac6e0aae70652f09fb0ce06d6947"
+  }
+}
