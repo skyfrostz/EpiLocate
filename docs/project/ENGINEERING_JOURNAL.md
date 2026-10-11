@@ -1490,3 +1490,7 @@ INTEGRATION，原指定工作树epi-next-integration、分支codex/epi-next-inte
 ### 2026-10-11｜三图人工确认收据只读消费
 
 负责人INTEGRATION，原工作树/分支，开始HEAD `2ee9ab18c950d2d5c5a12dbccb777f9455205d2e`。中央OWNER_DECISION_V1 SHA `437158c573e126152f134eaf61789f010b6629cd27e47212808861fe0988e133`、OWNER_PIXEL_VISUAL_REVIEW_V1 SHA `6f97bb99f983869f214709b2cd98a0d62b16360fc6b57a0ffe8f283072c57a19`均MATCH；三case_index/原CT SHA与prepared b85eaf6一致，三条NO、完整预览与边缘检查及钟佳桦确认字段符合总控交接。未读取受保护PNG/像素；只核对记录，不声称本线重新人工复核。旧记录OWNER_RECORD_PENDING_DATA_AUDIT保持，等DATA正式v2新派生ledger；没有改BIA、GT、allowlist或执行六成员meta probe。v14 manifest/README更新当前缺口，v13及原98源码/构建、29测试/三次生成流程保留并复用，无新测试/模型/队列读写/图形构建。scope批准不变，实际医学F/B/update0；最终READY和实际argv须正式DATA交接后由集成出包、总控单槽调度，展示和医院/临床冻结NOT RUN。
+
+### 2026-10-11｜DATA v2只读消费与final readiness工具
+
+INTEGRATION在原工作树/分支，开发接续v14提交。正式v2 SHA `bc9198383f12eb231e9125e8cf5a65a6f67a2f37d2233b7ad46b5308023ac6c1`metadata gate PASS：DATA审计、三例source/UID/原native索引、原/派生解码像素SHA、header/encoded/geometry/window保全及LOCAL_MVP范围，与中央decision/review/旧ledger/原派生/预览hash链精确一致。没有读取CT/PNG/GT/权重，或修改DATA头/批准记录。qa/hospital_mvp_protected.py只接受实际v2，保留owner_PENDING记录而要求DATA审计PASS；绑定已有pylibjpeg2.1.0/libjpeg2.4.0，未安装组件。qa/hospital_mvp_finalize.py metadata-only组装READY和chief command SPEC，只读receipt并临时检查既有serial/cpu锁，未建新锁/队列记录/槽或调度器，不查杀进程；实际采样将在固定source后执行并补录。48轻量生成/隔离锁测试PASS0.06s，新生成浏览器attempt1 exit0、3jobs/3results/27资产、96假回调/2805评估、99源码/构建hash MATCH、Job/Result数据库身份MATCH、全部自有线程/服务退出。原protocol/CPU1/96批/540秒/256MiB及前端不改，无医学F/B/update。v15 finalready/argv等固定源码后发布给总控，不自行执行真实模型；医院展示、冻结、临床NOT RUN。

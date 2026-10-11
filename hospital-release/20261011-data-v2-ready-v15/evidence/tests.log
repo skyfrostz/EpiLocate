@@ -1,0 +1,5 @@
+Scope: generated metadata/isolated queue plus existing call fencing; no CT/weights/Torch/actual queue.
+Command: env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python -m pytest qa/test_hospital_mvp_protected.py qa/test_hospital_mvp_data_v2.py -q
+48 passed in 0.06s
+Generated browser: PASS, exit0, 3 jobs/3 results/27 assets; 96 fake callbacks complete, 2805 generated evaluations, medical F/B/update0. Exact Browser/SQLite Job/Result IDs MATCH; all owned threads/services stopped.
+Command: env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python qa/hospital_mvp_protected.py --generated --run frontend/.local/mvp-data-v2-generated-20261011-attempt1 --dist frontend/.local/mvp-20261011-dist

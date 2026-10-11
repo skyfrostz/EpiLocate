@@ -1,0 +1,1 @@
+{"completed": 96, "entered": 96, "failed": false, "image_evaluations": 2805, "services": [{"pid": 59607, "returncode": -15}, {"pid": 59608, "returncode": -15}, {"pid": 59609, "returncode": -15}], "worker_errors": [], "worker_threads_stopped": true}

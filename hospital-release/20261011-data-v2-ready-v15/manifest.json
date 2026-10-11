@@ -1,0 +1,94 @@
+{
+  "schema": "EPI_NEXT_MVP_DATA_V2_READY_DELIVERY_V1",
+  "date": "2026-10-11",
+  "status": "WAIT_FIXED_SOURCE_AND_FINAL_READINESS",
+  "development_base_sha": "bdb44b5",
+  "source_git_sha": null,
+  "canonical_data_delivery": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-data-eval/.local/phase2/mvp-three-sop-owner-reviewed-v2-20261011/MVP_THREE_SOP_DERIVATIVE_LEDGER_V2.json",
+    "sha256": "bc9198383f12eb231e9125e8cf5a65a6f67a2f37d2233b7ad46b5308023ac6c1"
+  },
+  "owner_decision_sha256": "437158c573e126152f134eaf61789f010b6629cd27e47212808861fe0988e133",
+  "owner_review_sha256": "6f97bb99f983869f214709b2cd98a0d62b16360fc6b57a0ffe8f283072c57a19",
+  "data_metadata_gate": "PASS_CANONICAL_V2_AND_OWNER_CHAIN",
+  "data_file_bytes_opened_by_integration": 0,
+  "new_torch_imports": 0,
+  "new_medical_forward": 0,
+  "new_medical_backward": 0,
+  "new_updates": 0,
+  "chief_dispatch": null,
+  "real_mvp": "NOT RUN",
+  "hospital_freeze": "NOT RUN",
+  "hospital_display_authorized": false,
+  "clinical_validation": "NOT RUN",
+  "new_allowlist": false,
+  "new_gt": false,
+  "bia_edited": false,
+  "shared_supervisor_index_sha256": "12e808bcf23f80571886fa0e8c68efa88a11fb833a51db002ab1820d20fc1a6d",
+  "runtime_packages_added_to_binding": [
+    "pylibjpeg",
+    "pylibjpeg-libjpeg"
+  ],
+  "environment_installs": 0,
+  "tests": {
+    "passed": 48,
+    "seconds": 0.06,
+    "scope": "GENERATED_ONLY"
+  },
+  "engineering_evidence": {
+    "generated_browser": "PASS",
+    "exit_code": 0,
+    "database": {
+      "assets": 27,
+      "completed": 3,
+      "jobs": 3,
+      "results": 3,
+      "workers": 1
+    },
+    "fake_batch_callbacks": 96,
+    "completed_fake_batches": 96,
+    "image_evaluations": 2805,
+    "medical_forward": 0,
+    "owned_stopped": true,
+    "browser_db_ids": "MATCH"
+  },
+  "source_files": {
+    "hospital_mvp_protected.py": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/hospital_mvp_protected.py",
+      "sha256": "71c58445a63b580033f9bfa3b4a9a9e9770145889f9f7b4243f7f90c003738ec"
+    },
+    "hospital_mvp_finalize.py": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/hospital_mvp_finalize.py",
+      "sha256": "9821347ad53face5be602149b269880e9ec7b9ee7cdf07d45a778d5249b292b1"
+    },
+    "test_hospital_mvp_data_v2.py": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/test_hospital_mvp_data_v2.py",
+      "sha256": "6648fc1efd7fbc2980b8f9d2a05747f5c577c9ffefe5ee203ff5b353daa6a61b"
+    }
+  },
+  "evidence": {
+    "worker-generated-isolation.json": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/evidence/worker-generated-isolation.json",
+      "sha256": "8864e6adc4332d8546f4634b3f31b1b428822d0379cce8483d7312a9adf41678"
+    },
+    "browser-acceptance.json": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/evidence/browser-acceptance.json",
+      "sha256": "48386e31cb1f2ec46da04b06bb4633f50b2a0437bc704f10c45db6753fe5b9ad"
+    },
+    "tests.log": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/evidence/tests.log",
+      "sha256": "177b581086c2ba3a03044debc17a3e07ace1c398e057175ba9c1256aa316d3f2"
+    },
+    "owned-completion.json": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/evidence/owned-completion.json",
+      "sha256": "124021516f15b22bcf460d63c6470be906b881bf6681b072c3c38e0535fc01e7"
+    },
+    "flow-3.png": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/evidence/flow-3.png",
+      "sha256": "95da1df7eae3d5c553dd2542a2d9e34393088126893e95b4cd8a6922f2753d51"
+    }
+  },
+  "final_readiness": null,
+  "command_request": null,
+  "queue_sample": null
+}

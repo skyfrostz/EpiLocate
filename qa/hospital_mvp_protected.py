@@ -32,9 +32,11 @@ DECISION_SHA = 'ceb164cbca27c0e547da8c09b65fc8c10d78f0544e62bf4b9ead0920ab4eece4
 STORAGE = Path('/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/epi_next/p1_storage_v4.py')
 STORAGE_SHA = 'bc431dab482538ee3f9f1024c0b89648525f887deeb740c86065f797e9fb39b3'
 INDEX_SHA = '12e808bcf23f80571886fa0e8c68efa88a11fb833a51db002ab1820d20fc1a6d'
+PIXEL_OWNER_DECISION_SHA='437158c573e126152f134eaf61789f010b6629cd27e47212808861fe0988e133'
+PIXEL_REVIEW_SHA='6f97bb99f983869f214709b2cd98a0d62b16360fc6b57a0ffe8f283072c57a19'
 RUNTIME_PACKAGES=('torch','torchvision','numpy','pandas','scipy','pydicom','Pillow','PyYAML',
                   'httpx','SQLAlchemy','boto3','argon2-cffi','uvicorn','fastapi','pydantic',
-                  'playwright','python-multipart')
+                  'playwright','python-multipart','pylibjpeg','pylibjpeg-libjpeg')
 
 
 class MVPStopped(RuntimeError):pass
@@ -120,6 +122,69 @@ def validate_pixel_review(record):
             or review.get('derived_pixel_sha256')!=record['derived_pixel_sha256']
             or not review.get('reviewer') or not review.get('reviewed_at')):
         raise MVPStopped('BURNED_IN_PIXEL_REVIEW_UNVERIFIED')
+
+
+def validate_data_v2(delivery,prepared,owner_ref):
+    """Consume DATA's ledger verbatim; never create an allowlist or BIA edit."""
+    if (delivery.get('schema')!='EPI_NEXT_MVP_DERIVATIVE_DELIVERY_V2'
+            or delivery.get('status')!='LOCAL_MVP_CONTRACT_READY_WITH_OWNER_VISUAL_EVIDENCE'
+            or delivery.get('DATA_final_evidence_audit')!='PASS'
+            or delivery.get('prepared_delivery_sha256')!='b85eaf6c78d1547e2aa4b93458734f533d34be5de1ed056fd152c30b92ebaa99'
+            or delivery.get('owner_scope_sha256')!=REQUEST_SHA
+            or delivery.get('owner_approval_sha256')!=OWNER_SHA
+            or delivery.get('owner_decision_sha256')!=PIXEL_OWNER_DECISION_SHA
+            or delivery.get('owner_pixel_review_sha256')!=PIXEL_REVIEW_SHA
+            or owner_ref.get('sha256')!=PIXEL_OWNER_DECISION_SHA
+            or delivery.get('hospital_display_authorized') is not False
+            or delivery.get('external_imaging_upload_authorized') is not False
+            or delivery.get('source_file_count')!=3
+            or delivery.get('GT_files_read')!=0 or delivery.get('model_calls')!=0):
+        raise MVPStopped('CANONICAL_DATA_V2_AUDITED_HANDOFF_REQUIRED')
+    owner=bound(owner_ref)
+    review_ref=dict(path=delivery['owner_pixel_review_path'],sha256=PIXEL_REVIEW_SHA)
+    if (owner.get('schema')!='EPI_NEXT_TWO_DATA_BLOCKERS_OWNER_DECISION_V1'
+            or owner.get('pixel_review_path')!=review_ref['path']
+            or owner.get('pixel_review_sha256')!=PIXEL_REVIEW_SHA
+            or owner.get('hospital_display_permitted') is not False
+            or owner.get('external_imaging_upload_permitted') is not False
+            or owner.get('new_model_calls_permitted') is not False):
+        raise MVPStopped('PIXEL_OWNER_DECISION_IDENTITY_CHANGED')
+    review=bound(review_ref)
+    if (review.get('schema')!='EPI_NEXT_OWNER_PIXEL_VISUAL_REVIEW_V1'
+            or review.get('status')!='OWNER_RECORD_PENDING_DATA_AUDIT'
+            or review.get('owner_visual_review_affirmed') is not True
+            or review.get('reviewer')!='钟佳桦' or not review.get('reviewed_at')
+            or review.get('derivative_ledger_sha256')!=delivery.get('previous_ledger_sha256')
+            or review.get('preview_binding_sha256')!=delivery.get('preview_binding_sha256')
+            or [r['case_index'] for r in review['records']]!=[1,2,3]
+            or [r['case_index'] for r in delivery['records']]!=[1,2,3]
+            or len(prepared['records'])!=3):
+        raise MVPStopped('OWNER_PIXEL_REVIEW_CHAIN_UNVERIFIED')
+    required_true=('pixel_values_equal','native_geometry_equal','deidentification_checked',
+                   'encoded_pixel_payload_equal','pixel_representation_and_window_equal',
+                   'header_deidentification_pass','decoder_available_in_existing_environment','upload_eligible')
+    for record,original,checked in zip(delivery['records'],prepared['records'],review['records']):
+        pixels=record.get('source_decoded_pixel_sha256')
+        if (any(record.get(k) is not True for k in required_true)
+                or any(record.get(k)!=original.get(k) for k in ['source_ct_sha256','study_uid','series_uid','source_sop_uid','native_slice_index_zero_based'])
+                or not pixels or pixels!=record.get('derivative_decoded_pixel_sha256')
+                or pixels!=checked.get('decoded_pixel_sha256')
+                or record.get('source_ct_sha256')!=checked.get('source_ct_sha256')
+                or record.get('previous_derivative_sha256')!=checked.get('derivative_sha256')
+                or record.get('owner_review_sha256')!=PIXEL_REVIEW_SHA
+                or record.get('owner_reviewed_at')!=review['reviewed_at']
+                or checked.get('all_preview_panels_reviewed') is not True
+                or checked.get('full_frame_including_edges_reviewed') is not True
+                or checked.get('burned_in_identity_information_detected')!='NO'
+                or len(checked.get('preview_png_sha256',[]))!=3
+                or record.get('BurnedInAnnotation')!='NO'
+                or record.get('pixel_phi_visual_review')!='OWNER_REVIEW_HASH_BOUND_AND_DATA_AUDITED'
+                or record.get('uid_changes') is not False or record.get('lossless_reencoding') is not False
+                or record.get('upload_block_reason') is not None
+                or record.get('upload_scope')!='LOCAL_MVP_ONLY_NOT_EXTERNAL_UPLOAD_AUTHORIZATION'
+                or not Path(record['path']).is_absolute()):
+            raise MVPStopped('DATA_V2_CASE_PIXEL_SPACE_OR_REVIEW_MISMATCH')
+    return delivery
 
 
 def json_new(path, value):
@@ -243,6 +308,7 @@ def required_source_paths(dist):
     paths={Path(__file__).resolve(),ROOT/'qa/hospital_mvp_generated.py',
            ROOT/'qa/hospital_mvp_protected_fake.py',ROOT/'qa/phase5_local_https.py',
            ROOT/'qa/hospital_mvp_binding.py',
+           ROOT/'qa/hospital_mvp_finalize.py',
            ROOT/'scripts/occlusion_runner.py',STORAGE}
     for folder in ['worker','backend_v2','session_gateway','algorithm','src']:
         paths.update(p.resolve() for p in (ROOT/folder).rglob('*.py') if '.local' not in p.parts)
@@ -263,6 +329,9 @@ def validate_readiness(ready):
     approved=request['items']['MVP_LOCAL']['request']
     if ready['task_key']!=TASK or ready['compute']!=approved['compute'] or ready['model']!=approved['model']:
         raise MVPStopped('APPROVED_FROZEN_BUDGET_CHANGED')
+    prepared=bound(approved['data']['fixed_slice_input_reference'])
+    delivery=bound(ready['data_delivery'])
+    validate_data_v2(delivery,prepared,ready['pixel_owner_decision'])
     if ready['decision']['sha256']!=DECISION_SHA:raise MVPStopped('NEW_C1_DECISION_REQUIRED')
     if ready['supervisor_index']['sha256']!=INDEX_SHA:raise MVPStopped('FIXED_RECOVERY_INDEX_REQUIRED')
     index=bound(ready['supervisor_index']);modules=supervisor(index)
@@ -287,21 +356,6 @@ def validate_readiness(ready):
             or completion.get('worker_threads_stopped') is not True
             or any(s.get('returncode') is None for s in completion.get('services',[]))
             or len(completion.get('services',[]))!=3):raise MVPStopped('CURRENT_PROTECTED_GENERATED_FLOW_NOT_ACCEPTED')
-    delivery=bound(ready['data_delivery'])
-    if (delivery['schema']!='EPI_NEXT_MVP_DERIVATIVE_DELIVERY_V1'
-            or delivery['prepared_delivery_sha256']!='b85eaf6c78d1547e2aa4b93458734f533d34be5de1ed056fd152c30b92ebaa99'
-            or delivery['owner_scope_sha256']!=REQUEST_SHA
-            or [r['case_index'] for r in delivery['records']]!=[1,2,3]):
-        raise MVPStopped('CANONICAL_DATA_THREE_SOP_HANDOFF_REQUIRED')
-    prepared=bound(approved['data']['fixed_slice_input_reference'])
-    for record, original in zip(delivery['records'],prepared['records']):
-        if (record['source_ct_sha256']!=original['source_ct_sha256']
-                or any(record.get(k) is not True for k in ['pixel_values_equal','native_geometry_equal','deidentification_checked'])
-                or record.get('original_pixel_sha256')!=record.get('derived_pixel_sha256')):
-            raise MVPStopped('DERIVATIVE_IDENTITY_OR_GEOMETRY_UNVERIFIED')
-        validate_pixel_review(record)
-    if delivery.get('hospital_display_authorized') is not False:
-        raise MVPStopped('HOSPITAL_DISPLAY_NOT_APPROVED')
     if ready['frozen_root']!=str(Path(prepared['checkpoint_path']).parents[4]):
         raise MVPStopped('FROZEN_ROOT_IDENTITY_CHANGED')
     if ready['python']!=sys.executable or Path.cwd()!=ROOT:raise MVPStopped('PYTHON_RUNTIME_OR_CWD_CHANGED')

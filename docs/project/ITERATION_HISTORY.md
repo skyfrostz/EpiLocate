@@ -1112,3 +1112,7 @@ INTEGRATION在原分支codex/epi-next-integration-20261009，开始HEAD `05a4279
 ### 2026-10-11｜负责人三图人工确认与DATA v2等待
 
 INTEGRATION，开始HEAD `2ee9ab18c950d2d5c5a12dbccb777f9455205d2e`。总控转交负责人直接确认，中央decision SHA `437158c573e126152f134eaf61789f010b6629cd27e47212808861fe0988e133`及review SHA `6f97bb99f983869f214709b2cd98a0d62b16360fc6b57a0ffe8f283072c57a19`只读核验通过；三例原CT SHA与prepared一致，三图均NO、完整panel/边缘检查由负责人记录。人工确认缺口已解除，但记录status OWNER_RECORD_PENDING_DATA_AUDIT，正式DATA v2派生ledger尚未由总控转交。v14只保存消费摘要，不创建allowlist/GT、不改BIA、不打开9PNG或原CT、不调用模型/队列，不代替DATA审计。v13受测源码/29fixtures/生成三流程复用，不重跑；CPU96/2805/540秒授权仍有效，最终readiness/argv等DATA正式交接后发布，总控独占dispatch。医院展示、冻结、临床NOT RUN。
+
+### 2026-10-11｜正式DATA v2适配与chief最终readiness接缝
+
+总控交唯一DATA v2 ledger SHA `bc9198383f12eb231e9125e8cf5a65a6f67a2f37d2233b7ad46b5308023ac6c1`，DATA_final_evidence_audit PASS、原3 SOP逐图NO正式关联。INTEGRATION按原schema字段直接消费source/Study/Series/索引、像素SHA、保全/去标识/上传范围及中央owner复核链，不写DATA/GT/BIA/allowlist、不读CT/权重。原owner_PENDING_DATA_AUDIT不改写，由DATA v2明确完成审计。现有JPEG Lossless decoder版本加入绑定，无安装。新增metadata-only finalizer，既有两锁非阻塞采样/slot收据SHA核对，不产生队列文件或槽；旧两UNKNOWN按ceb164保留，新UNKNOWN/spent/busy/漂移拒绝，真实启动仍由总控和原supervisor再次准入。48生成轻量fixtures PASS0.06s；新生成浏览器三流程exit0、3jobs/3results/27资产、96假回调/2805评估、99源码/构建SHA闭合、医学F/B/update0，实际数据库身份及自有退出PASS。原预算/冻结/前端核心不改；finalready/argv固定源码后补录。v15本地包，真实MVP及医院/临床/最终冻结NOT RUN。
