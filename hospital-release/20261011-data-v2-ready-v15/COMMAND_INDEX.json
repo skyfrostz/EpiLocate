@@ -1,0 +1,116 @@
+{
+  "schema": "EPI_NEXT_MVP_COMMAND_DELIVERY_INDEX_V1",
+  "status": "WAIT_CHIEF_DISPATCH_NOT_EXECUTED",
+  "source_git_sha": "54ff1565f6c11a6deea873feab0a011e879528fb",
+  "readiness": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-data-v2-final-ready-54ff156-v15/readiness.json",
+    "sha256": "2d484b1915cd952b5a06d635272a01d5bfc8ccc0226eb18ba442011db1b8ab58"
+  },
+  "command_request": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-data-v2-final-ready-54ff156-v15/command-request.json",
+    "sha256": "6d1ba3b8d804cf25a72412e1b6980e38ee6d36ae031d524146ccea1ebc9f6aa0"
+  },
+  "cwd": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": ".:frontend/.local/mvp-20261011-browser-deps"
+  },
+  "argv_without_dispatch_sha": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/hospital_mvp_protected.py",
+    "--readiness",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-data-v2-final-ready-54ff156-v15/readiness.json",
+    "--readiness-sha",
+    "2d484b1915cd952b5a06d635272a01d5bfc8ccc0226eb18ba442011db1b8ab58",
+    "--dispatch",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/MVP_LOCAL_DISPATCH_20261011_V1.json"
+  ],
+  "argv_tail_to_bind": [
+    "--dispatch-sha",
+    "CHIEF_PUBLISHED_DISPATCH_SHA256"
+  ],
+  "job_id_proposal": "hospital-mvp-three-legacy-cpu-20261011-01",
+  "compute": {
+    "all_validation_forwards_included": true,
+    "backward": 0,
+    "baseline_forward_batches_total": 3,
+    "batch_size": 32,
+    "batch_sizes_per_job": {
+      "16": [
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        25
+      ],
+      "32": [
+        32,
+        32,
+        32,
+        32,
+        32,
+        9
+      ],
+      "64": [
+        32,
+        4
+      ],
+      "baseline": [
+        1
+      ]
+    },
+    "budget_algorithm": "Historical FrozenBaseline stage1-occlusion-instability-v1; not research E1",
+    "budget_includes": "Startup/model load, hash validation, upload/claim, all prediction/occlusion batches, save/readback, three browser workflows and exit; stop without auto retry",
+    "device": "CPU",
+    "extra_validation_forward_allowance": 0,
+    "forward_batches_per_job": 32,
+    "forward_batches_total": 96,
+    "image_evaluations_per_job": 935,
+    "image_evaluations_total": 2805,
+    "jobs": 3,
+    "kind": "OCCLUSION",
+    "no_separate_prediction_jobs": true,
+    "output_total_bytes": 268435456,
+    "per_flow_seconds": 180,
+    "perturbed_image_evaluations_per_job": 934,
+    "perturbed_image_evaluations_total": 2802,
+    "positions_per_scale": [
+      729,
+      169,
+      36
+    ],
+    "queue": "Chief sole dispatch, existing supervisor/serial device queue; any UNKNOWN/BLOCKED slot must first have valid recovery; no new scheduler or implicit release",
+    "refresh_is_read_only_not_model_call": true,
+    "retries": 0,
+    "sampled_rss_monitored_target_bytes": 6442450944,
+    "sampled_rss_pre_stop_bytes": 5368709120,
+    "scales": [
+      16,
+      32,
+      64
+    ],
+    "threads": 1,
+    "total_seconds": 540,
+    "updates": 0,
+    "warmups": 0
+  },
+  "readiness_is_not_dispatch": true
+}

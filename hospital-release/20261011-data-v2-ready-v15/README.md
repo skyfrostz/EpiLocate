@@ -15,3 +15,5 @@
 启动还须总控复核DATA最终执行交付hash、readiness及队列状态。刷新和保存读取已有结果，不触发额外模型；未知提交只读对账。通过本地真实MVP后仍须医院六项空间检查、连续三次真实展示、预计算/备用录屏及钟佳桦最终批准；E1/E2/F0/F1医院注册/选版未因这份legacy开发ready而完成。
 
 最终受测源码和实际metadata-only就绪检查提交后补录。原v11–v14历史包保留。
+
+**固定源及最终READY补录：** 受测source `54ff1565f6c11a6deea873feab0a011e879528fb`；metadata-only finalizer exit0，readiness SHA `2d484b1915cd952b5a06d635272a01d5bfc8ccc0226eb18ba442011db1b8ab58`、command-request SHA `6d1ba3b8d804cf25a72412e1b6980e38ee6d36ae031d524146ccea1ebc9f6aa0`，完整绝对路径见manifest。99源/构建及19包版本（含已有JPEG decoder）逐项绑定，正式DATA v2与中央owner链通过。既有两锁/slot/finished/receipt在采样时PASS，旧两UNKNOWN按原ceb164例外保留；未创建或修改队列文件，未预留槽，未初始化设备或导入实际Torch，患者像素/权重读取及医学F/B/update0。READY只供chief dispatch，不是运行或医院展示许可；command SPEC发布后追加chief实际dispatch SHA。启动时supervisor再次准入；DATA最终执行交付hash由总控汇总核验。真实MVP、医院/临床/最终冻结仍NOT RUN。

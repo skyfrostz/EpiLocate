@@ -1,9 +1,9 @@
 {
   "schema": "EPI_NEXT_MVP_DATA_V2_READY_DELIVERY_V1",
   "date": "2026-10-11",
-  "status": "WAIT_FIXED_SOURCE_AND_FINAL_READINESS",
-  "development_base_sha": "bdb44b5",
-  "source_git_sha": null,
+  "status": "READY_FOR_CHIEF_DISPATCH",
+  "development_base_sha": "bdb44b575f2380dff901eb703aa6920d4ab68e5f",
+  "source_git_sha": "54ff1565f6c11a6deea873feab0a011e879528fb",
   "canonical_data_delivery": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-data-eval/.local/phase2/mvp-three-sop-owner-reviewed-v2-20261011/MVP_THREE_SOP_DERIVATIVE_LEDGER_V2.json",
     "sha256": "bc9198383f12eb231e9125e8cf5a65a6f67a2f37d2233b7ad46b5308023ac6c1"
@@ -67,9 +67,17 @@
     }
   },
   "evidence": {
+    "queue-sample.json": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/evidence/queue-sample.json",
+      "sha256": "7bb761ad9d3ec4892582c1373a7afd0c917ad1ed03f62844f86ee0fecf1a3bb3"
+    },
     "worker-generated-isolation.json": {
       "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/evidence/worker-generated-isolation.json",
       "sha256": "8864e6adc4332d8546f4634b3f31b1b428822d0379cce8483d7312a9adf41678"
+    },
+    "finalization-receipt.json": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/evidence/finalization-receipt.json",
+      "sha256": "c427eea96e2d2558ccc72846c0a8e528ec92895109d1b718a8b12768917af426"
     },
     "browser-acceptance.json": {
       "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/evidence/browser-acceptance.json",
@@ -88,7 +96,149 @@
       "sha256": "95da1df7eae3d5c553dd2542a2d9e34393088126893e95b4cd8a6922f2753d51"
     }
   },
-  "final_readiness": null,
-  "command_request": null,
-  "queue_sample": null
+  "final_readiness": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-data-v2-final-ready-54ff156-v15/readiness.json",
+    "sha256": "2d484b1915cd952b5a06d635272a01d5bfc8ccc0226eb18ba442011db1b8ab58"
+  },
+  "command_request": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-data-v2-final-ready-54ff156-v15/command-request.json",
+    "sha256": "6d1ba3b8d804cf25a72412e1b6980e38ee6d36ae031d524146ccea1ebc9f6aa0"
+  },
+  "queue_sample": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-data-v2-final-ready-54ff156-v15/queue-sample.json",
+    "sha256": "7bb761ad9d3ec4892582c1373a7afd0c917ad1ed03f62844f86ee0fecf1a3bb3"
+  },
+  "finalization_receipt": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-data-v2-final-ready-54ff156-v15/finalization-receipt.json",
+    "sha256": "c427eea96e2d2558ccc72846c0a8e528ec92895109d1b718a8b12768917af426"
+  },
+  "metadata_binding": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-data-v2-binding-54ff156-v15/readiness-fragment.json",
+    "sha256": "257f2ef86d7a1c2b8766af32303aa964a8b210d688b63bdee599042e49adf6af"
+  },
+  "readiness_gate": "PASS_METADATA_ONLY_NO_TORCH",
+  "queue_files_created": 0,
+  "queue_files_changed": 0,
+  "slot_reserved": false,
+  "source_file_count": 99,
+  "runtime": {
+    "Pillow": "12.3.0",
+    "PyYAML": "6.0.3",
+    "SQLAlchemy": "2.0.44",
+    "argon2-cffi": "25.1.0",
+    "boto3": "1.40.57",
+    "fastapi": "0.128.0",
+    "httpx": "0.28.1",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "playwright": "1.58.0",
+    "pydantic": "2.13.5",
+    "pydicom": "3.0.2",
+    "pylibjpeg": "2.1.0",
+    "pylibjpeg-libjpeg": "2.4.0",
+    "python-multipart": "0.0.20",
+    "scipy": "1.17.1",
+    "torch": "2.14.0",
+    "torchvision": "0.29.0",
+    "uvicorn": "0.35.0"
+  },
+  "compute": {
+    "all_validation_forwards_included": true,
+    "backward": 0,
+    "baseline_forward_batches_total": 3,
+    "batch_size": 32,
+    "batch_sizes_per_job": {
+      "16": [
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        32,
+        25
+      ],
+      "32": [
+        32,
+        32,
+        32,
+        32,
+        32,
+        9
+      ],
+      "64": [
+        32,
+        4
+      ],
+      "baseline": [
+        1
+      ]
+    },
+    "budget_algorithm": "Historical FrozenBaseline stage1-occlusion-instability-v1; not research E1",
+    "budget_includes": "Startup/model load, hash validation, upload/claim, all prediction/occlusion batches, save/readback, three browser workflows and exit; stop without auto retry",
+    "device": "CPU",
+    "extra_validation_forward_allowance": 0,
+    "forward_batches_per_job": 32,
+    "forward_batches_total": 96,
+    "image_evaluations_per_job": 935,
+    "image_evaluations_total": 2805,
+    "jobs": 3,
+    "kind": "OCCLUSION",
+    "no_separate_prediction_jobs": true,
+    "output_total_bytes": 268435456,
+    "per_flow_seconds": 180,
+    "perturbed_image_evaluations_per_job": 934,
+    "perturbed_image_evaluations_total": 2802,
+    "positions_per_scale": [
+      729,
+      169,
+      36
+    ],
+    "queue": "Chief sole dispatch, existing supervisor/serial device queue; any UNKNOWN/BLOCKED slot must first have valid recovery; no new scheduler or implicit release",
+    "refresh_is_read_only_not_model_call": true,
+    "retries": 0,
+    "sampled_rss_monitored_target_bytes": 6442450944,
+    "sampled_rss_pre_stop_bytes": 5368709120,
+    "scales": [
+      16,
+      32,
+      64
+    ],
+    "threads": 1,
+    "total_seconds": 540,
+    "updates": 0,
+    "warmups": 0
+  },
+  "model": {
+    "checkpoint_sha256": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+    "model_id": "baseline_resnet18",
+    "preprocessing_version": "formal-resnet18-baseline-rule-b-v1",
+    "protocol_id": "stage1-occlusion-instability-v1",
+    "task_definition": "Existing frozen single-slice binary classifier plus existing occlusion response; not clinical lesion probability"
+  },
+  "expected_dispatch_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/MVP_LOCAL_DISPATCH_20261011_V1.json",
+  "command_index": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/COMMAND_INDEX.json",
+    "sha256": "e308fb82a2dc140fb5c715d71a40cfd2aaf6f15b672817ed462a7c381a142468"
+  },
+  "readme": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-data-v2-ready-v15/README.md",
+    "sha256": "2c310db2876627a29e124ccdc9806728b25455750b8fe97e34b5467f16884480"
+  },
+  "remote_rtx3090": "PAUSED"
 }
