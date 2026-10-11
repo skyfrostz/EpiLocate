@@ -1,0 +1,47 @@
+{
+  "schema": "EPI_NEXT_RECOVERY_CHAIN_DELIVERY_V1",
+  "status": "SOURCE_PREPARED_NOT_DISPATCH",
+  "base_commit": "c9f5369b7384f4e132365616f8b6f64b624dbea2",
+  "development_base_commit": "fe36b2076edfb9b8a1ff351ea72850a93f31f2b5",
+  "source_git_sha": null,
+  "decision": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/ADMINISTRATIVE_RECOVERY_NEW_C1_V1.json",
+    "sha256": "ceb164cbca27c0e547da8c09b65fc8c10d78f0544e62bf4b9ead0920ab4eece4"
+  },
+  "read_only_actual_gate": "PASS_FOR_TWO_APPROVED_NEXT_TASKS",
+  "allowed_tasks": [
+    "EPI-NEXT-HSPI-P1-CPU-EXACT-CONTINUATION-RETRY1-20261011",
+    "EPI-NEXT-HOSPITAL-MVP-THREE-LEGACY-CPU-20261013-V1"
+  ],
+  "excused_old_jobs": [
+    "ctfm-fov128-wave1-20261009-01",
+    "ctfm-v3-fullseries64-pair-01"
+  ],
+  "schema_compatibility": "Same administrative decision/owner schema; R0/R1 reviews; scope.predecessor_recovery_reference + predecessor_validation_task_key; old_job_id retained, old_job_ids and validated_recovery_chain added",
+  "max_decision_nodes": 2,
+  "old_snapshot_unchanged": true,
+  "new_io_lock": false,
+  "new_scheduler": false,
+  "queue_writes": 0,
+  "model_forward": 0,
+  "model_backward": 0,
+  "gpu_probes": 0,
+  "tests": {
+    "passed": 20,
+    "seconds": 0.33,
+    "scope": "GENERATED_ONLY"
+  },
+  "new_sources": {
+    "execution_lock.py": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/runtime/recovery_chain_v1/execution_lock.py",
+      "sha256": "b30b84a639072a164f04fbda0cea4308b25e1ed6efd8e6c67c0494039c010067"
+    },
+    "wave1_supervisor.py": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/runtime/recovery_chain_v1/wave1_supervisor.py",
+      "sha256": "d522a9142b432e5ac55088369687d45f446ca1368fd0543332da2f069c76bdb5"
+    }
+  },
+  "bundle": "PENDING_COMMITTED_SOURCE_BUILD",
+  "hospital_display": "NOT_APPROVED",
+  "real_MVP": "NOT RUN"
+}

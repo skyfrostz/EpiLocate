@@ -1088,3 +1088,8 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 
 
 **生成MVP固定源码补录：** 源码提交 `65651041800f05d464df3d0fa589f9c5b09e820a`，qa入口字节与attempt6受测源码一致；无追加浏览器/模型/peer测试。生产构建、三次生成闭环及失败持久化证据保存在v11；显式base文档检查/暂存diff检查PASS，只读算法对照拒绝未验收新算法。元数据将source_git_sha锁此提交，医院冻结/真实E2E仍NOT RUN、展示NOT_REQUESTED；真实共享计算暂停，R1归总控。
+
+
+### 2026-10-11｜固定v3恢复链与R1最小消费适配
+
+开始HEAD `fe36b2076edfb9b8a1ff351ea72850a93f31f2b5`，原INTEGRATION树。总控唯一委托恢复消费适配，保留c9f5369固定v3及v4 IO候选不动；runtime/recovery_chain_v1只从原v3派生execution_lock和wave1_supervisor两文件，逐一绑定旧CTFM128/R0及新C1/R1的start/receipt/review/raw/owner。前序决议按其当时允许的已消费C1键验证，并核对新槽started.administrative_recovery四个原字段；节点上限2、循环/过深/漂移/缺证据拒绝。两个既有串行/设备门禁仅对完整old_job_ids集合让行；旧单槽字段保持兼容，已消费任务/第三未知槽继续阻断。无新IO锁/调度器/finished伪造。20生成隔离fixtures PASS0.33s；只读实际新决议SHA `ceb164cbca27c0e547da8c09b65fc8c10d78f0544e62bf4b9ead0920ab4eece4` 对P1重试/MVP两键PASS。实际queue写/GPUprobe/观察/医学F/B/update0。源/差分/收据在hospital-release/20261011-recovery-chain-v12，固定bundle待提交后补录；MVP接入紧随，真实dispatch仍总控。

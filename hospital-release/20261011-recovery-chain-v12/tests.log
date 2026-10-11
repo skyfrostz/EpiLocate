@@ -1,0 +1,2 @@
+Executed: PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=research/next-hospital-20261014 .venv/bin/python -m pytest research/next-hospital-20261014/tests/test_recovery_chain_v1.py -q
+20 passed in 0.33s; exit0. Generated isolated queue only. Actual queue writes, GPU probes, medical forward/backward/update all0.
