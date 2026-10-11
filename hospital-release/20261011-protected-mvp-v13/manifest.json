@@ -5,7 +5,7 @@
   "timezone": "Asia/Shanghai",
   "branch": "codex/epi-next-integration-20261009",
   "development_base_sha": "05a4279177e5d09b80ce3c634fae65c714abca89",
-  "source_git_sha": null,
+  "source_git_sha": "9dad72a5ad3e5931340dc91444072c57d5f74d2c",
   "status": "NOT READY",
   "hospital_final_freeze": "NOT RUN",
   "clinical_validation": "NOT RUN",
@@ -21,7 +21,10 @@
   "protected_generated_browser": "PASS_GENERATED_ONLY",
   "canonical_data_delivery": null,
   "chief_dispatch": null,
-  "metadata_fragment": null,
+  "metadata_fragment": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-protected-binding-9dad72a-v13/engineering-readiness-fragment.json",
+    "sha256": "3b4bb987df4f66b707a73f0ad298de6d05d6ee9eb09abd4b99a022c4af71dde2"
+  },
   "new_medical_forward": 0,
   "new_medical_backward": 0,
   "new_updates": 0,
@@ -171,7 +174,7 @@
   },
   "report": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/INCREMENTAL_REPORT.md",
-    "sha256": "3590429cc92a5597f91fddd08eb244b6e0b25a7a0dfe56f9bd717a2e85f35ab1"
+    "sha256": "d2a006b394d91021b82c6d2c31a30608a33f3cafa58daa4b5b286c885299fff3"
   },
   "data_upload_contract": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-recovery-chain-v12/DATA_MVP_UPLOAD_HANDOFF.md",
@@ -261,8 +264,11 @@
     "No real precomputed results or backup recording",
     "Source/fixture acceptance does not establish clinical validity"
   ],
-  "source_commit_binding": "WAIT_FINAL_SOURCE_COMMIT_AFTER_GENERATED_DIFFERENTIAL",
-  "metadata_receipt": null,
+  "source_commit_binding": "COMMITTED_BYTES_MATCH_SUCCESSFUL_GENERATED_AND_FIXTURE_SOURCE",
+  "metadata_receipt": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/metadata-receipt.json",
+    "sha256": "823e855c2c603ddc1e486add88805d3822da2c70e0ebe34dc29b45f167ac5c68"
+  },
   "checks": {
     "project_documentation": "PASS_EXPLICIT_BASE_AND_WORKING_TREE",
     "staged_diff": "PASS",
@@ -328,5 +334,6 @@
         "sha256": "99578aa53793717e162d01c581692738837c089c2e00c3bd2287d7cba1974679"
       }
     }
-  }
+  },
+  "hospital_real_e2e_status": "BLOCKED_BY_DATA_HANDOFF"
 }

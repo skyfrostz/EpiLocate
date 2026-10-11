@@ -21,3 +21,5 @@ DATA确认原3 SOP缺BurnedInAnnotation，保持UNKNOWN。真实上传ready BLOC
 代码源提交、metadata fragment路径/SHA与最终检查在manifest提交后补录。v11/v12已有历史manifest不改写。
 
 **固定源码及metadata补录：** 源码提交 baedeb240d2df51b75be0c8d41bd09a98d3fd6c8；metadata fragment SHA 4cfa24cec74596cfd2a055e6d77c60e7693f35a25d8b8842d932c236b4151e2a，绝对路径见manifest.metadata_fragment。metadata receipt记录98个源码/构建文件、Torch未导入、像素/权重/队列读取0，status固定NOT READY；包版本仅metadata查询，无模型执行。本轮原前端/Backend/Gateway/Worker/algorithm/src/occlusion_runner差分为空。显式base文档及staged diff检查PASS；不追加旧测试、浏览器或模型运行。
+
+**最终受测源码固定：** source Git SHA `9dad72a5ad3e5931340dc91444072c57d5f74d2c`；原3流程生成验收及29项fixtures均对应当前代码字节。98源码/构建绑定与生成receipt逐项一致，最终engineering-readiness fragment SHA `3b4bb987df4f66b707a73f0ad298de6d05d6ee9eb09abd4b99a022c4af71dde2`，绝对路径见manifest。其status仍NOT READY、data_delivery=null；仅附生成工程证据，剩余人工像素复核/DATA映射/总控MVP dispatch。原baedeb2 fragment不覆盖；v12唯一index SHA保持12e808bcf23f80571886fa0e8c68efa88a11fb833a51db002ab1820d20fc1a6d。未追加模型、GPU、队列观察或构建；医院最终冻结与临床NOT RUN。
