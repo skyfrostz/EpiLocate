@@ -1,0 +1,194 @@
+{
+  "schema": "EPI_NEXT_LOCAL_MVP_SNAPSHOT_INDEX_V1",
+  "status": "RECEIVED_LOCAL_MVP_SNAPSHOT_METADATA",
+  "date": "2026-10-11",
+  "source_git_sha": "54ff1565f6c11a6deea873feab0a011e879528fb",
+  "v16_delivery_git_sha": "510d387ef02d55c22f01f9cbd282137ea1274934",
+  "supplement_start_git_sha": "510d387ef02d55c22f01f9cbd282137ea1274934",
+  "supplement_commit_resolution": "git log -1 --format=%H -- hospital-release/20261011-real-mvp-acceptance-v16/RECEPTION_AND_SNAPSHOT_INDEX.json",
+  "owner_reception": {
+    "owner": "钟佳桦",
+    "status": "RECEPTION_REPORTED_BY_CHIEF",
+    "evidence": "Chief message in this INTEGRATION conversation: 负责人接收revision47本地MVP三条真实流程",
+    "notification_source_thread": "01a11fb7-b959-72f3-9d67-b563e14abcb5",
+    "new_owner_approval_document_created": false,
+    "hospital_approval": false
+  },
+  "state_at_consumption": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/EPI_NEXT_PHASE2_DELIVERY_STATE.json",
+    "sha256": "25294bed343786a56dccf5c1df0231f36c0229785a6e79667669ffa81b3d3a0a",
+    "revision": 47,
+    "immutable_history_rule": "This pointer identifies bytes read at revision 47; authoritative state may advance. Do not overwrite it or interpret a later SHA as failure of the historical MVP.",
+    "chief_closeout": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/MVP_AND_A2_CLOSEOUT_20261011_V1.md",
+      "sha256": "91f6ba3b41c414a6ed6af844dcffd287ad65183997909f034f7d9c2623582178"
+    }
+  },
+  "original_manifest": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-real-mvp-acceptance-v16/manifest.json",
+    "sha256": "c8bcb4cc795cdafd36c93588b6d826ef8de69764e9b086618eb5b0fa038051c8"
+  },
+  "original_packet_files": [
+    {
+      "relative_path": "hospital-release/20261011-data-v2-ready-v15/COMMAND_INDEX.json",
+      "sha256": "e308fb82a2dc140fb5c715d71a40cfd2aaf6f15b672817ed462a7c381a142468"
+    },
+    {
+      "relative_path": "hospital-release/20261011-data-v2-ready-v15/README.md",
+      "sha256": "2c310db2876627a29e124ccdc9806728b25455750b8fe97e34b5467f16884480"
+    },
+    {
+      "relative_path": "hospital-release/20261011-data-v2-ready-v15/evidence/browser-acceptance.json",
+      "sha256": "48386e31cb1f2ec46da04b06bb4633f50b2a0437bc704f10c45db6753fe5b9ad"
+    },
+    {
+      "relative_path": "hospital-release/20261011-data-v2-ready-v15/evidence/finalization-receipt.json",
+      "sha256": "c427eea96e2d2558ccc72846c0a8e528ec92895109d1b718a8b12768917af426"
+    },
+    {
+      "relative_path": "hospital-release/20261011-data-v2-ready-v15/evidence/flow-3.png",
+      "sha256": "95da1df7eae3d5c553dd2542a2d9e34393088126893e95b4cd8a6922f2753d51"
+    },
+    {
+      "relative_path": "hospital-release/20261011-data-v2-ready-v15/evidence/owned-completion.json",
+      "sha256": "124021516f15b22bcf460d63c6470be906b881bf6681b072c3c38e0535fc01e7"
+    },
+    {
+      "relative_path": "hospital-release/20261011-data-v2-ready-v15/evidence/queue-sample.json",
+      "sha256": "7bb761ad9d3ec4892582c1373a7afd0c917ad1ed03f62844f86ee0fecf1a3bb3"
+    },
+    {
+      "relative_path": "hospital-release/20261011-data-v2-ready-v15/evidence/tests.log",
+      "sha256": "177b581086c2ba3a03044debc17a3e07ace1c398e057175ba9c1256aa316d3f2"
+    },
+    {
+      "relative_path": "hospital-release/20261011-data-v2-ready-v15/evidence/worker-generated-isolation.json",
+      "sha256": "8864e6adc4332d8546f4634b3f31b1b428822d0379cce8483d7312a9adf41678"
+    },
+    {
+      "relative_path": "hospital-release/20261011-data-v2-ready-v15/manifest.json",
+      "sha256": "a2c351c4d4843becb948fb995f7fbeec9fef641d39b11100d4b0814fbcd40fbf"
+    },
+    {
+      "relative_path": "hospital-release/20261011-real-mvp-acceptance-v16/ACCEPTANCE_REPORT.md",
+      "sha256": "8fc0e378d1353f2c48c3300be892d22a8e83fe33074acacfe429f80951dd0f44"
+    },
+    {
+      "relative_path": "hospital-release/20261011-real-mvp-acceptance-v16/COMMAND_RECEIPT.json",
+      "sha256": "0da4f80bfb653774690d9591b83020dd5a246c44689767d1dbfb10d2414fa298"
+    },
+    {
+      "relative_path": "hospital-release/20261011-real-mvp-acceptance-v16/DEMO_AND_ROLLBACK.md",
+      "sha256": "dadd1e7b6f27613630b1df9562a9767ce69ae954e7a1c9cbdc243513af3ee075"
+    },
+    {
+      "relative_path": "hospital-release/20261011-real-mvp-acceptance-v16/METRICS.json",
+      "sha256": "4a6bed201df931a5e4106a1c548a0b6d4bd3d5756378825b3bede92cd7a728a0"
+    },
+    {
+      "relative_path": "hospital-release/20261011-real-mvp-acceptance-v16/README.md",
+      "sha256": "0f81eab62008e80954c6aaf5bdfe64954232c0401b814863814810bc6d9e51e5"
+    },
+    {
+      "relative_path": "hospital-release/20261011-real-mvp-acceptance-v16/manifest.json",
+      "sha256": "c8bcb4cc795cdafd36c93588b6d826ef8de69764e9b086618eb5b0fa038051c8"
+    }
+  ],
+  "received_status": "PASS_LOCAL_DEVELOPMENT_REAL_MVP",
+  "model": {
+    "model_id": "baseline_resnet18",
+    "checkpoint_sha256": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+    "preprocessing_version": "formal-resnet18-baseline-rule-b-v1",
+    "protocol_id": "stage1-occlusion-instability-v1",
+    "scales": [
+      16,
+      32,
+      64
+    ],
+    "evidence_type": "INPUT_OCCLUSION",
+    "lesion_probability": false
+  },
+  "actual_counts": {
+    "job_id": "hospital-mvp-three-legacy-cpu-20261011-01",
+    "device": "CPU",
+    "forward_batches": 96,
+    "backward": 0,
+    "updates": 0,
+    "image_evaluations": 2805,
+    "jobs": 3,
+    "results": 3,
+    "assets": 27,
+    "attempts": 3,
+    "retries": 0
+  },
+  "snapshot_type": "metadata index of existing private local result assets; no duplicated imaging/database/credential content",
+  "private_result_lookup": {
+    "offline_audit": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-real-offline-audit-v16/private-audit.json",
+      "sha256": "a186cc714eaa8dccaf84c4c217fe03ab249ad5979509516e8696a33809ae9ac4",
+      "checks_passed": 528,
+      "model_calls": 0,
+      "pixel_decode_or_view": 0,
+      "queue_database_writes": 0,
+      "private_storage_only": true
+    },
+    "output_roots": [
+      "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-real-three-20261013-v1",
+      "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-protected-supervision-v1/hospital-mvp-three-legacy-cpu-20261011-01"
+    ],
+    "inventory_field": "artifact_inventory",
+    "database": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-real-three-20261013-v1/backend.sqlite",
+      "sha256": "808881c29d4bed4f4d489a2365fb898add76d5eab506f380beddb901fdaa0295",
+      "size_bytes": 1163264
+    },
+    "browser": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-real-three-20261013-v1/browser-acceptance.json",
+      "sha256": "00d0f2a27f94cb2ec66388cbd0f9cb7a2e8170f48e94fdbe958ed5e5ada6b862",
+      "size_bytes": 19897
+    },
+    "supervisor": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-protected-supervision-v1/hospital-mvp-three-legacy-cpu-20261011-01/supervisor-receipt.json",
+      "sha256": "84508fb7d89e26b8a529e108a642dcfb424da7b2f7f9f110a4f2ede9769dbd20",
+      "size_bytes": 2261833
+    },
+    "finished": {
+      "path": "/Users/skyfrost/.codex/epi-next-device-queue/slots/hospital-mvp-three-legacy-cpu-20261011-01/finished.json",
+      "sha256": "1231670f447a3c12e4364aa48849e4ab3fc1210ae7df44b7fb4312be3cd9f9ba",
+      "size_bytes": 665
+    }
+  },
+  "reuse_note": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-real-mvp-acceptance-v16/LOCAL_REUSE.md",
+    "sha256": "360d8b72cbd971c1b509ea6c40ceb337256373362aaf9650180900cad75f12e9"
+  },
+  "historical_ready": "v15 READY remains an immutable pre-execution record; current MVP is executed and accepted by v16/revision47",
+  "application_default": "HISTORICAL_FROZEN_BASELINE_OCCLUSION",
+  "hospital_default_model": null,
+  "experiment_dependencies_are_not_local_mvp_blockers": [
+    "E2 research benefit",
+    "F0/F1 classifier heads",
+    "hospital display authorization"
+  ],
+  "hospital_display": "NOT_APPROVED",
+  "hospital_final_freeze": "NOT RUN",
+  "clinical_validation": "NOT RUN",
+  "local_snapshot_current_blockers": [],
+  "known_limits": [
+    "Existing services have exited; no running web snapshot or read-only service restart was performed in this supplement",
+    "Three fixed single SOPs; no independent real full-Series/world/crop/resize/resample acceptance",
+    "No hospital-approved allowlist or backup recording in this scope",
+    "Research E1/E2/F0/F1 not executed by this legacy MVP",
+    "Snapshot is on the existing approved local storage, not an independent backup"
+  ],
+  "scope_counters": {
+    "new_model_calls": 0,
+    "new_browser_runs": 0,
+    "new_recordings": 0,
+    "new_pixel_decode_or_view": 0,
+    "new_service_starts": 0,
+    "queue_or_database_writes": 0,
+    "private_asset_copies": 0,
+    "third_party_uploads": 0
+  }
+}

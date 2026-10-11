@@ -1505,3 +1505,10 @@ INTEGRATION 原工作树/分支，整理前 HEAD `1057b03b9072029d1d3deba53801fd
 浏览器真实三流程 PASS（36.0121/34.4746/34.2931s），父收据 elapsed111.958330s/exit0；supervisor SUCCESS/slot_completed true，收据 SHA `84508fb7d89e26b8a529e108a642dcfb424da7b2f7f9f110a4f2ede9769dbd20`；8实际module和10监督文件SHA一致，owned线程及服务停止、finished绑定正确。RSS组采样峰1705672704B、首样本swap增长0、一个启动TELEMETRY缺测保留、无预停；swap范围24MiB是最大减最小，未归为任务增长。旧两UNKNOWN started原字节不变/finished缺失。离线核验模型/浏览器重跑/像素查看/队列写均0，原患者产物只留获准忽略目录。
 
 单切片64px像素badge与保存刷新断言有证据；16/32/64选择通过不代表逐尺度独立空间审阅，224响应/候选与14比较网格明确分开。完整Series左右/顺序/world/crop/resize/resample真实验收未完成；本次三开发流程不替代医院冻结配置三展示。医院default null、展示未批准、冻结/临床NOT RUN；E1/E2/F0/F1医院注册未验收，旧版回退保留。实际开发预计算产物未升级为医院备份，备用录屏未完成。当前本地交付包由总控汇总给钟佳桦，无自动消息、push、外传影像或部署。
+
+
+### 2026-10-11｜负责人接收后的本地 MVP 快照索引增补
+
+原 INTEGRATION 唯一工作树/分支，开始 HEAD `510d387ef02d55c22f01f9cbd282137ea1274934`。总控通知钟佳桦已接收 revision47 三条本地真实流程；只读状态 SHA `25294bed343786a56dccf5c1df0231f36c0229785a6e79667669ffa81b3d3a0a`，MVP PASS、v16交付/受测source `54ff1565f6c11a6deea873feab0a011e879528fb`/执行收据绑定一致。v16已完整验收，本轮只追加 RECEPTION_AND_SNAPSHOT_INDEX.json 和 LOCAL_REUSE.md；16个原v15/v16跟踪文件逐字匹配原提交，manifest SHA保持 `c8bcb4cc795cdafd36c93588b6d826ef8de69764e9b086618eb5b0fa038051c8`。接收明确为总控通知，不新造OWNER签署/医院批准；当前MVP不是READY未运行。
+
+快照指向既有受保护结果、资产/SQLite/监督/截图的原路径SHA及private-audit，无复制私有数据或凭据。提供metadata与SQLite mode=ro数量读取说明，但本轮未重执行查询、模型、浏览器、服务、录屏或重跑528项验收；队列/DB写和外传0。原服务已退出，快照不宣称在线恢复已完成；需要服务复用时总控明确新增计算关闭的启动范围，不能重放已消耗命令。E2收益/F0/F1头/医院授权不作为本地MVP新阻断。医院展示未批准/冻结及临床NOT RUN，六项完整Series真实空间检查和医院备份范围保留。仅本地提交，未修改权威状态/READY/代码/环境，未push/部署。
