@@ -4,7 +4,7 @@
   "worktree": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
   "branch": "codex/epi-next-integration-20261009",
   "base_commit": "cad49f20d7f5d77027ca955e4a609abebb6fe58e",
-  "source_commit": null,
+  "source_commit": "6f1a1f1df87a4a9c4b9f1b58c358702c601aed54",
   "status": "ENGINEERING_SYNTHETIC_ACCEPTANCE_ONLY",
   "hospital_final_freeze": "NOT RUN",
   "hospital_default_model": null,
@@ -150,8 +150,8 @@
       "bytes": 2790
     },
     "REAL_UPGRADE_REQUEST.json": {
-      "sha256": "1c54c577c7ffdd43c3cf283f35e292983886889f5e39d4641eee2eba55afa56c",
-      "bytes": 2972
+      "sha256": "b6f48fc4561550b2e4956f8c891e801ef609b6591ee0933453665ecf60af67f3",
+      "bytes": 3010
     },
     "SELECTED_FIDELITY_BINDING_INDEX.json": {
       "sha256": "5afcbae54f70c8daea5c19b040cdcc1121c271111b1ffb3eaf1edd2b9fdff4bc",
@@ -196,6 +196,10 @@
     "evidence/receipt.json": {
       "sha256": "8c1a435237415b5c2a9f2d6cd966c79b46b60406663b3c2c98dc16ef5a934d84",
       "bytes": 1250
+    },
+    "evidence/source-freeze.json": {
+      "sha256": "dedfef99ca2c929c5cca7fee587aaab344449b7bda8f4d65d671282933ebc3fe",
+      "bytes": 7413
     },
     "evidence/spatial-tests.log": {
       "sha256": "f78527d6d606290453817a482758a2b35f9a476dde46bcfe3812384ff6071204",

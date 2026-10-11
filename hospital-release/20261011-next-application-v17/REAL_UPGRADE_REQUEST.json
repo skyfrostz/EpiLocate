@@ -1,7 +1,7 @@
 {
   "schema": "EPI_NEXT_INTEGRATION_REAL_UPGRADE_REQUEST_V1",
   "status": "NOT_DISPATCHED",
-  "source_commit": null,
+  "source_commit": "6f1a1f1df87a4a9c4b9f1b58c358702c601aed54",
   "owner": "钟佳桦",
   "delivery_via": "首席算法工程师本地汇总",
   "new_approval_created": false,
