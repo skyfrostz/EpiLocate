@@ -1,0 +1,188 @@
+{
+  "schema": "EPI_NEXT_HOSPITAL_DELIVERY_MANIFEST_V1",
+  "version": "20261011-real-mvp-acceptance-v16",
+  "status": "PASS_LOCAL_DEVELOPMENT_REAL_MVP",
+  "branch": "codex/epi-next-integration-20261009",
+  "worktree": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+  "source_git_sha": "54ff1565f6c11a6deea873feab0a011e879528fb",
+  "delivery_start_git_sha": "1057b03b9072029d1d3deba53801fd099fa128d1",
+  "delivery_commit_resolution": "git log -1 --format=%H -- hospital-release/20261011-real-mvp-acceptance-v16/manifest.json",
+  "medical_execution": {
+    "job_id": "hospital-mvp-three-legacy-cpu-20261011-01",
+    "device": "CPU",
+    "forward_batches": 96,
+    "backward": 0,
+    "updates": 0,
+    "image_evaluations": 2805,
+    "jobs": 3,
+    "results": 3,
+    "assets": 27,
+    "attempts": 3,
+    "retries": 0
+  },
+  "local_application_default": "HISTORICAL_FROZEN_BASELINE_OCCLUSION",
+  "hospital_default_model": null,
+  "model": {
+    "model_id": "baseline_resnet18",
+    "checkpoint_sha256": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+    "preprocessing_version": "formal-resnet18-baseline-rule-b-v1",
+    "protocol_id": "stage1-occlusion-instability-v1",
+    "scales": [
+      16,
+      32,
+      64
+    ],
+    "evidence_type": "INPUT_OCCLUSION",
+    "lesion_probability": false
+  },
+  "hospital_final_freeze": "NOT RUN",
+  "hospital_display_approval": "NOT_APPROVED",
+  "clinical_validation": "NOT RUN",
+  "data_scope": "DATA v2 original three SOP derivatives, LOCAL_MVP_ONLY; not hospital allowlist or full-Series spatial acceptance",
+  "experimental_algorithms": [
+    {
+      "algorithm": "E1",
+      "hospital_registration": "NOT RUN",
+      "hospital_acceptance": "NOT RUN",
+      "note": "Research delivery must come through chief; this legacy run does not validate this algorithm"
+    },
+    {
+      "algorithm": "E2",
+      "hospital_registration": "NOT RUN",
+      "hospital_acceptance": "NOT RUN",
+      "note": "Research delivery must come through chief; this legacy run does not validate this algorithm"
+    },
+    {
+      "algorithm": "F0",
+      "hospital_registration": "NOT RUN",
+      "hospital_acceptance": "NOT RUN",
+      "note": "Research delivery must come through chief; this legacy run does not validate this algorithm"
+    },
+    {
+      "algorithm": "F1",
+      "hospital_registration": "NOT RUN",
+      "hospital_acceptance": "NOT RUN",
+      "note": "Research delivery must come through chief; this legacy run does not validate this algorithm"
+    }
+  ],
+  "evidence": {
+    "readiness": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-data-v2-final-ready-54ff156-v15/readiness.json",
+      "sha256": "2d484b1915cd952b5a06d635272a01d5bfc8ccc0226eb18ba442011db1b8ab58",
+      "size_bytes": 24871
+    },
+    "dispatch": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/MVP_LOCAL_DISPATCH_20261011_V1.json",
+      "sha256": "934a55fa2d0f51f3198281befa8dab2d40a262a26e757ceaaa7622cd5f9597de",
+      "size_bytes": 22614
+    },
+    "data_delivery": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-data-eval/.local/phase2/mvp-three-sop-owner-reviewed-v2-20261011/MVP_THREE_SOP_DERIVATIVE_LEDGER_V2.json",
+      "sha256": "bc9198383f12eb231e9125e8cf5a65a6f67a2f37d2233b7ad46b5308023ac6c1",
+      "size_bytes": 10975
+    },
+    "owner": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/OWNER_APPROVAL_V1.json",
+      "sha256": "4a4e9cb141a689533498acdb1d2c77b83222a9a1bad15f9c210b15c7698af9a3",
+      "size_bytes": 787
+    },
+    "request": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/CONSOLIDATED_NEXT_ACTIONS_REQUEST_V1.json",
+      "sha256": "2dcc61df10fb2be0964dc4e0e0797e8f2d2c874367026b9a909e66fdc4f35e12",
+      "size_bytes": 13749
+    },
+    "decision": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/ADMINISTRATIVE_RECOVERY_NEW_C1_V1.json",
+      "sha256": "ceb164cbca27c0e547da8c09b65fc8c10d78f0544e62bf4b9ead0920ab4eece4",
+      "size_bytes": 3206
+    },
+    "pixel_owner_decision": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/two-data-blockers-owner-decision-v1/OWNER_DECISION_V1.json",
+      "sha256": "437158c573e126152f134eaf61789f010b6629cd27e47212808861fe0988e133",
+      "size_bytes": 1297
+    },
+    "supervisor_index": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-recovery-chain-v12/manifest.json",
+      "sha256": "12e808bcf23f80571886fa0e8c68efa88a11fb833a51db002ab1820d20fc1a6d",
+      "size_bytes": 6651
+    },
+    "supervisor": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-protected-supervision-v1/hospital-mvp-three-legacy-cpu-20261011-01/supervisor-receipt.json",
+      "sha256": "84508fb7d89e26b8a529e108a642dcfb424da7b2f7f9f110a4f2ede9769dbd20",
+      "size_bytes": 2261833
+    },
+    "slot finished": {
+      "path": "/Users/skyfrost/.codex/epi-next-device-queue/slots/hospital-mvp-three-legacy-cpu-20261011-01/finished.json",
+      "sha256": "1231670f447a3c12e4364aa48849e4ab3fc1210ae7df44b7fb4312be3cd9f9ba",
+      "size_bytes": 665
+    },
+    "owned completion": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-real-three-20261013-v1/owned-completion.json",
+      "sha256": "8d4fefadfdc03d1a64917792307a2d05ad467de1a0bb0c3c5d8bdb50e628f4ec",
+      "size_bytes": 249
+    },
+    "browser acceptance": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-real-three-20261013-v1/browser-acceptance.json",
+      "sha256": "00d0f2a27f94cb2ec66388cbd0f9cb7a2e8170f48e94fdbe958ed5e5ada6b862",
+      "size_bytes": 19897
+    },
+    "chief result check": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/mvp-chief-execution-v1/chief-result-check.json",
+      "sha256": "6f5a61ae866e38ec5052ed3a2f9803d62bf1325abc517caae616b0a5f910fdd1",
+      "size_bytes": 2489
+    },
+    "database snapshot": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-real-three-20261013-v1/backend.sqlite",
+      "sha256": "808881c29d4bed4f4d489a2365fb898add76d5eab506f380beddb901fdaa0295",
+      "size_bytes": 1163264
+    }
+  },
+  "offline_audit": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-real-offline-audit-v16/private-audit.json",
+    "sha256": "a186cc714eaa8dccaf84c4c217fe03ab249ad5979509516e8696a33809ae9ac4",
+    "checks_passed": 528,
+    "model_calls": 0,
+    "pixel_decode_or_view": 0,
+    "queue_database_writes": 0,
+    "private_storage_only": true
+  },
+  "private_output_roots": [
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-real-three-20261013-v1",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-protected-supervision-v1/hospital-mvp-three-legacy-cpu-20261011-01"
+  ],
+  "private_asset_inventory": "offline_audit artifact_inventory; no patient images or logits copied to Git",
+  "files": {
+    "METRICS.json": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-real-mvp-acceptance-v16/METRICS.json",
+      "sha256": "4a6bed201df931a5e4106a1c548a0b6d4bd3d5756378825b3bede92cd7a728a0"
+    },
+    "COMMAND_RECEIPT.json": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-real-mvp-acceptance-v16/COMMAND_RECEIPT.json",
+      "sha256": "0da4f80bfb653774690d9591b83020dd5a246c44689767d1dbfb10d2414fa298"
+    },
+    "README.md": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-real-mvp-acceptance-v16/README.md",
+      "sha256": "0f81eab62008e80954c6aaf5bdfe64954232c0401b814863814810bc6d9e51e5"
+    },
+    "ACCEPTANCE_REPORT.md": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-real-mvp-acceptance-v16/ACCEPTANCE_REPORT.md",
+      "sha256": "8fc0e378d1353f2c48c3300be892d22a8e83fe33074acacfe429f80951dd0f44"
+    },
+    "DEMO_AND_ROLLBACK.md": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-real-mvp-acceptance-v16/DEMO_AND_ROLLBACK.md",
+      "sha256": "dadd1e7b6f27613630b1df9562a9767ce69ae954e7a1c9cbdc243513af3ee075"
+    }
+  },
+  "algorithm_comparison_entry": "hospital-release/20261009-integration-v1/README.md",
+  "delivery_owner": "钟佳桦",
+  "delivery_channel": "Local versioned package -> chief algorithm engineer -> owner confirmation",
+  "uncompleted_gates": [
+    "hospital-approved exact data allowlist",
+    "full-Series left/right, slice order, world-coordinate, crop, resize, resampling real checks",
+    "E1/E2/F0/F1 accepted hospital adapters and runtime registration",
+    "three consecutive actual hospital configuration demonstrations",
+    "hospital-approved precomputed results and backup recording with playback evidence",
+    "Oct 14 owner PASS / CONDITIONAL PASS / NO-GO"
+  ],
+  "no_push_upload_deploy": true
+}

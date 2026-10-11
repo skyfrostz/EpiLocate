@@ -1,0 +1,39 @@
+{
+  "schema": "EPI_NEXT_EXECUTED_COMMAND_RECEIPT_V1",
+  "status": "EXECUTED_ONCE_EXIT_0_DO_NOT_REPLAY",
+  "source_git_sha": "54ff1565f6c11a6deea873feab0a011e879528fb",
+  "cwd": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": ".:frontend/.local/mvp-20261011-browser-deps"
+  },
+  "argv": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/hospital_mvp_protected.py",
+    "--readiness",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-data-v2-final-ready-54ff156-v15/readiness.json",
+    "--readiness-sha",
+    "2d484b1915cd952b5a06d635272a01d5bfc8ccc0226eb18ba442011db1b8ab58",
+    "--dispatch",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/MVP_LOCAL_DISPATCH_20261011_V1.json",
+    "--dispatch-sha",
+    "934a55fa2d0f51f3198281befa8dab2d40a262a26e757ceaaa7622cd5f9597de"
+  ],
+  "started_at": "2026-10-11T03:20:40.707745+00:00",
+  "finished_at": "2026-10-11T03:22:32.665996+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 111.9583301669918,
+  "actual_launch": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/mvp-chief-execution-v1/actual-launch.json",
+    "sha256": "9fdc0e683280447b43a129624678a2119d7082cbace1c0bd43f70293bb2e613e"
+  },
+  "actual_exit": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/mvp-chief-execution-v1/actual-exit.json",
+    "sha256": "91f67788ad845bfbd3ad8da9d1dc30f43124880f682865066a3f127279aac128"
+  },
+  "metadata_prelaunch_correction": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/mvp-chief-execution-v1/metadata-check-invocation-correction.json",
+    "sha256": "5ff78140be8a72e3c1fb61efa2b533ee4a5fb08eb96b7a3a6121b257436a343c"
+  },
+  "no_scientific_retry": true
+}

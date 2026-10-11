@@ -1118,3 +1118,12 @@ INTEGRATION，开始HEAD `2ee9ab18c950d2d5c5a12dbccb777f9455205d2e`。总控转�
 总控交唯一DATA v2 ledger SHA `bc9198383f12eb231e9125e8cf5a65a6f67a2f37d2233b7ad46b5308023ac6c1`，DATA_final_evidence_audit PASS、原3 SOP逐图NO正式关联。INTEGRATION按原schema字段直接消费source/Study/Series/索引、像素SHA、保全/去标识/上传范围及中央owner复核链，不写DATA/GT/BIA/allowlist、不读CT/权重。原owner_PENDING_DATA_AUDIT不改写，由DATA v2明确完成审计。现有JPEG Lossless decoder版本加入绑定，无安装。新增metadata-only finalizer，既有两锁非阻塞采样/slot收据SHA核对，不产生队列文件或槽；旧两UNKNOWN按ceb164保留，新UNKNOWN/spent/busy/漂移拒绝，真实启动仍由总控和原supervisor再次准入。48生成轻量fixtures PASS0.06s；新生成浏览器三流程exit0、3jobs/3results/27资产、96假回调/2805评估、99源码/构建SHA闭合、医学F/B/update0，实际数据库身份及自有退出PASS。原预算/冻结/前端核心不改；finalready/argv固定源码后补录。v15本地包，真实MVP及医院/临床/最终冻结NOT RUN。
 
 **固定源及最终READY补录：** 受测source `54ff1565f6c11a6deea873feab0a011e879528fb`；metadata-only finalizer exit0，readiness SHA `2d484b1915cd952b5a06d635272a01d5bfc8ccc0226eb18ba442011db1b8ab58`、command-request SHA `6d1ba3b8d804cf25a72412e1b6980e38ee6d36ae031d524146ccea1ebc9f6aa0`，完整绝对路径见manifest。99源/构建及19包版本（含已有JPEG decoder）逐项绑定，正式DATA v2与中央owner链通过。既有两锁/slot/finished/receipt在采样时PASS，旧两UNKNOWN按原ceb164例外保留；未创建或修改队列文件，未预留槽，未初始化设备或导入实际Torch，患者像素/权重读取及医学F/B/update0。READY只供chief dispatch，不是运行或医院展示许可；command SPEC发布后追加chief实际dispatch SHA。启动时supervisor再次准入；DATA最终执行交付hash由总控汇总核验。真实MVP、医院/临床/最终冻结仍NOT RUN。
+
+
+### 2026-10-11｜真实本机三 SOP 旧版 MVP 离线验收
+
+INTEGRATION 原工作树/分支，整理前 HEAD `1057b03b9072029d1d3deba53801fd099fa128d1`，受测 source `54ff1565f6c11a6deea873feab0a011e879528fb`。总控唯一 dispatch SHA `934a55fa2d0f51f3198281befa8dab2d40a262a26e757ceaaa7622cd5f9597de`，原 v15 READY SHA `2d484b1915cd952b5a06d635272a01d5bfc8ccc0226eb18ba442011db1b8ab58`。实际历史 FrozenBaseline CPU 三例单 SOP 3 jobs/3 results/3 accepted attempts/27 assets；96前向批/2805评估、B0/update0、retry0。逐批 logits/输入/JobAttempt/SQLite/对象SHA、99源码及19既有包版本核验一致；528项离线断言不等于测试套件或临床病例数。新增 hospital-release/20261011-real-mvp-acceptance-v16，不改原 READY、源/环境或历史包。
+
+浏览器真实三流程 PASS（36.0121/34.4746/34.2931s），父收据 elapsed111.958330s/exit0；supervisor SUCCESS/slot_completed true，收据 SHA `84508fb7d89e26b8a529e108a642dcfb424da7b2f7f9f110a4f2ede9769dbd20`；8实际module和10监督文件SHA一致，owned线程及服务停止、finished绑定正确。RSS组采样峰1705672704B、首样本swap增长0、一个启动TELEMETRY缺测保留、无预停；swap范围24MiB是最大减最小，未归为任务增长。旧两UNKNOWN started原字节不变/finished缺失。离线核验模型/浏览器重跑/像素查看/队列写均0，原患者产物只留获准忽略目录。
+
+单切片64px像素badge与保存刷新断言有证据；16/32/64选择通过不代表逐尺度独立空间审阅，224响应/候选与14比较网格明确分开。完整Series左右/顺序/world/crop/resize/resample真实验收未完成；本次三开发流程不替代医院冻结配置三展示。医院default null、展示未批准、冻结/临床NOT RUN；E1/E2/F0/F1医院注册未验收，旧版回退保留。实际开发预计算产物未升级为医院备份，备用录屏未完成。当前本地交付包由总控汇总给钟佳桦，无自动消息、push、外传影像或部署。
