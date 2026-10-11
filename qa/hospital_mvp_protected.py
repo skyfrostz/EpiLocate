@@ -337,6 +337,7 @@ def browse(run, config, records, fence, worker_done, worker_error, store, genera
                   medical_forward=0 if generated else None, hospital_display_authorized=False)
     with sync_playwright() as pw:
         browser=pw.chromium.launch(channel='chrome',headless=True,args=['--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+        page=None
         try:
             context=browser.new_context(ignore_https_errors=True,viewport={'width':1440,'height':1000})
             def policy(route):
@@ -348,9 +349,11 @@ def browse(run, config, records, fence, worker_done, worker_error, store, genera
             label='GENERATED CT + FAKE MODEL / 非医学推理' if generated else 'LOCAL DEVELOPMENT CT / 仅本机工程验收，医院展示未获批'
             context.add_init_script("addEventListener('DOMContentLoaded',()=>{const b=document.createElement('div');b.textContent="+json.dumps(label)+";b.style='position:fixed;top:0;left:0;z-index:99999;background:#ffec8b;color:#000;padding:3px';document.body.append(b)})")
             page=context.new_page();page.set_default_timeout(15000);page.on('pageerror',lambda e:evidence['page_errors'].append(type(e).__name__))
-            page.goto(config['origin']+'/mvp/cases');page.wait_for_load_state('networkidle')
+            page.goto(config['origin']+'/mvp/cases',wait_until='domcontentloaded')
+            expect(page.get_by_label('账号',exact=True)).to_be_visible()
             page.get_by_label('账号',exact=True).fill('generated_mvp');page.get_by_label('密码',exact=True).fill(config['password'])
             page.get_by_role('button',name='登录',exact=True).click()
+            expect(page.get_by_role('button',name='创建匿名病例',exact=True)).to_be_visible()
             for record in records:
                 if record['case_index']!=1:
                     fence.guard.begin_case('case_'+str(record['case_index']));fence.select(record)
@@ -359,13 +362,15 @@ def browse(run, config, records, fence, worker_done, worker_error, store, genera
                 page.get_by_label('选择已去标识的单张 CT DICOM（最多 20 MiB）').set_input_files(record['path'])
                 page.get_by_role('button',name='上传 DICOM',exact=True).click()
                 expect(page.get_by_role('button',name='运行 16 / 32 / 64 px 遮挡',exact=True)).to_be_enabled()
-                page.get_by_role('button',name='运行 16 / 32 / 64 px 遮挡',exact=True).click();job=page.url.rsplit('/',1)[-1]
+                page.get_by_role('button',name='运行 16 / 32 / 64 px 遮挡',exact=True).click()
                 link=page.get_by_role('link',name='查看已完成结果 →',exact=True)
                 while not link.count():
                     fence.guard.check()
                     if worker_error or fence.failed:raise MVPStopped('WORKER_FAILED_NO_RETRY')
                     page.wait_for_timeout(100)
-                fence.guard.check();link.click();expect(page.get_by_role('heading',name='结果工作区',exact=True)).to_be_visible()
+                fence.guard.check();job=page.url.rsplit('/',1)[-1]
+                if not job.startswith('job_'):raise MVPStopped('BROWSER_JOB_NAVIGATION_NOT_CONFIRMED')
+                link.click();expect(page.get_by_role('heading',name='结果工作区',exact=True)).to_be_visible()
                 while not worker_done.wait(.05):
                     fence.guard.check()
                     if worker_error:raise MVPStopped('WORKER_SUBMISSION_UNRESOLVED')
@@ -373,8 +378,14 @@ def browse(run, config, records, fence, worker_done, worker_error, store, genera
                     fence.guard.check();page.get_by_role('button',name=f'{scale} px',exact=True).click()
                     expect(page.get_by_role('button',name=f'{scale} px',exact=True)).to_have_attribute('aria-pressed','true')
                 overlay=page.get_by_label('显示叠加',exact=True)
-                if overlay.is_enabled():overlay.check();expect(page.get_by_text('像素校验通过',exact=True)).to_be_visible()
-                else:expect(page.get_by_text('正响应不足',exact=True)).to_be_visible()
+                stored=json.loads((run/f'case-{record["case_index"]}-result.json').read_text())
+                selected=next(s for s in stored['result']['scale_summaries'] if s['block_size']==64)
+                if selected['candidate_status']=='valid':
+                    expect(overlay).to_be_enabled();overlay.check()
+                    expect(page.get_by_text('像素校验通过',exact=True)).to_be_visible()
+                else:
+                    expect(page.get_by_text('正响应不足',exact=True)).to_be_visible()
+                    expect(overlay).to_be_disabled()
                 result=page.url.rsplit('/',1)[-1];page.reload()
                 expect(page.get_by_role('button',name='64 px',exact=True)).to_have_attribute('aria-pressed','true')
                 store.ensure(4*1024*1024);page.screenshot(path=str(run/f'flow-{record["case_index"]}.png'),full_page=True)
@@ -382,6 +393,14 @@ def browse(run, config, records, fence, worker_done, worker_error, store, genera
                     seconds=time.monotonic()-started,forward_batches=32,image_evaluations=935))
                 fence.guard.check();fence.guard.end_case();fence.case=None
             if evidence['page_errors'] or evidence['external_requests']:raise MVPStopped('BROWSER_ERRORS_OR_EXTERNAL_REQUEST')
+        except BaseException as exc:
+            try:
+                store.json('browser-failure.json',dict(evidence,status='FAILED',error_type=type(exc).__name__))
+                if page is not None:
+                    store.ensure(4*1024*1024)
+                    page.screenshot(path=str(run/'browser-failure.png'),full_page=True)
+            except Exception:pass  # Keep the original failure and terminal reserve.
+            raise
         finally:browser.close()
     return evidence
 
@@ -408,7 +427,9 @@ def execute(run, dist, records, guard, frozen_root=None, generated=False, progre
             guard.check()
             if any(p.poll() is not None for p in processes):raise MVPStopped('OWN_SERVICE_EXITED')
             try:
-                if httpx.get(config['origin']+'/auth/session',verify=str(run/'tls.crt'),trust_env=False).status_code==401:break
+                edge_ready=httpx.get(config['origin']+'/auth/session',verify=str(run/'tls.crt'),trust_env=False).status_code==401
+                backend_ready=httpx.get(f'http://127.0.0.1:{config["backend"]}/api/v2/cases',trust_env=False).status_code==401
+                if edge_ready and backend_ready:break
             except httpx.RequestError:pass
             time.sleep(.1)
         if generated:

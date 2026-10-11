@@ -8,11 +8,11 @@
 env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python qa/hospital_mvp_protected.py --generated --run frontend/.local/mvp-protected-generated-20261011-attempt1 --dist frontend/.local/mvp-20261011-dist
 ```
 
-失败目录与partial保留；不重用attempt目录。实际生成测试尚NOT RUN，不在P1占用期间执行。
+失败目录与partial保留；不重用attempt目录。实际生成测试在P1结束且总控释放窗口后运行，最终accepted为attempt6；attempt1路径已存在，不能重用。后续源码改变时必须新建attempt目录重新验证。
 
 正式ready必须消费DATA通过总控交来的原3 SOP派生ledger及逐图人工像素复核记录。数据SHA/像素/原生几何/版本核对通过后，绑定当前受保护生成browser-acceptance.json、owned-completion.json及源码closure。`qa/hospital_mvp_binding.py`只生成metadata fragment，status固定NOT READY，不能当dispatch。
 
-chief发布`EPI_NEXT_MVP_LOCAL_DISPATCH_V1`，精确绑定ready/Data/owner/decision/source SHA、Python/cwd、新job_id及所有路径。为避免JSON自身SHA循环，`argv_without_dispatch_sha`保存完整命令去掉最后`--dispatch-sha <发布后SHA>`两项；发布后SHA必须由调用方作为最后两参数传入。首席算法工程师核验P1收据及恢复后唯一串行dispatch，INTEGRATION不自行制造dispatch或启动真实命令。
+chief发布`EPI_NEXT_MVP_LOCAL_DISPATCH_V1`，精确绑定ready/Data/owner/decision/source SHA、Python/cwd、新job_id（前缀hospital-mvp-three-legacy-cpu-）及所有路径。为避免JSON自身SHA循环，`argv_without_dispatch_sha`保存完整命令去掉最后`--dispatch-sha <发布后SHA>`两项；发布后SHA必须由调用方作为最后两参数传入。首席算法工程师核验P1收据及恢复后唯一串行dispatch，INTEGRATION不自行制造dispatch或启动真实命令。
 
 真实执行完成后，首先检查supervisor-receipt、runner-complete、owned-completion、各case-result及前向admitted/completed日志，再核对SQLite保存对象、三个Occlusion jobs/三个Result和资产SHA。未知提交先对账；任何UNKNOWN/BLOCKED/FAILED保留原始目录及槽，不自动再运行。无可靠响应不能解释成正常CT或造热图。
 

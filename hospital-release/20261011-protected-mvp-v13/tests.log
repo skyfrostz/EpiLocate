@@ -1,6 +1,7 @@
-Scope: generated lightweight fixtures only; no actual Torch, CT, weights or queue.
+Unit scope: generated lightweight fixtures; no actual Torch, patient CT, weights or queue.
 Command: env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python -m pytest qa/test_hospital_mvp_protected.py -q
 .............................                                            [100%]
 29 passed in 0.03s
-Protected browser/generated three-flow acceptance: NOT RUN (P1 resource window).
+Protected browser/generated three-flow acceptance: PASS attempt6, exit0, 3 jobs/3 results/27 assets, 96 completed fake boundary callbacks, 2805 generated image evaluations, medical F/B/update0; exact Browser Job/Result IDs MATCH SQLite; all owned threads/services stopped.
+Command: env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python qa/hospital_mvp_protected.py --generated --run frontend/.local/mvp-protected-generated-20261011-attempt6 --dist frontend/.local/mvp-20261011-dist
 Actual three-SOP model/app acceptance: NOT RUN (pixel review and chief dispatch).

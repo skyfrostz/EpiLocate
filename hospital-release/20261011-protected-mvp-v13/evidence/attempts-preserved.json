@@ -1,0 +1,86 @@
+[
+  {
+    "attempt": 1,
+    "run_directory": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt1",
+    "status": "NOT_ACCEPTED",
+    "reason": "Worker registration before Backend ready; 502; zero callbacks",
+    "fake_batch_callbacks": 0,
+    "completed_fake_batches": 0,
+    "image_evaluations": 0,
+    "medical_forward": 0,
+    "owned_completion": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt1/owned-completion.json",
+      "sha256": "bc5c1d5ddb0950e8bdccd16bc1d50748c4240aa8c7b6d63e939bef71e1c4e1ca"
+    }
+  },
+  {
+    "attempt": 2,
+    "run_directory": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt2",
+    "status": "NOT_ACCEPTED",
+    "reason": "networkidle timeout; zero callbacks",
+    "fake_batch_callbacks": 0,
+    "completed_fake_batches": 0,
+    "image_evaluations": 0,
+    "medical_forward": 0,
+    "owned_completion": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt2/owned-completion.json",
+      "sha256": "485e99b34e34b995ad6bba34d0bb93488a15431ebe9ff8a4d66f0aaa94e608a7"
+    }
+  },
+  {
+    "attempt": 3,
+    "run_directory": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt3",
+    "status": "NOT_ACCEPTED",
+    "reason": "login navigation before completed login; zero callbacks",
+    "fake_batch_callbacks": 0,
+    "completed_fake_batches": 0,
+    "image_evaluations": 0,
+    "medical_forward": 0,
+    "owned_completion": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt3/owned-completion.json",
+      "sha256": "4dad866b9ef3e2ef7ed1ad13fb92d55ef4bd0c892ef6e5832f17bea80113b0d6"
+    }
+  },
+  {
+    "attempt": 4,
+    "run_directory": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt4",
+    "status": "NOT_ACCEPTED",
+    "reason": "overlay is_enabled read before asset readiness; 32 fake callbacks",
+    "fake_batch_callbacks": 32,
+    "completed_fake_batches": 32,
+    "image_evaluations": 935,
+    "medical_forward": 0,
+    "owned_completion": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt4/owned-completion.json",
+      "sha256": "a271f49f1555d5a70778388c3a41579b9ecf1641d5a7974b5d229ecab31a7f69"
+    }
+  },
+  {
+    "attempt": 5,
+    "run_directory": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt5",
+    "status": "NOT_ACCEPTED",
+    "reason": "Three flows rendered, but job URL read too early; not final accepted metadata",
+    "fake_batch_callbacks": 96,
+    "completed_fake_batches": 96,
+    "image_evaluations": 2805,
+    "medical_forward": 0,
+    "owned_completion": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt5/owned-completion.json",
+      "sha256": "277d7009e1c8fb769ed8d7d948fa5bb870562673d32df1ffaf3639fdd5053136"
+    }
+  },
+  {
+    "attempt": 6,
+    "run_directory": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt6",
+    "status": "PASS",
+    "reason": "PASS; exact browser Job/Result IDs verified against persisted SQLite",
+    "fake_batch_callbacks": 96,
+    "completed_fake_batches": 96,
+    "image_evaluations": 2805,
+    "medical_forward": 0,
+    "owned_completion": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-protected-generated-20261011-attempt6/owned-completion.json",
+      "sha256": "c946d1fb9a767ab86c08a29cdc208b449c3586672494a25cc7f7180de43c5945"
+    }
+  }
+]

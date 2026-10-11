@@ -15,10 +15,10 @@
   "real_mvp": "NOT RUN",
   "real_mvp_blockers": [
     "BLOCKED_BY_DATA_HANDOFF_APPLICATION_DERIVATIVE_PIXEL_REVIEW",
-    "WAIT_CURRENT_PROTECTED_GENERATED_BROWSER",
-    "WAIT_P1_TERMINAL_RECOVERY_AND_CHIEF_EXACT_DISPATCH"
+    "WAIT_CANONICAL_DATA_SCHEMA_MAPPING",
+    "WAIT_CHIEF_EXACT_MVP_DISPATCH"
   ],
-  "protected_generated_browser": "NOT RUN",
+  "protected_generated_browser": "PASS_GENERATED_ONLY",
   "canonical_data_delivery": null,
   "chief_dispatch": null,
   "metadata_fragment": null,
@@ -123,7 +123,7 @@
   "new_sources": {
     "hospital_mvp_protected.py": {
       "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/hospital_mvp_protected.py",
-      "sha256": "4c9df372bff78a3157dd30227df2dd81978b8cb441d62da72ce41e667c05e0cd"
+      "sha256": "52f3eb17b87ea478e122dda145606e1612ce10b071bf68f4532c43e0b34eeeae"
     },
     "hospital_mvp_protected_fake.py": {
       "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/hospital_mvp_protected_fake.py",
@@ -144,7 +144,7 @@
     "seconds": 0.03,
     "evidence": {
       "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/tests.log",
-      "sha256": "0445292df500a01c12470c5a546f0a55d5d4896814d51fe23f6af9891d0e5e13"
+      "sha256": "9e3b7df8132ebce55acee6fa9548acfece67ae616dc28190293007a01bb90b43"
     }
   },
   "reused_evidence": [
@@ -167,11 +167,11 @@
   },
   "demo_and_rollback": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/DEMO_AND_ROLLBACK.md",
-    "sha256": "093c0cc381ccb03c3587282b33733d660d93c1e12bd50b46c027f9f5a4ae50ad"
+    "sha256": "152762ae5067d02c2953e65362e1ce1ab7efc444199c5692a15f40ff1a67f8ac"
   },
   "report": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/INCREMENTAL_REPORT.md",
-    "sha256": "44a516eb65723bf73d364e86fc3d4b9cef9c138721dc6581afd102180dfd1a1c"
+    "sha256": "3590429cc92a5597f91fddd08eb244b6e0b25a7a0dfe56f9bd717a2e85f35ab1"
   },
   "data_upload_contract": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-recovery-chain-v12/DATA_MVP_UPLOAD_HANDOFF.md",
@@ -254,11 +254,79 @@
   "limitations": [
     "No approved hospital display allowlist or audience",
     "Original three SOP burned-in status UNKNOWN pending human pixel review",
-    "Current protected generated browser flow NOT RUN; v11 evidence is historical reuse only",
+    "Protected browser PASS is generated only; no actual CT/model or hospital acceptance follows",
     "DATA canonical pixel-review field mapping pending handoff via chief",
     "No accepted E1/E2/F0/F1 hospital runtime",
     "Single-slice legacy MVP does not validate full Series registration",
     "No real precomputed results or backup recording",
     "Source/fixture acceptance does not establish clinical validity"
-  ]
+  ],
+  "source_commit_binding": "WAIT_FINAL_SOURCE_COMMIT_AFTER_GENERATED_DIFFERENTIAL",
+  "metadata_receipt": null,
+  "checks": {
+    "project_documentation": "PASS_EXPLICIT_BASE_AND_WORKING_TREE",
+    "staged_diff": "PASS",
+    "core_application_source_diff": "NONE",
+    "immutable_v12_index": "UNCHANGED",
+    "metadata_preparation": "PASS_NOT_READY_NO_TORCH_OR_QUEUE",
+    "new_protected_browser": "PASS_GENERATED_ONLY",
+    "real_mvp": "NOT RUN"
+  },
+  "previous_metadata_fragments": [
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/mvp-protected-binding-baedeb2-v13/readiness-fragment.json",
+      "sha256": "4cfa24cec74596cfd2a055e6d77c60e7693f35a25d8b8842d932c236b4151e2a"
+    }
+  ],
+  "engineering_evidence": {
+    "scope": "GENERATED_CT_REAL_HTTP_SQLITE_PROTECTED_WORKER_FAKE_DELEGATE",
+    "status": "PASS",
+    "accepted_attempt": 6,
+    "exit_code": 0,
+    "browser_db_identities": "MATCH",
+    "source_byte_bindings": "MATCH",
+    "medical_forward": 0,
+    "medical_backward": 0,
+    "updates": 0,
+    "fake_batch_callbacks": 96,
+    "completed_fake_batches": 96,
+    "image_evaluations": 2805,
+    "database": {
+      "assets": 27,
+      "completed": 3,
+      "jobs": 3,
+      "results": 3,
+      "workers": 1
+    },
+    "worker_threads_stopped": true,
+    "owned_services_stopped": true,
+    "no_external_requests": true,
+    "source_no_actual_torch": true,
+    "evidence": {
+      "worker-generated-isolation.json": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/evidence/worker-generated-isolation.json",
+        "sha256": "8864e6adc4332d8546f4634b3f31b1b428822d0379cce8483d7312a9adf41678"
+      },
+      "fake-calls.jsonl": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/evidence/fake-calls.jsonl",
+        "sha256": "f132cc09980f4ede7a035ec0f82f231fb6426b7336216880fb846a5d8f07c863"
+      },
+      "browser-acceptance.json": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/evidence/browser-acceptance.json",
+        "sha256": "f95a736631061d579fcb078e20fd05b0161eea4df39de4191c3245ae3ca9a337"
+      },
+      "attempts-preserved.json": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/evidence/attempts-preserved.json",
+        "sha256": "378339772e49075ed2d2f939e5ab6217916af9796474e6b6229c4aa3d5e1bddb"
+      },
+      "owned-completion.json": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/evidence/owned-completion.json",
+        "sha256": "c946d1fb9a767ab86c08a29cdc208b449c3586672494a25cc7f7180de43c5945"
+      },
+      "flow-3.png": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-protected-mvp-v13/evidence/flow-3.png",
+        "sha256": "99578aa53793717e162d01c581692738837c089c2e00c3bd2287d7cba1974679"
+      }
+    }
+  }
 }
