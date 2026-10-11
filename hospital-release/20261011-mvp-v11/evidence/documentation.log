@@ -1,0 +1,31 @@
+Changed paths:
+  - docs/project/ENGINEERING_JOURNAL.md
+  - docs/project/ITERATION_HISTORY.md
+  - hospital-release/20261011-mvp-v11/INCREMENTAL_REPORT.md
+  - hospital-release/20261011-mvp-v11/evidence/browser-acceptance.json
+  - hospital-release/20261011-mvp-v11/evidence/browser.log
+  - hospital-release/20261011-mvp-v11/evidence/build.log
+  - hospital-release/20261011-mvp-v11/evidence/compare.log
+  - hospital-release/20261011-mvp-v11/evidence/documentation.log
+  - hospital-release/20261011-mvp-v11/evidence/fake-calls.jsonl
+  - hospital-release/20261011-mvp-v11/evidence/generated-failure.png
+  - hospital-release/20261011-mvp-v11/evidence/generated-flow-3.png
+  - hospital-release/20261011-mvp-v11/evidence/owned-process-completion.json
+  - hospital-release/20261011-mvp-v11/evidence/worker-generated-isolation.json
+  - hospital-release/20261011-mvp-v11/manifest.json
+  - qa/hospital_mvp_generated.py
+Classification: engineering-change
+Engineering paths:
+  - hospital-release/20261011-mvp-v11/evidence/browser-acceptance.json
+  - hospital-release/20261011-mvp-v11/evidence/browser.log
+  - hospital-release/20261011-mvp-v11/evidence/build.log
+  - hospital-release/20261011-mvp-v11/evidence/compare.log
+  - hospital-release/20261011-mvp-v11/evidence/documentation.log
+  - hospital-release/20261011-mvp-v11/evidence/fake-calls.jsonl
+  - hospital-release/20261011-mvp-v11/evidence/generated-failure.png
+  - hospital-release/20261011-mvp-v11/evidence/generated-flow-3.png
+  - hospital-release/20261011-mvp-v11/evidence/owned-process-completion.json
+  - hospital-release/20261011-mvp-v11/evidence/worker-generated-isolation.json
+  - hospital-release/20261011-mvp-v11/manifest.json
+  - qa/hospital_mvp_generated.py
+PASS: engineering changes include docs/project/ITERATION_HISTORY.md and docs/project/ENGINEERING_JOURNAL.md

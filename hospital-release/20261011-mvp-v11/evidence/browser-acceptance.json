@@ -1,0 +1,781 @@
+{
+  "environment": "GENERATED_APP_REAL_HTTP_FAKE_RUNNER_SQLITE_TEST_STORAGE",
+  "scenarios": [
+    {
+      "name": "real Gateway login and real Backend cases",
+      "passed": true
+    },
+    {
+      "name": "generated flow 1: upload -> WorkerAgent prediction/occlusion -> persisted Result -> overlay/legacy scales -> refresh",
+      "passed": true
+    },
+    {
+      "name": "generated flow 2: upload -> WorkerAgent prediction/occlusion -> persisted Result -> overlay/legacy scales -> refresh",
+      "passed": true
+    },
+    {
+      "name": "generated flow 3: upload -> WorkerAgent prediction/occlusion -> persisted Result -> overlay/legacy scales -> refresh",
+      "passed": true
+    },
+    {
+      "name": "real FAILED job persisted and refresh restored; no completed-result link",
+      "passed": true,
+      "job_id": "job_3e9822acc3d89786a4e170de43a1cfa3"
+    }
+  ],
+  "requests": [
+    {
+      "path": "/api/v2/cases",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844/upload",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/predictions",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "path": "/api/v2/jobs/job_d368540362861186dbd1a90c5ea37c95",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/job_d368540362861186dbd1a90c5ea37c95",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_588bbe8b29db43b58b046cf0d42e6663",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/occlusion",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "path": "/api/v2/jobs/job_8c8fc6225418f297fde879a70f264b8a",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/job_8c8fc6225418f297fde879a70f264b8a",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_5ec02d31cd504b53956bb3aabb8a6ed4",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_5ec02d31cd504b53956bb3aabb8a6ed4/assets/generated-16-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_5ec02d31cd504b53956bb3aabb8a6ed4/assets/generated-32-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_5ec02d31cd504b53956bb3aabb8a6ed4/assets/generated-64-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_5ec02d31cd504b53956bb3aabb8a6ed4",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_5ec02d31cd504b53956bb3aabb8a6ed4/assets/generated-64-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_7a324ad38e3be89c2b35581590c06844/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480/upload",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/predictions",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "path": "/api/v2/jobs/job_1ce40ce05976b6bcadb04ea52d718296",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/job_1ce40ce05976b6bcadb04ea52d718296",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_a70ab874396e4c06b412f875ca7fc15b",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/occlusion",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "path": "/api/v2/jobs/job_d9c9293f5b4e9c8209363d5f295037bf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/job_d9c9293f5b4e9c8209363d5f295037bf",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_ebcf3db9cfde44b1b3fbd2ceae139c3c",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_ebcf3db9cfde44b1b3fbd2ceae139c3c/assets/generated-16-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_ebcf3db9cfde44b1b3fbd2ceae139c3c/assets/generated-32-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_ebcf3db9cfde44b1b3fbd2ceae139c3c/assets/generated-64-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_ebcf3db9cfde44b1b3fbd2ceae139c3c",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_ebcf3db9cfde44b1b3fbd2ceae139c3c/assets/generated-64-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_22d7caf550e3b22d0488ad448e95d480/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d/upload",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/predictions",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "path": "/api/v2/jobs/job_f92236aa75c7bf2975ad55578c0dcf6d",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/job_f92236aa75c7bf2975ad55578c0dcf6d",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_b2debfe60c3547c696c33152425e376c",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/occlusion",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "path": "/api/v2/jobs/job_8a815f00442e157ec4ca9d2915dda4fa",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/job_8a815f00442e157ec4ca9d2915dda4fa",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_057b6c853cd34a2487990f4ba0c99a13",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_057b6c853cd34a2487990f4ba0c99a13/assets/generated-16-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_057b6c853cd34a2487990f4ba0c99a13/assets/generated-32-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_057b6c853cd34a2487990f4ba0c99a13/assets/generated-64-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_057b6c853cd34a2487990f4ba0c99a13",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/results/result_057b6c853cd34a2487990f4ba0c99a13/assets/generated-64-CANDIDATE_RESPONSE.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/cases/case_0312d30d639d4e6b112a0c583cf92f3d/dicom",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/predictions",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "path": "/api/v2/jobs/job_3e9822acc3d89786a4e170de43a1cfa3",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/job_3e9822acc3d89786a4e170de43a1cfa3",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/jobs/job_3e9822acc3d89786a4e170de43a1cfa3",
+      "method": "GET",
+      "status": 200
+    }
+  ],
+  "page_errors": [],
+  "external_requests": [],
+  "flows": [
+    {
+      "number": 1,
+      "case_id": "case_7a324ad38e3be89c2b35581590c06844",
+      "prediction_job_id": "job_d368540362861186dbd1a90c5ea37c95",
+      "occlusion_job_id": "job_8c8fc6225418f297fde879a70f264b8a",
+      "result_id": "result_5ec02d31cd504b53956bb3aabb8a6ed4",
+      "seconds": 9.74322237499291,
+      "medical_model_calls": 0
+    },
+    {
+      "number": 2,
+      "case_id": "case_22d7caf550e3b22d0488ad448e95d480",
+      "prediction_job_id": "job_1ce40ce05976b6bcadb04ea52d718296",
+      "occlusion_job_id": "job_d9c9293f5b4e9c8209363d5f295037bf",
+      "result_id": "result_ebcf3db9cfde44b1b3fbd2ceae139c3c",
+      "seconds": 9.590084749972448,
+      "medical_model_calls": 0
+    },
+    {
+      "number": 3,
+      "case_id": "case_0312d30d639d4e6b112a0c583cf92f3d",
+      "prediction_job_id": "job_f92236aa75c7bf2975ad55578c0dcf6d",
+      "occlusion_job_id": "job_8a815f00442e157ec4ca9d2915dda4fa",
+      "result_id": "result_057b6c853cd34a2487990f4ba0c99a13",
+      "seconds": 9.518449249968398,
+      "medical_model_calls": 0
+    }
+  ],
+  "geometry": [
+    {
+      "flow": 1,
+      "scope": "generated oriented non-square single-slice native overlay",
+      "width": 858,
+      "height": 570,
+      "zoom": 0.64,
+      "pan": [
+        0,
+        0
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            164.2457142857142,
+            174.68571428571425
+          ],
+          "observed": [
+            164,
+            175
+          ],
+          "samples": 160,
+          "errorCssPx": 0.3989373640161331
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            693.7542857142859,
+            174.68571428571425
+          ],
+          "observed": [
+            694,
+            175
+          ],
+          "samples": 160,
+          "errorCssPx": 0.39893736401609803
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            164.2457142857142,
+            395.31428571428575
+          ],
+          "observed": [
+            164,
+            395
+          ],
+          "samples": 160,
+          "errorCssPx": 0.3989373640161331
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            693.7542857142859,
+            395.31428571428575
+          ],
+          "observed": [
+            694,
+            395
+          ],
+          "samples": 160,
+          "errorCssPx": 0.39893736401609803
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            429,
+            285
+          ],
+          "observed": [
+            429,
+            285
+          ],
+          "samples": 160,
+          "errorCssPx": 0
+        }
+      ],
+      "maxErrorCssPx": 0.3989373640161331
+    },
+    {
+      "flow": 2,
+      "scope": "generated oriented non-square single-slice native overlay",
+      "width": 858,
+      "height": 570,
+      "zoom": 0.64,
+      "pan": [
+        0,
+        0
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            164.2457142857142,
+            174.68571428571425
+          ],
+          "observed": [
+            164,
+            175
+          ],
+          "samples": 160,
+          "errorCssPx": 0.3989373640161331
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            693.7542857142859,
+            174.68571428571425
+          ],
+          "observed": [
+            694,
+            175
+          ],
+          "samples": 160,
+          "errorCssPx": 0.39893736401609803
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            164.2457142857142,
+            395.31428571428575
+          ],
+          "observed": [
+            164,
+            395
+          ],
+          "samples": 160,
+          "errorCssPx": 0.3989373640161331
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            693.7542857142859,
+            395.31428571428575
+          ],
+          "observed": [
+            694,
+            395
+          ],
+          "samples": 160,
+          "errorCssPx": 0.39893736401609803
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            429,
+            285
+          ],
+          "observed": [
+            429,
+            285
+          ],
+          "samples": 160,
+          "errorCssPx": 0
+        }
+      ],
+      "maxErrorCssPx": 0.3989373640161331
+    },
+    {
+      "flow": 3,
+      "scope": "generated oriented non-square single-slice native overlay",
+      "width": 858,
+      "height": 570,
+      "zoom": 0.64,
+      "pan": [
+        0,
+        0
+      ],
+      "markers": [
+        {
+          "raw": [
+            2,
+            1.4285714285714286
+          ],
+          "expected": [
+            164.2457142857142,
+            174.68571428571425
+          ],
+          "observed": [
+            164,
+            175
+          ],
+          "samples": 160,
+          "errorCssPx": 0.3989373640161331
+        },
+        {
+          "raw": [
+            110,
+            1.4285714285714286
+          ],
+          "expected": [
+            693.7542857142859,
+            174.68571428571425
+          ],
+          "observed": [
+            694,
+            175
+          ],
+          "samples": 160,
+          "errorCssPx": 0.39893736401609803
+        },
+        {
+          "raw": [
+            2,
+            78.57142857142857
+          ],
+          "expected": [
+            164.2457142857142,
+            395.31428571428575
+          ],
+          "observed": [
+            164,
+            395
+          ],
+          "samples": 160,
+          "errorCssPx": 0.3989373640161331
+        },
+        {
+          "raw": [
+            110,
+            78.57142857142857
+          ],
+          "expected": [
+            693.7542857142859,
+            395.31428571428575
+          ],
+          "observed": [
+            694,
+            395
+          ],
+          "samples": 160,
+          "errorCssPx": 0.39893736401609803
+        },
+        {
+          "raw": [
+            56,
+            40
+          ],
+          "expected": [
+            429,
+            285
+          ],
+          "observed": [
+            429,
+            285
+          ],
+          "samples": 160,
+          "errorCssPx": 0
+        }
+      ],
+      "maxErrorCssPx": 0.3989373640161331
+    }
+  ],
+  "medical_model_calls": 0,
+  "business_api_interception": false,
+  "wire_LIVE_CASE_is_fixture_compatibility_only": true,
+  "database": {
+    "jobs": 7,
+    "completed": 6,
+    "failed": 1,
+    "results": 6,
+    "assets": 27,
+    "workers": 1
+  },
+  "status": "PASS",
+  "owned_services_stopped": true
+}

@@ -1,0 +1,30 @@
+{
+  "elapsed_seconds": 50.272359666007105,
+  "services": [
+    {
+      "kind": "backend",
+      "pid": 4607,
+      "returncode": -15,
+      "stopped": true
+    },
+    {
+      "kind": "gateway",
+      "pid": 4608,
+      "returncode": -15,
+      "stopped": true
+    },
+    {
+      "kind": "edge",
+      "pid": 4609,
+      "returncode": -15,
+      "stopped": true
+    },
+    {
+      "kind": "worker",
+      "pid": 4610,
+      "returncode": 0,
+      "stopped": true
+    }
+  ],
+  "medical_model_calls": 0
+}

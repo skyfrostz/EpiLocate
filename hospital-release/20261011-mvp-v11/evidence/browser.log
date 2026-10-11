@@ -1,0 +1,6 @@
+PASS real Gateway login and real Backend cases
+PASS generated flow 1: upload -> WorkerAgent prediction/occlusion -> persisted Result -> overlay/legacy scales -> refresh
+PASS generated flow 2: upload -> WorkerAgent prediction/occlusion -> persisted Result -> overlay/legacy scales -> refresh
+PASS generated flow 3: upload -> WorkerAgent prediction/occlusion -> persisted Result -> overlay/legacy scales -> refresh
+PASS real FAILED job persisted and refresh restored; no completed-result link
+{"jobs": 7, "completed": 6, "failed": 1, "results": 6, "assets": 27, "workers": 1}

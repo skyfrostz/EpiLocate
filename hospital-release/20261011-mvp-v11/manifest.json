@@ -1,0 +1,514 @@
+{
+  "active_application_default": "PRESERVE_EXISTING_FROZEN_BASELINE",
+  "algorithms": {
+    "E1": {
+      "acceptance": {},
+      "algorithm_config_sha256": null,
+      "algorithm_version": "EPI-NEXT-E1-fixed-target-margin-v1",
+      "clinical_validation": "NOT RUN",
+      "evidence_type": "INPUT_OCCLUSION",
+      "label": "固定目标遮挡响应",
+      "model_id": null,
+      "model_sha256": null,
+      "model_version": null,
+      "preprocessing_sha256": null,
+      "preprocessing_version": null,
+      "real_ct_validation": "NOT RUN",
+      "registered_runtime": false,
+      "resource_budget_sha256": null,
+      "role": "RESEARCH_BASELINE_FROZEN_WITH_LIMITATIONS",
+      "status": "NOT RUN",
+      "research_state": "E1_BASELINE_FROZEN_WITH_LIMITATIONS",
+      "hospital_application_status": "NOT_REGISTERED",
+      "development_result": "10_PERCENT_COMMON_FOV_PATIENT_MEANS_16_32_64=0/0/4.2808_PERCENT"
+    },
+    "E2": {
+      "acceptance": {},
+      "algorithm_config_sha256": null,
+      "algorithm_version": "EPI-NEXT-E2-HSPI-independent-projected-Adam-v1",
+      "clinical_validation": "NOT RUN",
+      "evidence_type": "OPTIMIZED_INPUT_MASK",
+      "label": "HSPI 全 logits 一致性掩膜",
+      "model_id": null,
+      "model_sha256": null,
+      "model_version": null,
+      "preprocessing_sha256": null,
+      "preprocessing_version": null,
+      "real_ct_validation": "NOT RUN",
+      "registered_runtime": false,
+      "resource_budget_sha256": null,
+      "role": "EXPERIMENTAL",
+      "status": "NOT RUN",
+      "research_state": "EXPERIMENTAL_OLD_SIX_TRAJECTORIES_6000_UPDATES_NO_JOINT_CPF_FEASIBLE",
+      "P1_real_retry": "NOT RUN",
+      "P1_retry_authorized": false
+    },
+    "F0": {
+      "acceptance": {},
+      "algorithm_config_sha256": null,
+      "algorithm_version": "EPI-NEXT-F0-signed-CAM-v1",
+      "clinical_validation": "NOT RUN",
+      "evidence_type": "CAM_CONTRIBUTION",
+      "label": "编码器线性头有符号 CAM 贡献",
+      "model_id": null,
+      "model_sha256": null,
+      "model_version": null,
+      "preprocessing_sha256": null,
+      "preprocessing_version": null,
+      "real_ct_validation": "NOT RUN",
+      "registered_runtime": false,
+      "resource_budget_sha256": null,
+      "role": "INCOMPLETE_MODEL",
+      "status": "NOT RUN"
+    },
+    "F1": {
+      "acceptance": {},
+      "algorithm_config_sha256": null,
+      "algorithm_version": "EPI-NEXT-F1-residual-input-refreshed-coarse-v2",
+      "clinical_validation": "NOT RUN",
+      "evidence_type": "INPUT_OCCLUSION",
+      "label": "残余输入遮挡响应",
+      "model_id": null,
+      "model_sha256": null,
+      "model_version": null,
+      "preprocessing_sha256": null,
+      "preprocessing_version": null,
+      "real_ct_validation": "NOT RUN",
+      "registered_runtime": false,
+      "resource_budget_sha256": null,
+      "role": "EXPERIMENTAL",
+      "status": "NOT RUN"
+    }
+  },
+  "branch": "codex/epi-next-integration-20261009",
+  "clinical_validation": "NOT RUN",
+  "coordination_snapshot": {
+    "authority": "ROOT_COORDINATOR_ONLY",
+    "revision": 36,
+    "sha256": "489fd5b333afb78144356bb19fdf152ceea99eb7db6c65c482e05f947942dc18",
+    "not_current_state_replacement": true
+  },
+  "data_dependency": {
+    "case_count": 3,
+    "gt_vnext": "DEVELOPMENT_REFERENCE_DELIVERED_PER_REUSED_V9_EVIDENCE",
+    "hospital_allowlist": null,
+    "hospital_use_approved": false,
+    "local_development_allowlist_sha256": "3f2c5b5fb2b8b788c5d2f68d9b39554edd079941da58222e9292b62ba6d1ae00",
+    "local_development_delivery_sha256": "42c5e2eb4ebfdb3d1d3c85a9db0095b2c24dca539750468b917ec90bd3337934",
+    "ordered_sop_affine_volume_ledger": "DEVELOPMENT_LEDGER_DELIVERED_PER_REUSED_V9_EVIDENCE",
+    "owner": "DATA-EVAL_VIA_ROOT_COORDINATOR",
+    "sop_count": 715,
+    "development_data_handoff": "DATA_V3_AND_WAVE1_RESULTS_ACCEPTED_PER_REUSED_V9_EVIDENCE",
+    "original_proposal_is_not_hospital_allowlist": true
+  },
+  "data_handoff_sha256": null,
+  "date": "2026-10-11",
+  "delivery_channel": "LOCAL_VERSIONED_PACKAGE_THEN_ROOT_COORDINATOR_THEN_PROJECT_OWNER",
+  "development_base_sha": "0e13a1f9167be9d6f2bf815b49cf3ff9e16650b1",
+  "engineering_evidence": {
+    "scope": "GENERATED_DICOM_REAL_HTTP_SQLITE_WORKER_AGENT_WITH_TEST_DOUBLES",
+    "status": "PASS",
+    "generated_flows": 3,
+    "database": {
+      "jobs": 7,
+      "completed": 6,
+      "failed": 1,
+      "results": 6,
+      "assets": 27,
+      "workers": 1
+    },
+    "max_native_overlay_error_css_px": 0.3989373640161331,
+    "medical_forward": 0,
+    "medical_backward": 0,
+    "medical_updates": 0,
+    "fake_invocations": 7,
+    "business_api_response_interception": false,
+    "real_torch_loaded_in_successful_run": false,
+    "owned_services_stopped": true,
+    "elapsed_seconds": 50.272359666007105,
+    "source_dirty_at_verification": true,
+    "harness": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/hospital_mvp_generated.py",
+      "sha256": "e58dcdf881a4eed112e696840efd8b82a045b11616408ff3a5aa4a77a852b8a1"
+    },
+    "evidence": {
+      "browser-acceptance.json": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/evidence/browser-acceptance.json",
+        "sha256": "2f7276035906ce5677fd72704c3bafb4b492e713527ad295e9fe2b384fcc75cb"
+      },
+      "browser.log": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/evidence/browser.log",
+        "sha256": "a3fdff1d296e65173f26a06c0d5e4e1fccef52b27e9a039623a7f160a1fcd790"
+      },
+      "build.log": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/evidence/build.log",
+        "sha256": "cc289357d9bdc1a90e8092753dd55c94fbb1a88a452d3d045937895693dbf6be"
+      },
+      "fake-calls.jsonl": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/evidence/fake-calls.jsonl",
+        "sha256": "80248d2750ac1856dbd37a1a0993dca354f441ad9c4e1433b3d12677fc255a69"
+      },
+      "generated-failure.png": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/evidence/generated-failure.png",
+        "sha256": "f52cd5d7cdf991fd712de188a9d250dfad4594cdb05cce860a4fa590a15c5565"
+      },
+      "generated-flow-3.png": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/evidence/generated-flow-3.png",
+        "sha256": "b4580e54695f1c0e14ce064781f422c52fd490bb04f2385d745f7ba8f6ccd5e8"
+      },
+      "owned-process-completion.json": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/evidence/owned-process-completion.json",
+        "sha256": "95545a3c14116d6f0de93a4aae2880d0ff2d86694957d0f68aa792cccafa99b2"
+      },
+      "worker-generated-isolation.json": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/evidence/worker-generated-isolation.json",
+        "sha256": "8864e6adc4332d8546f4634b3f31b1b428822d0379cce8483d7312a9adf41678"
+      },
+      "compare.log": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/evidence/compare.log",
+        "sha256": "68f6918b4065f38d68b94611f4c06551ac528c66558f954b988de7f46424379d"
+      },
+      "documentation.log": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-mvp-v11/evidence/documentation.log",
+        "sha256": "e24605385ee9a2f8fed92681f942fba25eabb4f97171aacbce1dbc65a9d604b8"
+      }
+    },
+    "build_raw_log": {
+      "path": "/tmp/epi-mvp-build.log",
+      "sha256": "5d981d1ca271a820360f34c0a9a23f0a522ac2e2278411fb3304f754866159ad",
+      "tracked_copy": "evidence/build.log",
+      "tracked_copy_transform": "Trailing whitespace normalization only; raw log retained locally"
+    }
+  },
+  "fallback_algorithms": [
+    "FrozenBaseline",
+    "Occlusion16",
+    "Occlusion32",
+    "Occlusion64"
+  ],
+  "final_freeze_due": "2026-10-14",
+  "final_freeze_status": "NOT RUN",
+  "freeze_window": [
+    "2026-10-13",
+    "2026-10-14"
+  ],
+  "hospital_default_algorithm": null,
+  "hospital_default_model": null,
+  "hospital_demo_date": "2026-10-15",
+  "hospital_display_authorization": "NOT_REQUESTED_EXACT_ASSETS_AND_AUDIENCE_PENDING",
+  "known_limits": [
+    "THREE_REAL_APP_RUNS_NOT_RUN",
+    "HOSPITAL_DATA_AND_DISPLAY_SCOPE_NOT_APPROVED",
+    "GENERATED_FAKE_RESULT_IS_NOT_MEDICAL_INFERENCE",
+    "E1_E2_F0_F1_NOT_REGISTERED_IN_PRODUCT_BACKEND_WORKER_UI",
+    "CURRENT_PRODUCT_VIEWER_SINGLE_SLICE_NOT_3D_SERIES_REGISTRATION",
+    "C1_NUMERIC_PASS_BUT_CLEANUP_BLOCKED_SHARED_QUEUE_REQUIRES_VALID_RECOVERY",
+    "P1_RETRY_AND_3540_SECOND_CLOCK_NOT_APPROVED",
+    "F0_NO_TRAINED_ACCEPTED_HEAD",
+    "E2_OLD_JOINT_CPF_FEASIBLE_COUNT_ZERO",
+    "REAL_PRECOMPUTED_APP_RESULT_AND_BACKUP_RECORDING_NOT_RUN",
+    "FROZEN_PADDING_LIMITATIONS_PRESERVED",
+    "ENGINEERING_ACCEPTANCE_IS_NOT_CLINICAL_VALIDATION"
+  ],
+  "project_owner": "钟佳桦",
+  "project_owner_decision": "NOT RUN",
+  "real_e2e_status": "NOT RUN",
+  "release_id": "20261011-mvp-v11",
+  "resource_policy": {
+    "integration_device": "cpu",
+    "mps_owner": "ENCODER",
+    "path": "research/next-hospital-20261014/configs/resource_policy_phase2_v1.json",
+    "remote_rtx3090": "PAUSED",
+    "sha256": "2ff998f0b3416239a3442f415b1dc6124e322f56be644d22432a8e28b157b126"
+  },
+  "schema": "EPI-NEXT-HOSPITAL-RELEASE-1",
+  "source_git_sha": "0e13a1f9167be9d6f2bf815b49cf3ff9e16650b1",
+  "task_definition_sha256": null,
+  "timezone": "Asia/Shanghai",
+  "source_commit_binding": "PENDING_SOURCE_COMMIT_METADATA_APPEND",
+  "real_e2e_blocker": "WAIT_MVP_DATA_AND_CALL_SCOPE_AND_VALID_SHARED_QUEUE",
+  "consumed_incremental_evidence": {
+    "P1": {
+      "execution_manifest": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/.local/phase2/p1-final-combo-v7/execution-manifest-v7.json",
+        "sha256": "ec18420e2a1196c51964ff59c88c559f59bb28896bfdee4edff935727a1f8831"
+      },
+      "acceptance": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/.local/phase2/p1-final-combo-v7/generated-once/acceptance.json",
+        "sha256": "ea40b9e902872159771e9012e56c5d2301d81f21d447852014e1cafa384174fc"
+      },
+      "binding_verification": "PASS_SOURCE_BYTES_ONLY_NO_RERUN",
+      "storage_sha256": "bc431dab482538ee3f9f1024c0b89648525f887deeb740c86065f797e9fb39b3",
+      "supervisor_dependency_sha256": "69bf2a28956b688a81d23f1bcfd4f6378edd50dcf5b2843d66a1ff480dfed871",
+      "parent_status": "SUCCESS",
+      "generated_forward": 36,
+      "generated_backward": 18,
+      "generated_updates": 18,
+      "new_medical_forward": 0,
+      "retry_authorization": "ABSENT_NOT_DISPATCH",
+      "no_v4_common_io_lock_adoption": true
+    },
+    "C1": {
+      "binding": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-encoder/research/next-hospital-20261014/configs/ctfm_c1_recovery_binding_v3.json",
+        "sha256": "604b5d533bace77e56a2bba6242a5aac361a20371979cd40ac46c6fc5bf2e689"
+      },
+      "command": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-encoder/research/next-hospital-20261014/reports/CTFM_C1_RECOVERY_COMMAND_V3.json",
+        "sha256": "f214cf8cc9bf3424d398ead4ebd07c096bf7d8170f9c6ab314e3db806802fb8d"
+      },
+      "dispatch": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/next-sprint-20261011/C1_DISPATCH_20261011_V1.json",
+        "sha256": "16486d6b13455177012af22195ec3a06df977311faaf2831d04379ba7d867188"
+      },
+      "result": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-encoder/.local/ctfm-v3-fov64-pair/attempt-1/result.json",
+        "sha256": "7a2f1149a0d82fbed3c23f5e15b9b91c772f3ab3c0435df287cb7be00300644b"
+      },
+      "supervisor_receipt": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-encoder/.local/ctfm-v3-fov64-pair/supervisor/ctfm-v3-fullseries64-pair-01/supervisor-receipt.json",
+        "sha256": "f177b65a6ff323b73251d17161eb85bae37e05ddc3f15b2fe8480004c113771d"
+      },
+      "terminal": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-encoder/.local/ctfm-v3-fov64-pair/terminal_launch_evidence.json",
+        "sha256": "1d4721c417ea5aef849ca740c8ba01ba4545155539dae31d9a1df6af0d1cfec6"
+      },
+      "actual_forward": 2,
+      "actual_backward": 0,
+      "actual_updates": 0,
+      "by_device": {
+        "cpu": 1,
+        "mps": 1
+      },
+      "numeric": {
+        "allclose": true,
+        "elements": 32768,
+        "max_absolute_error": 0.00042724609375,
+        "mean_absolute_error": 2.6456306500222126e-05,
+        "rmse": 3.678715664792861e-05,
+        "status": "PASS",
+        "tolerance": {
+          "atol": 0.001,
+          "max_absolute_error": 0.001,
+          "mean_absolute_error": 0.0001,
+          "rtol": 0.0001
+        }
+      },
+      "cleanup": {
+        "cleanup_seconds": 0.07021758402697742,
+        "criterion": "successful sync/empty_cache/sync; tensor<=startup baseline; driver and tensor<5GiB",
+        "device_recovered": false,
+        "error": null,
+        "final_actual_child_memory": {
+          "driver_bytes": 1217085440,
+          "tensor_bytes": 311107584
+        }
+      },
+      "supervisor_status": "BLOCKED",
+      "slot_completed": false,
+      "no_reexecution_by_integration": true,
+      "source_commit": "b37f85e86dddfe08065fef54a99aba09e6a6b6ed"
+    }
+  },
+  "reused_evidence": [
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261010-recovery-readiness-v9/CONSUMPTION_INDEX_OWNER_APPROVED.json",
+      "sha256": "1456a1ab9b2e08207764e2d598e69a0b29c879b62c3d48967618da04bf6872da"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261009-integration-v1/evidence/verification.json",
+      "sha256": "40b24d23507c2f8020a6e49db6fa86a3d9c7575abc1090bec6ac055fbf54d812"
+    }
+  ],
+  "minimal_real_mvp_request": {
+    "status": "REQUEST_ONLY_NOT_APPROVED",
+    "task_key_proposal": "EPI-NEXT-HOSPITAL-MVP-THREE-LEGACY-CPU-20261013-V1",
+    "data": {
+      "canonical_owner": "DATA-EVAL_VIA_CHIEF",
+      "development_allowlist_sha256": "3f2c5b5fb2b8b788c5d2f68d9b39554edd079941da58222e9292b62ba6d1ae00",
+      "fixed_slice_input_reference": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/first-real-e1e2/prepared_delivery.json",
+        "sha256": "b85eaf6c78d1547e2aa4b93458734f533d34be5de1ed056fd152c30b92ebaa99"
+      },
+      "case_indexes": [
+        1,
+        2,
+        3
+      ],
+      "sop_limit": 3,
+      "new_allowlist_created": false,
+      "needs": "Application-compatible deidentified derivatives of existing three fixed SOPs from DATA; preserve original geometry/pixels and provenance, publish derivative hashes via chief"
+    },
+    "model": {
+      "model_id": "baseline_resnet18",
+      "checkpoint_sha256": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+      "preprocessing_version": "formal-resnet18-baseline-rule-b-v1",
+      "protocol_id": "stage1-occlusion-instability-v1",
+      "task_definition": "Existing frozen single-slice binary classifier plus existing occlusion response; not clinical lesion probability"
+    },
+    "compute": {
+      "device": "CPU",
+      "threads": 1,
+      "jobs": 3,
+      "kind": "OCCLUSION",
+      "scales": [
+        16,
+        32,
+        64
+      ],
+      "positions_per_scale": [
+        729,
+        169,
+        36
+      ],
+      "forward_batches_per_job": 32,
+      "forward_batches_total": 96,
+      "image_evaluations_per_job": 935,
+      "image_evaluations_total": 2805,
+      "backward": 0,
+      "updates": 0,
+      "warmups": 0,
+      "retries": 0,
+      "per_flow_seconds": 180,
+      "total_seconds": 540,
+      "output_total_bytes": 268435456,
+      "sampled_rss_pre_stop_bytes": 5368709120,
+      "sampled_rss_monitored_target_bytes": 6442450944,
+      "queue": "Chief sole dispatch, existing supervisor/serial device queue; any UNKNOWN/BLOCKED slot must first have valid recovery; no new scheduler or implicit release",
+      "no_separate_prediction_jobs": true,
+      "refresh_is_read_only_not_model_call": true,
+      "budget_includes": "Startup/model load, hash validation, upload/claim, all prediction/occlusion batches, save/readback, three browser workflows and exit; stop without auto retry",
+      "budget_algorithm": "Historical FrozenBaseline stage1-occlusion-instability-v1; not research E1",
+      "batch_size": 32,
+      "baseline_forward_batches_total": 3,
+      "perturbed_image_evaluations_per_job": 934,
+      "perturbed_image_evaluations_total": 2802,
+      "batch_sizes_per_job": {
+        "baseline": [
+          1
+        ],
+        "16": [
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          32,
+          25
+        ],
+        "32": [
+          32,
+          32,
+          32,
+          32,
+          32,
+          9
+        ],
+        "64": [
+          32,
+          4
+        ]
+      },
+      "all_validation_forwards_included": true,
+      "extra_validation_forward_allowance": 0
+    },
+    "display": {
+      "date": "2026-10-15",
+      "destination": "Local hospital exchange display approved by project owner; no cloud upload or service deployment",
+      "audience": "钟佳桦 plus hospital participants explicitly approved by owner; list pending",
+      "scope": "Only approved three selected slices and corresponding persisted response/results, local precomputed replay and local backup recording; label research/model response and LIVE vs PRECOMPUTED",
+      "protected_assets_attached_to_summary": false,
+      "status": "NOT_REQUESTED",
+      "reason": "Exact application display assets/hash and owner-approved audience not yet published; requirements only, submit concrete scope after D/M handoff"
+    },
+    "separate_decisions": [
+      "DATA_APPLICATION_USE_AND_DERIVATIVES",
+      "CPU_96_FORWARD_BATCH_BUDGET"
+    ],
+    "not_covered_by_P1_C1_grants": true
+  },
+  "run_command": {
+    "cwd": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+    "argv": [
+      "env",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps",
+      "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+      "qa/hospital_mvp_generated.py",
+      "--run",
+      "frontend/.local/mvp-20261011-attempt6",
+      "--dist",
+      "frontend/.local/mvp-20261011-dist"
+    ],
+    "fresh_run_directory_required": true,
+    "dependencies": "Task-local Python test libraries and reused read-only frontend node_modules; no formal Torch environment changes",
+    "entry_not_for_real_assets": true
+  },
+  "acceptance_summary": {
+    "1": {
+      "generated_scope": "PASS",
+      "real_hospital_scope": "NOT RUN"
+    },
+    "2": {
+      "generated_scope": "NOT RUN",
+      "real_hospital_scope": "NOT RUN"
+    },
+    "3": {
+      "generated_scope": "PASS",
+      "real_hospital_scope": "NOT RUN"
+    },
+    "4": {
+      "generated_scope": "PASS",
+      "real_hospital_scope": "NOT RUN"
+    },
+    "5": {
+      "generated_scope": "PASS",
+      "real_hospital_scope": "NOT RUN"
+    },
+    "6": {
+      "generated_scope": "PASS",
+      "real_hospital_scope": "NOT RUN"
+    },
+    "7": {
+      "generated_scope": "PASS",
+      "real_hospital_scope": "NOT RUN"
+    },
+    "8": {
+      "generated_scope": "NOT RUN",
+      "real_hospital_scope": "NOT RUN"
+    }
+  },
+  "attempts_preserved": {
+    "1": "Missing local testing dependency before services",
+    "2": "Generated DICOM de-identification fixture rejected; cleared generator SeriesDescription",
+    "3": "FakeRunner path attribute shadowed run method; actual Backend FAILED persisted",
+    "4": "Interrupted after detecting static Torch imports; exact own parent/children terminated, no medical calls; no successful acceptance claim",
+    "5": "Dataclass test module registration order error; owned process completion preserved",
+    "6": "PASS successful generated acceptance with torch/inference test doubles"
+  },
+  "checks": {
+    "project_documentation": "PASS_EXPLICIT_BASE_AND_WORKING_TREE",
+    "staged_diff_check": "PASS",
+    "exact_forward_batch_budget": "PASS_STATIC_NO_MODEL",
+    "evidence_hashes": "PASS",
+    "application_core_source_diff": "NONE",
+    "old_tests": "REUSED_NO_RERUN",
+    "readonly_algorithm_compare": "PASS_EXIT0_NO_NEW_ALGORITHM_ADMITTED"
+  }
+}

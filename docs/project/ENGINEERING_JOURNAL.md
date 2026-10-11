@@ -1453,3 +1453,11 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 
 
 **总控最新方向及复现栈补录：** 新REPRODUCTION_TRACE.json保存隔离原v3 writer与旧size语义的os.walk→rename→stat事件和生成FileNotFound栈；不伪称原P1 traceback。总控优先LOC-only size有界完整重扫：仅识别监督tmp ENOENT时从零重扫，次数/时间内未完成即安全停止，不跳过tmp或返回部分总量、不放宽cap/reserve；本线未实施LOC-only修复。已保存v4共同锁仅备选，不强制升级、未部署；P1/C1均未运行。
+
+### 2026-10-11｜医院MVP生成应用闭环与真实流程最小提案
+
+INTEGRATION，原指定工作树epi-next-integration、分支codex/epi-next-integration-20261009，开始HEAD `0e13a1f9167be9d6f2bf815b49cf3ff9e16650b1`。按总控10/11增量指令，新增qa/hospital_mvp_generated.py，以现有生产前端构建、真实loopback Gateway/Backend/WorkerAgent、SQLite/TestStore和精确生成DICOM完成三次上传→分类/遮挡→保存→原生叠加/16/32/64→刷新。FakeRunner与显式Torch/inference doubles无权重加载；wire LIVE_CASE/frozen SHA仅fixture兼容值，固定非医学banner。attempt6 exit0、总50.272s，7jobs/6completed/1failed/6results/27assets；FAILED刷新无完成链接，最大单切片overlay误差0.39894CSSpx，四个自有服务退出。此前依赖/去标识/路径属性遮蔽/模块注册顺序失败分别保留；attempt4发现静态Torch导入后核对本线身份终止，未执行医学模型。没有杀未知进程、患者资产读取或部署。只读复用前端依赖，测试依赖放本线ignored目录，不改正式Torch环境。
+
+只读消费LOC新v7 manifest SHA `ec18420e2a1196c51964ff59c88c559f59bb28896bfdee4edff935727a1f8831`、生成同入口acceptance SHA `ea40b9e902872159771e9012e56c5d2301d81f21d447852014e1cafa384174fc`；源码/CT bridge/v3八模块绑定PASS、不重跑peer测试。P1真实重试仍NOT RUN/无3540秒批准。消费ENC新C1 binding `604b5d…`与实际result SHA `7a2f1149a0d82fbed3c23f5e15b9b91c772f3ab3c0435df287cb7be00300644b`，源执行提交 `b37f85e86dddfe08065fef54a99aba09e6a6b6ed`；真实CPU1/MPS1数值PASS但cleanupFAIL，监督BLOCKED/slot_completed=false；本线无重跑/采样/probe/解除。权威revision36只读快照，不写状态；R1集中归总控。v4共同IO锁未接入，继续LOC-only修复+固定v3。
+
+交付hospital-release/20261011-mvp-v11一份manifest及增量报告、生成截图/日志/哈希。复用旧接口/空间/选择门禁和验证收据；产品E1/E2/F0/F1尚未注册，不冒称真实应用接入。医院真实E2E/预计算/录屏/冻结/临床NOT RUN；开发DATA已交付，不能再以旧BLOCKED_BY_DATA_HANDOFF概括当前阻塞。最小真实MVP申请3固定SOP、历史FrozenBaseline Occlusion3jobs、96模型batch前向（含3基准，2802扰动/总2805图像评估）、B0/update0、无预热/重试；数据和计算独立待批，展示精确资产/受众待锁定故NOT_REQUESTED。旧模型/协议/历史资产/前端源码无改动。实际源码提交与最终文档检查在本条后补录。

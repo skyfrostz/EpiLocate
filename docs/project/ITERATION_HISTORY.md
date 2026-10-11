@@ -1077,3 +1077,11 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 
 
 **总控最新方向及复现栈补录：** 新REPRODUCTION_TRACE.json保存隔离原v3 writer与旧size语义的os.walk→rename→stat事件和生成FileNotFound栈；不伪称原P1 traceback。总控优先LOC-only size有界完整重扫：仅识别监督tmp ENOENT时从零重扫，次数/时间内未完成即安全停止，不跳过tmp或返回部分总量、不放宽cap/reserve；本线未实施LOC-only修复。已保存v4共同锁仅备选，不强制升级、未部署；P1/C1均未运行。
+
+### 2026-10-11｜医院MVP先完成生成应用接缝
+
+原集成树codex/epi-next-integration-20261009，开始HEAD `0e13a1f9167be9d6f2bf815b49cf3ff9e16650b1`。新增独立生成QA入口，不改产品UI/协议/数学：现有Gateway、Backend、WorkerAgent及原生DICOM viewer通过真实HTTP和SQLite，推理及存储为明确test doubles。三次生成流程与一次失败持久化PASS（50.272s、7jobs/6results/27assets，单切片overlay误差0.39894CSSpx），无医学模型调用、部署或患者像素读取。结果包hospital-release/20261011-mvp-v11仅工程候选；成功wire LIVE_CASE为兼容fixture，非医学banner及证据范围明确。
+
+科研不作为MVP阳性前置：E1冻结有局限，E2旧CPF零可行，F0未完成head，F1实验；产品当前保留FrozenBaseline及16/32/64。新增三次真实CPU旧版流程提案（3固定SOP、3jobs、96batch forward含3基准、2802扰动/2805总图像、B0/update0），不挪用P1/C1权限；医院展示因精确资产/受众未锁定保持NOT_REQUESTED，真实E2E/预计算/录屏/冻结/临床NOT RUN。原BLOCKED_BY_DATA_HANDOFF为历史开发状态，当前缺应用范围及共享队列准入。
+
+只读接收LOC-only storage+固定v3同入口生成证据，未接入共同IO锁v4、未重跑P1；C1真实两前向数值PASS但清理FAIL，整体BLOCKED/slot_completed=false，不能放行共享真实计算。权威revision36归总控，不写本线状态、不probe/恢复。接口/对照/回退文档复用，完整依赖/证据SHA在manifest；源码提交和最终检查后续补录。

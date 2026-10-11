@@ -1,0 +1,7 @@
+{"job_id": "job_d368540362861186dbd1a90c5ea37c95", "kind": "PREDICTION", "medical_forward": 0, "fake_invocation": 1, "input_sha256": "47f2b99eea84858add20b99c3f0c1478439f0cb8ec1f2c462cbc9b48f5064539"}
+{"job_id": "job_8c8fc6225418f297fde879a70f264b8a", "kind": "OCCLUSION", "medical_forward": 0, "fake_invocation": 1, "input_sha256": "47f2b99eea84858add20b99c3f0c1478439f0cb8ec1f2c462cbc9b48f5064539"}
+{"job_id": "job_1ce40ce05976b6bcadb04ea52d718296", "kind": "PREDICTION", "medical_forward": 0, "fake_invocation": 1, "input_sha256": "47f2b99eea84858add20b99c3f0c1478439f0cb8ec1f2c462cbc9b48f5064539"}
+{"job_id": "job_d9c9293f5b4e9c8209363d5f295037bf", "kind": "OCCLUSION", "medical_forward": 0, "fake_invocation": 1, "input_sha256": "47f2b99eea84858add20b99c3f0c1478439f0cb8ec1f2c462cbc9b48f5064539"}
+{"job_id": "job_f92236aa75c7bf2975ad55578c0dcf6d", "kind": "PREDICTION", "medical_forward": 0, "fake_invocation": 1, "input_sha256": "47f2b99eea84858add20b99c3f0c1478439f0cb8ec1f2c462cbc9b48f5064539"}
+{"job_id": "job_8a815f00442e157ec4ca9d2915dda4fa", "kind": "OCCLUSION", "medical_forward": 0, "fake_invocation": 1, "input_sha256": "47f2b99eea84858add20b99c3f0c1478439f0cb8ec1f2c462cbc9b48f5064539"}
+{"job_id": "job_3e9822acc3d89786a4e170de43a1cfa3", "kind": "PREDICTION", "medical_forward": 0, "fake_invocation": 1, "input_sha256": "47f2b99eea84858add20b99c3f0c1478439f0cb8ec1f2c462cbc9b48f5064539"}

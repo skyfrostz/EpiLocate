@@ -1,0 +1,7 @@
+{
+  "mode": "GENERATED_TEST_DOUBLES",
+  "real_torch_loaded": false,
+  "checkpoint_loaded": false,
+  "adapter_manifest_source_sha256": "b1bf2564c9b4698ba61ab52efa592614cd6035deac081d70da9e9807ade86421",
+  "worker_agent_source_sha256": "66e32c21d995d547719576797ac7bf486dfc7034785c0523a1a26f3db8eb5b03"
+}
