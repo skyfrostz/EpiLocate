@@ -1565,3 +1565,11 @@ INTEGRATION唯一负责演示清单，原工作树/codex/epi-next-integration-20
 原INTEGRATION工作树/分支，开始HEAD8364b4d42695b2375ca0e84aa058ab80675284f2。消费R71第3节；总控已核定既有MVP_LOCAL批准4a4e9c…/2dcc61…、同三DATA v2 bc919838…及人工复核437158…，明确此次原结果/对象只读、私有DB副本、新本机认证及localhost浏览器检查覆盖于原本地用途，不是重用96F、医院或外传许可。保留原恢复source76d032及binding b03d88d…，不重设计、不改target计算。新增只读验收封装沿旧browse只读选择/叠加/刷新部分，禁止创建/上传/Worker/模型，网络仅同本机origin、无截图/视频/trace/HAR/像素导出。
 
 固定plan SHA5776dafca76e1016a5c807e118890218ee6fe4b75050e030c5f371332c9b5446、entry SHA42c730b9ccc9465770d66d5468a025dcefa1edc0189eb556c5a1be846a1f1b63、输出.local/mvp-readonly-r71-20261013-01，总180秒，browser140秒；失败退出自有服务不重启。原绑定check-only与新plan check-only均exit0；准备阶段不读真实DB/影像/旧凭据、不启动服务/浏览器。第6项数值/canvas叠加及渲染技术检查与人工目视独立，未经目视不得扩写医生/负责人视觉PASS；真实运行后另记录十项结果、0调用依据和原DB/资产不变。
+
+### 2026-10-12｜R71真实只读恢复一次技术验收
+
+原工作树/分支，恢复source76d032/验收source482215cecdb133e2edcb271d226cd9c2b32ee546，按总控已核定原LOCAL_MVP_ONLY范围，单次plan5776daf…执行exit0/7.979043秒（上限180）。三原Result与单SOP SHA/Slice/尺寸、9次16/32/64选择、每例64刷新相同JSON实际通过；新登录正常，旧凭据私密本机读取后仅记录401。browser page errors0/external requests0。第6項为渲染/图层224/非退化变换/canvas边界/pixel gate技术PASS，人工目视NOT_RUN，无截图/视频/trace/HAR或影像导出，不扩写医生/负责人目视PASS或医院临床验收。
+
+三个自有服务受控TERM退出（-15），父exit0；原SQLite SHA808881…不变，原30存储对象和5业务表内容/source vs shadow逐项匹配，3case/3job/3result/3attempt/27assets不增。副本认证/期限更新独立记录；原数据/旧模型结果不写，所有POST变更/上传/Job/Worker403，未启动Worker/模型，F/B/update0，不消费旧96F，不源ZIP，不自动重试。结果与路径/SHA在v16新增READONLY_R71_REAL_ACCEPTANCE_20261012.json及唯一演示清单；影像/账户/DB正文不进Git。医院显示NOT_APPROVED/冻结与临床NOT_RUN；只读恢复能力可用于14日基础限定冻结决策，不依赖HU/head/E2收益。
+
+**管理网络修订收口：** 负责人允许正常联网/Wi-Fi/热点/HTTPS/投屏及既有合法控制面，网络本身不再是阻断或“只能完全离线/localhost”的制度要求；当前仍复用已实际PASS的本机只读恢复，不因放宽切换部署、重测无变更功能或增加CPU/MPS实时推理。全部独立GPU AI Node明确排除。原三图LOCAL_MVP_ONLY不自动升级医院展示/外传/截图/录屏许可；只由总控合并素材用途决定，无复杂场地/人员审批体系。清单旧真实恢复NOT_RUN已替换为R71实际技术PASS，人工目视/医院用途/临床状态保留。本轮只完成必要收据/文档提交，无新测试或恢复，收口后停止新增工作等待负责人用途决定。

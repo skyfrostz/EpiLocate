@@ -1,0 +1,384 @@
+{
+  "schema": "LOCAL_MVP_R71_REAL_READONLY_ACCEPTANCE_V1",
+  "status": "PASS_TECHNICAL_READONLY_RESTORE",
+  "date": "2026-10-12",
+  "restore_source_commit": "76d032edbd270a1e52b29750e3afbbbda6d7f508",
+  "acceptance_source_commit": "482215cecdb133e2edcb271d226cd9c2b32ee546",
+  "original_mvp_source_commit": "54ff1565f6c11a6deea873feab0a011e879528fb",
+  "permission_scope": "Existing LOCAL_MVP_ONLY; chief verified existing owner+DATA+visual-review scope in currentconversation; no new approval document or medicaltask",
+  "plan": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/readonly-r71-plan-v1.json",
+    "sha256": "5776dafca76e1016a5c807e118890218ee6fe4b75050e030c5f371332c9b5446",
+    "bytes": 1809
+  },
+  "binding_sha256": "b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4",
+  "output_directory": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/mvp-readonly-r71-20261013-01",
+  "elapsed_seconds": 7.979043208004441,
+  "maximum_seconds": 180,
+  "items": [
+    {
+      "id": 1,
+      "status": "PASS",
+      "detail": "Three own loopback services ready"
+    },
+    {
+      "id": 2,
+      "status": "PASS",
+      "detail": "Fresh login successful; old credential401, no credential logged"
+    },
+    {
+      "id": 3,
+      "status": "PASS",
+      "detail": "Original3 ResultIDs opened"
+    },
+    {
+      "id": 4,
+      "status": "PASS",
+      "detail": "DICOM SHA/selected Slice/dimensions match original three DATA records"
+    },
+    {
+      "id": 5,
+      "status": "PASS",
+      "detail": "Each of3 Results selected16/32/64; nine scale checks"
+    },
+    {
+      "id": 6,
+      "status": "PASS_TECHNICAL",
+      "detail": "Rendered DICOM ready; PNG224 dimensions, finite nondegenerate overlay transform and exact viewport/canvas bbox, pixel gate passed",
+      "human_visual_review": "NOT_RUN"
+    },
+    {
+      "id": 7,
+      "status": "PASS",
+      "detail": "Each reload restores64 scale and identical originalResult"
+    },
+    {
+      "id": 8,
+      "status": "PASS",
+      "detail": "Upload/newCase/prediction/Occlusion/algorithm/Worker/write403; originalguard source-bound"
+    },
+    {
+      "id": 9,
+      "status": "PASS",
+      "detail": "NoWorker/modelruntime launch; writes denied; jobs/attempts/results/assets unchanged inshadow andsource; no inference path"
+    },
+    {
+      "id": 10,
+      "status": "PASS",
+      "detail": "All3 own services stopped by SIGTERM; originalDB/SHA and30original objects unchanged; no new media exports"
+    }
+  ],
+  "flows": [
+    {
+      "case_index": 1,
+      "result_id": "result_b0c91754184443e38f3cc5d762798c64",
+      "input_sha256": "8394e5240ff928c4610dc5452f7d173b7bbf88d7ade43fb41893f7ae27fd3f7e",
+      "scales": [
+        16,
+        32,
+        64
+      ],
+      "geometry": [
+        {
+          "scale": 16,
+          "sequence": 1,
+          "matrix": [
+            1.11328125,
+            0,
+            0,
+            1.11328125,
+            144,
+            0
+          ],
+          "imageWidth": 224,
+          "imageHeight": 224,
+          "canvasWidth": 858,
+          "canvasHeight": 570
+        },
+        {
+          "scale": 32,
+          "sequence": 2,
+          "matrix": [
+            1.11328125,
+            0,
+            0,
+            1.11328125,
+            144,
+            0
+          ],
+          "imageWidth": 224,
+          "imageHeight": 224,
+          "canvasWidth": 858,
+          "canvasHeight": 570
+        },
+        {
+          "scale": 64,
+          "sequence": 3,
+          "matrix": [
+            1.11328125,
+            0,
+            0,
+            1.11328125,
+            144,
+            0
+          ],
+          "imageWidth": 224,
+          "imageHeight": 224,
+          "canvasWidth": 858,
+          "canvasHeight": 570
+        }
+      ],
+      "refresh": "PASS"
+    },
+    {
+      "case_index": 2,
+      "result_id": "result_95e011443d2f4d2e9c6fc4f71aa01984",
+      "input_sha256": "23935291ea6a761494973178f8aba45e8bee6879ec2b5e097866504c83839ecd",
+      "scales": [
+        16,
+        32,
+        64
+      ],
+      "geometry": [
+        {
+          "scale": 16,
+          "sequence": 1,
+          "matrix": [
+            1.11328125,
+            0,
+            0,
+            1.11328125,
+            144,
+            0
+          ],
+          "imageWidth": 224,
+          "imageHeight": 224,
+          "canvasWidth": 858,
+          "canvasHeight": 570
+        },
+        {
+          "scale": 32,
+          "sequence": 2,
+          "matrix": [
+            1.11328125,
+            0,
+            0,
+            1.11328125,
+            144,
+            0
+          ],
+          "imageWidth": 224,
+          "imageHeight": 224,
+          "canvasWidth": 858,
+          "canvasHeight": 570
+        },
+        {
+          "scale": 64,
+          "sequence": 3,
+          "matrix": [
+            1.11328125,
+            0,
+            0,
+            1.11328125,
+            144,
+            0
+          ],
+          "imageWidth": 224,
+          "imageHeight": 224,
+          "canvasWidth": 858,
+          "canvasHeight": 570
+        }
+      ],
+      "refresh": "PASS"
+    },
+    {
+      "case_index": 3,
+      "result_id": "result_5eaf92c809a34b59accf93bf2f2e63bc",
+      "input_sha256": "2079ccfa6e601d5c9580a9b7f45ebace0075956ccf758d0feb43052b2af4f3c3",
+      "scales": [
+        16,
+        32,
+        64
+      ],
+      "geometry": [
+        {
+          "scale": 16,
+          "sequence": 1,
+          "matrix": [
+            1.11328125,
+            0,
+            0,
+            1.11328125,
+            144,
+            0
+          ],
+          "imageWidth": 224,
+          "imageHeight": 224,
+          "canvasWidth": 858,
+          "canvasHeight": 570
+        },
+        {
+          "scale": 32,
+          "sequence": 2,
+          "matrix": [
+            1.11328125,
+            0,
+            0,
+            1.11328125,
+            144,
+            0
+          ],
+          "imageWidth": 224,
+          "imageHeight": 224,
+          "canvasWidth": 858,
+          "canvasHeight": 570
+        },
+        {
+          "scale": 64,
+          "sequence": 3,
+          "matrix": [
+            1.11328125,
+            0,
+            0,
+            1.11328125,
+            144,
+            0
+          ],
+          "imageWidth": 224,
+          "imageHeight": 224,
+          "canvasWidth": 858,
+          "canvasHeight": 570
+        }
+      ],
+      "refresh": "PASS"
+    }
+  ],
+  "page_error_types": [],
+  "external_request_count": 0,
+  "actual_model_forward": 0,
+  "actual_model_backward": 0,
+  "actual_updates": 0,
+  "new_jobs": 0,
+  "new_uploads": 0,
+  "worker_started": false,
+  "original_and_shadow_counts": {
+    "original": {
+      "cases": 3,
+      "inference_jobs": 3,
+      "inference_results": 3,
+      "job_attempts": 3,
+      "assets": 27
+    },
+    "shadow": {
+      "cases": 3,
+      "inference_jobs": 3,
+      "inference_results": 3,
+      "job_attempts": 3,
+      "assets": 27
+    }
+  },
+  "immutable_database_tables_match": true,
+  "semantic_table_sha256": {
+    "cases": "0b4ac7854d2e1f2de1f7195b5369ff194e5472ae2d1c61479c4e9e6b52b5f265",
+    "inference_jobs": "4bcfad531d20f318e282f983d84b0f7d8f13586fb90d9352dd8b4f6471237db9",
+    "inference_results": "62642b116beb81f3cbf7f5bdf6512d2ff873ebe0d7318f1ba828b106db759b25",
+    "job_attempts": "b018f261f7667cac8c8e1dce74732e5c118c2ddb00f5a4eda234db260168fd72",
+    "assets": "6fc51e2ae19db0d86e2ce88ff26c4c0dc1df6594e22071dbc1423584051c22fa"
+  },
+  "original_object_count_verified": 30,
+  "original_db_sha256": "808881c29d4bed4f4d489a2365fb898add76d5eab506f380beddb901fdaa0295",
+  "object_media_sidecar_sha256": {
+    "input-6ea0349b95979abc0d2834782894f1d603de91f6ed43a5a1.media": "9f38f26db8781ae6a7b6b86d9e83bbeaea934d7c3d5d8fa8128a7bddf097bacd",
+    "input-29caaf1ded352f96258c25fb08b99cea24c9267a16abe943.media": "9f38f26db8781ae6a7b6b86d9e83bbeaea934d7c3d5d8fa8128a7bddf097bacd",
+    "input-ce19b8512d4a3e85ca64e1827d45f80738632ab2bfa0b689.media": "9f38f26db8781ae6a7b6b86d9e83bbeaea934d7c3d5d8fa8128a7bddf097bacd",
+    "results-e292187d3d27e8301133fc47a75adb6cff05755a0912dc30.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-103a306eefeb7fcf230fae04536e85a97f61adfd82f5e3fc.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-641329c3c37937b6768940b4ca0b2ebe0215dad06320ce72.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-8674e0cf30338f93b3c3ce3f4d09b3303ad072aaaf3991a9.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-8fbfed3357df6fa00c1927b57dfb2e4055c3b1d08f89c8cd.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-043f16dbc11ff53db89f4bb15d3acbd19b1e2dcefd5200fc.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-18924d975264b21c8432aee9064bb2d7ecf5cb0283e7f4ee.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-1fafb15e71ded73060a22525dba3a3e129d945808774a14f.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-69903274e2ac4ab34173b897fd483fd40b4bf33b75dc1f70.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-b79c86a362167e3d794ae97fb16e94fa576008f4da3e10ee.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-f7ad3158f6adeb106cadda1c89b4f7e638dc60973e6ca560.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-e3339a80c359d0eb13d84544c318dbb2672824ab8e4b1a64.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-002e558c06faf60bc75b5991279be8335feb1acddb1f8653.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-51f8eaaf78f17c80c8eb24f7f43589e9c80a575d72546ae7.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-47bab830e26d34de0fd3247966202da780d0ecad48cc1120.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-39e6da74e4b8c741228ab762217d24a48c095a9ae828109e.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-60ff1245752ac501da6462e5e6e2b12f57cd1afee807b823.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-4337c9942718ed5ec5838832d5131e2c9bc2f6056f3f2e45.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-f8c29125379a389c885489a0f13d0aea3327aac42f58bea0.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-5adfe5674b5071447d8c7984f3f7e5e1e7ae7f6748634f50.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-9f309f6bd8e8c336c33e36cebcd6f9542e3f89c0dc1fd4ad.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-a2325d2df1f3ad00722e793ce76a0b3c9473090b22498b87.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-2dcf66470bc605df7ae3b0a32cd462a250b2edf50124979e.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-58c56d623acf66656a62495b0b49b1580055f1139b430216.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-cb437932d8966bb0afcf6b7ce9232a6041405f3ed9d07cfd.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-080c665a7ba46e6cd98269d891c541d69a0ed21d5d3012f6.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd",
+    "results-112210bb85d2c5d5a985621f3399230da5206cfbc6e0bef5.media": "96485abcb6721ebe4bf572c89357ab84ced0a346ef7ab2296a94b5509d9b01bd"
+  },
+  "original_assets_unchanged": true,
+  "owned_services_exit": [
+    {
+      "pid": 26432,
+      "exit_code": -15
+    },
+    {
+      "pid": 26433,
+      "exit_code": -15
+    },
+    {
+      "pid": 26434,
+      "exit_code": -15
+    }
+  ],
+  "snapshots_screenshots_videos_traces_pixel_exports": 0,
+  "media_files_created": [],
+  "private_snapshot_copied": true,
+  "scope": "Same original3 singleSOP saved results; no sourceZIP/newcases/medicalcomputation",
+  "human_visual_alignment": "NOT_RUN",
+  "hospital_display": "NOT_APPROVED",
+  "hospital_freeze": "NOT_RUN",
+  "clinical_validation": "NOT_RUN",
+  "references": {
+    "acceptance": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/mvp-readonly-r71-20261013-01/acceptance.json",
+      "sha256": "d6e4b6ddebdeb72fb4036706a5e44f26e560abb1744dc6c262006bda56d6e642",
+      "bytes": 4695
+    },
+    "browser": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/mvp-readonly-r71-20261013-01/browser.json",
+      "sha256": "98789731085a347280ea0669d32fd9f79a2628ffd09529513b8099d8ebbaa76c",
+      "bytes": 4404
+    },
+    "exit": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/mvp-readonly-r71-20261013-01/services/restore-exit.json",
+      "sha256": "9a4d0ccf0ec82b1d4b5e37a0dabaa8e66bdb27dcaec3ecf89afb37f1352cc608",
+      "bytes": 275
+    },
+    "ready": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/mvp-readonly-r71-20261013-01/services/restore-ready.json",
+      "sha256": "24315420bfe23c97cbebe46561c765c1e8d5cc59b3775bda5bf7cbe0c1637bfd",
+      "bytes": 110
+    },
+    "services_log": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/mvp-readonly-r71-20261013-01/services.log",
+      "sha256": "4018852fa4264ce085b958faebeaba544ae84a212c4f715576777683fe29cdbf",
+      "bytes": 260
+    },
+    "browser_log": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/mvp-readonly-r71-20261013-01/browser.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "network_policy_at_delivery": {
+    "normal_network_wifi_hotspot_https_screen_projection_legal_control_plane_allowed": true,
+    "current_passed_deployment": "Unchanged loopback read-only snapshot; no redeployment or network retest",
+    "all_independent_gpu_ai_nodes_excluded": true,
+    "new_cpu_mps_realtime_or_medical_compute_authorized": false,
+    "local_mvp_restricted_materials_hospital_use_automatically_granted": false
+  }
+}
