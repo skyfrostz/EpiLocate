@@ -190,7 +190,11 @@ def bounded_supervisor(value,modules):
     try:
         with original_open(budget.root/'parent-stdout.log','xb') as out,original_open(budget.root/'parent-stderr.log','xb') as err:
             with parent_native_logs(budget,out,err),redirect_stdout(Stream(budget,out,True)),redirect_stderr(Stream(budget,err,True)):
-                yield budget,Monitor()
+                try:yield budget,Monitor()
+                except BaseException as exc:
+                    budget.errors.append('PARENT_EXCEPTION_'+type(exc).__name__)
+                    print(json.dumps(dict(status='FAILED',error_type=type(exc).__name__),sort_keys=True))
+                    raise
     finally:
         try:budget.final()
         finally:
