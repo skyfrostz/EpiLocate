@@ -1,6 +1,14 @@
 # R77｜E2-R 实际执行入口准备
 
-状态为 **PREPARED_NOT_EXECUTED / BLOCKED_BY_APPROVAL**。这是一份科研读出入口交付，不是新的 MVP 联调或医院展示。固定源码 `e303595099b31d7ab6f66652feda1b7fdffc1fa5`；仅复用既有加载器、监督器、全局计数和恢复队列，没有真实医学调用。
+状态为 **PREPARED_NOT_EXECUTED / BLOCKED_BY_NEW_DISPATCH**。这是一份科研读出入口交付，不是新的 MVP 联调或医院展示。固定源码 `r77-fixed-v1`；仅复用既有加载器、监督器、全局计数和恢复队列，没有真实医学调用。
+
+## 原 R77 执行核验
+
+原唯一真实 dispatch 已消费且不可重跑：dispatch SHA `53fa21e2e40e4c759acee231fc8c20913ad0e6bc2fd9a5eb9bd308d46ef387ec`。监督收据状态为 `FAILED`，原因是 `MONITOR_FAILURE_ValueError`，具体入口错误 `LIVE_TASK_OWNED_CHILD_REQUIRED`；`slot_completed=true`，`forward=0`、`backward=0`、`sequence=0`、`cases={}`，未进入 ADMITTED、模型加载或医学前向。这是监督入口失败，不能记为科学结果失败。
+
+原收据保留在 `.local/phase2/e2-r-case3-20261013-v5-int-1-supervision/e2-r-case3-20261013-v5-int-1/`，STOP SHA `b7f86669e5e89727699279f2058f5d8111380691ed934bc79b49bb546b09e47b`，`supervisor-receipt.json` SHA `4b2672e04d898923ee6a8cfbd7af0cc80c63f4710a616f2809a50b3415b9cbc5`，`finished.json` SHA `a06569c7f2e62a9d0297f2aff8574b76b1c959ce5c8fa26a9ed9c03ba3960235`。生成复现证据在 `.local/e2-r-readout-v5-20261013/full-failure-reproduction-v1/reproduction.json`，未使用真实队列、影像、权重或模型。
+
+最小修复保留真实 `subprocess.Popen` 身份，并在实例上延迟 `poll()` 直到有界 stdout/stderr drain 完成，未修改共享 `execution_lock.py` 或监督器。25 项生成定向测试通过（含真实 `DeviceSlot.track_child()` 接受检查）。修复后的新绑定为 `.local/e2-r-readout-v5-20261013/execution-binding-r77-fixed-v1.json`，SHA `c62d7d98d00b3d132e14652307044381161145bc9fbe5107a53eafd2ea648cfa`，使用新 task/job `...INT-2`；必须重新取得 owner/admission/独占 dispatch，当前不自动执行。
 
 唯一最终绑定：
 

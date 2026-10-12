@@ -1220,3 +1220,11 @@ INTEGRATION 原工作树/分支，开始 HEAD `75d2ef118ea717e8c3cbcb413e247f25d
 25项生成定向验证PASS2.74秒；包含实际共享guard的生成完成记录和一个非医学Python日志fixture，没有占用计算slot或读取医学数组/权重。最终只检查命令exit0、Torch未导入/模型调用0/队列观察0；24项INT/IO源、16项LOC源、8项共享模块与8项固定依赖条目闭合。旧MVP66源/构建全部MATCH，原DB/影像/对象未读；无服务、MPS/GPU、新展示或旧验收重跑。
 
 最终 binding SHA `92fb6d542b69d094f0e3fb65474f16827bc75d5f81b2632d584f225f0bf8f928`，申请item SHA `0f330e7ef460f3e00811583f3e4ea93aa5a4f8232d8800fef806ebe2e97aa53a`。交付 `hospital-release/20261013-e2-r-execution-preparation/` 状态 **PREPARED_NOT_EXECUTED / BLOCKED_BY_APPROVAL**，缺新E2-R owner分项批准、原恢复队列中新task准入及独占dispatch/window。一次执行argv已固定，仅待最终dispatch及SHA；未执行。CT-FM既有科学批准保留，本线不重复申请；基础v16/E2/F0真实消费验收继续待命。
+
+### 2026-10-13｜R77 唯一执行故障核验与新接缝修复
+
+R77 唯一真实 dispatch 已消费，原监督返回 `FAILED / MONITOR_FAILURE_ValueError`，具体为 `LIVE_TASK_OWNED_CHILD_REQUIRED`。`slot_completed=true` 但 `forward=0`、`backward=0`、`sequence=0`、`cases={}`，没有 ADMITTED、模型加载或医学前向；这是监督入口失败，不能写成科学失败。原 STOP、supervisor receipt、finished 和父日志原样保留，未重跑原命令、未重建原输出目录。
+
+根因限定在 INTEGRATION 的 `qa/e2_readout_output.py`：自定义进程代理不满足共享 `DeviceSlot.track_child()` 的 `isinstance(subprocess.Popen)` 身份契约。最小修复返回真实 `Popen`，为该实例保留排空完成后的 `poll()` 语义，未修改共享监督器、设备锁或历史协议。生成复现和 25 项定向测试均只使用生成 child/目录；新增测试实际调用共享 `DeviceSlot.track_child()`，确认身份、监控回调和 stdout/stderr drain 正常。
+
+修复后生成新 binding `execution-binding-r77-fixed-v1.json`（SHA `c62d7d98d00b3d132e14652307044381161145bc9fbe5107a53eafd2ea648cfa`），改用新 `...INT-2` task/job，状态 `PREPARED_NOT_EXECUTED / BLOCKED_BY_NEW_DISPATCH`。仍需总控重新确认 owner、同恢复队列的新 task admission 和独占 dispatch；本轮不自动执行。医院默认、真实 CT、临床验证和最终冻结继续 `NOT RUN`。

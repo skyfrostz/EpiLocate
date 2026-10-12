@@ -2,6 +2,7 @@
 import hashlib
 import json
 import os
+import subprocess
 from pathlib import Path
 import sys
 import time
@@ -55,11 +56,17 @@ def test_native_stdout_stderr_are_drained_bounded_and_failure_recorded(tmp_path,
     wave.atomic_json=lambda p,v:Path(p).write_text(json.dumps(v));wave.subprocess=output.subprocess
     wave.SystemMonitor=lambda:type('Monitor',(),dict(processes=lambda self:{},pressure=lambda self:{}))()
     v=value(tmp_path)
+    index=json.loads((ROOT/'hospital-release/20261011-recovery-chain-v12/manifest.json').read_bytes())
+    execution_lock=load_supervisor(index)['execution_lock']
     with output.bounded_supervisor(v,dict(wave1_supervisor=wave,coordinator_writer=writer,execution_lock=execution)) as (b,monitor):
         os.write(1,b'p'*100000)  # native parent output also belongs to this task
         job=b.root/'job';job.mkdir()
         with (job/'stdout.log').open('xb') as out,(job/'stderr.log').open('xb') as err:
             p=wave.subprocess.Popen([sys.executable,'-c','import sys; sys.stdout.buffer.write(b"x"*200000); sys.stderr.buffer.write(b"y"*100000)'],stdout=out,stderr=err)
+            assert isinstance(p, subprocess.Popen)
+            slot_dir=b.root/'generated-slot';slot_dir.mkdir()
+            slot=execution_lock.DeviceSlot(slot_dir, {'job_id': v['job_id']})
+            slot.track_child(p)
             deadline=time.monotonic()+5
             while p.poll() is None:
                 assert time.monotonic()<deadline;time.sleep(.01)

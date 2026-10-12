@@ -14,8 +14,9 @@
     "sha256": "0f330e7ef460f3e00811583f3e4ea93aa5a4f8232d8800fef806ebe2e97aa53a"
   },
   "binding": {
-    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-v5-20261013/execution-binding-r77-final-v4.json",
-    "sha256": "92fb6d542b69d094f0e3fb65474f16827bc75d5f81b2632d584f225f0bf8f928"
+    "path": ".local/e2-r-readout-v5-20261013/execution-binding-r77-fixed-v1.json",
+    "sha256": "c62d7d98d00b3d132e14652307044381161145bc9fbe5107a53eafd2ea648cfa",
+    "status": "PREPARED_NOT_EXECUTED / BLOCKED_BY_NEW_DISPATCH"
   },
   "branch": "codex/epi-next-integration-20261009",
   "check": {
@@ -68,6 +69,19 @@
     "--execute"
   ],
   "execution": "BLOCKED_BY_APPROVAL",
+  "failure_receipts": {
+    "finished_sha256": "a06569c7f2e62a9d0297f2aff8574b76b1c959ce5c8fa26a9ed9c03ba3960235",
+    "reproduction": "./.local/e2-r-readout-v5-20261013/full-failure-reproduction-v1/reproduction.json",
+    "stop_sha256": "b7f86669e5e89727699279f2058f5d8111380691ed934bc79b49bb546b09e47b",
+    "supervisor_receipt_sha256": "4b2672e04d898923ee6a8cfbd7af0cc80c63f4710a616f2809a50b3415b9cbc5"
+  },
+  "fix": {
+    "generated_tests": "25 passed",
+    "popen_identity": "REAL_SUBPROCESS_POPEN",
+    "real_execution": "NOT RUN",
+    "scope": "NEW_E2_R_SEAM_ONLY",
+    "shared_supervisor_modified": false
+  },
   "historical_loader_binding_reference": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/next-application-v4/selected-fidelity-binding-v1.json",
     "sha256": "cb5468820ab76aa0de5736ef1a6bac7ea630dc438743afe7c9428274ab48dc73"
@@ -104,7 +118,7 @@
     "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/worker/next_application.py": "5fb3e43452c7643e521f3784c53e94fe22b019a8356e143eab2bf0bca73a0dcd",
     "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/epi_next/p1_storage_v4.py": "bc431dab482538ee3f9f1024c0b89648525f887deeb740c86065f797e9fb39b3"
   },
-  "job_id": "e2-r-case3-20261013-v5-int-1",
+  "job_id": "e2-r-case3-20261013-v5-int-2",
   "loader_entry": "epilocate_next.e2_readout_launch.run_existing_readout",
   "loader_source": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/epilocate_next/e2_readout_launch.py",
@@ -176,8 +190,21 @@
   "real_queue_observed": false,
   "reporting_note": "64MiB lifetime conservative write reservations including each ledger update; replacements/failed writes never refund; independent retained/temp peak checks; 8MiB reserved terminal IO, oversize terminal receipt fails closed",
   "schema": "EPI_NEXT_E2_R_EXECUTION_PREPARATION_R77_V1",
-  "source_commit": "e303595099b31d7ab6f66652feda1b7fdffc1fa5",
+  "source_commit": "r77-fixed-v1",
   "status": "PREPARED_NOT_EXECUTED",
+  "superseded_consumed_execution": {
+    "backward": 0,
+    "cases": {},
+    "dispatch_sha256": "53fa21e2e40e4c759acee231fc8c20913ad0e6bc2fd9a5eb9bd308d46ef387ec",
+    "error": "LIVE_TASK_OWNED_CHILD_REQUIRED",
+    "forward": 0,
+    "medical_model_calls": 0,
+    "reason": "MONITOR_FAILURE_ValueError",
+    "rerun": "PROHIBITED",
+    "sequence": 0,
+    "slot_completed": true,
+    "status": "FAILED"
+  },
   "superseded_drafts_not_dispatchable": true,
   "supervisor_dependency_entries": 8,
   "supervisor_index": {
@@ -218,7 +245,7 @@
       "sha256": "d522a9142b432e5ac55088369687d45f446ca1368fd0543332da2f069c76bdb5"
     }
   },
-  "task_key": "EPI-NEXT-E2-R-CASE3-CPU-20261013-V5-INT-1",
+  "task_key": "EPI-NEXT-E2-R-CASE3-CPU-20261013-V5-INT-2",
   "tests": {
     "final_delta": "Only bound parent summary/exception output and final binding pointer corrected; no wider tests rerun; final metadata gate passed",
     "log": "generated-tests.log",

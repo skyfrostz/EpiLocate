@@ -16,8 +16,8 @@ from qa.next_selected_fidelity_parent import load_supervisor, CPU_ENVIRONMENT, P
 
 REQUEST_SHA = '1d2611e8371a3d8074441f53e2832fdc46f4f38b5011a58ffb22f37ae9b3ae52'
 INDEX_SHA = '12e808bcf23f80571886fa0e8c68efa88a11fb833a51db002ab1820d20fc1a6d'
-TASK = 'EPI-NEXT-E2-R-CASE3-CPU-20261013-V5-INT-1'
-JOB = 'e2-r-case3-20261013-v5-int-1'
+TASK = 'EPI-NEXT-E2-R-CASE3-CPU-20261013-V5-INT-2'
+JOB = 'e2-r-case3-20261013-v5-int-2'
 COMPUTE = dict(device='CPU', forward=18, planned_forward=14, adapter_check_forward=2,
                readout_forward=12, unallocated_forward=4, backward=0, updates=0,
                seconds=120, output_bytes=67108864, retry=0)

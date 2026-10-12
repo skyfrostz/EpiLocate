@@ -1,1 +1,1 @@
-{"arrays_weights_read": false, "model_calls": 0, "queue_observations": 0, "slot_completed": null, "status": "ENGINEERING_READY_OWNER_ADMISSION_SLOT_PENDING", "torch_imported": false}
+{"arrays_weights_read": false, "binding": "execution-binding-r77-fixed-v1.json", "model_calls": 0, "queue_observations": 0, "slot_completed": null, "status": "PREPARED_NOT_EXECUTED_BLOCKED_BY_NEW_DISPATCH", "torch_imported": false}

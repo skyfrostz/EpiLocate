@@ -176,12 +176,20 @@ def bounded_supervisor(value,modules):
         threads=[]
         for pipe,target in ((process.stdout,stdout),(process.stderr,stderr)):
             thread=threading.Thread(target=drain_pipe,args=(pipe,target,budget),daemon=True);thread.start();threads.append(thread)
-        class Process:
-            def poll(self):
-                result=process.poll()
-                return None if result is not None and any(t.is_alive() for t in threads) else result
-            def __getattr__(self,name):return getattr(process,name)
-        return Process()
+        # Keep the real Popen identity required by DeviceSlot.track_child().
+        # Delay the observed exit until both bounded drainers have reached EOF,
+        # preserving the old adapter's no-log-loss polling behavior.
+        native_poll=process.poll
+        def poll_after_drain():
+            result=native_poll()
+            if result is None:
+                return None
+            for thread in threads:
+                thread.join()
+            return native_poll()
+        process.poll=poll_after_drain
+        process._e2_drain_threads=threads
+        return process
     wave.subprocess=SimpleNamespace(Popen=popen,check_output=subprocess.check_output)
     monitor=wave.SystemMonitor()
     class Monitor:

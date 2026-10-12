@@ -1599,3 +1599,11 @@ INTEGRATION唯一负责演示清单，原工作树/codex/epi-next-integration-20
 最终私有binding `.local/e2-r-readout-v5-20261013/execution-binding-r77-final-v4.json` SHA `92fb6d542b69d094f0e3fb65474f16827bc75d5f81b2632d584f225f0bf8f928`，item `approval-item-r77-final-v4.json` SHA `0f330e7ef460f3e00811583f3e4ea93aa5a4f8232d8800fef806ebe2e97aa53a`；只v4可合并最终申请，此前草稿未派发。24项INT/IO源与16项LOC源、原8共享模块/8依赖条目及包版本闭合；README/manifest给定一次实际argv，尚缺总控真实dispatch SHA。累计字节以保守写入预留报告，不冒充保留大小或实测性能；终态超过剩余额度会拒绝，不承诺报告一定成功。
 
 旧MVP binding b03d88d…的66源/构建逐项MATCH；本轮没有读原DB/CT/对象，未启动服务/MPS/GPU、新展示或重跑旧验收。FrozenBaseline/A-B-C/GT-v1/旧Occlusion/5F收据不改。R76 `DECLARED_FIXED` 文档已更正为允许解释类与预测类不同；原代码/生成测试正确，不据此回写科学历史。状态 **GENERATED_ENGINEERING_PASS / PREPARED_NOT_EXECUTED / BLOCKED_BY_APPROVAL**，真实研究结果和E2/F0应用消费均NOT_RUN。CT-FM已有科学批准维持，新增申请仅E2-R；交总控合并待批，不自行批准或占槽。
+
+### 2026-10-13｜R77 执行入口故障与最小修复
+
+唯一 R77 真实执行已退出 `FAILED`，监督原因 `MONITOR_FAILURE_ValueError`，根因 `LIVE_TASK_OWNED_CHILD_REQUIRED`。父监督已完成 slot 收尾，但计数为 0F/0B/0 sequence、无 cases，未进入 child admission、模型或医学前向。原收据与失败目录保全；未知事务不重试、不把监督故障解释为科学结果。
+
+INTEGRATION 仅修改新接缝 `qa/e2_readout_output.py`：保留真实 `subprocess.Popen` 对象以满足共享 `DeviceSlot.track_child()` 身份检查，并将 drain 线程纳入实例 `poll()` 的退出观察，继续执行有界日志排空。共享 `execution_lock.py`、`wave1_supervisor.py`、队列和历史协议未修改。生成测试使用普通 Python child 和共享 `DeviceSlot`，25 项窄测试全部通过；无真实 CT、权重、模型调用、GPU 或队列占用。
+
+新 readiness binding 为 `execution-binding-r77-fixed-v1.json`，SHA `c62d7d98d00b3d132e14652307044381161145bc9fbe5107a53eafd2ea648cfa`，使用独立 `...INT-2` task/job。原 `final-v4` binding 和原 `...INT-1` 输出继续作为不可重跑的历史记录。修复结果只达到 `PREPARED_NOT_EXECUTED / BLOCKED_BY_NEW_DISPATCH`，须由总控重新发布 owner/admission/dispatch 后才可考虑接续；本轮未执行新真实任务。
