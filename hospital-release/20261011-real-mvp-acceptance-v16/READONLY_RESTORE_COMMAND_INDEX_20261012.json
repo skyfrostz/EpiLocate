@@ -1,0 +1,64 @@
+{
+  "schema": "LOCAL_MVP_READONLY_COMMAND_INDEX_V1",
+  "status": "IMPLEMENTED_GENERATED_VERIFIED_REAL_START_NOT_RUN",
+  "binding": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/read-only-mvp-binding-v1.json",
+    "sha256": "b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4"
+  },
+  "restore_source_commit": null,
+  "entry": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/local_mvp_readonly.py",
+    "sha256": "3aabbe3c3b57b156d3805c5262ae79ee9a3879a8f15c9f4c35677de25c3a4e44"
+  },
+  "cwd": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": ".:frontend/.local/mvp-20261011-browser-deps"
+  },
+  "metadata_argv": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/local_mvp_readonly.py",
+    "--binding",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/read-only-mvp-binding-v1.json",
+    "--binding-sha",
+    "b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4"
+  ],
+  "serve_argv": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/local_mvp_readonly.py",
+    "--binding",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/read-only-mvp-binding-v1.json",
+    "--binding-sha",
+    "b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4",
+    "--serve",
+    "--run-directory",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/mvp-readonly-20261014-01",
+    "--dist",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/mvp-20261011-dist"
+  ],
+  "input_scope": "Original DATA v2 three approved derivatives only; not a second allowlist",
+  "hospital_approval": false,
+  "real_restore_started": false,
+  "source_database_read_or_copied_this_delivery": false,
+  "real_images_read_or_displayed": false,
+  "old_m0_dist_files_sha_verified": 34,
+  "bound_source_count": 66,
+  "metadata_stdout": {
+    "status": "METADATA_CHECK_ONLY",
+    "model_calls": 0,
+    "service_starts": 0,
+    "source_db_or_images_read": false
+  },
+  "generated_tests": {
+    "passed": 4,
+    "seconds": 2.09,
+    "scope": "three generated saved cases/results/27 PNGs; API and actual loopback HTTPS, no Worker/model/codec/browser"
+  },
+  "known_limits": [
+    "No new real snapshot startup or viewport verification",
+    "Only saved legacy Occlusion Result2.0 is supported",
+    "Read-lease renewal and auth changes confined to shadow DB; 8h sessions, restart fresh run after expiry",
+    "Local self-signed TLS; do not install a system certificate or expose beyond loopback",
+    "Current source stack is additive newer backend under read-only guard; not a repeat of old54ff real acceptance"
+  ]
+}

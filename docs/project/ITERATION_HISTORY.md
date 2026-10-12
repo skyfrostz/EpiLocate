@@ -1169,3 +1169,13 @@ INTEGRATION原epi-next-integration工作树/codex/epi-next-integration-20261009�
 发现条件性新接缝：a0.phase独立setsid worker不被Wave1按PGID的owned_group采样。仅新增无患者进程表fixture，直接执行锁定函数（fake getsid/table），同组纳入/独立组排除，exit0；不spawn、不ps、不取锁，真实病例/codec/model/队列读写均0。建议DATA本地接缝确保worker RSS/自身身份停止/reap再完成，外parent强杀时不得以finally或外finished证明独立组退出。只读查找失败是不存在路径/glob，无真实任务失败。正式简短兼容性审查在hospital-release/20261012-hu-v5-seam-review-v20，供总控传DATA；DATA唯一实现新入口和T12控制，ENC审核数值，本线不重跑已完成监督测试、不改DATA或UNKNOWN、不制造实际验收。
 
 **实际调用链澄清：** 总控补充后只读核对已允许v4最终执行JSON（SHAe8b3fb…）内thin_wrapper_source，与其wrapper SHA18da6b9b0b9184187d972b7c5ecb93b0bb75ee7888265839d7c45098ecd0e364一致。v4是双原锁/单次Popen CLI/communicate90秒/CLI内phase，无Wave1嵌套；不要求新架构。初始条件性Wave1进程表检查被实际wrapper超时块生成注入取代：假两次Timeout、fake killpg只处理CLI组100，独立phase组101未证明回收，exit0；无实际process/native调用。补充DATA局部建议：新v5 exact entry/task/request重复检测（原regex仍v3）、phase握手PID/PGID/start与合作stop/reap/未知阻断、bounded stdout/stderr及final reporting失败不覆盖durable primary/counters。没有假造历史孤儿进程或真实验收，原DATA/共享源码不改。
+
+### 2026-10-12｜10月14日基础演示清单与计算关闭的本机恢复
+
+INTEGRATION唯一负责演示清单，原工作树/codex/epi-next-integration-20261009，开始HEAD `98c494d721b108ad97cfbf0ed61b642eec5925d8`。总控管理补充将HU v5/新分类头/E2正收益移出基础关键路径；先发布v16目录DEMO_CHECKLIST_OCT14_20261012.md，复用原54ff源/510d交付的3/3真实MVP，不重跑，不修改原16个已绑定v15/v16文件。DATA唯一v2 ledger bc919838…保持，清单三文件用途候选仅引用原case_index及派生SHA，原权限LOCAL_MVP_ONLY_NOT_EXTERNAL_UPLOAD_AUTHORIZATION；医院用途/受众/场地/设备/录屏仍待负责人批准，无新allowlist。
+
+总控进一步授权最小非医学只读恢复开发，新增qa/local_mvp_readonly.py：仅loopback，原SQLite/对象/dist保全；新私有运行目录和DB副本签发8小时新认证，必要时仅续副本的原三源读取期限，撤销旧凭据/Worker副本准入；所有新任务/上传/变更和Worker接口403，无Worker/model/queue导入或启动。原Result2.0/source身份不改，页面只读提示，bound source/旧dist和对象SHA防漂移；三自有服务ready后才发布URL，正常单次停止记录退出/sourceDB不变。恢复接口复用原Backend/Gateway/Vue，不重构UI/算法/调度/工作树。
+
+4项定向生成验收PASS2.09s：3生成Case/Result、27 PNG，新认证/刷新/过期读取副本/对象SHA/禁止写和Worker/无覆盖及范围拒绝，实际loopback HTTPS登录/静态提示/保存结果查询及三服务退出；无真实模型/DICOM解码/浏览器/截图/真实DB复制或像素读取。初期生成fixture漏accepted attempt补齐；HTTPS首次暴露backend冷启动竞态，后一次正常停止冒泡KeyboardInterrupt，均修正并留生成目录，不算医学重试。原业务测试不全量重跑；2项依赖deprecation提示保留。
+
+生成验收与原3/3真实MVP分开：恢复真实启动/viewport复核NOT RUN。私有绑定SHA b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4，66源/旧构建文件闭合，旧dist34文件SHA与受测readiness MATCH；实际metadata-only exit0、不读真实DB或影像。当前E2只有默认关闭的接缝/合成链，独立5F不等于真实应用集成，target差异保留；CTFM真实新头/volume handler未装入基础包。医院默认null/展示NOT_APPROVED/冻结与临床NOT RUN；无push、真实显示/录屏/模型或新数据职责扩展。受测恢复源完整SHA提交后补入唯一命令索引与清单。

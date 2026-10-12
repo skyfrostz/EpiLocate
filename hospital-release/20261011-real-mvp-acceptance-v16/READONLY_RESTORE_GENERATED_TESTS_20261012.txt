@@ -1,0 +1,4 @@
+env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python -m pytest backend_v2/tests/test_local_mvp_readonly.py -q --tb=short
+4 passed, 2 warnings in 2.09s
+starlette BlockingPortal and httpx string verify deprecation warnings; preserved.
+First generated attempt: missing accepted_attempt fixture, fixed without real input. Service attempt1: authentication before backend readiness; attempt2: normal stop surfaced KeyboardInterrupt after cleanup; both fixed. No real snapshot or model run.
