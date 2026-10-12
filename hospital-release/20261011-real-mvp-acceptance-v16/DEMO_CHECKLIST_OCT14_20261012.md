@@ -90,6 +90,26 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps
 
 恢复源76d032保持；此次验收封装源482215cecdb133e2edcb271d226cd9c2b32ee546，不替换旧54ff原3/3。三服务受控SIGTERM退出（exit_code=-15），恢复父进程exit0；原DB/SHA、30对象及Case/Job/Result/Attempt/Asset表不变。只在私有副本更新认证/读取期限。上传/新任务/Worker/写接口403，无Worker或模型启动，新增F/B/update0；无PNG/DICOM/视频/HAR/截图/像素导出。已有记录留原本地权限；医院受众展示与录屏仍NOT_APPROVED。失败不重启、未运行新医学任务。
 
+## R72｜A/B已有方案比较与选择（2026-10-12）
+
+**选择A，保留已PASS实现，不切换部署。** 本次仅核对已有源码、配置和收据；R72所述“真实恢复未完成”是较早状态，由R71实际技术PASS及收口提交 `e1731dd413bd1782600c94d3955d62fa2a80522d`更新。本轮没有启动、重跑、断网测试、云/SSH访问或新增验收。
+
+| 比较项 | A：本机只读恢复 | B：已有联网前后端 |
+|---|---|---|
+| 成熟度 | R71 `PASS_TECHNICAL_READONLY_RESTORE`，人工目视NOT_RUN；三服务已正常退出 | 2026-09-28 Phase5有合成数据、含RTX3090的历史全链路PASS；当前无GPU只读方案 **NOT_VERIFIED**，不推断线上状态 |
+| 启动 | 既有单一恢复入口启动Backend/Gateway/HTTPS edge三自有服务，ready后给URL；新私有目录/认证，旧dist不变 | 模板含Nginx/Gateway/Backend/PostgreSQL/MinIO及Sweeper；当前启动、认证有效性及关闭GPU后的配置未核验，NOT_VERIFIED |
+| 历史Result | R71原3Result、9次16/32/64选择及三例刷新实际PASS | 历史报告仅证明当时合成Result持久化/读取；当前可读性及本地三Result在B的可用性NOT_VERIFIED |
+| 数据路径 | 原SQLite复制到新私有运行目录；原对象目录经SHA核对只读，DICOM与资产经认证API返回 | 历史路径为公网HTTPS→Nginx→Gateway→Backend→PostgreSQL/私有MinIO；没有当前三图云端可用或外传授权证据 |
+| 网络/GPU | 所有通信为本机loopback，无云/DNS/独立GPU节点依赖；不启动Worker/model | 历史模板有Worker直达Backend路由，报告含独立GPU；当前是否已隔离GPU及公网/服务健康NOT_VERIFIED |
+| 回退 | 停止已知自有恢复进程，保留原v16/DB/对象/dist；后续获准启动使用新目录，已消耗R71目录/命令不重用 | 历史报告有同盘配置/构建回退说明；当前备份和恢复有效性NOT_VERIFIED，本轮不操作远程服务 |
+| 额外医学计算 | 无；R71新增F/B/update0，所有新任务/上传/Worker/写接口403 | 读取已保存结果原则上不需推理，但B当前无计算约束未验收；不发任务、不用额外医学计算补证据 |
+
+A实际通信：本机浏览器 `https://127.0.0.1:<edge>/mvp/`读取旧dist；同源 `/auth/`、`/api/v2/`由edge经HTTP loopback转Gateway，再转Backend；认证/会话与SQLite副本均在新私有目录，Backend使用ReadonlyStore读取原本地对象，不走MinIO/S3或云控制面。端口由每次启动分配；以该次ready/私有配置为准，不复用R71端口。依据：`qa/local_mvp_readonly.py`、`qa/phase5_local_https.py`、`session_gateway/app.py`；R71 external_request_count=0、model_calls=0、worker_started=false及退出收据与现存SHA一致。
+
+**断公网影响为配置推断，不是断网验收：** 已安装依赖、旧dist和原对象齐备且本机三服务正常时，A登录/结果/图层/刷新路径没有公网依赖；断公网不应影响这些功能。外部控制服务和依赖网络的无线投屏可能受影响，投屏链路未验收；本机服务/存储或8小时认证失效仍会影响A。正常联网/HTTPS/投屏允许；不为联网放弃A，也不将网络许可升级为三图医院用途许可。
+
+精确版本及回退沿用上文：恢复源 `76d032edbd270a1e52b29750e3afbbbda6d7f508`、R71验收源 `482215cecdb133e2edcb271d226cd9c2b32ee546`、原MVP源 `54ff1565f6c11a6deea873feab0a011e879528fb`、v16交付 `510d387ef02d55c22f01f9cbd282137ea1274934`；binding SHA `b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4`保持。R71公开收据SHA `38b0cbd8ae2277588da71cb38715c0fd70469f13192cdfef7efd05dc053bca8c`；B只引用[历史报告](../../docs/phase5/gpu_final_handoff_report.md)和`deploy/mvp/nginx-locations.conf`/服务模板，不扩写成当前部署验收。医院用途未批准、最终冻结NOT RUN；未获素材用途批准时沿用无受限像素的流程/架构说明。
+
 ## 管理网络修订与本轮停止点
 
 正常网络不是阻断，也不要求完全离线或localhost为唯一可能部署。当前按已实际PASS的本机只读恢复交付，不因政策放宽切换部署/增加计算；全部独立GPU AI Node均不进入展示架构。三图原LOCAL_MVP_ONLY素材边界不变，医院展示用途未自动获批；未获批则采用无受限像素的技术示意。R71原独立执行已退出，本轮不新增测试/恢复/截图/录屏，停止新增工作，等负责人用途决定。
