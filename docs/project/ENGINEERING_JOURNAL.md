@@ -1525,3 +1525,9 @@ INTEGRATION 原工作树epi-next-integration/分支codex/epi-next-integration-20
 **5F绑定修正及工程状态补录：** 固定独立case3/F5/B0/update0/CPU120秒/64MiB的唯一task-key/Job/output目录，私有科学binding与外置chief dispatch分离；dispatch单向绑定binding及包含CLI的18源SHA，消除完整文件哈希自引用，不创建owner或新准入收据。6项生成chain定向测试PASS0.02s（完整链/四种篡改/无dispatch和已有输出），metadata argv exit0、输出目录未建/队列观察0。E2-Q只有单Job加载/执行函数，缺三例共享全局计数/时间启动封装，准确标ENGINEERING_NOT_READY；5F代码/参数绑定可交chief，实际新批准/准入/派发仍缺，医学NOT RUN。不重跑已有后端/前端整套。
 
 **受测源码固定：** 应用接缝source Git SHA `6f1a1f1df87a4a9c4b9f1b58c358702c601aed54`；v17 manifest、申请片段和source-freeze metadata已绑定。5F私有binding SHA `cb5468820ab76aa0de5736ef1a6bac7ea630dc438743afe7c9428274ab48dc73`、18个源码字节逐项MATCH；metadata检查仅读取源码/JSON，未读取CT/权重/准备数组/旧Mask，唯一输出目录仍不存在。56个source提交文件审计不含私有影像/模型/数据库/凭据；显式base文档检查和staged diff PASS。该提交不是医院冻结批准，5F未派发，E2-Q三例封装ENGINEERING_NOT_READY，CTFM真实head/handler未交付。仅本地commit，无push/部署/第三方上传。
+
+### 2026-10-12｜独立5F外置dispatch草稿与父监督入口
+
+INTEGRATION原epi-next-integration工作树/codex/epi-next-integration-20261009，开始HEAD `22f2fa78e5e99e43214e8ad2ada3892592ae51ee`。总控交接真实分项请求SHA9900e1211e768ec20a4c688a7021e28e93335e8f8f82c279a4891ed15e33c5dd、owner SHA1856097dc8c161cd3d0cdbad150fd358198d09a1947a42a582b897bd7de50443、新准入SHA51ff321e8517088516fc9d713f001ba1e78414572bd174051930e3f7e0160bbb，metadata逐项匹配E2-FIDELITY-5F及精确task-key。新增最小父入口/生成测试/v18审核包，原v17全部文件和固定binding cb5468820ab76aa0de5736ef1a6bac7ea630dc438743afe7c9428274ab48dc73、18个绑定源码逐字保留。实际dispatch/唯一UTC窗口未发布，草稿不可执行，不假造owner/receipt或占用时段。
+
+父入口复用原v12八模块/十依赖snapshot和run_supervised，独立120秒从子进程前覆盖导入/加载/校验/5F；CPU1环境明确OMP/MKL/OPENBLAS及实际intra/inter线程收据代码，线程测量无额外模型前向。持久计数5F/0B/0update、64MiB科学结果、原身份校验/采样预停/退出恢复路径保持，不新增锁/队列或重试。8项生成定向测试PASS0.03s（使用监督和Torch double）；实际metadata CLI exit0，原source/package/bundle验证PASS、真实Torch未导入，进程启动/队列读取写入/数组权重旧Mask读取/医学调用均0。不重跑应用或浏览器套件。E2-Q/新应用/医院展示不在本次批准范围，医院最终冻结/临床NOT RUN；受测父源SHA提交后仅补metadata。

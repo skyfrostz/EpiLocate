@@ -1,0 +1,134 @@
+{
+  "schema": "EPI_NEXT_5F_PARENT_HANDOFF_INDEX_V18",
+  "status": "WAIT_CHIEF_UNIQUE_EXECUTION_SLOT",
+  "base_commit": "22f2fa78e5e99e43214e8ad2ada3892592ae51ee",
+  "parent_source_commit": null,
+  "original_application_source": "6f1a1f1df87a4a9c4b9f1b58c358702c601aed54",
+  "original_binding": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/next-application-v4/selected-fidelity-binding-v1.json",
+    "sha256": "cb5468820ab76aa0de5736ef1a6bac7ea630dc438743afe7c9428274ab48dc73"
+  },
+  "dispatch_draft": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/next-application-v4/selected-fidelity-dispatch-draft-v2.json",
+    "sha256": "c4dcb67e5fb0618639d7a9169bb55b954d075efb9b36c0637b5d53eae8ddff0d"
+  },
+  "parent_entry": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/next_selected_fidelity_parent.py",
+    "sha256": "0427103d557bff5d5ef60bdb882bfbc23dc143d960d391f8ca5cfbb46bfe7219"
+  },
+  "task_key": "EPI-NEXT-SELECTED-FIDELITY-5F-CPU-20261011-V4-INT-1",
+  "job_id": "selected-fidelity-5f-20261011-int-v4-1",
+  "output_root": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1",
+  "supervision_root": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1-supervision",
+  "compute": {
+    "device": "CPU",
+    "forward": 5,
+    "backward": 0,
+    "updates": 0,
+    "seconds": 120,
+    "output_bytes": 67108864
+  },
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "torch_threads": {
+    "intra_op": 1,
+    "inter_op": 1
+  },
+  "owner_receipt": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/sci-mvp-v4-execution-20261012/OWNER_APPROVAL_V4_V1.json",
+    "sha256": "1856097dc8c161cd3d0cdbad150fd358198d09a1947a42a582b897bd7de50443"
+  },
+  "new_admission_decision": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/sci-mvp-v4-execution-20261012/ADMINISTRATIVE_ADMISSION_EXTENSION_V4_V1.json",
+    "sha256": "51ff321e8517088516fc9d713f001ba1e78414572bd174051930e3f7e0160bbb"
+  },
+  "supervisor_index": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-recovery-chain-v12/manifest.json",
+    "sha256": "12e808bcf23f80571886fa0e8c68efa88a11fb833a51db002ab1820d20fc1a6d"
+  },
+  "metadata_argv": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/next_selected_fidelity_parent.py",
+    "--dispatch",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/next-application-v4/selected-fidelity-dispatch-draft-v2.json",
+    "--dispatch-sha",
+    "c4dcb67e5fb0618639d7a9169bb55b954d075efb9b36c0637b5d53eae8ddff0d"
+  ],
+  "final_execute_argv_template": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/next_selected_fidelity_parent.py",
+    "--dispatch",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/sci-mvp-v4-execution-20261012/SELECTED_FIDELITY_DISPATCH_V2.json",
+    "--dispatch-sha",
+    "<EXACT_FINAL_DISPATCH_SHA>",
+    "--execute"
+  ],
+  "new_dispatch_fields_required": {
+    "status": "READY_FOR_CHIEF_DISPATCH",
+    "execution_window": {
+      "status": "CHIEF_SLOT_GRANTED",
+      "slot_id": "<CHIEF_UNIQUE_SLOT_ID>",
+      "not_before_utc": "<AWARE_UTC_START>",
+      "not_after_utc": "<AWARE_UTC_END_INCLUDING_EXIT_RECOVERY>"
+    }
+  },
+  "metadata": {
+    "status": "DRAFT_WAITING_CHIEF_EXECUTION_SLOT",
+    "science_owner_approval": "VERIFIED",
+    "task_admission_metadata": "VERIFIED_QUEUE_NOT_CHECKED",
+    "supervisor_bundle": "VERIFIED",
+    "bound_source_files": 19,
+    "execution_window": null,
+    "model_calls": 0,
+    "queue_observations": 0,
+    "queue_writes": 0,
+    "processes_started": 0,
+    "arrays_weights_masks_read": false,
+    "torch_imported": false,
+    "reason": null,
+    "slot_completed": null
+  },
+  "metadata_log_sha256": "24dc2db3b87d124c25c5319f05ceddda09bd44cde152d8364d965b803a3c489c",
+  "test_scope": "GENERATED_PARENT_ONLY",
+  "tests": {
+    "passed": 8,
+    "seconds": 0.03
+  },
+  "real_execution": "NOT RUN",
+  "v17_overwritten": false,
+  "actual_queue_sampled": false,
+  "chief_final_dispatch_path_proposal": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/sci-mvp-v4-execution-20261012/SELECTED_FIDELITY_DISPATCH_V2.json",
+  "runtime_thread_receipt_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1-supervision/selected-fidelity-5f-20261011-int-v4-1/runtime-threads.json",
+  "supervisor_receipt_path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1-supervision/selected-fidelity-5f-20261011-int-v4-1/supervisor-receipt.json",
+  "parent_argv_final_sha_placeholder_only": true,
+  "preserved_v17": {
+    "hospital-release/20261011-next-application-v17/ACCEPTANCE.md": "14874d108d8cf09dff867e4a3cd4c1f804c5211bc144e412cfb84aaac0a5b699",
+    "hospital-release/20261011-next-application-v17/DEMO_AND_ROLLBACK.md": "0b94ec3e41fe5632c523d43e1c95aef35bcdb719f335b6056362aa3527ee168b",
+    "hospital-release/20261011-next-application-v17/LOADING_ENTRIES.md": "de714e6093a27bdbc16da2d3ad9d625a503c929fd02585ef0d2b139b2c31b5f5",
+    "hospital-release/20261011-next-application-v17/README.md": "5f6d3a9af4067f3b0ed91ff8b8a7c5aca6f15834d9c277dd6015589b434b4b59",
+    "hospital-release/20261011-next-application-v17/REAL_UPGRADE_REQUEST.json": "b6f48fc4561550b2e4956f8c891e801ef609b6591ee0933453665ecf60af67f3",
+    "hospital-release/20261011-next-application-v17/SELECTED_FIDELITY_BINDING_INDEX.json": "5afcbae54f70c8daea5c19b040cdcc1121c271111b1ffb3eaf1edd2b9fdff4bc",
+    "hospital-release/20261011-next-application-v17/application-request.schema.json": "d3bbd2968f8f5319a9ef86795becb3ac7b22e6e0a49f1057afdfc1bea98bbff7",
+    "hospital-release/20261011-next-application-v17/evidence/fidelity-binding-metadata.log": "5310c22c101a41a549ba04b9d9c27e34d4e1abb87f63c17e7259d74098e4a690",
+    "hospital-release/20261011-next-application-v17/evidence/fidelity-dispatch-tests.log": "7faed9dff267047e207aa973a895a904d61367bedc38139aa85d08bb6145e36b",
+    "hospital-release/20261011-next-application-v17/evidence/frontend-build.json": "97a2cad47b7b29c34de0bec73055af98b429c3d3c52adccb956369ea09d7d075",
+    "hospital-release/20261011-next-application-v17/evidence/frontend-tests.log": "feb3a0359a59978cfdedb049e2bf37adb2bc3d61249953387f203c02b03e5402",
+    "hospital-release/20261011-next-application-v17/evidence/historical-preservation.json": "40582fb2ae586cb8cfd26506e4b1b479416735f41f125bdf06af6d74d906e8b4",
+    "hospital-release/20261011-next-application-v17/evidence/loading-entry-tests.log": "473f1d7dd83cc232f1a1eb32d000d3be52599ce176edce9f2682f72a9120f0ca",
+    "hospital-release/20261011-next-application-v17/evidence/loc-handoff-consumption.json": "b45e6b5b58271d5ca351dacff9304bac4c1209cc8ece4e4832e617a7bcfd97d2",
+    "hospital-release/20261011-next-application-v17/evidence/loc-synthetic-chain.json": "216b005c10ad2abb3a44cbe5e669e9dec8816a9a6fd4ce73be94a771325f942e",
+    "hospital-release/20261011-next-application-v17/evidence/receipt.json": "8c1a435237415b5c2a9f2d6cd966c79b46b60406663b3c2c98dc16ef5a934d84",
+    "hospital-release/20261011-next-application-v17/evidence/source-freeze.json": "dedfef99ca2c929c5cca7fee587aaab344449b7bda8f4d65d671282933ebc3fe",
+    "hospital-release/20261011-next-application-v17/evidence/spatial-tests.log": "f78527d6d606290453817a482758a2b35f9a476dde46bcfe3812384ff6071204",
+    "hospital-release/20261011-next-application-v17/evidence/tests.log": "441b93a773b51692e120c7457e26c11062a08894ddfad9e35c25ab6b9a394a2d",
+    "hospital-release/20261011-next-application-v17/handler-result.schema.json": "5add90a4fd87ddb62244cf27d6ab690b7bae1008f1b7ea9a7603cdb93c387fce",
+    "hospital-release/20261011-next-application-v17/manifest.json": "175a3239ca743ce67788f56326d2143bdd031fbe190f104f0b81fbab1acdb11f"
+  },
+  "immutable_18_source_bytes_match": true,
+  "metadata_read_scope": "owner/itemized request/admission/index/dependency/package/source JSON and code only; no queue API or process sampling; no scientific array/weight/mask reads"
+}
