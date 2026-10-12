@@ -1539,3 +1539,11 @@ INTEGRATION原epi-next-integration工作树/codex/epi-next-integration-20261009�
 实际Torch2.14.0 intra/inter线程1/1，OMP/MKL/OPENBLAS1；线程记录无额外模型前向、无budget reset。监督SUCCESS、OWN_GROUP_EXITED/DEVICE_RECOVERED、slot completed true，新started/finished与receipt SHA对账；所有监督asset hash和18原source MATCH。9个启动TELEMETRY缺测保留，RSS是自有组采样峰非绝对上限，详见v19 manifest。实际科学结果SHA98aeba6d0a6a88b5b2ef2c5b928d62ed5406856129c7796a107975ae655a8e1b，supervisor SHA8e08ff8d98e22ba940ce1b27c5727a6bb0b6c4f1658096ed7e0eb26dbdb083dd；只记录本地路径/SHA/统计，不复制患者影像/权重/Mask/logits私有正文。无重试或额外warmup/模型检查；退出后只读对账，不启动其他阶段。此为一次开发样本忠实性测试，不是E2-Q、新MVP、医院展示或临床有效性；医院默认null/最终冻结NOT RUN，原M0/v17/v18保全。
 
 **目标元数据差异补录：** 总控发现并要求保留：固定ApplicationRequest.task.target_class=0，实际五响应fixed_target=1。只读核对LOC科学配置scope.fixed_target与selected_fidelity源码，profile明确原图logits argmax固定用于每项响应；本次原图argmax1，函数不接收应用target字段。科学profile符合实际，应用元数据未同步，因此执行/监督SUCCESS保留，完整应用契约NOT_FULL_PASS_TARGET_CLASS_METADATA_MISMATCH，不得标完全PASS。原binding/结果均不改、不重跑；完整Mask remove为valid内x*(1-M)、外部保持原图，peak patch remove另行区分，不写full-mask-remove-peak。只完成INT元数据对账，不重复LOC离线算法解释。
+
+### 2026-10-12｜HU v5监督接缝只读增量审查
+
+原INTEGRATION工作树/分支，开始HEAD620014f3e1fd7a94b7b5a25df242ac2ed90bfb55。消费总控HU v5执行准备包01/03（各SHA匹配），仅审查DATA既有v4/v3/phase/Budget代码；当前四文件与a28a9bc受测字节相同。指出durable参数/调用计数、returned后raw诊断保全、4MiB含进度/残留及错误账本预留的本地接入缺口；已有primary/reporting分离、锁和phase可复用，不修改共享保护框架。phase末参数4GiB是磁盘reserve；RSS512MiB协作检查不能冒充native codec内连续监测。
+
+发现条件性新接缝：a0.phase独立setsid worker不被Wave1按PGID的owned_group采样。仅新增无患者进程表fixture，直接执行锁定函数（fake getsid/table），同组纳入/独立组排除，exit0；不spawn、不ps、不取锁，真实病例/codec/model/队列读写均0。建议DATA本地接缝确保worker RSS/自身身份停止/reap再完成，外parent强杀时不得以finally或外finished证明独立组退出。只读查找失败是不存在路径/glob，无真实任务失败。正式简短兼容性审查在hospital-release/20261012-hu-v5-seam-review-v20，供总控传DATA；DATA唯一实现新入口和T12控制，ENC审核数值，本线不重跑已完成监督测试、不改DATA或UNKNOWN、不制造实际验收。
+
+**实际调用链澄清：** 总控补充后只读核对已允许v4最终执行JSON（SHAe8b3fb…）内thin_wrapper_source，与其wrapper SHA18da6b9b0b9184187d972b7c5ecb93b0bb75ee7888265839d7c45098ecd0e364一致。v4是双原锁/单次Popen CLI/communicate90秒/CLI内phase，无Wave1嵌套；不要求新架构。初始条件性Wave1进程表检查被实际wrapper超时块生成注入取代：假两次Timeout、fake killpg只处理CLI组100，独立phase组101未证明回收，exit0；无实际process/native调用。补充DATA局部建议：新v5 exact entry/task/request重复检测（原regex仍v3）、phase握手PID/PGID/start与合作stop/reap/未知阻断、bounded stdout/stderr及final reporting失败不覆盖durable primary/counters。没有假造历史孤儿进程或真实验收，原DATA/共享源码不改。

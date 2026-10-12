@@ -1,0 +1,15 @@
+{
+  "scope": "GENERATED_WRAPPER_TIMEOUT_ONLY",
+  "status": "PHASE_WORKER_EXIT_NOT_PROVEN",
+  "wrapper_sha256": "18da6b9b0b9184187d972b7c5ecb93b0bb75ee7888265839d7c45098ecd0e364",
+  "signalled_generated_groups": [
+    100,
+    100
+  ],
+  "independent_phase_group_signalled": false,
+  "processes_started": 0,
+  "queue_calls": 0,
+  "codec_calls": 0,
+  "model_calls": 0,
+  "patient_reads": 0
+}

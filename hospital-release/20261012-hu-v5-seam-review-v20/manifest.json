@@ -1,0 +1,44 @@
+{
+  "schema": "EPI_NEXT_HU_V5_SEAM_READONLY_REVIEW_V20",
+  "status": "REUSE_SUPPORTED_WITH_LOCAL_DATA_GAPS",
+  "is_execution_authority": false,
+  "base_commit": "620014f3e1fd7a94b7b5a25df242ac2ed90bfb55",
+  "data_source_commit": "3a7e55ac1d5d4502f9fd76b7e051469fb6b0f487",
+  "data_v4_source_commit": "a28a9bc7f385ea0a3e91fa6285f25b755c525dc6",
+  "data_sources": {
+    "ri_hu_v4_diagnostic.py": "657c6be5f93f4079f7521ff2c826cf88f26b0c39b5870e4e62af66545674a39a",
+    "ri_hu_v3.py": "38252a80efdeb9492bff54dac05195783c2f7980d700844f9a12f67eb39930ac",
+    "a0_acquire.py": "ff40674dbc6d8234ad0218416db17c9d8ef1c504f609dc2ed02a77656f7def5d",
+    "a1_prepare.py": "b8382eda8f6d2e9e25a93873710a899358738db12812bff0e3ded2de60bda4d0"
+  },
+  "data_bytes_match_v4": true,
+  "review_sha256": "d374f18077e447a09bf1a61450209f56fbe98b79e96937fa49107091ca06ed32",
+  "fixture_source_sha256": "ccd9baa125dd9bbcbd4bc6efc1a9f4e9c3a0d7f04b29eef9407840a0c7396712",
+  "fixture": {
+    "scope": "GENERATED_WRAPPER_TIMEOUT_ONLY",
+    "status": "PHASE_WORKER_EXIT_NOT_PROVEN",
+    "wrapper_sha256": "18da6b9b0b9184187d972b7c5ecb93b0bb75ee7888265839d7c45098ecd0e364",
+    "signalled_generated_groups": [
+      100,
+      100
+    ],
+    "independent_phase_group_signalled": false,
+    "processes_started": 0,
+    "queue_calls": 0,
+    "codec_calls": 0,
+    "model_calls": 0,
+    "patient_reads": 0
+  },
+  "shared_supervisor_changed": false,
+  "data_files_changed_by_INT": false,
+  "shared_tests_rerun": false,
+  "clinical_or_hospital_claim": false,
+  "actual_queue_observed": false,
+  "notes": "Actual v4 thin wrapper plus phase chain audited; no Wave1 migration requirement, no new execution.",
+  "actual_v4_uses_wave1": false,
+  "actual_wrapper_sha256": "18da6b9b0b9184187d972b7c5ecb93b0bb75ee7888265839d7c45098ecd0e364",
+  "actual_v4_receipt": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-data-eval/.local/phase2/hu-single-diagnostic-decode-v4-request-20261012/HU_V4_SINGLE_EXECUTION_DELIVERY_20261012.json",
+    "sha256": "e8b3fb3b0c8ba9a6c2998a0687be82177dc97f56041962c5dad6db88b8b83415"
+  }
+}
