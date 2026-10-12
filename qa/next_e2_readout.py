@@ -230,7 +230,8 @@ def main():
         if args.execute or dispatch is None: parser.error('EXACT_SUPERVISED_CHILD_ONLY')
         return run_child(reference,dispatch)
     result=run(reference,dispatch,execute=args.execute)
-    print(json.dumps({k:result.get(k) for k in ('status','model_calls','queue_observations','arrays_weights_read','torch_imported','slot_completed')},sort_keys=True))
+    if not args.execute:
+        print(json.dumps({k:result.get(k) for k in ('status','model_calls','queue_observations','arrays_weights_read','torch_imported','slot_completed')},sort_keys=True))
     return 0 if not args.execute or result['status']=='SUCCESS' else 2
 
 
