@@ -1181,3 +1181,9 @@ INTEGRATION唯一负责演示清单，原工作树/codex/epi-next-integration-20
 生成验收与原3/3真实MVP分开：恢复真实启动/viewport复核NOT RUN。私有绑定SHA b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4，66源/旧构建文件闭合，旧dist34文件SHA与受测readiness MATCH；实际metadata-only exit0、不读真实DB或影像。当前E2只有默认关闭的接缝/合成链，独立5F不等于真实应用集成，target差异保留；CTFM真实新头/volume handler未装入基础包。医院默认null/展示NOT_APPROVED/冻结与临床NOT RUN；无push、真实显示/录屏/模型或新数据职责扩展。受测恢复源完整SHA提交后补入唯一命令索引与清单。
 
 **只读恢复受测源固定：** 新恢复source Git SHA `76d032edbd270a1e52b29750e3afbbbda6d7f508`，唯一清单/命令索引补录；binding及66源码/构建SHA不变，原34构建文件和16历史包文件MATCH。新恢复4项生成验收与旧54ff三真实流程分别引用；本轮没有执行真实恢复/新增医学调用或展示。
+
+### 2026-10-12｜R71一次有界真实只读恢复验收准备
+
+原INTEGRATION工作树/分支，开始HEAD8364b4d42695b2375ca0e84aa058ab80675284f2。消费R71第3节；总控已核定既有MVP_LOCAL批准4a4e9c…/2dcc61…、同三DATA v2 bc919838…及人工复核437158…，明确此次原结果/对象只读、私有DB副本、新本机认证及localhost浏览器检查覆盖于原本地用途，不是重用96F、医院或外传许可。保留原恢复source76d032及binding b03d88d…，不重设计、不改target计算。新增只读验收封装沿旧browse只读选择/叠加/刷新部分，禁止创建/上传/Worker/模型，网络仅同本机origin、无截图/视频/trace/HAR/像素导出。
+
+固定plan SHA5776dafca76e1016a5c807e118890218ee6fe4b75050e030c5f371332c9b5446、entry SHA42c730b9ccc9465770d66d5468a025dcefa1edc0189eb556c5a1be846a1f1b63、输出.local/mvp-readonly-r71-20261013-01，总180秒，browser140秒；失败退出自有服务不重启。原绑定check-only与新plan check-only均exit0；准备阶段不读真实DB/影像/旧凭据、不启动服务/浏览器。第6项数值/canvas叠加及渲染技术检查与人工目视独立，未经目视不得扩写医生/负责人视觉PASS；真实运行后另记录十项结果、0调用依据和原DB/资产不变。
