@@ -1,0 +1,225 @@
+{
+  "schema": "EPI_NEXT_SELECTED_FIDELITY_ACTUAL_ACCEPTANCE_V19",
+  "client_date": "2026-10-12",
+  "client_timezone": "Asia/Shanghai",
+  "status": "SUCCESS",
+  "scope": "ONE_APPROVED_CASE3_SELECTED_MASK_FIDELITY_ONLY",
+  "worktree": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+  "branch": "codex/epi-next-integration-20261009",
+  "parent_source_commit": "bc5e32feca002303318703f1ddc6ba73f1d8b913",
+  "application_source_commit": "6f1a1f1df87a4a9c4b9f1b58c358702c601aed54",
+  "localization_source_commit": "9ae67d74ca695bac12bf3f2e2f0007438f72c79f",
+  "dispatch": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/sci-mvp-v4-execution-20261012/E2_SELECTED_FIDELITY_FINAL_DISPATCH_V4_V1.json",
+    "sha256": "bf4c0d9fddcaf5287973f858a6bc64a9a2fce20c6b233c6298afb4832d0a7b14"
+  },
+  "immutable_binding_sha256": "cb5468820ab76aa0de5736ef1a6bac7ea630dc438743afe7c9428274ab48dc73",
+  "parent_source_sha256": "0427103d557bff5d5ef60bdb882bfbc23dc143d960d391f8ca5cfbb46bfe7219",
+  "task_key": "EPI-NEXT-SELECTED-FIDELITY-5F-CPU-20261011-V4-INT-1",
+  "job_id": "selected-fidelity-5f-20261011-int-v4-1",
+  "actual_counts": {
+    "forward": 5,
+    "backward": 0,
+    "optimizer_updates": 0,
+    "extra_autograd": 0,
+    "retry": 0,
+    "diagnostic_forward": 0
+  },
+  "durable_counts": {
+    "backward": 0,
+    "cases": {
+      "selected-fidelity-5f-20261011-int-v4-1": 409764.267076583
+    },
+    "forward": 5,
+    "job_id": "selected-fidelity-5f-20261011-int-v4-1",
+    "sequence": 5
+  },
+  "runner_actual_counts": {
+    "backward": 0,
+    "forward": 5
+  },
+  "selected_epoch": 3604,
+  "selected_cell": 43,
+  "five_response_names": [
+    "full_mask_keep",
+    "full_mask_remove",
+    "original",
+    "peak_patch_keep",
+    "peak_patch_remove"
+  ],
+  "fixed_model_class_index": 1,
+  "raw_logits_saved_in_private_result": true,
+  "model": {
+    "model_id": "epi_next_resnet18_selected_fidelity_v4",
+    "checkpoint_sha256": "548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734",
+    "preprocessing_sha256": "0a283e01a3f4a5116abd6ea1bfa9f7640df6dea4d04d4dac573c54d93390fdfb"
+  },
+  "source_binding": {
+    "prepared_delivery_sha256": "b85eaf6c78d1547e2aa4b93458734f533d34be5de1ed056fd152c30b92ebaa99",
+    "reuse_stage1_sha256": "166ac42c0801ee5b35cfab2f030d485460aa6b944be7ef5eb85a550f23b72f76",
+    "scientific_request_sha256": "ab7b2df246a7b9c9c46dddce9b10304686158884fcb33bad06b25000a14f6f1c"
+  },
+  "science_elapsed_seconds": 0.2943602089653723,
+  "parent_to_exit_seconds": 3.4271811670041643,
+  "parent_to_recovery_seconds": 3.434278208995238,
+  "actual_torch_threads": {
+    "inter_op": 1,
+    "intra_op": 1
+  },
+  "cpu_environment": {
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration"
+  },
+  "torch_version": "2.14.0",
+  "model_calls_for_thread_measurement": 0,
+  "budget_clock_reset": false,
+  "exit_code": 0,
+  "slot_completed": true,
+  "slot_finished_sha_verified": true,
+  "resource_recovered": true,
+  "resource_samples": {
+    "samples": 43,
+    "peak_group_rss_bytes": 617365504,
+    "rss_semantics": "SUM_OF_OWN_GROUP_PROCESS_RSS; shared resident pages may be counted more than once",
+    "peak_is_sampled_not_absolute": true,
+    "swap_growth_from_first_sample_bytes": 0,
+    "min_free_fraction": 0.4699999999720603,
+    "parent_target_interval_seconds": 0.05,
+    "parent_max_actual_interval_seconds": 0.0889560419600457,
+    "parent_mean_actual_interval_seconds": 0.07909550195354102,
+    "child_target_interval_seconds": 0.02,
+    "child_max_measured_interval_seconds": 0.13349224999547005,
+    "initial_missing_telemetry_count": 9,
+    "initial_missing_telemetry_preserved": true,
+    "prestop_trigger": null
+  },
+  "actual_loaded_supervisor_modules": {
+    "artifacts": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-recovery-chain-14bf16e-v1/epinext_wave1_recovery_chain_v1/artifacts.py",
+      "sha256": "3ba97a3bc226991a3b15d144c34ef082f0bad14467aeef3af83f85a8bd31631c"
+    },
+    "contracts": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-recovery-chain-14bf16e-v1/epinext_wave1_recovery_chain_v1/contracts.py",
+      "sha256": "2b67e80410672a7547d0d117db76d6f91a18b0f68822d08a1721891f5e42f9e5"
+    },
+    "coordinator_writer": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-recovery-chain-14bf16e-v1/epinext_wave1_recovery_chain_v1/coordinator_writer.py",
+      "sha256": "b87111c88b5f14744c9570fb46b9f4f386e56a48e0957755e5a98c45e1fcd496"
+    },
+    "execution_lock": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-recovery-chain-14bf16e-v1/epinext_wave1_recovery_chain_v1/execution_lock.py",
+      "sha256": "b30b84a639072a164f04fbda0cea4308b25e1ed6efd8e6c67c0494039c010067"
+    },
+    "geometry": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-recovery-chain-14bf16e-v1/epinext_wave1_recovery_chain_v1/geometry.py",
+      "sha256": "5ef5ee0e0680d014034ee0ae206e707f70de848397f1611096d7b574e52db630"
+    },
+    "hospital_contract": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-recovery-chain-14bf16e-v1/epinext_wave1_recovery_chain_v1/hospital_contract.py",
+      "sha256": "299d43d9c04662235770c23013342857c67afe424ef7ef29af2d352771a4922f"
+    },
+    "hospital_runtime": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-recovery-chain-14bf16e-v1/epinext_wave1_recovery_chain_v1/hospital_runtime.py",
+      "sha256": "75b50d9e5d204e647906a3970dcd5f0163db9e216bc2bb4b572f3712c40bde3e"
+    },
+    "wave1_supervisor": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/.local/phase2/wave1-recovery-chain-14bf16e-v1/epinext_wave1_recovery_chain_v1/wave1_supervisor.py",
+      "sha256": "d522a9142b432e5ac55088369687d45f446ca1368fd0543332da2f069c76bdb5"
+    }
+  },
+  "output_sizes": {
+    "scientific_bytes": 1946,
+    "scientific_limit_bytes": 67108864,
+    "supervisor_directory_bytes": 67799
+  },
+  "references": {
+    "scientific_result": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1/selected-fidelity.json",
+      "sha256": "98aeba6d0a6a88b5b2ef2c5b928d62ed5406856129c7796a107975ae655a8e1b",
+      "bytes": 1946
+    },
+    "supervisor": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1-supervision/selected-fidelity-5f-20261011-int-v4-1/supervisor-receipt.json",
+      "sha256": "8e08ff8d98e22ba940ce1b27c5727a6bb0b6c4f1658096ed7e0eb26dbdb083dd",
+      "bytes": 40424
+    },
+    "runtime_threads": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1-supervision/selected-fidelity-5f-20261011-int-v4-1/runtime-threads.json",
+      "sha256": "87cb3e7122b7ee3fa15587127f6611e7ff8cf6554c8ae47bd39dedaf85b90222",
+      "bytes": 870
+    },
+    "runner_completion": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1-supervision/selected-fidelity-5f-20261011-int-v4-1/runner-complete.json",
+      "sha256": "a85e447c6e5571e0367b306ea2436e1be84f2aef23cf6d03683cdb6f3b2a5ced",
+      "bytes": 178
+    },
+    "stdout": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1-supervision/selected-fidelity-5f-20261011-int-v4-1/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "stderr": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1-supervision/selected-fidelity-5f-20261011-int-v4-1/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "actual_command": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1-supervision/selected-fidelity-5f-20261011-int-v4-1/command.json",
+      "sha256": "07f9543f9562970b1c82d2ae71575c415155b718856c0b911f384cd48f82820a",
+      "bytes": 613
+    },
+    "actual_spec": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/selected-fidelity-5f-20261011-int-v4-1-supervision/selected-fidelity-5f-20261011-int-v4-1/spec.json",
+      "sha256": "b6d4faf3817a2145a9da97197cb9a282a7eb0afff4a660d53a49162105bd1fca",
+      "bytes": 425
+    },
+    "slot_started": {
+      "path": "/Users/skyfrost/.codex/epi-next-device-queue/slots/selected-fidelity-5f-20261011-int-v4-1/started.json",
+      "sha256": "5eba6dfec8101bcb0e322586ade5b3b51139e47d34290a320bd5d8e0974addc1",
+      "bytes": 2216
+    },
+    "slot_finished": {
+      "path": "/Users/skyfrost/.codex/epi-next-device-queue/slots/selected-fidelity-5f-20261011-int-v4-1/finished.json",
+      "sha256": "2535fdc4121010c3fd0499111da72f5ef5aee1fa0a5980b202f0c45d7ee7c4d1",
+      "bytes": 649
+    }
+  },
+  "private_payloads_copied": false,
+  "after_execution_extra_model_calls": 0,
+  "clinical_validity": "NOT_ESTABLISHED",
+  "hospital_freeze": "NOT RUN",
+  "hospital_default_model": null,
+  "known_limits": [
+    "ApplicationRequest.task.target_class=0 differs from scientific original-argmax fixed_target=1; application target metadata consistency NOT PASS; cannot call full application contract PASS",
+    "one development case / postselected epoch3604 cell43; no independent generalization",
+    "no new optimization or E2-Q execution",
+    "nine initial telemetry gaps during bounded child startup; preserved, no claim of continuous initial coverage",
+    "5GiB pre-stop and RSS peak are sampled, not absolute limits",
+    "not a new application/hospital display or three-flow acceptance",
+    "model-class response probabilities are not lesion probability or expert GT"
+  ],
+  "application_contract_acceptance": "NOT_FULL_PASS_TARGET_CLASS_METADATA_MISMATCH",
+  "target_metadata_discrepancy": {
+    "application_binding_target_class": 0,
+    "scientific_profile_fixed_target_policy": "argmax original logits, held for every response",
+    "actual_all_response_fixed_targets": [
+      1
+    ],
+    "application_metadata_synchronized": false,
+    "scientific_handler_uses_application_target_class": false,
+    "scientific_profile_policy_matches_actual_response": true,
+    "source_config_sha256": "ab7b2df246a7b9c9c46dddce9b10304686158884fcb33bad06b25000a14f6f1c",
+    "handler_sha256": "062eff4e476280f0f415380d4a0c2bf1e5a2598a31869c7374ba39dd34ff168b",
+    "binding_or_result_modified": false,
+    "model_rerun": false,
+    "scope": "INT metadata consistency only; algorithm interpretation delegated separately to LOCALIZATION"
+  },
+  "perturbation_name_semantics": {
+    "full_mask_remove": "Inside valid_support: x*(1-M), where M is the bilinear complete continuous selected mask; original exterior preserved. No peak-exclusion qualifier.",
+    "peak_patch_remove": "Inside valid_support: x*(not peak_patch), original exterior preserved.",
+    "fill": "scalar zero before frozen RGB normalization"
+  }
+}
