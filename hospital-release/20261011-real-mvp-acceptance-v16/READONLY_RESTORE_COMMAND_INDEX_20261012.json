@@ -5,7 +5,7 @@
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/read-only-mvp-binding-v1.json",
     "sha256": "b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4"
   },
-  "restore_source_commit": null,
+  "restore_source_commit": "76d032edbd270a1e52b29750e3afbbbda6d7f508",
   "entry": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/local_mvp_readonly.py",
     "sha256": "3aabbe3c3b57b156d3805c5262ae79ee9a3879a8f15c9f4c35677de25c3a4e44"

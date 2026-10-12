@@ -81,3 +81,5 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps
 停止按一次Ctrl-C，等restore-exit.json确认三自有服务退出、source_db_unchanged=true、Worker未启动/model_calls0。回退只停止这组已知自有服务、继续保留原v16；再启动使用新的运行目录以重建会话，不清空或覆盖原记录。不终止未知进程。
 
 增量结果：4项定向生成测试PASS2.09s，新认证/过期输入副本读取/结果和资产SHA/刷新一致/拒绝写与Worker/无覆盖及错scope/实际loopback HTTPS登录静态提示和停止回收。只有生成病例/PNG；没有DICOM解码、模型、浏览器/截图、真实DB复制或真实像素访问。旧54ff 3/3真实验收不重跑；恢复模式真实视图验收仍NOT RUN。这一非医学接入完成不依赖HU v5、训练头或E2收益。
+
+受测恢复源码已固定：`76d032edbd270a1e52b29750e3afbbbda6d7f508`；原真实MVP受测源仍为54ff1565f6c11a6deea873feab0a011e879528fb。命令索引中的restore_source_commit指新恢复代码，不能替代旧3/3验收版本。

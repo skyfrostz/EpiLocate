@@ -1179,3 +1179,5 @@ INTEGRATION唯一负责演示清单，原工作树/codex/epi-next-integration-20
 4项定向生成验收PASS2.09s：3生成Case/Result、27 PNG，新认证/刷新/过期读取副本/对象SHA/禁止写和Worker/无覆盖及范围拒绝，实际loopback HTTPS登录/静态提示/保存结果查询及三服务退出；无真实模型/DICOM解码/浏览器/截图/真实DB复制或像素读取。初期生成fixture漏accepted attempt补齐；HTTPS首次暴露backend冷启动竞态，后一次正常停止冒泡KeyboardInterrupt，均修正并留生成目录，不算医学重试。原业务测试不全量重跑；2项依赖deprecation提示保留。
 
 生成验收与原3/3真实MVP分开：恢复真实启动/viewport复核NOT RUN。私有绑定SHA b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4，66源/旧构建文件闭合，旧dist34文件SHA与受测readiness MATCH；实际metadata-only exit0、不读真实DB或影像。当前E2只有默认关闭的接缝/合成链，独立5F不等于真实应用集成，target差异保留；CTFM真实新头/volume handler未装入基础包。医院默认null/展示NOT_APPROVED/冻结与临床NOT RUN；无push、真实显示/录屏/模型或新数据职责扩展。受测恢复源完整SHA提交后补入唯一命令索引与清单。
+
+**只读恢复受测源固定：** 新恢复source Git SHA `76d032edbd270a1e52b29750e3afbbbda6d7f508`，唯一清单/命令索引补录；binding及66源码/构建SHA不变，原34构建文件和16历史包文件MATCH。新恢复4项生成验收与旧54ff三真实流程分别引用；本轮没有执行真实恢复/新增医学调用或展示。
