@@ -38,6 +38,7 @@
 | 2026-09-28 | Phase 5 GPU MVP 最终交接验收 | `352152ce95fc26eb2dc0a4c309521d50486472ba` | Phase 5 分支验收记录；功能 PASS、数值门 FAIL/OPEN |
 | 2026-09-29 | Repository Consolidation Phase 0 | `718d3220a2191aba0dd8fbfe1d673546997d1c04` | 独立规划分支；仅目录说明、Source Map 与迁移计划，未迁移业务源码 |
 | 2026-09-29 | JPEG Lossless GPU Worker 事故与恢复 | `f80d4cf406689cd031f993090783e281db93c4ef` | Phase 5 分支事故报告；原病例关联证据只留受控本地环境，历史失败保留 |
+| 2026-10-13 | EPI-NEXT R76 E2/F0 版本化结果接缝 | `fca57445fe6f82c9e9bc501b053b889928832d1f` | 分支级实现；指定合成测试通过，真实算法/医院冻结未运行 |
 
 以上日期是 Git 提交或报告归档日期；有报告执行日期时另行说明。Phase 5 从 `b069a8ce...` 分叉，其开发分支成果不自动成为 Phase 4.5 集成基线能力。
 
@@ -1195,3 +1196,13 @@ INTEGRATION唯一负责演示清单，原工作树/codex/epi-next-integration-20
 三个自有服务受控TERM退出（-15），父exit0；原SQLite SHA808881…不变，原30存储对象和5业务表内容/source vs shadow逐项匹配，3case/3job/3result/3attempt/27assets不增。副本认证/期限更新独立记录；原数据/旧模型结果不写，所有POST变更/上传/Job/Worker403，未启动Worker/模型，F/B/update0，不消费旧96F，不源ZIP，不自动重试。结果与路径/SHA在v16新增READONLY_R71_REAL_ACCEPTANCE_20261012.json及唯一演示清单；影像/账户/DB正文不进Git。医院显示NOT_APPROVED/冻结与临床NOT_RUN；只读恢复能力可用于14日基础限定冻结决策，不依赖HU/head/E2收益。
 
 **管理网络修订收口：** 负责人允许正常联网/Wi-Fi/热点/HTTPS/投屏及既有合法控制面，网络本身不再是阻断或“只能完全离线/localhost”的制度要求；当前仍复用已实际PASS的本机只读恢复，不因放宽切换部署、重测无变更功能或增加CPU/MPS实时推理。全部独立GPU AI Node明确排除。原三图LOCAL_MVP_ONLY不自动升级医院展示/外传/截图/录屏许可；只由总控合并素材用途决定，无复杂场地/人员审批体系。清单旧真实恢复NOT_RUN已替换为R71实际技术PASS，人工目视/医院用途/临床状态保留。本轮只完成必要收据/文档提交，无新测试或恢复，收口后停止新增工作等待负责人用途决定。
+
+### 2026-10-13｜R76 E2/F0 版本化结果接缝
+
+INTEGRATION 工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`，分支 `codex/epi-next-integration-20261009`，开始 HEAD `8e8b202a00ea4bc4c407e206d08b630a6dbfd566`。本地集成提交 `fca57445fe6f82c9e9bc501b053b889928832d1f` 增加 LOC v5 目标契约校验、E2 v5 保存结果适配、ENC v4 F0 保存结果只读消费、隔离的研究结果提交/读取校验，以及仅对带版本化研究诊断渲染的 Vue 面板。来源契约使用 LOC SHA `d852001e0db9d52844c900d81251a19b8afb20000b0b3429de11e80bf90b647c` 和 ENC SHA `2b2e2d0ebb6e56094451baab09e969782258155bbc6cae31ee769dcac92e0467`。
+
+输出区分解释目标和原始预测类别、任务范围和来源标签；E2 的全 logits 优化定义与固定目标 margin 分开展示。F0 保留来源组标签范围、4×4×4 有符号来源分类贡献、effective bias、logit 恒等式及名义 native/LPS 格点，不显示为病灶概率。旧 v4 serializer 可继续处理旧格式；基础 API 未自动注册研究 app，无数据库迁移。FrozenBaseline、历史 A/B/C、GT-v1、旧 Occlusion16/32/64 与 v16 包没有改变。
+
+15 项后端生成测试、3 项前端生成测试、`vue-tsc -b` 均通过；独立临时目录中的 Vite production build exit 0，保留既有 codec externalization 和大 chunk 警告。测试只用合成输入/数组/保存结果，不启动服务或执行模型。真实 CT、真实 E2 应用运行和 F0 数据交接仍未完成，F0 实际保存头/缓存/结果为 `BLOCKED_BY_DATA_HANDOFF`；真实左右/切片顺序/世界坐标/crop/resize/resample 验收、三次医院流程、展示审批、医院冻结和临床验证均 `NOT RUN`。本分支结果不覆盖先前 target0 与实际原始 argmax1 的 5F 记录，也不改变医院决策。
+
+交付包：`hospital-release/20261013-r76-research-seam/`，含 manifest、算法对照入口、验收报告、演示与回退说明。现场仍指向 v16 既有操作清单；负责人对原本地影像/结果医院用途的决定尚未完成。没有服务启动、GPU/MPS、上传、截图、录屏、部署或推送。

@@ -1,0 +1,61 @@
+{
+  "schema": "EPI_NEXT_HOSPITAL_RESEARCH_SEAM_V1",
+  "release_id": "20261013-r76-research-seam",
+  "prepared_at": "2026-10-13 Asia/Shanghai",
+  "purpose": "Local, generated-fixture integration handoff. Not a hospital-approved release.",
+  "source": {
+    "worktree": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+    "branch": "codex/epi-next-integration-20261009",
+    "starting_head": "8e8b202a00ea4bc4c407e206d08b630a6dbfd566",
+    "implementation_commit": "fca57445fe6f82c9e9bc501b053b889928832d1f"
+  },
+  "contracts": [
+    {
+      "owner": "LOCALIZATION",
+      "schema": "EPI_NEXT_EXPLANATION_TARGET_CONTRACT_V5",
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/configs/explanation-target-contract-v5.json",
+      "sha256": "d852001e0db9d52844c900d81251a19b8afb20000b0b3429de11e80bf90b647c"
+    },
+    {
+      "owner": "ENCODER",
+      "schema": "CTFM_RESEARCH_PIPELINE_INTERFACE_V4",
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-encoder/research/next-hospital-20261014/configs/ctfm_research_interface_v4.json",
+      "sha256": "2b2e2d0ebb6e56094451baab09e969782258155bbc6cae31ee769dcac92e0467"
+    }
+  ],
+  "algorithm_status": {
+    "FrozenBaseline": "ONLY_EXISTING_LOCAL_DEMO_DEFAULT; original v16 package and rollback preserved; hospital-use approval remains pending",
+    "E1": "NOT_REGISTERED_BY_R76; historical Occlusion16/32/64 are not renamed E1",
+    "E2": "V5_TARGET_AND_SAVED_RESULT_SEAM_IMPLEMENTED; generated integration tests passed; live model/application execution NOT RUN",
+    "F0": "ENC_V4_SAVED_RESULT_CONSUMER_IMPLEMENTED; generated integration tests passed; real head/cache/result handoff NOT RUN",
+    "F1": "INCOMPLETE_AND_NOT_REGISTERED; NOT RUN"
+  },
+  "acceptance": {
+    "generated_backend_tests": "PASS: 15 passed",
+    "generated_frontend_tests": "PASS: 3 passed",
+    "frontend_typecheck": "PASS: vue-tsc -b exit 0",
+    "frontend_production_build": "PASS: Vite exit 0 to temporary output; existing codec externalization and large-chunk warnings recorded",
+    "real_ct_e2e": "NOT RUN",
+    "real_f0_handoff": "BLOCKED_BY_DATA_HANDOFF",
+    "clinical_validation": "NOT RUN",
+    "hospital_freeze": "NOT RUN",
+    "hospital_material_use": "WAITING_FOR_OWNER_DECISION",
+    "three_consecutive_hospital_demonstrations": "NOT RUN",
+    "gpu_ai_nodes": "EXCLUDED; remote RTX 3090 remains paused",
+    "mps_inference": "NOT RUN"
+  },
+  "preservation": {
+    "historical_abc": "UNCHANGED",
+    "gt_v1": "UNCHANGED",
+    "frozen_baseline_and_protocols": "UNCHANGED",
+    "old_occlusion_16_32_64": "UNCHANGED",
+    "original_v16_bundle": "UNCHANGED"
+  },
+  "reports": {
+    "acceptance": "ACCEPTANCE_REPORT.md",
+    "algorithm_comparison": "ALGORITHM_COMPARISON.md",
+    "demo_and_rollback": "DEMO_AND_ROLLBACK.md",
+    "legacy_operator_checklist": "../20261011-real-mvp-acceptance-v16/DEMO_CHECKLIST_OCT14_20261012.md",
+    "prior_readonly_restore_evidence": "../20261011-real-mvp-acceptance-v16/READONLY_R71_REAL_ACCEPTANCE_20261012.json"
+  }
+}

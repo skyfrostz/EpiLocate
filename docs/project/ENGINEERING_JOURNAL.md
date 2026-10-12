@@ -1573,3 +1573,17 @@ INTEGRATION唯一负责演示清单，原工作树/codex/epi-next-integration-20
 三个自有服务受控TERM退出（-15），父exit0；原SQLite SHA808881…不变，原30存储对象和5业务表内容/source vs shadow逐项匹配，3case/3job/3result/3attempt/27assets不增。副本认证/期限更新独立记录；原数据/旧模型结果不写，所有POST变更/上传/Job/Worker403，未启动Worker/模型，F/B/update0，不消费旧96F，不源ZIP，不自动重试。结果与路径/SHA在v16新增READONLY_R71_REAL_ACCEPTANCE_20261012.json及唯一演示清单；影像/账户/DB正文不进Git。医院显示NOT_APPROVED/冻结与临床NOT_RUN；只读恢复能力可用于14日基础限定冻结决策，不依赖HU/head/E2收益。
 
 **管理网络修订收口：** 负责人允许正常联网/Wi-Fi/热点/HTTPS/投屏及既有合法控制面，网络本身不再是阻断或“只能完全离线/localhost”的制度要求；当前仍复用已实际PASS的本机只读恢复，不因放宽切换部署、重测无变更功能或增加CPU/MPS实时推理。全部独立GPU AI Node明确排除。原三图LOCAL_MVP_ONLY不自动升级医院展示/外传/截图/录屏许可；只由总控合并素材用途决定，无复杂场地/人员审批体系。清单旧真实恢复NOT_RUN已替换为R71实际技术PASS，人工目视/医院用途/临床状态保留。本轮只完成必要收据/文档提交，无新测试或恢复，收口后停止新增工作等待负责人用途决定。
+
+### 2026-10-13｜R76 E2/F0 版本化结果接缝
+
+**任务类型：** EPI-NEXT 应用接缝与生成验收。**任务负责人：** INTEGRATION。工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`，分支 `codex/epi-next-integration-20261009`，开始 HEAD `8e8b202a00ea4bc4c407e206d08b630a6dbfd566`；接缝源码提交 `fca57445fe6f82c9e9bc501b053b889928832d1f`。
+
+根据已交付的 LOC 目标契约 v5（SHA `d852001e0db9d52844c900d81251a19b8afb20000b0b3429de11e80bf90b647c`）和 ENC 接口 v4（SHA `2b2e2d0ebb6e56094451baab09e969782258155bbc6cae31ee769dcac92e0467`），新增 E2 目标绑定/保存结果 facade、F0 已保存证据消费、研究结果后端拒绝门与条件式证据面板。F0 仅从绑定的 evaluation/head/cache 文件核验 SHA、模型/预处理/配置/manifest/病例结果身份、FP64 GAP 和分类 logits 重建、signed contribution 与 effective bias，以及名义 native/LPS 正逆坐标变换；不调用 encoder/head 模型。没有接入真实 Worker 注册、真实模型装载或新设备队列。独立研究 app 工厂不替换基础 app；默认旧入口继续保留。
+
+问题及修正：首次生成 F0 fixture 未包含 ENC 交付行中的 `source_group_id` 和 split 字段，导致在输入绑定检查之前进入失败路径；补齐合成 fixture 字段后，完整 15 项后端测试通过。前端刷新测试曾在 Vue mounted 更新完成前同步读取选择器；测试等待一个 `nextTick` 后 3 项均通过，组件使用 sessionStorage 保存结果级别选择。没有重试任何医学执行；本轮没有医学执行。
+
+验证：后端 `backend_v2/tests/test_research_seams_r76.py` 15 passed / 3.15 s（依赖产生一条 Starlette/AnyIO deprecation warning）；前端 `frontend/src/tests/research-evidence.spec.ts` 3 passed / 0.47 s；`vue-tsc -b` exit 0；Vite production build exit 0，输出到独立 `/tmp/epi-next-integration-r76-build-20261013`，未改旧 dist。构建记录既有 DICOM codec 的 Node core externalization 提示和大 chunk 提示。验收报告位于 `hospital-release/20261013-r76-research-seam/ACCEPTANCE_REPORT.md`。
+
+范围限制：所有新测试为生成数据，测试 Worker 通过进程内 TestClient/transport，不是真实服务。没有读真实 CT、保护资产或模型权重，没有启动服务、MPS/GPU、实时算法前向或医院浏览器。R71 既有只读技术 PASS 保留但不替代真实新算法空间验收。LOC E2 实际 handler/医院 Job 与 ENC F0 实际 head/cache/logits handoff仍 `NOT RUN` / `BLOCKED_BY_DATA_HANDOFF`；完整 DICOM 方向、切片、世界坐标与几何链、六种状态 UI、连续三次医院演示、医院素材用途批准和临床验证均未完成。E1 未在本接缝注册，旧 Occlusion16/32/64 未重命名 E1，F1 未完成。当前不改变 FrozenBaseline/v16 展示候选，不宣布医院冻结通过。
+
+**交付与回退：** `hospital-release/20261013-r76-research-seam/manifest.json` 指向实现 commit 和准确契约；`ALGORITHM_COMPARISON.md` 列出 default/experimental/incomplete 状态；`DEMO_AND_ROLLBACK.md` 保留 v16 操作入口和切回方法。负责人尚未决定原本地影像/结果医院用途；只提供本地版本化交付材料，无上传、截图、录屏、部署或推送。
