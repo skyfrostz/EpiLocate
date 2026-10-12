@@ -51,7 +51,7 @@ def world_bounds(bounds,index,affine):
 
 def output_from_saved_e2(req,raw,directory,context,start,*,replay=False,source_result_sha256=None):
     i=req.input
-    if raw['schema']!='EPI_NEXT_E2_HANDLER_V4' or raw['native_space']['native_slice_index']!=i.native_slice_index:raise ValueError('E2_NATIVE_RESULT_BINDING_MISMATCH')
+    if raw['schema'] not in {'EPI_NEXT_E2_HANDLER_V4','EPI_NEXT_E2_HANDLER_V5'} or raw['native_space']['native_slice_index']!=i.native_slice_index:raise ValueError('E2_NATIVE_RESULT_BINDING_MISMATCH')
     raw_hash=save_compressed_json(directory,'e2-handler-result.json.gz',raw,req.budget.output_bytes//2)
     layers=[];assets={}
     def add_layer(name,kind,values):
@@ -79,4 +79,6 @@ def output_from_saved_e2(req,raw,directory,context,start,*,replay=False,source_r
     sources={'handler_result':raw_hash,'core':raw['core_sha256'],'prepared_input':raw['input_binding']['input_sha256']}
     if source_result_sha256:sources['precomputed_source_result']=source_result_sha256
     diagnostics=dict(method=raw['method'],psmi=raw['psmi'],planned_branches=raw['planned_branches'],full_plan_completed=raw['full_plan_completed'],skipped_branches=raw['skipped_branches'],unrun_branches=raw['unrun_branches'],candidate_provisional=raw['candidate_provisional'],reused_historical_observations=raw['reused_historical_observations'],source_execution_cost=raw['new_cost'],source_evidence_type=raw['evidence_type'],precomputed_replay=replay)
+    if raw['schema']=='EPI_NEXT_E2_HANDLER_V5':
+        diagnostics.update(source_handler_schema=raw['schema'],target_contract=raw['target_contract'],source_model_binding=raw['input_binding'])
     return HandlerOutput(HandlerResult(execution_status=status,algorithm_status=raw['method'],reason=None if status=='SUCCESS' else str(raw['new_cost'].get('stop_reason') or status),prediction=prediction,candidates=candidates,layers=layers,actual_forward=context.forward_count,actual_backward=context.backward_count,actual_updates=context.update_count,runtime_seconds=elapsed,stop_events=context.stop_events,source_artifacts=sources,diagnostics=diagnostics),assets)

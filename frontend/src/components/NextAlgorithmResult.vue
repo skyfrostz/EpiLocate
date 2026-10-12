@@ -6,6 +6,7 @@
     <p v-if="output.reason">{{ output.reason }}</p>
     <p>{{ request.task.unit === 'SLICE' ? '二维切片任务' : '完整所选 Series 的源病例分类' }} · {{ request.task.definition_id }}</p>
     <p v-if="output.prediction">预测类别：{{ output.prediction.class_label }} · logits {{ output.prediction.logits.join(', ') }}</p>
+    <ResearchEvidence v-if="output.diagnostics.research_contract" :result-id="result.result_id" :request="request" :output="output" />
     <p>前向 {{ output.actual_forward }} / 反向 {{ output.actual_backward }} / 更新 {{ output.actual_updates }} · {{ output.runtime_seconds }} 秒</p>
     <p v-if="output.stop_events.length">预算停止记录 {{ output.stop_events.length }} 条；实际退出耗时已保留。</p>
     <label v-if="layers.length">模型证据图层 <select v-model="selected"><option v-for="layer in layers" :key="layer.asset_id" :value="layer.asset_id">{{ layer.evidence_type }}</option></select></label>
@@ -28,6 +29,7 @@ import type { ResultRecord } from '../api/types'
 import { apiClient } from '../api/client'
 import { sessionEpoch, onSessionReset } from '../auth/lifecycle'
 import CornerstoneSliceViewer from '../viewer/CornerstoneSliceViewer.vue'
+import ResearchEvidence from './ResearchEvidence.vue'
 import { resolveApplicationOverlay } from '../viewer/next-geometry'
 import type { ViewerOverlayInput } from '../viewer/geometry'
 const props=defineProps<{result: ResultRecord}>()
