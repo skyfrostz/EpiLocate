@@ -1206,3 +1206,17 @@ INTEGRATION 工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/
 15 项后端生成测试、3 项前端生成测试、`vue-tsc -b` 均通过；独立临时目录中的 Vite production build exit 0，保留既有 codec externalization 和大 chunk 警告。测试只用合成输入/数组/保存结果，不启动服务或执行模型。真实 CT、真实 E2 应用运行和 F0 数据交接仍未完成，F0 实际保存头/缓存/结果为 `BLOCKED_BY_DATA_HANDOFF`；真实左右/切片顺序/世界坐标/crop/resize/resample 验收、三次医院流程、展示审批、医院冻结和临床验证均 `NOT RUN`。本分支结果不覆盖先前 target0 与实际原始 argmax1 的 5F 记录，也不改变医院决策。
 
 交付包：`hospital-release/20261013-r76-research-seam/`，含 manifest、算法对照入口、验收报告、演示与回退说明。现场仍指向 v16 既有操作清单；负责人对原本地影像/结果医院用途的决定尚未完成。没有服务启动、GPU/MPS、上传、截图、录屏、部署或推送。
+
+### 更正｜2026-10-13｜R76 目标类别口径
+
+R76 算法对照文字“两个类别不等时拒绝”存在歧义，现按 LOC v5 源码改正：`DECLARED_FIXED` 允许解释类别不同于原始预测类别；实际 resolved 必须等于 declared。`ORIGINAL_ARGMAX_FIXED` 则用原始 logits 首个 argmax，并要求声明与该 resolved 一致。原接缝代码和 target0/prediction1 生成测试已按正确规则实现，本轮仅更正文档，不改旧5F应用target0/科学target1差异或任何科学收据。
+
+### 2026-10-13｜R77 E2-R 精确执行准备与累计输出保护
+
+INTEGRATION 原工作树/分支，开始 HEAD `75d2ef118ea717e8c3cbcb413e247f25d964eb55`。源实现 `3e2373d2aa3371ec620cd5c8c088e1aa6a06e405`，最终运行源固定于 `e303595099b31d7ab6f66652feda1b7fdffc1fa5`。新增科研只检查/一次父子入口，复用原 E2 实际加载器、v12 共享监督和全局计数，不改旧 MVP/Frozen/5F。LOC 固定 readout 配置 SHA `1d2611e8371a3d8074441f53e2832fdc46f4f38b5011a58ffb22f37ae9b3ae52`，同 case3/epoch3604/cell43，原4 logits严格兼容复用，12读出+2适配检查=计划14F/上限18F，4F不分配，0B/0更新/CPU1/120秒。
+
+64MiB按生命周期累计写入保守预留与保留/临时峰值双重限制，包括结果、失败残留、父子日志、监督遥测及本任务slot文件。现有IO锁内父子共享持久账本，替换和失败不返还；账本每次写入计512字节，普通56MiB/终态8MiB，终态过大拒绝而不伪造成功。native日志有界管道排空并记录丢弃，父异常和摘要不在账本外另行输出；已知部分调用数传递到监督完成，未知保持null。原调度/设备锁和身份停止规则未修改。
+
+25项生成定向验证PASS2.74秒；包含实际共享guard的生成完成记录和一个非医学Python日志fixture，没有占用计算slot或读取医学数组/权重。最终只检查命令exit0、Torch未导入/模型调用0/队列观察0；24项INT/IO源、16项LOC源、8项共享模块与8项固定依赖条目闭合。旧MVP66源/构建全部MATCH，原DB/影像/对象未读；无服务、MPS/GPU、新展示或旧验收重跑。
+
+最终 binding SHA `92fb6d542b69d094f0e3fb65474f16827bc75d5f81b2632d584f225f0bf8f928`，申请item SHA `0f330e7ef460f3e00811583f3e4ea93aa5a4f8232d8800fef806ebe2e97aa53a`。交付 `hospital-release/20261013-e2-r-execution-preparation/` 状态 **PREPARED_NOT_EXECUTED / BLOCKED_BY_APPROVAL**，缺新E2-R owner分项批准、原恢复队列中新task准入及独占dispatch/window。一次执行argv已固定，仅待最终dispatch及SHA；未执行。CT-FM既有科学批准保留，本线不重复申请；基础v16/E2/F0真实消费验收继续待命。

@@ -1587,3 +1587,15 @@ INTEGRATION唯一负责演示清单，原工作树/codex/epi-next-integration-20
 范围限制：所有新测试为生成数据，测试 Worker 通过进程内 TestClient/transport，不是真实服务。没有读真实 CT、保护资产或模型权重，没有启动服务、MPS/GPU、实时算法前向或医院浏览器。R71 既有只读技术 PASS 保留但不替代真实新算法空间验收。LOC E2 实际 handler/医院 Job 与 ENC F0 实际 head/cache/logits handoff仍 `NOT RUN` / `BLOCKED_BY_DATA_HANDOFF`；完整 DICOM 方向、切片、世界坐标与几何链、六种状态 UI、连续三次医院演示、医院素材用途批准和临床验证均未完成。E1 未在本接缝注册，旧 Occlusion16/32/64 未重命名 E1，F1 未完成。当前不改变 FrozenBaseline/v16 展示候选，不宣布医院冻结通过。
 
 **交付与回退：** `hospital-release/20261013-r76-research-seam/manifest.json` 指向实现 commit 和准确契约；`ALGORITHM_COMPARISON.md` 列出 default/experimental/incomplete 状态；`DEMO_AND_ROLLBACK.md` 保留 v16 操作入口和切回方法。负责人尚未决定原本地影像/结果医院用途；只提供本地版本化交付材料，无上传、截图、录屏、部署或推送。
+
+### 2026-10-13｜R77 E2-R 科研实际加载入口准备
+
+**任务负责人：** INTEGRATION。原工作树/codex/epi-next-integration-20261009，开始HEAD `75d2ef118ea717e8c3cbcb413e247f25d964eb55`，最终运行源码 `e303595099b31d7ab6f66652feda1b7fdffc1fa5`。按总控委派只闭合 E2-R 科研入口，不进行重复MVP联调或医学调用。复用 `build_existing_e2_runner`、同一 `predict_numpy`/可微模型和共享ChildGuard，调用LOC固定 `run_readout`；新增task `EPI-NEXT-E2-R-CASE3-CPU-20261013-V5-INT-1`，原5F/P1任务不可复用。旧数据/模型引用保留私有binding中，不复制数组/权重或结果正文。
+
+初版工程暴露两个缺口：64MiB只覆盖科学文件，不能证明包含监督输出；异常完成把已知部分计数写成null。已按总控审阅修正：既有IO锁与BoundedStore复用，父子共享累计写入账本，atomic替换/append/失败均预先记账、无退款，每次账本写保守512字节；另外扫描保留文件、临时和失败残留。8MiB终态额度替换原16KiB假定，native父子日志各限1MiB，超额排空并记录丢弃/失败。共享监督框架/队列锁源码不改，只在本task进程内安装IO回调；模型计数与身份停止仍由原监督负责。已知context计数随ReadoutFailure传递到完成记录；确实未知保留null。账本未提交临时事务阻断为UNKNOWN，不能读旧值继续。
+
+验证只覆盖受影响接缝：25项生成PASS2.74秒，正常14F/4复用、2F适配失败、旧logits不符0F未加载模型、加载时间不重置、批准/新task/同队列/slot篡改拒绝，以及累计替换、父子同账本、失败不退款、native日志限制、真实共享guard生成完成记录和已知/未知失败计数。测试只使用合成数组/toy模型；启动一个普通Python日志fixture，无医学资产/队列/slot。随后只修正执行摘要及父异常的账本外输出，不扩大验证；最终源metadata check exit0，Torch未导入，数组/权重读取0、医学调用0、队列观察0。
+
+最终私有binding `.local/e2-r-readout-v5-20261013/execution-binding-r77-final-v4.json` SHA `92fb6d542b69d094f0e3fb65474f16827bc75d5f81b2632d584f225f0bf8f928`，item `approval-item-r77-final-v4.json` SHA `0f330e7ef460f3e00811583f3e4ea93aa5a4f8232d8800fef806ebe2e97aa53a`；只v4可合并最终申请，此前草稿未派发。24项INT/IO源与16项LOC源、原8共享模块/8依赖条目及包版本闭合；README/manifest给定一次实际argv，尚缺总控真实dispatch SHA。累计字节以保守写入预留报告，不冒充保留大小或实测性能；终态超过剩余额度会拒绝，不承诺报告一定成功。
+
+旧MVP binding b03d88d…的66源/构建逐项MATCH；本轮没有读原DB/CT/对象，未启动服务/MPS/GPU、新展示或重跑旧验收。FrozenBaseline/A-B-C/GT-v1/旧Occlusion/5F收据不改。R76 `DECLARED_FIXED` 文档已更正为允许解释类与预测类不同；原代码/生成测试正确，不据此回写科学历史。状态 **GENERATED_ENGINEERING_PASS / PREPARED_NOT_EXECUTED / BLOCKED_BY_APPROVAL**，真实研究结果和E2/F0应用消费均NOT_RUN。CT-FM已有科学批准维持，新增申请仅E2-R；交总控合并待批，不自行批准或占槽。

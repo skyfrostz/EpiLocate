@@ -10,7 +10,7 @@
 | F0 | 实验版本 | ENC v4 保存结果消费；以生成缓存/头参数/评价记录核验 SHA、日志重建、有符号贡献和名义 native/LPS 变换 | 真实 encoder/head/cache 已交付、三维粗图是病灶分割或概率 |
 | F1 | 未完成 | 未进入本次应用注册 | 可运行、已完成临床验证或可用于医院默认 |
 
-E2 保存的结果单独记录 `explanation_target` 和原始 `predicted_class`。`DECLARED_FIXED` 使用请求声明类别；`ORIGINAL_ARGMAX_FIXED` 使用原始 logits 的首个 argmax 类别。两者不相等时拒绝新结果。来源标签保留 `SLICE`、`CASE`、`BAG` 或 `SOURCE_GROUP` 范围，不把 CASE/BAG 标签提升为切片真值。优化目标 `ALL_LOGITS` 与描述响应 `FIXED_TARGET_LOGIT_MARGIN` 分开显示。
+E2 保存的结果单独记录 `explanation_target` 和原始 `predicted_class`。`DECLARED_FIXED` 使用请求声明类别，允许它不同于原始预测类别；`ORIGINAL_ARGMAX_FIXED` 使用原始 logits 的首个 argmax 类别。实际 `resolved_class` 必须等于声明的 `declared_class`，不一致时拒绝新结果。来源标签保留 `SLICE`、`CASE`、`BAG` 或 `SOURCE_GROUP` 范围，不把 CASE/BAG 标签提升为切片真值。优化目标 `ALL_LOGITS` 与描述响应 `FIXED_TARGET_LOGIT_MARGIN` 分开显示。
 
 F0 消费 ENC v4 的预计算保存材料，不调用 encoder/head 模型；接缝只做有界文件读取、SHA/身份校验、FP64 数值重建及坐标正逆变换核验。输出保留正负 4×4×4 来源分类贡献和 effective bias 恒等式；不做 ReLU、不平滑、不转成病灶概率或精细分割。
 

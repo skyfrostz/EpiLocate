@@ -17,7 +17,7 @@ from epilocate_next.e2_readout_launch import run_existing_readout, ReadoutFailur
 
 ROOT = Path(__file__).resolve().parents[1]
 LOC = ROOT.parent/'epi-next-localization/research/next-hospital-20261014'
-BINDING = ROOT/'.local/e2-r-readout-v5-20261013/execution-binding-r77-final-v2.json'
+BINDING = ROOT/'.local/e2-r-readout-v5-20261013/execution-binding-r77-final-v4.json'
 
 
 def write(path, value, raw=False):
