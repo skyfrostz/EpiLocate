@@ -180,3 +180,15 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps
 acceptance.json SHA `884e5a8a971c34e70c2f5624c9c04a7d5dbd47968a41cd22eff2b7bbc58e7c89`；私有驱动 `.local/demo64-technical-driver-20261013.py` SHA `716bab8b2f399142fed37057fcfaca20a389cef9197ea27e6c0d16a5677133fc`，未改冻结源码/dist。总8.908842秒，浏览器已关闭，三自有服务SIGTERM退出，源DB SHA不变；Worker未启动、model_calls0、external_requests0、page_errors0、截图/视频/trace/像素导出0。人工目视NOT_RUN，最终三次演练计数0，医院用途仍未批准。
 
 不自动重试。本轮技术核验已消费，后续先修正readiness断言与证据分步保存，再明确允许新的单次核验；不能因为生成测试PASS或DOM提示存在就回填真实空间/目视PASS。唯一状态writer已记录revision84/CONSISTENT/pending0，SHA `84a1b8a4a9454f7327da89221b60d32e874df2f9d1b3728a546a1eec1e502875`。
+
+## Revision85 后工程诊断｜2026-10-13｜无真实重试
+
+84→85 是原 writer 的 `BOUNDED-CLOSEOUT-DOC-INDEX-20261013` 文档索引提交，理由为绑定已提交清单；没有新执行。上节84是执行收口快照，不应回退当前状态。
+
+旧 hidden 回执未保存 computed style/祖先状态；源码提示为 ready && !loading && !error 条件节点，源码/CSS检查未证实它被设计为隐藏，也没有重复节点证据。**旧真实隐藏根因 UNKNOWN**，不宣称应用正常或已显示。
+
+仅验收侧修改：`qa/demo64_readiness.js/.py` 监听当前 image/viewport 的真实渲染事件并检查 decoded、rendered_status、可见非零 canvas、无可见加载错误与当前资产实际 draw；清空 overlay 会使 readiness 失效。`qa/demo64_technical_v2.py` 保留三Result/9资产、刷新、拒绝接口和原独立空间检查（原固定点、0.5 CSS px 容差未变），替换提示文字断言；每步原子持久化，主失败/清理失败分开。默认只检查元数据，真实运行需新的精确确认。
+
+生成 DICOM 走现有 CornerstoneSliceViewer 实际解码/渲染链，覆盖无当前影像、隐藏提示但已渲染、缺资产、错资产、异步资产就绪、旧渲染代次、清空图层及提示存在但解码失败。浏览器回归通过；日志模块和实际驱动 finally 的成功/失败清理另有合成回归。无真实三SOP服务、截图、视频、trace、医院展示；人工目视仍NOT_RUN，最终演练仍0。
+
+全部旧candidate source/dist/runtime引用核对通过，候选仍 `191b47b46ac2710e1a1d2d08b6b7b5e67c5c137c22d0d9cb105fb7f76911d917`。新驱动及辅助文件不在旧冻结清单内，不改变旧候选身份；下一次技术请求额外绑定这些文件和浏览器runtime。下一申请见原合并待决表的本轮增量，不重复原三项已消费批准。
