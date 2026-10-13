@@ -1637,3 +1637,6 @@ metadata入口PASS，Torch未导入、model_calls0、arrays_weights_read=false�
 工程环境：既有Python3.11.15主仓库venv + frontend/.local/mvp-20261011-browser-deps，无安装；已有Node/npm和node_modules。测试命令：PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 <main>/.venv/bin/python -m pytest backend_v2/tests/test_demo64.py -q；隔离候选内npm exec vitest -- run src/tests/demo64.spec.ts src/tests/geometry.spec.ts；VITE_PUBLIC_BASE=/mvp/ npm run build。
 
 仅完成工程候选；真实FrozenBaseline/64空间链、人工目视、医院用途、最终三次演练和录屏播放仍未完成。DATA E1/E2 prepared expected不等于生产空间验收，旧开发3/3和R71技术PASS不抵扣。原R18/E2-R最终申请字节不变，E2 V2外层21项runtime引用显式校验一致，Torch未导入；真实科研NOT_RUN，历史actual=null保留。
+
+
+64-only源码提交已固定为`c3ddad7064c79ba6afd24884c5ec3abed1bcf8ce`；私有frozen-candidate-v1.json SHA `191b47b46ac2710e1a1d2d08b6b7b5e67c5c137c22d0d9cb105fb7f76911d917`，190源码/旧恢复文件、21dist、23runtime引用。默认metadata检查PASS，无payload/模型/真实服务；原展示清单新增逐项工程和未完成验收记录。原科学申请SHA、旧失败与actual=null保留。

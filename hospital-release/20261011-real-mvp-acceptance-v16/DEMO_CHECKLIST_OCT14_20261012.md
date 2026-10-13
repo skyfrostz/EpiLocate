@@ -136,3 +136,36 @@ DATA新增独立expected坐标：`.local/phase2/mvp-display-metadata-preparation
 用途状态：LOCAL_MVP_ONLY；医院展示NOT_APPROVED，三次最终演练NOT_RUN，录屏/播放NOT_RUN，最终冻结NOT_RUN。候选用途为展示既有历史分类输出和输入遮挡响应，不作疾病诊断或实时推理；现场展示与备用录屏必须分项批准。普通联网/投屏不替代素材用途。没有获准录屏，不能把录屏作为已可用回退；当下保底仍是无受限像素技术材料。
 
 本轮仅维护候选清单和缺项，不启动服务、不新增Job/Worker/模型调用或患者影像显示。旧开发3/3与R71技术PASS不抵扣最终三次演练。具体用途/演练/录屏待决继续由现有合并待决表统一呈交。
+
+
+## 64-only候选工程冻结｜2026-10-13
+
+本节更新此前“中断/未构建”状态，旧v16/R71和历史失败保留。源码提交 **c3ddad7064c79ba6afd24884c5ec3abed1bcf8ce**（codex/epi-next-integration-20261009）；候选构建位于 `frontend/.local/demo64-candidate-20261013-v2/dist`，21个文件。
+
+私有冻结清单：[frozen-candidate-v1.json](../../.local/demo64-candidate-20261013/frozen-candidate-v1.json)，SHA **191b47b46ac2710e1a1d2d08b6b7b5e67c5c137c22d0d9cb105fb7f76911d917**。它绑定190个源码/旧恢复文件、完整dist、23项runtime引用、生成来源清单、原DB/对象索引与候选投影。投影SHA **b0dcd6e69cb057e8be3b92ac6a052b8d3415442ee4042f6771efbf1b3c5b934a**，仅从唯一DATA ledger与已有offline audit导出，三SOP/Result/9个64资产的精确身份仍在私有目录，不是新数据allowlist。权重仅沿用历史checkpoint身份，查看不加载权重。
+
+| 项目 | 本轮状态及证据 |
+|---|---|
+| 64-only前端 | 3项生成测试PASS；只保留历史三结果/登录/偏好路由；旧16/32偏好不恢复，图层只取64，直接其他Result不读取影像。无Series/3D/研究入口 |
+| API/对象范围 | 8项生成测试PASS（2.26s）；严格匹配三Result、三单SOP、9个64图层，16/32和其他对象、上传、新Job、Worker及写接口拒绝；源DB不变。HTTPS登录探针仅内部映射，直接病例列表拒绝；退出后401 |
+| 构建 | vue-tsc + Vite8.3.1 PASS；旧codec browser-externalization及大chunk警告保留。隔离构建不覆盖旧dist；未进行本候选真实浏览器流程 |
+| 几何 | 原11项生成数值测试PASS，与新增前端3项合计14项/590ms。仅验证数学与生成数据，不填实际空间PASS |
+| 保存对象保护 | 原恢复绑定66项源码/dist SHA一致；本轮没有读取影像像素、复制真实DB或重哈希原对象payload；没有修改原DB/资产 |
+| 服务 | 测试仅使用生成DB/PNG/fake-DICOM字节，三自有loopback服务退出；无Worker/模型。真实候选服务NOT_RUN |
+| 医学读出 | R18/E2-R新attempt NOT_RUN；无新admission/slot/dispatch。工程测试不建立科研提升 |
+| 医院及最后验收 | 医院用途NOT_APPROVED；真实空间叠加、人工目视、最终三次演练、录屏与播放NOT_RUN。候选工程冻结不等于医院最终放行 |
+
+生产链静态核对：`src/preprocessing.py`采用HU/窗映射、整幅bilinear antialias resize到224、无preset crop，然后复制通道/标准化；`algorithm/service.py`64窗口、stride32、fill0.5生成响应，candidate/response为224平面，comparison为14区域均值栅格。14栅格不能误称64遮挡采样格网。`frontend/src/viewer/geometry.ts`及`CornerstoneSliceViewer.vue`利用rendered image indexToWorld/worldToCanvas和四角验证构造画布affine，受实时viewport影响。这些代码/生成测试没有验证本次真实SOP的crop/resize、flip/rotation、viewport及叠加残差；DATA prepared expected参考不替代这条链或人工目视。
+
+既有许可核对：原LOCAL_MVP_ONLY和持续的同三例本机研发/保存结果复用记录已覆盖本地只读技术检查，不再次申请同一用途；R71单次收据仍只证明当次运行。本轮按已指定静态/合成收口范围停止，未将旧R71流程重做或记作本候选三次最终演练。后续真实技术/人工验收须继续引用原许可与冻结候选，医院受众展示、最终演练用途和录屏范围继续由原待决表集中处理。
+
+元数据检查（不启动服务、不读影像）：在INT根执行以下命令。实际`--serve`应只在匹配用途/验收范围下使用，配新`.local`运行目录；原v16入口保持可回退，不能重用已消费验收目录。
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps \
+ /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python qa/local_mvp_demo64.py \
+ --candidate .local/demo64-candidate-20261013/frozen-candidate-v1.json \
+ --candidate-sha 191b47b46ac2710e1a1d2d08b6b7b5e67c5c137c22d0d9cb105fb7f76911d917
+```
+
+仅此候选未来获准启动时使用新私有目录，原恢复架构保持三自有服务；Ctrl-C后检查该目录restore-exit.json确认三服务退出与原DB不变。失败不杀未知进程、不自动重启；录屏尚未获准/生成，不作为已可用回退。没有影像用途时采用无受限像素的现有架构、流程和真实研究汇总材料。
