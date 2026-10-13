@@ -1613,3 +1613,12 @@ INTEGRATION 仅修改新接缝 `qa/e2_readout_output.py`：保留真实 `subproc
 新接缝继续返回真实 `subprocess.Popen`，并修复 `poll_after_drain()` 无超时等待：poll 立即观察原生退出；drain 使用 select/停止事件，退出后最多 0.25 秒，超时进入受保护失败记录。实际生成父子生命周期测试覆盖成功、提前退出、deadline、未知身份、ProcessLookupError 早退和继承管道；33 项通过。未知 actual 保持 `null`，原 R77 收据未改。
 
 新 R79 申请固定原 case3、原保存 Mask、v5 science 配置，14F 计划/18F 上限/0B/0updates/CPU1/120秒/64MiB/无重试。binding SHA `f16169a035add8a8a022f1ccb5fa5add32229dc57905e332f8acd064e9cc2daf`，申请 SHA `058a1e929bb4c235d4a6b420821dae7fa3a31e9ec076256f0204dca603acf1a6`。未修改 ENC、监督 bundle、MVP 或历史研究资产；新执行等待总控集中审批，不自动派发。
+
+
+### 迁移接续最终收口｜2026-10-13
+
+在原INTEGRATION分支 `codex/epi-next-integration-20261009`、工作树 `EpiLocate-worktrees/epi-next-integration` 完成有限申请元数据和文档收口，开发前及执行源码HEAD `ae39a6b6fe0c4c46fac98b4d2e086dacf980f982`。新外层E2-R请求 `hospital-release/20261013-r79-e2-r-seam/approval-item-r79-v2.json` SHA `9ae5d0e90663934ed4962edec83dd2942584209ba6c2e7d2d91b64581d2b776b`，追加INT/LOC真实提交、21项runtime引用和既有输入/Mask/权重索引。原binding、V1、manifest、33项生成测试、科学配置和预算均未改。最终提交可由本节所在提交解析，不用自引用占位commit。
+
+metadata入口PASS，Torch未导入、model_calls0、arrays_weights_read=false；新runtime及生成测试源码SHA独立核对通过。复用33项生成测试，日志实际7.54秒，旧7.43秒摘要在README增量更正。23个INT源与16个LOC锁定源分别对应上述INT commit和LOC `11ac87b91ea863a0f394aa53a9e3db6571691bc6`。测试/工程核验不等于真实E2-R，历史actual=null保持。
+
+现有展示清单只补三历史Result/64层的保存索引与候选状态，数据仍LOCAL_MVP_ONLY。保留原会话中断留下的未跟踪 `frontend/demo-candidate/` 与 `qa/demo64_build.py`，不提交、不运行。64-only冻结dist/API限制验收、独立空间/目视、医院用途、三次演练与录屏仍缺。没有新会话、模型、恢复服务、队列事务、权限写入或push。已有R18 V2直接复用ENC交付，不改其源码/申请。

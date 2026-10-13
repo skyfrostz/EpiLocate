@@ -113,3 +113,26 @@ A实际通信：本机浏览器 `https://127.0.0.1:<edge>/mvp/`读取旧dist；�
 ## 管理网络修订与本轮停止点
 
 正常网络不是阻断，也不要求完全离线或localhost为唯一可能部署。当前按已实际PASS的本机只读恢复交付，不因政策放宽切换部署/增加计算；全部独立GPU AI Node均不进入展示架构。三图原LOCAL_MVP_ONLY素材边界不变，医院展示用途未自动获批；未获批则采用无受限像素的技术示意。R71原独立执行已退出，本轮不新增测试/恢复/截图/录屏，停止新增工作，等负责人用途决定。
+
+
+## 迁移接续最终收口｜2026-10-13
+
+当前仅锁定**候选**：原DATA唯一v2三单SOP、对应历史Result、64尺度Occlusion。16/32、完整Series/3D、未验收研究算法不进入拟议范围；旧v16仍是历史回退版本，不将其原全尺度能力称为已落实64-only限制。
+
+既有private-audit.json（本工作树 `research/next-hospital-20261014/.local/phase2/mvp-real-offline-audit-v16/private-audit.json`，SHA `a186cc714eaa8dccaf84c4c217fe03ab249ad5979509516e8696a33809ae9ac4`）保存准确路径及SHA。下表按`artifact_inventory`的原键绑定，不另建数据allowlist，不读取Result正文、像素或图层内容：
+
+| 原case_index | 历史Result键 / SHA | 64图层对象键 / SHA |
+|---|---|---|
+| 1 | `case 1 result` / `9cc5ab99f42f64f5ecd5adb9b3b888f6ebf77245f8a6d3ac81e0f5899edfde84` | `case 1 stored candidate-64.png` / `c4041631368acb1c0a274a329398e168a0cf74aabe15e37f4a294c114ceae65d`<br>`case 1 stored response-64.png` / `10faf7717b701ca33a134cf038bb0a1a96a96b6c668370b27d7cadc1fe276dc7`<br>`case 1 stored comparison-64.png` / `46d1d47b9e7b8d9b2a12aa688e91df1a8ca3b8f6e6f5ff21b12d69dde3b76b55` |
+| 2 | `case 2 result` / `b8337c0353e1400ab1042d658a67b4e9ac48c228151f6e1f278190c23a19ab5f` | `case 2 stored candidate-64.png` / `c797f57f73f49d8ae7673839c0472ad518e5877e432f51ee1be7dc044bc92c4b`<br>`case 2 stored response-64.png` / `2e25eb2456540592ff6e06ed081e820c845e26b22390e139637129e1bad67094`<br>`case 2 stored comparison-64.png` / `e1cdae133b06c96ae0d53d5f90cebe9655e92f696776b9e4b321ece37eb1ee3f` |
+| 3 | `case 3 result` / `6e4874034639c098f8cabc4a671e1d5c2c075b51f859ffd795743515aba05375` | `case 3 stored candidate-64.png` / `c4041631368acb1c0a274a329398e168a0cf74aabe15e37f4a294c114ceae65d`<br>`case 3 stored response-64.png` / `19c4b319cb6842f9fc3f1ca4e7cfbba7cf4b92f5da50be371bf0b70a237dad48`<br>`case 3 stored comparison-64.png` / `70220f0bb009d1dbaacc249015ee8413f22ee2eeeaae78b6f045675bb35a2e82` |
+
+这些是保存记录中的映射，不是本轮重算图层SHA或空间验收。原三SOP与人工身份复核继续绑定唯一DATA v2 ledger `bc9198383f12eb231e9125e8cf5a65a6f67a2f37d2233b7ad46b5308023ac6c1`，不重复人工身份复核。
+
+DATA新增独立expected坐标：`.local/phase2/mvp-display-metadata-preparation-20261013/DISPLAY_COORDINATE_EXPECTATIONS_V1.json`（DATA工作树），SHA `270533c2b878cfe49a81335d99fa452db3aed9617c6b923457801e137dd16578`。其E1/E2 prepared网格不能直接当作旧FrozenBaseline/Occlusion生产链已通过；仍需独立核对原生位置、真实64层格网、crop/resize、viewer flip/rotation/viewport以及叠加目视。
+
+原INTEGRATION会话后续工程因服务503中断，现场保留未跟踪`frontend/demo-candidate/`的两文件与`qa/demo64_build.py`，未纳入本轮提交，未运行构建/恢复。当前缺64-only冻结dist、与三Result匹配的API限制验证及空间核验；不能仅凭候选代码称入口已关闭。
+
+用途状态：LOCAL_MVP_ONLY；医院展示NOT_APPROVED，三次最终演练NOT_RUN，录屏/播放NOT_RUN，最终冻结NOT_RUN。候选用途为展示既有历史分类输出和输入遮挡响应，不作疾病诊断或实时推理；现场展示与备用录屏必须分项批准。普通联网/投屏不替代素材用途。没有获准录屏，不能把录屏作为已可用回退；当下保底仍是无受限像素技术材料。
+
+本轮仅维护候选清单和缺项，不启动服务、不新增Job/Worker/模型调用或患者影像显示。旧开发3/3与R71技术PASS不抵扣最终三次演练。具体用途/演练/录屏待决继续由现有合并待决表统一呈交。

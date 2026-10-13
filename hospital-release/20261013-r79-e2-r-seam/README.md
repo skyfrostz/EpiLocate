@@ -16,3 +16,12 @@
 无新监督版本交给 ENC。冻结 v12 bundle 的 8 个模块 SHA 全部 MATCH；现有 index 路径、每个模块路径/SHA 在 manifest。`ProcessLookupError` 的早退竞争只完成独立生成诊断，未修改 bundle 或 ENC 工作树，未认定其一定就是 R18 历史原因。
 
 v16、旧只读恢复、FrozenBaseline、A/B/C、GT-v1、旧 16/32/64 和原 5F 保持不动，MVP binding 的 66 个源/构建 hash 全部 MATCH。原本地 3/3 MVP 与 R71 技术验收保留；医院用途批准、人工目视/完整空间验收、医院三次流程、备用录屏及最终 PASS/CONDITIONAL PASS/NO-GO 决定仍未完成。医院默认未正式批准，冻结 `NOT RUN`，不依赖独立 GPU AI Node；本轮无新恢复服务、模型、影像导出或远程操作。
+
+
+## 迁移接续最终收口｜2026-10-13
+
+当前待审批对象为本目录 `approval-item-r79-v2.json`，SHA256 `9ae5d0e90663934ed4962edec83dd2942584209ba6c2e7d2d91b64581d2b776b`。V1和原manifest/执行binding保留原字节；V2仅追加实际源码commit、runtime逐文件绑定、既有输入/Mask/权重索引与停止/验收规则，未改执行代码、科学范围或预算。INT执行源码commit `ae39a6b6fe0c4c46fac98b4d2e086dacf980f982`，LOC锁定源码对应commit `11ac87b91ea863a0f394aa53a9e3db6571691bc6`。
+
+33项生成测试不重跑，当前源码SHA匹配；现存日志 `600bf0b81f9d8958f69b91ae3a0ef398808dbb4399fdc1ef55fe9f23ecb352c0` 为 **33 passed in 7.54s**，此前正文7.43秒为旧摘要，以现存日志/manifest为准。本轮原metadata入口再次PASS，Torch未导入、arrays_weights_read=false、model_calls=0，状态ENGINEERING_READY_OWNER_ADMISSION_SLOT_PENDING；V2新增外层runtime引用单独按字节核对，不冒称原入口验证了新字段。
+
+绑定不变：`f16169a035add8a8a022f1ccb5fa5add32229dc57905e332f8acd064e9cc2daf`。静态读出路径为2次原输入adapter一致性检查+12次规定新读出；四组历史logits复用，完整软Mask仍在报告对象内。无额外预热或未计数最终调用；上限18不代表允许增加4次实验。仍REQUEST_ONLY_NOT_APPROVAL、execute_permission=false；无admission/slot/dispatch和新真实结果，不要求等待R18。
