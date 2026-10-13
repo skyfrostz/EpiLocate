@@ -20,3 +20,7 @@
 `algorithm/`、`src/`、`scripts/`、`configs/` 属于仍被调用或受冻结边界约束的研究/算法路径；`gradio_service/` 仍有运行依赖。它们在本轮规划中保留在仓库根目录，不列入自动归档。Landing 已按路径审计导入；研究数据、构建产物和本地环境未随之导入。
 
 本清单只描述代码来源。线上 `/mvp/`、GPU 节点、数据库和域名状态必须单独复核；Git 主线更新不构成部署证明。
+
+## 2026-10-14 EPI-NEXT 源码发布增量
+
+`research/next-hospital-20261014/`、`epilocate_next/` 及相应 Backend/Frontend/Worker/QA 增量按文件来自四条既有 EPI-NEXT 工作线。共享文件冲突按所属工作线当前实现解决，私有历史不并入公开祖先。来源提交、DATA 未提交源码快照、脱敏与回归范围见 [四线源码导入记录](EPI_NEXT_SOURCE_IMPORT_20261014.md)。该增量包含实验实现和生成测试，医院展示与真实科研执行仍受各自权限和绑定限制。

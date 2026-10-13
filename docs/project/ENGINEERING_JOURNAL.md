@@ -1303,3 +1303,16 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **验证：** 前端 155/155 测试、18 文件，TypeScript 和 Vite `/mvp/` 构建通过；Backend/Gateway 51 项、Worker 协议 28 项、D10 53 项及 25 个子测试、Stage 1 8 项通过。真实本地 HTTPS/Gateway/Backend 使用 SQLite/TEST_STORAGE 通过 14 场景，Mock API 正向 Result 与六组实际 Cornerstone 几何通过 10 场景；两类均零 page error/外部请求。最终真实测试库 1 个 CREATED Job、0 attempt、0 Worker、0 Result。浏览器证据在 ignored `frontend/.local/consolidation-20261007/`。
 **公开对象审计：** 候选 `4a6af279fc6fca82f5b447d27cab4e66efd803d9` 的完整可达 closure 有 6 commits、120 trees、809 blobs；新增 710 blobs 仅命中合成 DICOM 与两份无凭证值的示例环境模板。旧公开 `main` 历史仍可达 `MIDRC-RICORD-01.s5cmd` 的 S3 对象定位信息，已在本次 tip 删除但不重写历史。最终文档提交须再扫；私有审计 JSON 留在 `EpiLocate-private/manifests/`。
 **剩余：** 最终提交审计、PR、合并、远端/本地主线核验、归档标签与分支逐条去向仍须按实际执行记录收尾。未做服务器部署、GPU 操作、PostgreSQL/MinIO 或真实正向推理验收。见 `docs/consolidation/MAINLINE_INTEGRATION_20261007.md`。
+
+
+### 2026-10-14｜EPI-NEXT 四线源码脱敏发布候选
+
+**范围与授权：** 用户明确要求同步四线当前源码和工程修复到 GitHub，排除影像、权重、私有收据和敏感信息。**执行者：** 本轮 Codex。**分支：** `codex/epilocate-sanitized-status-20261014`；主仓库现有 checkout，四个原工作树未修改。**开发前 HEAD：** `693bebfc9ef091f970ce78aee5bae8b8bd20a036`。
+
+**来源：** DATA `c9d751cf823ca9462741bc04f129512045d50818`（另含三项未提交工程源码/测试）；ENC `73ede0797016c022968ef239c8101df2da1d91f5`；LOC `11ac87b91ea863a0f394aa53a9e3db6571691bc6`；INT `246cdd1884a59bf9c0dcb1f872a26802378488de`。按文件复制，保留来源与公开 SHA；五项共享冲突使用所属线最新版本。
+
+**实际修改：** 纳入 315 个源码/测试/合同/配置文件，路径与身份脱敏，私有输入/Mask/审批摘要常量置为缺失占位，绑定配置模板化，排除真实资料及内部历史。补两个 smoke 入口的既有输出提前拒绝；生成测试现场重建旧夹具，浏览器测试动态使用空闲端口。新增 public-source QA IO guard 和分进程复核入口。原科学门槛、数值逻辑和冻结模型保持。
+
+**验证与失败保留：** Python3.11/CPU1：DATA470、严格 bootstrap1、其余研究457、API/Worker/QA167、生成浏览器1 PASS；前端167 tests、标准构建及生成 policy 的隔离64-only构建 PASS。初次64构建夹具缺字段的失败保留，完整生成夹具后通过；未改变真实候选或读素材。私有绑定及外部服务依赖共140项明确跳过。初次同进程收集污染 DATA 无Torch/RSS门，随后分进程；缺失旧生成文件以新生成夹具替换。失败日志保持于 ignored 本轮目录。未读取真实影像或研究权重，未办理科学 admission/dispatch，未进行医院展示。
+
+**限制：** 公开模板不继承旧批准；真实执行需按新源码 SHA 重新精确绑定。原公开历史的 S3 定位对象仍可达，最终发布审计须分别报告旧、新对象。实际源码提交与最终发布点见本轮 Git/PR 交付。

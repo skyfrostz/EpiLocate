@@ -1,0 +1,78 @@
+{
+  "head": {
+    "batch": 40,
+    "evaluation_dtype": "float64",
+    "f0_atol": 1e-10,
+    "f0_rtol": 1e-12,
+    "gap_dtype": "float64",
+    "learning_rate": 0.001,
+    "optimizer": "AdamW",
+    "seed": 17,
+    "threshold": 0.5,
+    "tie": "Normal",
+    "training_dtype": "float32",
+    "updates": 100,
+    "weight_decay": 0.0001
+  },
+  "phases": {
+    "cache": {
+      "assets": 134217728,
+      "backward": 0,
+      "forward": 60,
+      "per_case": 120,
+      "rss": 5368709120,
+      "seconds": 3600,
+      "updates": 0
+    },
+    "evaluate": {
+      "assets": 16777216,
+      "backward": 0,
+      "forward": 2,
+      "per_case": null,
+      "rss": 1073741824,
+      "seconds": 30,
+      "updates": 0
+    },
+    "train": {
+      "assets": 16777216,
+      "backward": 100,
+      "forward": 100,
+      "per_case": null,
+      "rss": 1073741824,
+      "seconds": 120,
+      "updates": 100
+    }
+  },
+  "planned_counts": {
+    "train_weak": {
+      "CAP": 10,
+      "COVID-19": 10,
+      "Normal": 20
+    },
+    "val_classification": {
+      "CAP": 5,
+      "COVID-19": 5,
+      "Normal": 10
+    }
+  },
+  "preprocess": {
+    "clip": [
+      -1024,
+      2048
+    ],
+    "crop": "NONE",
+    "downsampling_only": true,
+    "native_max_bytes": 536870912,
+    "orientation": "SPL",
+    "resample": "voxel-edge area average",
+    "scale": 3072,
+    "shape": [
+      1,
+      1,
+      64,
+      64,
+      64
+    ]
+  },
+  "schema": "CTFM_RESEARCH_SCIENTIFIC_CONFIG_V4"
+}

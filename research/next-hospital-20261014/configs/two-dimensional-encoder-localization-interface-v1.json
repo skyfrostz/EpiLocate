@@ -1,0 +1,34 @@
+{
+  "schema": "EPI_NEXT_2D_ENCODER_LOCALIZATION_INTERFACE_V1",
+  "status": "INTERFACE_CONTRACT_SOURCE_ONLY",
+  "model": {
+    "architecture": "existing ResNet18 encoder/classifier family, separately versioned weights and task head",
+    "weights_sha256": "REQUIRED_FROM_ENC_BEFORE_USE",
+    "preprocessing_sha256": "REQUIRED_FROM_ENC_BEFORE_USE",
+    "class_map_sha256": "REQUIRED_FROM_LOCKED_TASK_MANIFEST",
+    "no_frozen_baseline_overwrite": true
+  },
+  "supervision": {
+    "label_unit": "CASE_OR_FIXED_BAG",
+    "source_label": "carry locked manifest class, label unit and provenance; never infer from model output",
+    "slice_label": "UNAVAILABLE_UNLESS_INDEPENDENT_SLICE_ANNOTATION_EXISTS",
+    "prohibition": "never copy case/bag label onto individual slices as slice truth",
+    "bag_sampling": "a single fixed sampler and ordered bag manifest must be bound by SHA before train/eval; this interface does not choose or change the sample",
+    "bag_aggregation": "mean raw per-slice logits over the fixed ordered bag; resulting logits have CASE/BAG scope"
+  },
+  "predictor_contract": {
+    "slice_input": "finite float32 prepared scalar tensor [B,1,H,W] with exact model preprocessing ID/SHA bound outside this contract",
+    "slice_output": "finite raw logits [B,2] in ordered class-map IDs; prediction scope SLICE_RESPONSE",
+    "differentiable_f": "eval mode, frozen parameters, differentiable input; do not wrap in no_grad/inference_mode, detach inputs, or cache away the Mask gradient",
+    "bag_input": "fixed ordered bag of prepared slices plus immutable sampler/version binding",
+    "bag_output": "mean over slice logits -> finite raw [B,2], prediction scope CASE_BAG",
+    "bag_explanation": "requires separately versioned adapter that masks the selected slice(s) inside the fixed bag, reruns the model on changed pixels, reaggregates, and holds the original bag target fixed; current LOC E1/E2 v5 only accepts SLICE scope"
+  },
+  "matched_algorithm_comparison": {
+    "E1": "same fixed 16/32/64 pixel grids, fill, valid support, candidate area budgets, target policy, and deterministic tie rules within each evaluated model",
+    "E2": "same original E2 core/CPF constraints and all-logit Ls plus continuous-mask Lm definition within each model; freeze exact source/config SHAs before model calls",
+    "interpretation": "report each model's own logits, margins, probabilities, area and localization evidence; raw absolute logit losses across different classifiers/calibration are not comparative performance",
+    "semantic_match": "cross-model class comparison is permitted only after ordered class IDs and source/task label semantics are independently bound; otherwise label outputs by model class ID"
+  },
+  "evidence_boundary": "This interface is not a fitted classifier, training permission, model-call permission, slice-label source, bag explanation result, or clinical validation."
+}

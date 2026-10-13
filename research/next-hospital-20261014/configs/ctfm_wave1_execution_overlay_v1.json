@@ -1,0 +1,62 @@
+{
+  "allocator_limit_bytes": 5368709120,
+  "minimum_free_percent": 20,
+  "mps_driver_monitored_target_bytes": 6442450944,
+  "mps_driver_pre_stop_bytes": 5368709120,
+  "pressure_metric": "memory_pressure -Q System-wide memory free percentage",
+  "real_forward_in_this_preparation": 0,
+  "resource_revision_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "rss_monitored_target_bytes": 6442450944,
+  "rss_pre_stop_bytes": 5368709120,
+  "schema": "CTFM_WAVE1_EXECUTION_OVERLAY_V1",
+  "scientific_config_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "source_sha256": {
+    "encoder.py": "fa990c17c3d3a781d401b1efd5ce7c4f0edd5ebec4e5e9150bc49caeeee8780c",
+    "encoder_ctfm_mps_smoke.py": "fd669f3ea2e85d6a1b6c51c062f95b26008c2cf30564259f24248202ab80210e",
+    "encoder_real_input.py": "6947b12836f137e35e7ae66cb3671c3e2b351806652a685d7d230b6af702eb78",
+    "encoder_real_smoke.py": "404af02b081cc968136d307c7e570f0f7cce0ef4f127f36e2f3b4c029aad7f00",
+    "encoder_volume_dry_run.py": "322e18465b7a4a90634667e124ba7622ac0e528f550c4476561a98a123ae91b0",
+    "encoder_volume_guard.py": "206cd55a2840622486a3635a864ac732b5335c4bc4a4380616c7a0ef4fb3eb9b",
+    "encoder_volume_runner.py": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "status": "PREPARED_EXECUTION_BINDING_NOT_SLOT_AUTHORIZATION",
+  "supervision": {
+    "device": "mps",
+    "max_backward": 0,
+    "max_forward": 24,
+    "owner": "ENCODER",
+    "per_case_seconds": 120,
+    "recovery_seconds": 2,
+    "request_grace_seconds": 0.25,
+    "telemetry_max_gap_seconds": 0.25,
+    "telemetry_startup_seconds": 15,
+    "term_grace_seconds": 0.75,
+    "timeout_seconds": 1200
+  },
+  "supervisor_bundle": {
+    "dependency_root": "PRIVATE_BINDING_REQUIRED/EPI-NEXT-shared-supervisor-v1",
+    "dependency_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "files": {
+      "artifacts.py": "3ba97a3bc226991a3b15d144c34ef082f0bad14467aeef3af83f85a8bd31631c",
+      "contracts.py": "2b67e80410672a7547d0d117db76d6f91a18b0f68822d08a1721891f5e42f9e5",
+      "coordinator_writer.py": "b87111c88b5f14744c9570fb46b9f4f386e56a48e0957755e5a98c45e1fcd496",
+      "execution_lock.py": "0000000000000000000000000000000000000000000000000000000000000000",
+      "geometry.py": "5ef5ee0e0680d014034ee0ae206e707f70de848397f1611096d7b574e52db630",
+      "hospital_contract.py": "299d43d9c04662235770c23013342857c67afe424ef7ef29af2d352771a4922f",
+      "hospital_runtime.py": "75b50d9e5d204e647906a3970dcd5f0163db9e216bc2bb4b572f3712c40bde3e",
+      "wave1_supervisor.py": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "import_manifest_path": "PRIVATE_BINDING_REQUIRED/imports.json",
+    "import_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "initializer_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "numpy_version": "2.4.6",
+    "package_path": "PRIVATE_BINDING_REQUIRED/epinext_wave1_supervisor_v1",
+    "resource_revision_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "schema": "EPI-NEXT-WAVE1-SUPERVISOR-BUNDLE-1",
+    "source_commit": "aca34f99ce3e642331bf82e71e6fd625f6e02409",
+    "source_dirty": false
+  },
+  "supervisor_package": "epinext_wave1_supervisor_v1",
+  "unified_metrics_not_added": true,
+  "public_template_only": true
+}

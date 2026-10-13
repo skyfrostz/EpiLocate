@@ -5,6 +5,8 @@
     <p v-if="results.error" class="notice notice-error" role="alert">{{ results.error }}</p>
     <p v-if="results.loading" class="notice" role="status">正在读取结果…</p>
     <template v-if="result">
+      <NextAlgorithmResult v-if="result.kind === 'ALGORITHM'" :result="result" />
+      <template v-else>
       <nav class="result-context compact-context" aria-label="当前病例与任务">
         <RouterLink :to="`/cases/${encodeURIComponent(result.case_id)}`"><span>当前病例</span><code>{{ result.case_id }}</code></RouterLink>
         <RouterLink :to="`/jobs/${encodeURIComponent(result.job_id)}`"><span>当前任务</span><code>{{ result.job_id }}</code></RouterLink>
@@ -69,6 +71,7 @@
         </div>
       </details>
       <p class="result-disclaimer">图层表示模型决策响应，不是病灶标注或临床诊断。仅验证当前单切片的像素几何，未建立三维空间配准。</p>
+      </template>
     </template>
     <div v-else-if="!results.loading" class="content-card"><div class="empty-state compact"><h3>结果尚不可显示</h3><p>请确认结果 ID、认证状态和 API 连接，然后重新读取。</p></div></div>
   </div>
@@ -81,6 +84,7 @@ import { apiClient } from '../api/client'
 import { ApiRequestError, errorText } from '../api/errors'
 import { sessionEpoch } from '../auth/lifecycle'
 import type { CaseDetail, HeatmapLayer, SliceRecord } from '../api/types'
+import NextAlgorithmResult from '../components/NextAlgorithmResult.vue'
 import { formatPercent } from '../format'
 import { useResultStore } from '../stores/results'
 import CornerstoneSliceViewer from '../viewer/CornerstoneSliceViewer.vue'
@@ -161,7 +165,7 @@ async function loadCt() {
   ctError.value = null
   ctLoading.value = Boolean(value)
   ctState.value = value ? 'loading' : 'empty'
-  if (!value) return
+  if (!value || value.kind === 'ALGORITHM') { ctLoading.value=false; return }
   try {
     const [detail, blob] = await Promise.all([
       apiClient.getCase(value.case_id, controller.signal), apiClient.getCaseDicom(value.case_id, controller.signal),

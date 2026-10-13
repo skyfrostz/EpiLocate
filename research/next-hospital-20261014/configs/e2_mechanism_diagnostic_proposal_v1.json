@@ -1,0 +1,50 @@
+{
+  "status": "PROPOSED_NOT_RUN_PENDING_E1_BASELINE_DECISION_AND_COORDINATOR_LOCK",
+  "scope": "ONE_BOUNDED_MECHANISM_TELEMETRY_EXPERIMENT",
+  "case_and_slice_lock_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "prepared_delivery_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "grids": [
+    [
+      4,
+      4
+    ],
+    [
+      7,
+      7
+    ]
+  ],
+  "stages": 1,
+  "epochs": 100,
+  "learning_rate": 0.01,
+  "mask_weight": 0.1,
+  "similarity_threshold": 0.005,
+  "sparsity_threshold": 0.08,
+  "min_peak_gap": 0.0,
+  "initial_mask": 0.5,
+  "benchmark_scale": 0,
+  "min_other_scale_support": 1,
+  "max_model_calls_per_slice": 202,
+  "max_total_model_calls": 606,
+  "timeout_seconds_per_slice": 120.0,
+  "seed": 20261009,
+  "extra_telemetry": [
+    "epoch full mask, active mask and projection/clamp counts",
+    "similarity/sparsity gradients and combined gradient norms",
+    "paired minima and joint feasible epoch count",
+    "final mask and no-selection reason even if CPF infeasible"
+  ],
+  "parameter_changes": false,
+  "GT_generation_access": false,
+  "goal": "Explain observed CPF infeasibility; no nonzero-output target",
+  "three_stage_comparison": {
+    "status": "NOT RUN; no reliable first-stage CPF patch to exclude",
+    "hypothetical_max_calls_per_slice": 606,
+    "cap_formula": "2 grids * 3 stages * (1 baseline + 100 epochs)",
+    "thresholds_unchanged": true
+  },
+  "device": "cpu",
+  "training_model_weights": false,
+  "remote_GPU": false,
+  "public_template_only": true
+}

@@ -933,3 +933,10 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 **日期：** 2026-10-07。**分支：** `codex/epilocate-main-consolidation`，起点为公开 `origin/main` `14c114ab26226561615315f7d3d25e42fcec64cc`。本阶段按文件导入独立 Clinical Canvas `117ce7a61c6bd8ba6893ecb83445d8647c9965a1`，再适配 `8a5928fcdabfb0326e1f76182f6f54f4278eb022` 的会话、超时、任务幂等与焦点行为和 `f548a624588deb922131c0c07b83336e2bc0ff15` 的 Worker 安全诊断；导入冻结 D10 的公开离线工具及 Stage 1 测试。保留原公开 `main` 祖先，不把内部开发、研究或交付历史作为祖先合入。
 
 **验证与边界：** 前端 155 项、Backend/Gateway 51 项、Worker 协议 28 项、D10 53 项及 25 个子测试、Stage 1 8 项通过；`/mvp/` 构建及真实本地 14 场景、Mock 10 场景通过。真实本地库无 Worker/Result；PostgreSQL/MinIO、真实正向推理、GPU、生产与临床验收不在本阶段。研究结论以 `docs/research/REPOSITORY_STATUS_20261007.md` 为准。来源、测试和发布恢复门槛详见 `docs/consolidation/MAINLINE_INTEGRATION_20261007.md`。此记录说明候选内容，PR 合并及分支退役须以之后实际 Git 记录为准。
+
+
+## 2026-10-14｜EPI-NEXT 四线源码脱敏发布候选
+
+公开基线为 `693bebfc9ef091f970ce78aee5bae8b8bd20a036`，候选分支 `codex/epilocate-sanitized-status-20261014`。按文件纳入四条既有工作线的 315 项源码、测试、合同及配置，私有历史不成为公开祖先。完整来源提交及逐文件 SHA 见 [导入记录](../consolidation/EPI_NEXT_SOURCE_IMPORT_20261014.md)。DATA 未提交的元数据补充源码以实际字节冻结，私有执行报告不纳入。
+
+实现涵盖导入/HU/geometry、CT-FM/R18、定位/读出、监督与控制工具，以及 Backend/Frontend/Worker 和 64-only 工程驱动。个人路径、身份和直接影像下载定位已处理，私有绑定配置改为模板；FrozenBaseline、科学损失/阈值/分母不变。生成研究回归 928 项、API/Worker/QA 167 项、生成浏览器 1 项、前端 167 项通过；140 项明确跳过。工程回归不构成新医学执行、科研改善、医院验收或部署。完整 Git 闭包审计必须区分新增对象与旧公开历史的定位文件。

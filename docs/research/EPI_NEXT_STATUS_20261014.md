@@ -1,6 +1,6 @@
 # EPI-NEXT research and engineering status (2026-10-14)
 
-This public summary reflects locally reconciled evidence through 2026-10-13. It is an aggregate status update; it does not include the private execution ledger, approval records, source data, model weights, or internal worktrees. The engineering changes described below remain in private development branches and are not integrated into this public source tree.
+This public summary reflects locally reconciled evidence through 2026-10-13. The public source update includes the audited implementations and generated tests described in the [four-line import record](../consolidation/EPI_NEXT_SOURCE_IMPORT_20261014.md). Private execution ledgers, approval records, source data, model weights and internal histories are excluded. Publication does not establish deployment or a new scientific result.
 
 ## Research results
 

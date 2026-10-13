@@ -1,0 +1,46 @@
+{
+  "schema": "R79_CLASSIFIER_COMPARISON_ADMISSION_V1",
+  "status": "BLOCKED_COMPARABILITY_NOT_EXECUTION_AUTHORITY",
+  "inherits": {
+    "protocol": "configs/r18-slice-localization-protocol-v1.json",
+    "protocol_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "target_contract_sha256": "d852001e0db9d52844c900d81251a19b8afb20000b0b3429de11e80bf90b647c",
+    "E2_R_request_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "task_difference": {
+    "old": "FrozenBaseline 2D SLICE classifier trained with RICORD source proxy labels; retain its original label provenance and evaluation cohort",
+    "new": "separate ImageNet ResNet18 frozen backbone + final100 train-standardized affine head; COVID/CAP=1 vs Normal=0 source-group BAG supervision, eight fixed slices, no slice truth",
+    "AUROC": "old RICORD selected-validation28 AUROC and new COVID-CT-MD source-group validation20 AUROC are different tasks/cohorts/units; neither directly ranks classifier or localization improvement",
+    "class_semantics": "same numeric class ID or same original-argmax policy does not establish the same medical explanation target"
+  },
+  "input_and_source_admission": {
+    "model": "bind each model's immutable checkpoint/backbone/head/train-only statistics/class map/task/source/runtime/adapter SHAs; R18 final fitted artifacts not established by this review",
+    "input": "lock a common independently approved development input cohort with per-slice source/geometry/FOV ledger; old RICORD prepared tensors and new COVID-CT-MD native-HU eight-slice bags are not the same evaluation inputs",
+    "preprocessing": "old fixed scalar-to-RGB normalization and new HU window/antialias resize/channel normalization must be separately SHA-bound and differences reported; matching numeric settings alone does not prove matching raw input or unit provenance",
+    "metadata": "ENC helper slice_contract requires explicit full v5 projection, including schema and verified adapter_sha256 -> model_adapter_sha256; INT expected_target also requires model_binding.task_version == application task.definition_id",
+    "truth": "independently authorized label/annotation mapping with same evaluable denominator is required for classification or medical reference comparison; no new GT read here"
+  },
+  "inherited_scope_and_scale": "SLICE response only, source_label=null for new R18; fixed eight-slice affine BAG has delta_slice/8 and squared loss/64 for one changed member, up to bound precision residual. This does not grant BAG explanation, threshold rescaling or cross-model Ls/CPF comparability.",
+  "comparison_precommit": {
+    "separate_endpoints": [
+      "classification on a common task and unit",
+      "within-model explanation fidelity",
+      "candidate readout at fixed area",
+      "independent partial-reference coverage/object hits"
+    ],
+    "algorithms": "inherit fixed E1 16/32/64 and original E2 ALL_LOGITS/Lm/CPF definitions; no alpha/beta/lambda modification, no validation-dependent protocol selection",
+    "E2_parameters": "legacy alpha=0.005 beta=0.08 lambda=1 preserved; feasible rate/raw Ls under differently scaled models is not an improvement endpoint",
+    "target": "predeclare model-specific ORIGINAL_ARGMAX_FIXED or DECLARED_FIXED; declared==resolved, DECLARED_FIXED may differ from predicted; scientifically matched target needs independently established class semantics",
+    "failures": "retain all models/cases, zero candidates, timeout/failure and actual counts; unannotated remains UNKNOWN; no favorable case/seed/threshold selection from future validation results",
+    "calls": "a separate exact bounded E1/E2 comparison request must enumerate all adaptation/baseline/gradient/optimization/readout calls and exclusive dispatch; P1 or failed E2-R budgets cannot be reused"
+  },
+  "currently_unsatisfied": [
+    "new R18 final100 real head, statistics and full SLICE adapter identity not verified",
+    "common approved input/evaluation cohort and compatible task-label semantics not established",
+    "ENC helper-to-LOC/INT full metadata projection not implemented or accepted by this review",
+    "no independently approved matched medical-reference comparison",
+    "no new real E1/E2 comparison execution authority"
+  ],
+  "E2_R_independent": "old case3/epoch3604/cell43 readout remains its own adaptive mechanism pilot; science/source lock fixed; INT owns supervision repair/new18F request. No P1/P2/P3 rerun.",
+  "public_template_only": true
+}
