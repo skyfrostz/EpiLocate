@@ -1,0 +1,45 @@
+{
+  "admitted_exists": false,
+  "durable_reserved": {
+    "backward": 0,
+    "cases": {},
+    "forward": 0,
+    "job_id": "e2-r-case3-20261013-v5-int-1",
+    "sequence": 0
+  },
+  "original_receipts_preserved": true,
+  "reason": "MONITOR_FAILURE_ValueError",
+  "references": {
+    "counters": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/e2-r-case3-20261013-v5-int-1-supervision/e2-r-case3-20261013-v5-int-1/counters.json",
+      "sha256": "27a03e8738703bda46b1710183402370b75f41904943e76daf12c29bd40083a8"
+    },
+    "dispatch": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-v5-20261013/CHIEF_E2_R_DISPATCH_R77_V1.json",
+      "sha256": "53fa21e2e40e4c759acee231fc8c20913ad0e6bc2fd9a5eb9bd308d46ef387ec"
+    },
+    "finished": {
+      "path": "/Users/skyfrost/.codex/epi-next-device-queue/slots/e2-r-case3-20261013-v5-int-1/finished.json",
+      "sha256": "a06569c7f2e62a9d0297f2aff8574b76b1c959ce5c8fa26a9ed9c03ba3960235"
+    },
+    "generated_failure_reproduction": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-v5-20261013/full-failure-reproduction-v1/reproduction.json",
+      "sha256": "b513c74266e22dceb48f384dedd2f39edb23c62880034c7382657f669b92c244"
+    },
+    "stop": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/e2-r-case3-20261013-v5-int-1-supervision/e2-r-case3-20261013-v5-int-1/STOP",
+      "sha256": "b7f86669e5e89727699279f2058f5d8111380691ed934bc79b49bb546b09e47b"
+    },
+    "supervisor": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/e2-r-case3-20261013-v5-int-1-supervision/e2-r-case3-20261013-v5-int-1/supervisor-receipt.json",
+      "sha256": "4b2672e04d898923ee6a8cfbd7af0cc80c63f4710a616f2809a50b3415b9cbc5"
+    }
+  },
+  "retry": false,
+  "runner_actual_counts": null,
+  "runner_completion_exists": false,
+  "schema": "EPI_NEXT_R79_PRIOR_EXECUTION_AUDIT_V1",
+  "scientific_readout": "NOT_RUN",
+  "slot_completed": true,
+  "status": "FAILED"
+}

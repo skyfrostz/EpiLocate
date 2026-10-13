@@ -1607,3 +1607,9 @@ INTEGRATION唯一负责演示清单，原工作树/codex/epi-next-integration-20
 INTEGRATION 仅修改新接缝 `qa/e2_readout_output.py`：保留真实 `subprocess.Popen` 对象以满足共享 `DeviceSlot.track_child()` 身份检查，并将 drain 线程纳入实例 `poll()` 的退出观察，继续执行有界日志排空。共享 `execution_lock.py`、`wave1_supervisor.py`、队列和历史协议未修改。生成测试使用普通 Python child 和共享 `DeviceSlot`，25 项窄测试全部通过；无真实 CT、权重、模型调用、GPU 或队列占用。
 
 新 readiness binding 为 `execution-binding-r77-fixed-v1.json`，SHA `c62d7d98d00b3d132e14652307044381161145bc9fbe5107a53eafd2ea648cfa`，使用独立 `...INT-2` task/job。原 `final-v4` binding 和原 `...INT-1` 输出继续作为不可重跑的历史记录。修复结果只达到 `PREPARED_NOT_EXECUTED / BLOCKED_BY_NEW_DISPATCH`，须由总控重新发布 owner/admission/dispatch 后才可考虑接续；本轮未执行新真实任务。
+
+### 2026-10-13｜R79 E2-R drain 生命周期与精确申请
+
+新接缝继续返回真实 `subprocess.Popen`，并修复 `poll_after_drain()` 无超时等待：poll 立即观察原生退出；drain 使用 select/停止事件，退出后最多 0.25 秒，超时进入受保护失败记录。实际生成父子生命周期测试覆盖成功、提前退出、deadline、未知身份、ProcessLookupError 早退和继承管道；33 项通过。未知 actual 保持 `null`，原 R77 收据未改。
+
+新 R79 申请固定原 case3、原保存 Mask、v5 science 配置，14F 计划/18F 上限/0B/0updates/CPU1/120秒/64MiB/无重试。binding SHA `f16169a035add8a8a022f1ccb5fa5add32229dc57905e332f8acd064e9cc2daf`，申请 SHA `058a1e929bb4c235d4a6b420821dae7fa3a31e9ec076256f0204dca603acf1a6`。未修改 ENC、监督 bundle、MVP 或历史研究资产；新执行等待总控集中审批，不自动派发。

@@ -17,7 +17,7 @@ from epilocate_next.e2_readout_launch import run_existing_readout, ReadoutFailur
 
 ROOT = Path(__file__).resolve().parents[1]
 LOC = ROOT.parent/'epi-next-localization/research/next-hospital-20261014'
-BINDING = ROOT/'.local/e2-r-readout-v5-20261013/execution-binding-r77-fixed-v1.json'
+BINDING = ROOT/'.local/e2-r-readout-r79-20261013/execution-binding-r79-v1.json'
 
 
 def write(path, value, raw=False):
@@ -188,12 +188,13 @@ def test_failure_completion_retains_known_counts_and_unknown_stays_null(tmp_path
     assert completions[0]['actual_backward']==(0 if known else None)
 
 
-@pytest.mark.parametrize('mutation',['task','closure','source'])
+@pytest.mark.parametrize('mutation',['task','closure','source','test_source'])
 def test_binding_drift_rejected_without_model_or_queue(tmp_path,mutation):
     value=entry.bound(binding_ref())
     if mutation=='task':value['existing_e2_binding']['application_request']['task']['target_class']=0
     if mutation=='closure':value['source_sha256'].pop(str(ROOT/'worker/inference.py'))
     if mutation=='source':value['source_sha256'][str(ROOT/'worker/inference.py')]='0'*64
+    if mutation=='test_source':value['generated_validation']['source_sha256'][str(ROOT/'qa/test_e2_readout_lifecycle.py')]='0'*64
     ref=write(tmp_path/'changed-binding.json',value);loader,calls=fake_supervisor()
     with pytest.raises(ValueError):entry.run(ref,supervisor_loader=loader)
     assert not calls

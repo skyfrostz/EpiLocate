@@ -16,8 +16,8 @@ from qa.next_selected_fidelity_parent import load_supervisor, CPU_ENVIRONMENT, P
 
 REQUEST_SHA = '1d2611e8371a3d8074441f53e2832fdc46f4f38b5011a58ffb22f37ae9b3ae52'
 INDEX_SHA = '12e808bcf23f80571886fa0e8c68efa88a11fb833a51db002ab1820d20fc1a6d'
-TASK = 'EPI-NEXT-E2-R-CASE3-CPU-20261013-V5-INT-2'
-JOB = 'e2-r-case3-20261013-v5-int-2'
+TASK = 'EPI-NEXT-E2-R-CASE3-CPU-20261013-V5-R79-INT-1'
+JOB = 'e2-r-case3-20261013-v5-r79-int-1'
 COMPUTE = dict(device='CPU', forward=18, planned_forward=14, adapter_check_forward=2,
                readout_forward=12, unallocated_forward=4, backward=0, updates=0,
                seconds=120, output_bytes=67108864, retry=0)
@@ -95,6 +95,13 @@ def check_binding(reference, *, supervisor_loader=load_supervisor, child=False):
         '/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-localization/research/next-hospital-20261014/epi_next/p1_storage_v4.py'}
     if set(value['source_sha256']) != required:
         raise ValueError('INCOMPLETE_INT_SOURCE_CLOSURE')
+    validation=value['generated_validation']
+    tests={str(ROOT/'qa'/name) for name in (
+        'test_e2_readout_output.py','test_e2_readout_launch.py','test_e2_readout_lifecycle.py')}
+    if (validation['scope']!='GENERATED_ONLY' or set(validation['source_sha256'])!=tests
+            or any(hashlib.sha256(Path(p).read_bytes()).hexdigest()!=s
+                   for p,s in validation['source_sha256'].items())):
+        raise ValueError('GENERATED_VALIDATION_SOURCE_DRIFT')
     if value['preserved_mvp_binding']['sha256'] != 'b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4':
         raise ValueError('ORIGINAL_MVP_BINDING_REQUIRED')
     preserved = bound(value['preserved_mvp_binding'])

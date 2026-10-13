@@ -1,0 +1,25 @@
+{
+  "binding": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/execution-binding-r79-v1.json",
+    "sha256": "f16169a035add8a8a022f1ccb5fa5add32229dc57905e332f8acd064e9cc2daf"
+  },
+  "existing_slot_requirement": "new task-key admission in existing recovered queue; no new scheduler or lock",
+  "id": "E2-R",
+  "job_id": "e2-r-case3-20261013-v5-r79-int-1",
+  "limits": {
+    "adapter_check_forward": 2,
+    "backward": 0,
+    "device": "CPU",
+    "forward": 18,
+    "output_bytes": 67108864,
+    "planned_forward": 14,
+    "readout_forward": 12,
+    "retry": 0,
+    "seconds": 120,
+    "unallocated_forward": 4,
+    "updates": 0
+  },
+  "output_root": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/phase2/e2-r-case3-20261013-v5-r79-int-1",
+  "status": "REQUEST_ONLY_NOT_APPROVAL",
+  "task_key": "EPI-NEXT-E2-R-CASE3-CPU-20261013-V5-R79-INT-1"
+}

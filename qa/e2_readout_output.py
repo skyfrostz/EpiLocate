@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import select
 import subprocess
 import threading
 import time
@@ -17,6 +18,7 @@ CAP = 64 * 1024 * 1024
 RESERVE = 8 * 1024 * 1024
 LOG_CAP = 1024 * 1024
 LEDGER_WRITE_CHARGE = 512
+DRAIN_EXIT_SECONDS = .25
 
 
 def output_lock(reference):
@@ -128,10 +130,14 @@ class Stream:
     def __exit__(self,*args):return self.stream.__exit__(*args)
 
 
-def drain_pipe(pipe,target,budget):
+def drain_pipe(pipe,target,budget,stop=None):
     try:
         while True:
-            raw=pipe.read(65536)
+            if stop is not None:
+                if stop.is_set():break
+                if not select.select([pipe],[],[],.05)[0]:continue
+                raw=os.read(pipe.fileno(),65536)
+            else:raw=pipe.read(65536)
             if not raw:break
             budget.append(target,raw,log=True)
     except BaseException as exc:budget.errors.append('LOG_DRAIN_'+type(exc).__name__)
@@ -161,6 +167,7 @@ def bounded_supervisor(value,modules):
     budget=OutputBudget(value);wave=modules['wave1_supervisor'];writer=modules['coordinator_writer'];execution=modules['execution_lock']
     saved={ (m,k):getattr(m,k) for m,k in ((wave,'atomic_json'),(wave,'write_new'),(writer,'write_new'),(execution,'write_new'),(wave,'subprocess')) }
     original_open=Path.open
+    drains=[]
     def write(path,raw):
         if budget.owned(path):return budget.write_new(path,raw,terminal=Path(path).name in {'supervisor-receipt.json','runner-complete.json','finished.json'})
         return saved[(writer,'write_new')](path,raw)
@@ -173,20 +180,26 @@ def bounded_supervisor(value,modules):
     def popen(argv,**kwargs):
         stdout,stderr=kwargs.pop('stdout'),kwargs.pop('stderr')
         process=subprocess.Popen(argv,stdout=subprocess.PIPE,stderr=subprocess.PIPE,**kwargs)
-        threads=[]
+        threads=[];stop=threading.Event();exit_seen=None
         for pipe,target in ((process.stdout,stdout),(process.stderr,stderr)):
-            thread=threading.Thread(target=drain_pipe,args=(pipe,target,budget),daemon=True);thread.start();threads.append(thread)
+            thread=threading.Thread(target=drain_pipe,args=(pipe,target,budget,stop),daemon=True);thread.start();threads.append(thread)
+        drains.append((stop,threads))
         # Keep the real Popen identity required by DeviceSlot.track_child().
         # Delay the observed exit until both bounded drainers have reached EOF,
         # preserving the old adapter's no-log-loss polling behavior.
         native_poll=process.poll
         def poll_after_drain():
+            nonlocal exit_seen
             result=native_poll()
             if result is None:
                 return None
-            for thread in threads:
-                thread.join()
-            return native_poll()
+            if exit_seen is None:exit_seen=time.monotonic()
+            if any(t.is_alive() for t in threads):
+                if time.monotonic()-exit_seen>=DRAIN_EXIT_SECONDS:
+                    if not stop.is_set():budget.errors.append('CHILD_LOG_DRAIN_TIMEOUT')
+                    stop.set()
+                return None  # never wait here: monitoring/deadline must keep running
+            return result
         process.poll=poll_after_drain
         process._e2_drain_threads=threads
         return process
@@ -204,7 +217,14 @@ def bounded_supervisor(value,modules):
                     print(json.dumps(dict(status='FAILED',error_type=type(exc).__name__),sort_keys=True))
                     raise
     finally:
-        try:budget.final()
+        try:
+            for stop,threads in drains:
+                if any(t.is_alive() for t in threads):
+                    if not stop.is_set():budget.errors.append('CHILD_LOG_DRAIN_INTERRUPTED')
+                    stop.set()
+                for thread in threads:thread.join(timeout=.25)
+                if any(t.is_alive() for t in threads):raise RuntimeError('OWN_CHILD_LOG_DRAIN_UNKNOWN')
+            budget.final()
         finally:
             Path.open=original_open
             for (module,key),old in saved.items():setattr(module,key,old)

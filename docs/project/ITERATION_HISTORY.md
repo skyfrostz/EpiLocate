@@ -1228,3 +1228,9 @@ R77 唯一真实 dispatch 已消费，原监督返回 `FAILED / MONITOR_FAILURE_
 根因限定在 INTEGRATION 的 `qa/e2_readout_output.py`：自定义进程代理不满足共享 `DeviceSlot.track_child()` 的 `isinstance(subprocess.Popen)` 身份契约。最小修复返回真实 `Popen`，为该实例保留排空完成后的 `poll()` 语义，未修改共享监督器、设备锁或历史协议。生成复现和 25 项定向测试均只使用生成 child/目录；新增测试实际调用共享 `DeviceSlot.track_child()`，确认身份、监控回调和 stdout/stderr drain 正常。
 
 修复后生成新 binding `execution-binding-r77-fixed-v1.json`（SHA `c62d7d98d00b3d132e14652307044381161145bc9fbe5107a53eafd2ea648cfa`），改用新 `...INT-2` task/job，状态 `PREPARED_NOT_EXECUTED / BLOCKED_BY_NEW_DISPATCH`。仍需总控重新确认 owner、同恢复队列的新 task admission 和独占 dispatch；本轮不自动执行。医院默认、真实 CT、临床验证和最终冻结继续 `NOT RUN`。
+
+### 2026-10-13｜R79 E2-R drain 生命周期与新申请准备
+
+在现有接缝内移除无超时的 `thread.join()`：`poll()` 不再等待日志线程；child 退出后 drain 仅有 0.25 秒观察窗口，之后设置停止事件并记录 `CHILD_LOG_DRAIN_TIMEOUT`，上下文退出使用有界 join。原生 `Popen` 身份、track_child、日志上限、累计输出账本、deadline 和 fail-closed 身份信号保持，未修改冻结 v12 bundle。
+
+33 项生成测试通过（7.43 秒）：父子成功、提前退出、GLOBAL_DEADLINE、未知身份拒绝、ProcessLookupError 早退竞争、后代持管道 drain 超时与日志上限均有证据。原 R77 明确为 durable reserved 0F/0B、`runner_actual_counts=null`，不改写为实际 0F/0B。新 R79 binding `f16169a035add8a8a022f1ccb5fa5add32229dc57905e332f8acd064e9cc2daf` 使用独立 INT-1 task/job，申请 SHA `058a1e929bb4c235d4a6b420821dae7fa3a31e9ec076256f0204dca603acf1a6`；真实执行仍 `NOT RUN`，需新 owner/admission/slot。

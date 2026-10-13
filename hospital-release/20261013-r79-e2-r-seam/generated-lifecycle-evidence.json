@@ -1,0 +1,209 @@
+{
+  "lifecycles": [
+    {
+      "actual": {
+        "backward": 0,
+        "forward": 0
+      },
+      "callbacks": {
+        "pressure": 6,
+        "processes": 5
+      },
+      "durable": {
+        "backward": 0,
+        "cases": {},
+        "forward": 0,
+        "job_id": "generated-lifecycle",
+        "sequence": 0
+      },
+      "medical_calls": 0,
+      "mode": "success",
+      "output_budget": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat0/supervision/output-budget.json",
+        "sha256": "6a98f016c28fa6d2ec337e15509de82ea665eab0ceaaf765c05dac0d15dbf96b"
+      },
+      "reason": null,
+      "slot_completed": true,
+      "status": "SUCCESS",
+      "stderr": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat0/supervision/generated-lifecycle/stderr.log",
+        "sha256": "f56878dd86ad6099c41f44a6aafd10191ac4159245874e34c5b3c1bf1811f5c1"
+      },
+      "stdout": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat0/supervision/generated-lifecycle/stdout.log",
+        "sha256": "54901ff5618b593bd86ea6841bb9da3fa6fab454ff9eb295d1bb7c6c66cd4152"
+      },
+      "supervisor_receipt": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat0/supervision/generated-lifecycle/supervisor-receipt.json",
+        "sha256": "61056599571f4784dafbd2d9c441902e50d222794e8492a8cca2d297a782b8f9"
+      },
+      "verification": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat0/verification.json",
+        "sha256": "af11146b78c37ebbcda9605da4770029757b848b3b15249cc9f168278f9b5400"
+      }
+    },
+    {
+      "actual": null,
+      "callbacks": {
+        "pressure": 6,
+        "processes": 5
+      },
+      "durable": {
+        "backward": 0,
+        "cases": {},
+        "forward": 0,
+        "job_id": "generated-lifecycle",
+        "sequence": 0
+      },
+      "medical_calls": 0,
+      "mode": "early_exit",
+      "output_budget": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat1/supervision/output-budget.json",
+        "sha256": "1aa7f04c33eee17dadad1dccb54c3cdb303947e59a34f06c84366603740fd7da"
+      },
+      "reason": "RUNNER_FAILURE_OR_MISSING_COMPLETION",
+      "slot_completed": true,
+      "status": "FAILED",
+      "stderr": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat1/supervision/generated-lifecycle/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat1/supervision/generated-lifecycle/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "supervisor_receipt": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat1/supervision/generated-lifecycle/supervisor-receipt.json",
+        "sha256": "8c4e2f40a9161c3e1319deb4b3416e18b40ef4905b3e0c4154ffec8ffc86a5b6"
+      },
+      "verification": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat1/verification.json",
+        "sha256": "b2091124071d3384d8ba7ee4255f94fea39fd3043ba1ffd0a3e8e7c188724c75"
+      }
+    },
+    {
+      "actual": {
+        "backward": 0,
+        "forward": 0
+      },
+      "callbacks": {
+        "pressure": 12,
+        "processes": 12
+      },
+      "durable": {
+        "backward": 0,
+        "cases": {},
+        "forward": 0,
+        "job_id": "generated-lifecycle",
+        "sequence": 0
+      },
+      "medical_calls": 0,
+      "mode": "deadline",
+      "output_budget": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat2/supervision/output-budget.json",
+        "sha256": "065cd0c2b94d86fcd3609afe4165c976c63e4180af3da6060e3bd0c884ce356d"
+      },
+      "reason": "GLOBAL_DEADLINE",
+      "slot_completed": true,
+      "status": "PARTIAL_BUDGET",
+      "stderr": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat2/supervision/generated-lifecycle/stderr.log",
+        "sha256": "f56878dd86ad6099c41f44a6aafd10191ac4159245874e34c5b3c1bf1811f5c1"
+      },
+      "stdout": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat2/supervision/generated-lifecycle/stdout.log",
+        "sha256": "54901ff5618b593bd86ea6841bb9da3fa6fab454ff9eb295d1bb7c6c66cd4152"
+      },
+      "supervisor_receipt": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat2/supervision/generated-lifecycle/supervisor-receipt.json",
+        "sha256": "85d85c0ffc75eace5f3f38111ab09a72a7da5d6db855c4d05f067e876881a26f"
+      },
+      "verification": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat2/verification.json",
+        "sha256": "da03925db654e84bd8672b15c6e4a3d2b2c7934588a1bdb3c6ad978e937a9c83"
+      }
+    },
+    {
+      "actual": null,
+      "callbacks": {
+        "pressure": 1,
+        "processes": 1
+      },
+      "durable": {
+        "backward": 0,
+        "cases": {},
+        "forward": 0,
+        "job_id": "generated-lifecycle",
+        "sequence": 0
+      },
+      "medical_calls": 0,
+      "mode": "unknown_identity",
+      "output_budget": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat3/supervision/output-budget.json",
+        "sha256": "eb24ec7636905e309de82284a9b36d35d9bc2cb299d5b66e4c3764c32fa4bb1d"
+      },
+      "reason": "MONITOR_FAILURE_KeyError",
+      "slot_completed": false,
+      "status": "BLOCKED",
+      "stderr": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat3/supervision/generated-lifecycle/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat3/supervision/generated-lifecycle/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "supervisor_receipt": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat3/supervision/generated-lifecycle/supervisor-receipt.json",
+        "sha256": "8e82b054f90819c1c3a7624e8ab26c97eb48d60434fe4162d858da1704552700"
+      },
+      "verification": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat3/verification.json",
+        "sha256": "7679e1da7ab98f094061c2255e6e6019f5a10fa8ebe20589a1b68848e871d653"
+      }
+    },
+    {
+      "actual": null,
+      "callbacks": {
+        "pressure": 2,
+        "processes": 5
+      },
+      "durable": {
+        "backward": 0,
+        "cases": {},
+        "forward": 0,
+        "job_id": "generated-lifecycle",
+        "sequence": 0
+      },
+      "medical_calls": 0,
+      "mode": "exit_race",
+      "output_budget": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat4/supervision/output-budget.json",
+        "sha256": "06d664d31847bd058576dd52c51df6d890b05aefadf57b5c0c88381a649bede8"
+      },
+      "reason": "MONITOR_FAILURE_ProcessLookupError",
+      "slot_completed": true,
+      "status": "FAILED",
+      "stderr": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat4/supervision/generated-lifecycle/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat4/supervision/generated-lifecycle/stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "supervisor_receipt": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat4/supervision/generated-lifecycle/supervisor-receipt.json",
+        "sha256": "b1b444e0170564633b5c563051e620c7b704fc613986973b6363f7c3f1ee53e5"
+      },
+      "verification": {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/e2-r-readout-r79-20261013/generated-acceptance-v1/test_actual_supervised_generat4/verification.json",
+        "sha256": "e8fd342cee4614c5715454a81e9acadc2b8d8b005be98da34b470f42297494cd"
+      }
+    }
+  ],
+  "real_model_calls": 0,
+  "real_patient_data_read": false,
+  "real_queue_used": false,
+  "scope": "GENERATED_ONLY"
+}
