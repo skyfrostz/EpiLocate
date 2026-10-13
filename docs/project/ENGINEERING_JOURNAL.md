@@ -1622,3 +1622,18 @@ INTEGRATION 仅修改新接缝 `qa/e2_readout_output.py`：保留真实 `subproc
 metadata入口PASS，Torch未导入、model_calls0、arrays_weights_read=false；新runtime及生成测试源码SHA独立核对通过。复用33项生成测试，日志实际7.54秒，旧7.43秒摘要在README增量更正。23个INT源与16个LOC锁定源分别对应上述INT commit和LOC `11ac87b91ea863a0f394aa53a9e3db6571691bc6`。测试/工程核验不等于真实E2-R，历史actual=null保持。
 
 现有展示清单只补三历史Result/64层的保存索引与候选状态，数据仍LOCAL_MVP_ONLY。保留原会话中断留下的未跟踪 `frontend/demo-candidate/` 与 `qa/demo64_build.py`，不提交、不运行。64-only冻结dist/API限制验收、独立空间/目视、医院用途、三次演练与录屏仍缺。没有新会话、模型、恢复服务、队列事务、权限写入或push。已有R18 V2直接复用ENC交付，不改其源码/申请。
+
+
+### 2026-10-13｜64-only候选工程收口（静态与生成资产）
+
+总控接续原INT中断候选；分支codex/epi-next-integration-20261009，工作树EpiLocate-worktrees/epi-next-integration，起点f591c0e3d4bfe099792d9a803443ff7b653377d3。本节所在源码提交固定本轮实现，后续冻结清单另记该完整提交。没有push、科研admission/slot/dispatch、模型调用或真实影像显示。
+
+新增独立qa/demo64_policy.py、qa/local_mvp_demo64.py；接续qa/demo64_build.py及frontend/demo-candidate。唯一DATA ledger和旧offline audit只作元数据投影，不建立第二份数据资格。旧reader、v16、DB、对象和旧dist保持；启动时只允许新私有副本，严格匹配三Result/单SOP/模型身份，限制12个对象（3输入+9个64图层），所有其他对象与写/Worker路由拒绝。返回JSON剔除16/32、cross-scale及非必要附加字段。新入口默认只核验元数据/源码/runtime/dist，不启动服务。
+
+登录测试首次503：原gateway用病例列表作为token探针，与新限制冲突。候选gateway内部只把该探针映射到固定Result认证，外部病例列表入口仍拒绝；未改原gateway代码。合成测试经过初始依赖路径错误与该503失败，修正后8 passed/2.26s；覆盖三Result、身份/模型/资产漂移、16/32和其他对象、路径/查询/方法旁路、HTTPS登录/退出、原DB不变及三个自有服务回收。生成服务未启动Worker或模型；并非真实医院演练。
+
+隔离前端候选增加3项生成回归，加原11项几何测试，共14 passed/590ms；验证旧16偏好不能恢复其他尺度、只请求64图层、非绑定Result不读取CT或图层、无病例/任务/Series/3D/研究路由。显示历史结果、RICORD来源代理类1A/1B与非病灶概率边界。vue-tsc + Vite8.3.1 production build通过；已有codec fs/path外置及大chunk警告保留，不宣称真实浏览器验收。
+
+工程环境：既有Python3.11.15主仓库venv + frontend/.local/mvp-20261011-browser-deps，无安装；已有Node/npm和node_modules。测试命令：PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 <main>/.venv/bin/python -m pytest backend_v2/tests/test_demo64.py -q；隔离候选内npm exec vitest -- run src/tests/demo64.spec.ts src/tests/geometry.spec.ts；VITE_PUBLIC_BASE=/mvp/ npm run build。
+
+仅完成工程候选；真实FrozenBaseline/64空间链、人工目视、医院用途、最终三次演练和录屏播放仍未完成。DATA E1/E2 prepared expected不等于生产空间验收，旧开发3/3和R71技术PASS不抵扣。原R18/E2-R最终申请字节不变，E2 V2外层21项runtime引用显式校验一致，Torch未导入；真实科研NOT_RUN，历史actual=null保留。
