@@ -47,3 +47,5 @@ The repository includes `run_public_checks.py` to reproduce these process-separa
 The complete candidate Git closure is scanned after its final commit. New payload objects are distinguished from public `main` ancestry. The original publicly reachable S3 locator file remains absent from the tip but present in old public history, as previously documented in [mainline provenance](MAINLINE_INTEGRATION_20261007.md). This import does not rewrite that history or describe it as locator-free.
 
 This is a source/engineering candidate. CT-FM's observed validation AUROC remains 0.45; R18 has no fixed classification evaluation, and no new E2-R scientific readout or localization improvement follows from these tests. See [research status](../research/EPI_NEXT_STATUS_20261014.md).
+
+源码实现提交为 `727d270a8079ed5a119a1c8f2d3e702ed205e498`。该提交完整可达扫描：10 commits、160 trees、1140 blobs；新增 329 blobs 无扫描命中。四项继承命中为合成 DICOM、两份环境示例与旧公开 S3 定位对象。最终文档提交另作同范围复扫。

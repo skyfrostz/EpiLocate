@@ -940,3 +940,5 @@ Backend API Contract 与 Frontend Integration Guide 位于独立分支 `docs/bac
 公开基线为 `693bebfc9ef091f970ce78aee5bae8b8bd20a036`，候选分支 `codex/epilocate-sanitized-status-20261014`。按文件纳入四条既有工作线的 315 项源码、测试、合同及配置，私有历史不成为公开祖先。完整来源提交及逐文件 SHA 见 [导入记录](../consolidation/EPI_NEXT_SOURCE_IMPORT_20261014.md)。DATA 未提交的元数据补充源码以实际字节冻结，私有执行报告不纳入。
 
 实现涵盖导入/HU/geometry、CT-FM/R18、定位/读出、监督与控制工具，以及 Backend/Frontend/Worker 和 64-only 工程驱动。个人路径、身份和直接影像下载定位已处理，私有绑定配置改为模板；FrozenBaseline、科学损失/阈值/分母不变。生成研究回归 928 项、API/Worker/QA 167 项、生成浏览器 1 项、前端 167 项通过；140 项明确跳过。工程回归不构成新医学执行、科研改善、医院验收或部署。完整 Git 闭包审计必须区分新增对象与旧公开历史的定位文件。
+
+**本轮公开源码实现提交：** `727d270a8079ed5a119a1c8f2d3e702ed205e498`。文件级来源与脱敏清单已核验；完整可达对象扫描无新增敏感命中，既有公开历史命中单独记录。
