@@ -1261,3 +1261,12 @@ metadata入口PASS，Torch未导入、model_calls0、arrays_weights_read=false�
 
 
 64-only源码提交已固定为`c3ddad7064c79ba6afd24884c5ec3abed1bcf8ce`；私有frozen-candidate-v1.json SHA `191b47b46ac2710e1a1d2d08b6b7b5e67c5c137c22d0d9cb105fb7f76911d917`，190源码/旧恢复文件、21dist、23runtime引用。默认metadata检查PASS，无payload/模型/真实服务；原展示清单新增逐项工程和未完成验收记录。原科学申请SHA、旧失败与actual=null保留。
+
+
+### 2026-10-13｜明确授权后三项有界执行收口
+
+主控在原INT工作树codex/epi-next-integration-20261009，起点3b01590822b05ed31a59761d5f206632c5df4417。未修改冻结执行源码、科学配置或candidate/dist，仅记录真实执行与现有报告。本记录对应的文档提交可由Git定位；未push。
+
+直接负责人消息01a134e5-e172-76b3-83e4-7dc09f0bc7a6确认两项科学final SHA与demo64候选。E2-R本次CLI相对binding字符串与绝对dispatch对象不匹配，入口exit2、无监督/slot/科学目录、actual=null；总控调用错误已明确，未自动重试。R18仅派生新admission引用，其他原final字段不变；新监督真实执行首组预处理处FINITE_CPU_WINDOWED_SCALAR_224_REQUIRED，actual0F/0B/0更新由runner明确报告，0完整cache；子进程3/父2，slot_completed，2.487273秒，采样RSS峰457687040字节。无成功cache，train/eval未运行，旧actual=null不改。
+
+demo64一次真实本机核验8.908842秒，服务/登录通过，ready提示hidden触发可见性断言，FAILED_OR_PARTIAL。三例/刷新/接口拒绝/独立空间未完成；人工NOT_RUN、最终演练0；浏览器与三自有服务关闭、原DB不变、无Worker/模型/截图/录屏/外传。acceptance SHA884e5a8a971c34e70c2f5624c9c04a7d5dbd47968a41cd22eff2b7bbc58e7c89；详见原展示清单。科研无新改善证据。唯一writer更新revision84/CONSISTENT/pending0，仅记录真实结果；历史失败/UNKNOWN/原额度保留。本轮停止，不追加重试或后续实验。

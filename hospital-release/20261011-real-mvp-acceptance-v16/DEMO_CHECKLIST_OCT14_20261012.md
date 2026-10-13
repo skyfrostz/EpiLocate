@@ -169,3 +169,14 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=.:frontend/.local/mvp-20261011-browser-deps
 ```
 
 仅此候选未来获准启动时使用新私有目录，原恢复架构保持三自有服务；Ctrl-C后检查该目录restore-exit.json确认三服务退出与原DB不变。失败不杀未知进程、不自动重启；录屏尚未获准/生成，不作为已可用回退。没有影像用途时采用无受限像素的现有架构、流程和真实研究汇总材料。
+
+
+## 64-only首次真实技术核验｜2026-10-13｜FAILED_OR_PARTIAL
+
+负责人直接消息01a134e5-e172-76b3-83e4-7dc09f0bc7a6明确允许对候选SHA `191b47b46ac2710e1a1d2d08b6b7b5e67c5c137c22d0d9cb105fb7f76911d917`进行一次本机只读技术核验，不包含医院用途、截图、录屏或外传。沿用既有三SOP用途，新私有目录 `.local/demo64-technical-20261013-01`，未重用R71目录；原v16/DB/对象保留。
+
+真实服务启动与登录PASS。脚本首例取得Result、仅64摘要/资产集合以及DICOM SHA断言通过后，等待“单切片 DICOM 已恢复…”可见时失败：元素已匹配但hidden。原始receipt checks仅持久化services/login；先前断言执行由驱动顺序与失败位置支持，不冒充完整三例验收。三Result、9图层、刷新、真实接口拒绝、独立实际空间映射尚未完整执行；计划中的DICOM LPS+相机投影公式未取得实测，不能填PASS。该断言失败也不足以判定图像解码或空间算法失败。
+
+acceptance.json SHA `884e5a8a971c34e70c2f5624c9c04a7d5dbd47968a41cd22eff2b7bbc58e7c89`；私有驱动 `.local/demo64-technical-driver-20261013.py` SHA `716bab8b2f399142fed37057fcfaca20a389cef9197ea27e6c0d16a5677133fc`，未改冻结源码/dist。总8.908842秒，浏览器已关闭，三自有服务SIGTERM退出，源DB SHA不变；Worker未启动、model_calls0、external_requests0、page_errors0、截图/视频/trace/像素导出0。人工目视NOT_RUN，最终三次演练计数0，医院用途仍未批准。
+
+不自动重试。本轮技术核验已消费，后续先修正readiness断言与证据分步保存，再明确允许新的单次核验；不能因为生成测试PASS或DOM提示存在就回填真实空间/目视PASS。唯一状态writer已记录revision84/CONSISTENT/pending0，SHA `84a1b8a4a9454f7327da89221b60d32e874df2f9d1b3728a546a1eec1e502875`。
