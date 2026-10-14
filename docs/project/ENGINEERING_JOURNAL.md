@@ -1659,3 +1659,13 @@ Starting INT HEAD e51f93d0323d9d97ce575a202cb2645dece982d9. No changes to frozen
 INTEGRATION在原工作树codex/epi-next-integration-20261009，HEAD246cdd1884a59bf9c0dcb1f872a26802378488de起。当前revision86及原请求/驱动/browser/candidate SHA匹配；qa/demo64_technical_v2.py默认check-only实际exit0，checked完整源码/dist/runtime与原三SOP/三Result/九64资产投影通过，未读像素/DB对象或启动真实服务/browser/Worker/model/Job/slot。已有11生成测试和browser regression SHA5beaf20750b1302f47d4959508a5f7f5ce328b3863dbce48c171cb61a87110b7复用，未重复测试。
 
 原一次许可已消费，原acceptance SHA884e5a8a971c34e70c2f5624c9c04a7d5dbd47968a41cd22eff2b7bbc58e7c89记录services/login PASS、flows为空、FAILED_OR_PARTIAL及完整退出；其他真实技术/独立空间未完成、hidden根因UNKNOWN。原待决表和revision86明确新技术请求PROPOSED_NOT_APPROVED；未创建confirmation/admission/dispatch。新增本线对账报告与人工清单NOT_RUN，准确确认句引用原请求7398099…；不更新总控文件、不改候选/旧v16/模型、无push/截图/录屏/外传。
+
+## 2026-10-14｜revision87批准后的64-only技术核验V2｜FAILED_OR_PARTIAL
+
+直接负责人消息01a138fa-a7da-7b60-b9d5-799e1983bda5批准原待决表1—3各一次，owner SHA `daa12ff3b21284178b6860fdb1063e898fca2cee78b58f749a9a67de99eb5d40`。总控确认ENC串行任务/资源退出后明确发出C启动指令；按原请求 `7398099e6ceffb2067e5e5566668c0957023e872d02c3615b6da5a651aa001cf`、候选 `191b47b46ac2710e1a1d2d08b6b7b5e67c5c137c22d0d9cb105fb7f76911d917`，原驱动源码246cdd1884a59bf9c0dcb1f872a26802378488de执行一次。精确confirmation SHA `738213092b93603e0bb9c11b9e768bf70401a7c932b2b969ee5b3559d5e0e651`，原V1等待索引保留；未重跑check-only/生成测试。
+
+输出 `.local/demo64-technical-20261013-02`，验收耗时19.766909959秒，父调用20.114539208秒，均在整体180秒内。**FAILED_OR_PARTIAL**：服务/登录PASS，首例Result HTTP200、单64摘要、九资产中本例三资产ID集合、仅64选择按钮、DICOM HTTP200及输入SHA核对均有逐步PASS。等待当前影像readiness超时，renderSequence=0、overlaySequence=0；current_render/decoded/rendered_status/canvas_visible=false、location/no_error=true。asset=true在此因尚未要求assetUrl而非证明64资产已绘制。不将该观测写成已证实解码错误、应用正常或空间失配；实际根因UNKNOWN。`flows=[]`，三Result/九层、刷新、真实API直接拒绝、固定点0.5 CSS px实际空间核验均未完成/NOT_RUN。
+
+原始acceptance SHA `19d1afe5e3aa7e70b211bf5cc61cc2b6f49fd0778d855f729d881d9612bb4d4d`；exit SHA `1ec9507d6ef2d9d05a56b9737dc93092621a47a83dc7c33dfd4afdc136b990c3`。primary_failure.message保留CURRENT_IMAGE_READINESS_TIMEOUT；原step记browser_closed，因browse finally先记录清理再传播异常，实际失败位置由assert_09后wait_ready及原源码确认，不改原receipt。cleanup_errors=[]、browser_closed=true，三个自有服务exit -15、自有恢复父/driver exit0；**driver exit0不等于技术PASS**。原DB不变、model_calls0、worker_started=false、external_requests0、page_errors0、截图/视频/trace/像素导出0；已知driver/服务/恢复父PID均未再列出，不信号任何未知进程。
+
+实际索引 `approved-abc-execution-20261014/INT_EXECUTION_INDEX_V2.json` 位于原私有总控交付目录，记录owner/confirmation/精确argv/原始收据/日志及退出SHA；当次结果索引SHA `02bc8e23ddf046f2f0c54bd78a786e11bf0f57aa9f112ecb01b6c8134e8a7efd`。无新Job/slot/模型，原v16/DB/对象/dist保全、旧FAILED_OR_PARTIAL/hidden根因UNKNOWN不变。本次许可已消费，停止且不自动重试。人工NOT_RUN、最终演练计数0、医院用途/录屏未批准、最终冻结NOT_RUN；不抵扣最后三次演练。仅文档增量，不改总控state/合并表，不push。

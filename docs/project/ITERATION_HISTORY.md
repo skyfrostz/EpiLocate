@@ -1278,3 +1278,13 @@ Added metadata-only E2 argv derivation from exact dispatch strings (7 production
 ### 2026-10-14｜Revision86 C 技术核验静态收口
 
 原INT工作树/分支，起点246cdd1884a59bf9c0dcb1f872a26802378488de。revision86状态SHA c24ca4f03d11084cfdbafbc1542f06bb1ef4dc884417a17618f1a47e47635782及原技术请求7398099e6ceffb2067e5e5566668c0957023e872d02c3615b6da5a651aa001cf匹配；复用原候选191b47…，不新造请求。既有checked核对190源码/21dist/23runtime、新4driver/6browser runtime通过，实际check-only exit0/services0/medical_arrays0。原11生成验证复用，不重跑未变测试。原真实FAILED_OR_PARTIAL/hidden根因UNKNOWN保留；新输出未创建，当前新技术许可未确认，真实空间/目视/演练/医院/录屏NOT_RUN。仅在v16目录新增静态收口与全部NOT_RUN操作员目视清单；不改候选、旧DB/资产、状态中心或合并表。
+
+## 2026-10-14｜revision87批准后的64-only技术核验V2｜FAILED_OR_PARTIAL
+
+直接负责人消息01a138fa-a7da-7b60-b9d5-799e1983bda5批准原待决表1—3各一次，owner SHA `daa12ff3b21284178b6860fdb1063e898fca2cee78b58f749a9a67de99eb5d40`。总控确认ENC串行任务/资源退出后明确发出C启动指令；按原请求 `7398099e6ceffb2067e5e5566668c0957023e872d02c3615b6da5a651aa001cf`、候选 `191b47b46ac2710e1a1d2d08b6b7b5e67c5c137c22d0d9cb105fb7f76911d917`，原驱动源码246cdd1884a59bf9c0dcb1f872a26802378488de执行一次。精确confirmation SHA `738213092b93603e0bb9c11b9e768bf70401a7c932b2b969ee5b3559d5e0e651`，原V1等待索引保留；未重跑check-only/生成测试。
+
+输出 `.local/demo64-technical-20261013-02`，验收耗时19.766909959秒，父调用20.114539208秒，均在整体180秒内。**FAILED_OR_PARTIAL**：服务/登录PASS，首例Result HTTP200、单64摘要、九资产中本例三资产ID集合、仅64选择按钮、DICOM HTTP200及输入SHA核对均有逐步PASS。等待当前影像readiness超时，renderSequence=0、overlaySequence=0；current_render/decoded/rendered_status/canvas_visible=false、location/no_error=true。asset=true在此因尚未要求assetUrl而非证明64资产已绘制。不将该观测写成已证实解码错误、应用正常或空间失配；实际根因UNKNOWN。`flows=[]`，三Result/九层、刷新、真实API直接拒绝、固定点0.5 CSS px实际空间核验均未完成/NOT_RUN。
+
+原始acceptance SHA `19d1afe5e3aa7e70b211bf5cc61cc2b6f49fd0778d855f729d881d9612bb4d4d`；exit SHA `1ec9507d6ef2d9d05a56b9737dc93092621a47a83dc7c33dfd4afdc136b990c3`。primary_failure.message保留CURRENT_IMAGE_READINESS_TIMEOUT；原step记browser_closed，因browse finally先记录清理再传播异常，实际失败位置由assert_09后wait_ready及原源码确认，不改原receipt。cleanup_errors=[]、browser_closed=true，三个自有服务exit -15、自有恢复父/driver exit0；**driver exit0不等于技术PASS**。原DB不变、model_calls0、worker_started=false、external_requests0、page_errors0、截图/视频/trace/像素导出0；已知driver/服务/恢复父PID均未再列出，不信号任何未知进程。
+
+实际索引 `approved-abc-execution-20261014/INT_EXECUTION_INDEX_V2.json` 位于原私有总控交付目录，记录owner/confirmation/精确argv/原始收据/日志及退出SHA；当次结果索引SHA `02bc8e23ddf046f2f0c54bd78a786e11bf0f57aa9f112ecb01b6c8134e8a7efd`。无新Job/slot/模型，原v16/DB/对象/dist保全、旧FAILED_OR_PARTIAL/hidden根因UNKNOWN不变。本次许可已消费，停止且不自动重试。人工NOT_RUN、最终演练计数0、医院用途/录屏未批准、最终冻结NOT_RUN；不抵扣最后三次演练。仅文档增量，不改总控state/合并表，不push。
