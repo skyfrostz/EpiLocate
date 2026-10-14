@@ -1288,3 +1288,13 @@ Added metadata-only E2 argv derivation from exact dispatch strings (7 production
 原始acceptance SHA `19d1afe5e3aa7e70b211bf5cc61cc2b6f49fd0778d855f729d881d9612bb4d4d`；exit SHA `1ec9507d6ef2d9d05a56b9737dc93092621a47a83dc7c33dfd4afdc136b990c3`。primary_failure.message保留CURRENT_IMAGE_READINESS_TIMEOUT；原step记browser_closed，因browse finally先记录清理再传播异常，实际失败位置由assert_09后wait_ready及原源码确认，不改原receipt。cleanup_errors=[]、browser_closed=true，三个自有服务exit -15、自有恢复父/driver exit0；**driver exit0不等于技术PASS**。原DB不变、model_calls0、worker_started=false、external_requests0、page_errors0、截图/视频/trace/像素导出0；已知driver/服务/恢复父PID均未再列出，不信号任何未知进程。
 
 实际索引 `approved-abc-execution-20261014/INT_EXECUTION_INDEX_V2.json` 位于原私有总控交付目录，记录owner/confirmation/精确argv/原始收据/日志及退出SHA；当次结果索引SHA `02bc8e23ddf046f2f0c54bd78a786e11bf0f57aa9f112ecb01b6c8134e8a7efd`。无新Job/slot/模型，原v16/DB/对象/dist保全、旧FAILED_OR_PARTIAL/hidden根因UNKNOWN不变。本次许可已消费，停止且不自动重试。人工NOT_RUN、最终演练计数0、医院用途/录屏未批准、最终冻结NOT_RUN；不抵扣最后三次演练。仅文档增量，不改总控state/合并表，不push。
+
+### 2026-10-14｜Revision88 64-only生产路径工程修复（真实NOT_RUN）
+
+INTEGRATION原工作树/codex/epi-next-integration-20261009，起点db3845bcf228aa283cdfaf1067c63ac0ec25b7d2。沿工程许可只读原日志/收据及源码；无患者像素、源DB/对象正文读取，无真实恢复/推理/重试。两次真实失败、旧candidate191b47…/request7398099…原字节保持，历史根因UNKNOWN。
+
+生成生产构建确认构建器把Vue条件template改为无指令HTML template，使内容隐藏、canvas零布局；只改候选生成器为Vue v-if fragment，不改原应用源码或v16 dist。生成TLS链另复现预连接无握手阻塞旧accept loop（ConnectTimeout1.002秒），候选edge使用64 backlog/在线程IO中握手，旧readonly入口保持。验收V3复用原joint readiness/固定点/0.5CSSpx，核心namespace按命名导出或t统一解析，绑定实际chunk，不再假设minified名称；失败前保存布局/engine/静态资源诊断及primary位置、failed/cleanup failure返回2。旧V2驱动不改。
+
+最终生成生产回归PASS：实际编译Vue、Backend/Gateway/HTTPS、3个生成SOP/Result、9个64层、刷新/直接范围拒绝/独立相机投影；JPEG Lossless SV1从零构造并实际browser解码。空间最大误差0.0000152587890625 CSSpx，仅生成。初始非空File、替换/移除、取消重挂载、清空/旧资产、坏DICOM、core初始化失败、刷新/unmount和浏览器/三自有服务退出均通过，270个持久化步骤，模型/Worker0。12项driver/API/预连接生成测试PASS2.34秒，3项候选+11项几何前端测试PASS743ms；普通候选vue-tsc/Vite build PASS，codec externalization/大chunk提示保留。夹具依赖/绝对路径、多entry core导出和TLS/生命周期失败目录保留，不计真实重试。
+
+冻结新候选与单次请求在提交后按实际source/dist/runtime/driver/browser SHA发布，不建owner/admission/slot/dispatch；旧恢复66源/构建逐项MATCH，原DB/对象未改。真实三SOP/空间/人工/演练/医院/录屏NOT_RUN，原Ridge结果不改。完整报告及新绑定由本线交总控集中，不写state/原两表、不push。

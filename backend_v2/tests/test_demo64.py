@@ -7,6 +7,7 @@ import signal
 import subprocess
 import sys
 import time
+import socket
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import select
@@ -129,6 +130,13 @@ def test_generated_https_full_service_and_owned_cleanup(tmp_path):
         c=json.loads((run/'private-config.json').read_text())
         with httpx.Client(base_url=c['origin'],verify=str(run/'tls.crt'),trust_env=False) as client:
             assert 'GENERATED DEMO64' in client.get('/mvp/').text
+            # Browser preconnect may open TCP without sending TLS yet. It must
+            # not block the accept loop serving modules to another connection.
+            stalled=socket.create_connection(('127.0.0.1',c['ports']['edge']),timeout=2)
+            try:
+                with httpx.Client(base_url=c['origin'],verify=str(run/'tls.crt'),trust_env=False,timeout=2) as parallel:
+                    assert 'GENERATED DEMO64' in parallel.get('/mvp/').text
+            finally:stalled.close()
             login=client.post('/auth/login',headers={'Origin':c['origin']},json=dict(username=c['username'],password=c['password']))
             assert login.status_code==200
             assert client.get('/api/v2/cases?limit=1').status_code==403

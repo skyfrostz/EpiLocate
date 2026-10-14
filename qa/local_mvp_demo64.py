@@ -158,6 +158,16 @@ def backend_app(config):
 
 def child(kind, run, dist):
     if kind == 'edge':
+        # Built Vue/codec modules arrive in a parallel burst; stdlib backlog=5
+        # can reset TLS connections before a handler can accept them.
+        class CandidateHTTPServer(legacy.ThreadingHTTPServer):
+            request_queue_size = 64
+            def serve_forever(self, *args, **kwargs):
+                # A browser preconnect must not hold the single accept loop in
+                # TLS handshake. The existing handler thread performs it on IO.
+                self.socket.do_handshake_on_connect = False
+                return super().serve_forever(*args, **kwargs)
+        legacy.ThreadingHTTPServer = CandidateHTTPServer
         return legacy.child(kind, run, dist)
     import uvicorn
     config = json.loads((run / 'private-config.json').read_bytes())

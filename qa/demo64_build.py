@@ -33,7 +33,8 @@ def prepare(destination,policy):
     p.write_text(replace_once(raw,start,"const navigation = [{ path: '/', label: '历史结果', icon: 'overview' }, { path: '/preferences', label: '显示偏好', icon: 'settings' }]"))
     p=destination/'src/views/ResultDetailView.vue';raw=p.read_text()
     replacements=[
-        ('<NextAlgorithmResult v-if="result.kind === \'ALGORITHM\'" :result="result" />\n      <template v-else>','<template>'),
+        # A template without a Vue directive becomes an inert HTMLTemplateElement.
+        ('<NextAlgorithmResult v-if="result.kind === \'ALGORITHM\'" :result="result" />\n      <template v-else>','<template v-if="result">'),
         ("import NextAlgorithmResult from '../components/NextAlgorithmResult.vue'","import { demoRows, demoModel } from '../demo-history'"),
         ("const result = computed(() => results.current?.result_id === resultId.value ? results.current : null)","const result = computed(() => {\n  const value = results.current\n  const expected = demoRows.find(row => row.result_id === resultId.value)\n  return value && expected && value.result_id === expected.result_id && value.case_id === expected.case_id && value.slice_id === expected.slice_id && value.job_id === expected.job_id && value.kind === 'OCCLUSION' && value.contract_version === '2.0' && value.model_id === demoModel.model_id && value.model_version === demoModel.checkpoint_sha256 && value.preprocessing_version === demoModel.preprocessing_version && value.protocol_id === demoModel.protocol_id && value.provenance.input_sha256 === expected.input_sha256 ? value : null\n})"),
         ('const selectedScale = ref<16 | 32 | 64>(16)','const selectedScale = ref<16 | 32 | 64>(64)'),
