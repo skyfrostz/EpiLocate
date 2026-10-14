@@ -1324,3 +1324,16 @@ owner approval SHA `c965d0e15b925e86e282bf8abc681f73f4f0bd845c772ca5c5db99c86405
 实际核对R89索引SHA `820bb019bd785f4e882d01d35bb5961c5da38f4e2d2d7af0bdd712f30f8aab94`、acceptance `02377afccc9cd0a71f7b53cf93d0895baa85d2ac03c96eed0a6d0dc1f5504b7e` 和exit `bd9913e047b5e0cbb33a6a8c6d500e5a7f693f3af7aef822763156b314d89feb` 一致；3Result/9层仅技术PASS，人工NOT_RUN，最终演练0，视频0，医院冻结NOT_RUN。
 
 在原hospital-release v16交付目录新增 `FINAL_ACCEPTANCE_PREPARATION_20261014.md`，复用逐例人工清单并补充V3候选绑定。步骤分别明确许可/版本/资产/设备/预算、逐层人工观察、同配置三次完整独立流程、失败停止与事务对账、录制和完整播放的独立证据、旧v16更宽范围回退限制及负责人最终决定。操作员/时间/视频路径/SHA和三份运行记录均未预造。此次仅文档和已授权摘要消息，无患者像素/DB/权重读取，无服务/浏览器/模型/队列启动、演练、录制或部署；不修改总控状态或表，不push。
+
+
+## 2026-10-15｜R91 E2-R纠正绑定与64-only人工收口准备｜PREPARED / NOT_RUN
+
+原INTEGRATION工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`、分支codex/epi-next-integration-20261009，起点HEAD `9eac2e6b8f762d6834bbd10d36963dc4b6c2a71b`。完整读取负责人R91原文SHA `25e76117801ce4b3a27d7cc40042adff604f0e33e8fea07238b73513312eb62b`。权威state90 SHA `cceaf1ffbdd503e0d021f98362f4bcf47cd622337793aed7741fbaa7a0c79126` 与真实writer末COMMITTED一致/pending0；未写state/两表，未建立队列/worktree/dispatch。
+
+E2-R直接继承原纠正增量SHA `69730c02f5b8798180059e835eb10a40c15162c653b3c52ae979661ab5ae69b7` 与binding f16169a…，没有新重复审批对象。24执行源码、LOC锁/目标契约、21runtime、Mask/5F JSON SHA和epoch3604/cell43及相关logits元数据匹配，原MVP66引用一致；实际原check-only PASS，Torch未导入、模型/队列观察0。原case3科学方案14F计划/18F上限、0B/0更新、CPU1/120秒、64MiB及5/6GiB资源停止机制不变；真实数组/权重未读，须执行时原加载器校验。原relative CLI绑定失败和actual=null保留、旧dispatch已消费。未来精确新dispatch经既有derive生成绝对binding argv并通过原窗口/绑定核验才可调用，本轮final execute argv为空；R18优先等待总控独占release。
+
+仅原README补齐真实readout所需原始logits/各区域面积/keep-remove与等面积随机差异/模型进入和actual计数的验收说明，现有输出已覆盖原始字段，可在保存读数上算paired差异，不改科学代码/重复生成测试或新增forward。真实E2-R NOT_RUN，缺新有效精确确认为BLOCKED。
+
+MVP继承实际PASS_TECHNICAL_ONLY，不重跑；当前candidate a7d3cc…的197source/21dist/23runtime及Chrome6引用逐项MATCH，原3SOP/3历史Result/9层不扩大。复用既有LOCAL_MVP_ONLY本机许可支持同一负责人目视/内部三次流程，不重新申请整个本地医学方案；仍按总控“先准备”不启动，人工结果由实际操作员填写。更新原FINAL_ACCEPTANCE_PREPARATION与逐例清单，给出现有持续serve入口精确命令、新且未创建的4个run-directory、实际动态URL/私有登录配置读取方式、启动15秒检查与Ctrl-C/自有服务退出流程，建议人工10分钟/每次演练5分钟；现有serve无自动会话watchdog，明确由操作员计时退出，不称headless入口或自动监督。普通联网/Wi-Fi/HTTPS/投屏不加部署审批，受众/素材传播仍按有效用途；录屏改可选、不作阻断，未制作。
+
+核查索引 `.local/e2-r-readout-r79-20261013/r91-preparation-audit-v1.json` SHA `1b7c49d884dcbe0d06a077828975331862bab098f8b0122ee69d6ba0af78b0c8`。本轮只有元数据/已有保存JSON核对和文档，真实数组/权重/DB/患者像素未读，无服务/浏览器/演练/录制/模型启动。人工NOT_RUN、完整演练0、医院外部用途未批准、最终冻结NOT_RUN；不倒填10月14日，不宣称临床验证。提交检查采用显式base与diff check；无push，由总控读取原会话汇总，不跨会话发消息。
