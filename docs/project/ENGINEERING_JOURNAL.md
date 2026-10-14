@@ -1696,3 +1696,12 @@ owner approval SHA `c965d0e15b925e86e282bf8abc681f73f4f0bd845c772ca5c5db99c86405
 完整私有索引 `/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/r76-48h-20261013/approved-r89-cache-demo64-20261014/INT_EXECUTION_INDEX_V1.json` SHA `820bb019bd785f4e882d01d35bb5961c5da38f4e2d2d7af0bdd712f30f8aab94`，记录许可、源码/运行时、精确argv、日志SHA、原始验收/退出及对账结果。stdout SHA `3c1fb99e39566844c2bf76477eb90cb5ba1b8736e0f2644520a68052f7e600ce`，stderr为空/SHA `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。受保护收据及配置保留本地，不提交患者影像、患者空间细节或凭据。
 
 本次一次许可已消费，不自动重试。旧v16/DB/对象/dist、A/B/C、GT-v1及旧两次失败收据保持；旧版回退范围不扩大。**人工目视NOT_RUN；最终三次演练计数0；医院用途NOT_APPROVED；录屏/播放NOT_RUN且未批准；医院最终冻结NOT_RUN。** 三个历史Result流程不是最后三次演练。仅增量更新本清单及两份工程文档并本地提交，无push/部署/state writer/待决表修改；最终是否PASS/CONDITIONAL PASS/NO-GO由钟佳桦批准，总控统一汇总。
+
+
+## 2026-10-14｜最终验收步骤准备与首席汇总交付｜SPEC / NOT_RUN
+
+原INTEGRATION工作树/codex/epi-next-integration-20261009，准备前HEAD `6238216f33d7fd3bb56e1e20c2c3b35631bdc4ec`。用户明确授权将本次索引/Git SHA/验收摘要/未完成项交给现有首席算法工程师会话 `01a138ed-90ba-7311-822e-9b48e7363f59` 汇总，并准备人工目视、三次最终演练与备用录屏步骤，未获对应批准不得执行或宣布冻结。
+
+实际核对R89索引SHA `820bb019bd785f4e882d01d35bb5961c5da38f4e2d2d7af0bdd712f30f8aab94`、acceptance `02377afccc9cd0a71f7b53cf93d0895baa85d2ac03c96eed0a6d0dc1f5504b7e` 和exit `bd9913e047b5e0cbb33a6a8c6d500e5a7f693f3af7aef822763156b314d89feb` 一致；3Result/9层仅技术PASS，人工NOT_RUN，最终演练0，视频0，医院冻结NOT_RUN。
+
+在原hospital-release v16交付目录新增 `FINAL_ACCEPTANCE_PREPARATION_20261014.md`，复用逐例人工清单并补充V3候选绑定。步骤分别明确许可/版本/资产/设备/预算、逐层人工观察、同配置三次完整独立流程、失败停止与事务对账、录制和完整播放的独立证据、旧v16更宽范围回退限制及负责人最终决定。操作员/时间/视频路径/SHA和三份运行记录均未预造。此次仅文档和已授权摘要消息，无患者像素/DB/权重读取，无服务/浏览器/模型/队列启动、演练、录制或部署；不修改总控状态或表，不push。
