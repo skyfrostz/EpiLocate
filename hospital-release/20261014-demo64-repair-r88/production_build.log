@@ -46,7 +46,7 @@ dist/assets/esm-CrYH-n9j.js                          776.37 kB │ gzip: 217.91 
 dist/assets/esm-BQ03oNGD.js                        2,136.33 kB │ gzip: 576.74 kB
 
 ✓ built in 364ms
-[plugin builtin:vite-reporter] 
+[plugin builtin:vite-reporter]
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting

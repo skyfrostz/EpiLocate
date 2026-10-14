@@ -9,6 +9,7 @@
     "sha256": "2e3eac0529164d98354324c852a50e49427e4f8d79a5d874afb0d749eea0ed2d",
     "url": "/mvp/assets/esm-BQ03oNGD.js"
   },
+  "delivery_log_normalization": "Only trailing whitespace normalized in the public delivery copy; private raw log preserved.",
   "driver": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/demo64_technical_v3.py",
     "sha256": "71c7bfb3d08cedb0169373e110233972cf0fac9665c635ecd2bcc9740f3b5205"
@@ -59,7 +60,7 @@
     },
     "production_build": {
       "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261014-demo64-repair-r88/production_build.log",
-      "sha256": "64eac49e381ee0292fce29467016497aefcc03d2df3a81f80a94f57de33d2f37"
+      "sha256": "6df98bcdaa64b2fd19b2286f8ee168d1fc3bffbc1d035e1f0dc32cdd2bb0f1d3"
     },
     "unit_api": {
       "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261014-demo64-repair-r88/unit_api.log",
@@ -87,6 +88,10 @@
   "prior_request": {
     "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-technical-request-v2.json",
     "sha256": "7398099e6ceffb2067e5e5566668c0957023e872d02c3615b6da5a651aa001cf"
+  },
+  "raw_production_build_log": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/demo64-candidate-r88-20261014/build.log",
+    "sha256": "64eac49e381ee0292fce29467016497aefcc03d2df3a81f80a94f57de33d2f37"
   },
   "real_source_db_or_patient_object_reads": 0,
   "real_space": "NOT_RUN",
