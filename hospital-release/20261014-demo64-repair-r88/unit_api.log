@@ -1,0 +1,13 @@
+............                                                             [100%]
+=============================== warnings summary ===============================
+../../infectious-ct-ai/.venv/lib/python3.11/site-packages/starlette/testclient.py:51
+  /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/lib/python3.11/site-packages/starlette/testclient.py:51: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+backend_v2/tests/test_demo64.py::test_generated_https_full_service_and_owned_cleanup
+backend_v2/tests/test_demo64.py::test_generated_https_full_service_and_owned_cleanup
+  /Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/lib/python3.11/site-packages/httpx/_config.py:51: DeprecationWarning: `verify=<str>` is deprecated. Use `verify=ssl.create_default_context(cafile=...)` or `verify=ssl.create_default_context(capath=...)` instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+12 passed, 3 warnings in 2.34s

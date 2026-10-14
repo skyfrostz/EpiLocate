@@ -1,0 +1,124 @@
+{
+  "candidate": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-candidate-r88-20261014/frozen-candidate-v3.json",
+    "sha256": "a7d3cc77d17d4bf44fd45b80ea44b35472faa3a1e2c31f8b93a18eeb6b818da0"
+  },
+  "core_module": {
+    "export_resolution": "module.getRenderingEngines ? module : module.t",
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/frontend/.local/demo64-candidate-r88-20261014/dist/assets/esm-BQ03oNGD.js",
+    "sha256": "2e3eac0529164d98354324c852a50e49427e4f8d79a5d874afb0d749eea0ed2d",
+    "url": "/mvp/assets/esm-BQ03oNGD.js"
+  },
+  "driver": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/demo64_technical_v3.py",
+    "sha256": "71c7bfb3d08cedb0169373e110233972cf0fac9665c635ecd2bcc9740f3b5205"
+  },
+  "execute_permission": false,
+  "final_rehearsals_count": 0,
+  "generated_validation": {
+    "backend_generated_tests": 8,
+    "build": "vue-tsc + Vite PASS",
+    "compressed_generated_syntax": "1.2.840.10008.1.2.4.70 JPEG Lossless SV1, original handcrafted constant 16bit codestream",
+    "driver_generated_tests": 4,
+    "frontend_duration_ms": 743,
+    "frontend_generated_tests": 3,
+    "geometry_generated_tests": 11,
+    "lifecycle_tests": "initial nonnull file, replace/remove/cancel/remount/bad DICOM/refresh/unmount/init failure/old and cleared asset",
+    "new_medical_calls": 0,
+    "production_browser_evidence": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-r88-generated-fixed-02/final-regression-02/regression.json",
+      "sha256": "1d8f982cec8e04cf0889ec314c2739874195539a546d5dea6792c61ec3836614"
+    },
+    "production_flows": 3,
+    "production_layers": 9,
+    "real_pixels_read": false,
+    "scope": "GENERATED_PRODUCTION_ONLY",
+    "source_snapshot_for_generated_build": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-r88-generated-fixed-02/candidate/candidate-source-inventory.json",
+      "sha256": "4a408dabd671c800046c5f0b5b2e3c19dc372b6ce25d365b397edcc25802d11e"
+    },
+    "spatial_max_css_error": 1.52587890625e-05,
+    "unit_and_api_seconds": 2.34
+  },
+  "historical_failures": [
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-technical-20261013-01/acceptance.json",
+      "sha256": "884e5a8a971c34e70c2f5624c9c04a7d5dbd47968a41cd22eff2b7bbc58e7c89"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-technical-20261013-02/acceptance.json",
+      "sha256": "19d1afe5e3aa7e70b211bf5cc61cc2b6f49fd0778d855f729d881d9612bb4d4d"
+    }
+  ],
+  "hospital_display": "NOT_APPROVED",
+  "human_visual": "NOT_RUN",
+  "logs": {
+    "browser": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261014-demo64-repair-r88/browser.log",
+      "sha256": "df90df1bf9d9276642340fdf5e43b0cdd155436a1cd2c01cfb2edf6a876f4edc"
+    },
+    "production_build": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261014-demo64-repair-r88/production_build.log",
+      "sha256": "64eac49e381ee0292fce29467016497aefcc03d2df3a81f80a94f57de33d2f37"
+    },
+    "unit_api": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261014-demo64-repair-r88/unit_api.log",
+      "sha256": "bcc24c58b5f25f865e9f749f1368364eeb85cbffbfa8c1ffbb58d42f6c0d2f54"
+    }
+  },
+  "metadata_check": {
+    "exit_code": 0,
+    "medical_arrays_read": 0,
+    "services_started": 0,
+    "status": "CHECK_ONLY"
+  },
+  "next_output": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-technical-r88-20261014-03",
+  "next_output_absent": true,
+  "original_restore": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/read-only-mvp-binding-v1.json",
+    "sha256": "b03d88d251eb658d285d66462f550f4d2c392798c930c13bf7dd4e0ce1c0d1e4"
+  },
+  "original_restore66_sha_match": true,
+  "owner_admission_slot_dispatch_created": false,
+  "prior_candidate": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-candidate-20261013/frozen-candidate-v1.json",
+    "sha256": "191b47b46ac2710e1a1d2d08b6b7b5e67c5c137c22d0d9cb105fb7f76911d917"
+  },
+  "prior_request": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-technical-request-v2.json",
+    "sha256": "7398099e6ceffb2067e5e5566668c0957023e872d02c3615b6da5a651aa001cf"
+  },
+  "real_source_db_or_patient_object_reads": 0,
+  "real_space": "NOT_RUN",
+  "real_technical_attempts": 0,
+  "recording": "NOT_APPROVED",
+  "report": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261014-demo64-repair-r88/REPORT.md",
+    "sha256": "0be9d08b87960623d1e6eb85f119eb3b52bba532049254c43ea2968f1564f59c"
+  },
+  "request": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-technical-request-r88-v3.json",
+    "sha256": "2d3d5da57a818b2b202b5fe93db632fe8fbfd1e79cb7f2487f478565575b5934"
+  },
+  "schema": "DEMO64_R88_ENGINEERING_DELIVERY_V1",
+  "scope_note": "Generated multi-entry lifecycle build exercises compiled production viewer and namespaces; final frozen candidate is ordinary single-entry build; no real acceptance claim.",
+  "source_commit": "0e44ac5adfc4dcc58e1eeb829b39d35e25d17de7",
+  "starting_commit": "db3845bcf228aa283cdfaf1067c63ac0ec25b7d2",
+  "static_check_argv": [
+    "/Users/skyfrost/Documents/Techniques/infectious-ct-ai/.venv/bin/python",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/demo64_technical_v3.py",
+    "--request",
+    "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-technical-request-r88-v3.json",
+    "--request-sha",
+    "2d3d5da57a818b2b202b5fe93db632fe8fbfd1e79cb7f2487f478565575b5934"
+  ],
+  "status": "ENGINEERING_PASS_REAL_NOT_RUN",
+  "template_prepatch_reproduction": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-r88-generated-prepatch-01/browser-03/diagnosis.json",
+    "sha256": "8663f4052e0eaa1097253436a36571fc3dd4bd4ea56c7a0840d0f4fe0d83dc3b"
+  },
+  "tls_preconnect_prepatch_reproduction": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-r88-generated-fixed-02/legacy-edge-preconnect.json",
+    "sha256": "b4252398492b8026ad8e6972efc37658535997cda5f4eb1e0326b12d6e43ccea"
+  }
+}

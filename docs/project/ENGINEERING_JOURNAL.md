@@ -1679,3 +1679,5 @@ INTEGRATION原工作树/codex/epi-next-integration-20261009，起点db3845bcf228
 最终生成生产回归PASS：实际编译Vue、Backend/Gateway/HTTPS、3个生成SOP/Result、9个64层、刷新/直接范围拒绝/独立相机投影；JPEG Lossless SV1从零构造并实际browser解码。空间最大误差0.0000152587890625 CSSpx，仅生成。初始非空File、替换/移除、取消重挂载、清空/旧资产、坏DICOM、core初始化失败、刷新/unmount和浏览器/三自有服务退出均通过，270个持久化步骤，模型/Worker0。12项driver/API/预连接生成测试PASS2.34秒，3项候选+11项几何前端测试PASS743ms；普通候选vue-tsc/Vite build PASS，codec externalization/大chunk提示保留。夹具依赖/绝对路径、多entry core导出和TLS/生命周期失败目录保留，不计真实重试。
 
 冻结新候选与单次请求在提交后按实际source/dist/runtime/driver/browser SHA发布，不建owner/admission/slot/dispatch；旧恢复66源/构建逐项MATCH，原DB/对象未改。真实三SOP/空间/人工/演练/医院/录屏NOT_RUN，原Ridge结果不改。完整报告及新绑定由本线交总控集中，不写state/原两表、不push。
+
+冻结对象收口：代码0e44ac5adfc4dcc58e1eeb829b39d35e25d17de7；新candidate a7d3cc77d17d4bf44fd45b80ea44b35472faa3a1e2c31f8b93a18eeb6b818da0，新request2d3d5da57a818b2b202b5fe93db632fe8fbfd1e79cb7f2487f478565575b5934。197源码/旧恢复引用、21dist、23runtime及新driver/core/browser/config绑定，check-only实际exit0/services0/medical_arrays0。完整报告及机器索引hospital-release/20261014-demo64-repair-r88；旧66引用和两失败/candidate/request字节对账保留。等待新精确一次批准，不执行真实任务。
