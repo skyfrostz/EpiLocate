@@ -1681,3 +1681,18 @@ INTEGRATION原工作树/codex/epi-next-integration-20261009，起点db3845bcf228
 冻结新候选与单次请求在提交后按实际source/dist/runtime/driver/browser SHA发布，不建owner/admission/slot/dispatch；旧恢复66源/构建逐项MATCH，原DB/对象未改。真实三SOP/空间/人工/演练/医院/录屏NOT_RUN，原Ridge结果不改。完整报告及新绑定由本线交总控集中，不写state/原两表、不push。
 
 冻结对象收口：代码0e44ac5adfc4dcc58e1eeb829b39d35e25d17de7；新candidate a7d3cc77d17d4bf44fd45b80ea44b35472faa3a1e2c31f8b93a18eeb6b818da0，新request2d3d5da57a818b2b202b5fe93db632fe8fbfd1e79cb7f2487f478565575b5934。197源码/旧恢复引用、21dist、23runtime及新driver/core/browser/config绑定，check-only实际exit0/services0/medical_arrays0。完整报告及机器索引hospital-release/20261014-demo64-repair-r88；旧66引用和两失败/candidate/request字节对账保留。等待新精确一次批准，不执行真实任务。
+
+
+## 2026-10-14｜revision89精确批准后的64-only技术核验V3｜PASS_TECHNICAL_ONLY
+
+本节补充R88工程准备的真实运行结果，保留此前两次FAILED_OR_PARTIAL及其根因UNKNOWN。INTEGRATION原工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`、分支 `codex/epi-next-integration-20261009`，执行前HEAD `eeda34d76a5f302830beaa1fcb332e5c78a3a850`；绑定代码提交 `0e44ac5adfc4dcc58e1eeb829b39d35e25d17de7`。负责人直接消息 `01a13971-3b26-7d10-9617-9f5343584f34` 已独立核验，精确批准请求 `2d3d5da57a818b2b202b5fe93db632fe8fbfd1e79cb7f2487f478565575b5934` 各执行一次、串行、失败停止、不自动重试，不含医院展示或录屏；R18已完成结果仅复用。总控明确C启动后，核对revision89及writer账本COMMITTED一致/pending0，state SHA `cd7a9127bca91d2ff9c8c813330a86885cc04b0dd81cc57f1956c9376df7c85a`，没有写入state或两份合并表。
+
+owner approval SHA `c965d0e15b925e86e282bf8abc681f73f4f0bd845c772ca5c5db99c864054f55`，原始owner message SHA `cf29dc9a6852f9b8aafc6465ed6cf3ae57ae63d1997cdfa609869f2ed38bfbc9`，执行confirmation SHA `cd6bc230a73e03068a2dd73744b734e6cba7dd8fe35f371ae555209e870e067b`。新候选 `a7d3cc77d17d4bf44fd45b80ea44b35472faa3a1e2c31f8b93a18eeb6b818da0` 的197源码/旧恢复、21dist、23runtime及driver/browser/core绑定全数匹配；旧唯一DATA ledger/policy复用，无第二allowlist。新输出目录执行前不存在，V3精确argv已记录，只调用一次，未重复check-only/生成测试、未改代码或容差。
+
+实际本机浏览器、Backend/Gateway/HTTPS只读流程 **PASS_TECHNICAL_ONLY**：服务、登录、三个既有历史Result、仅64、三个结果刷新恢复、直接API范围拒绝、独立空间检查全部PASS。3个单SOP与原DICOM SHA核对，9个64图层均通过当前decoded/rendered/可见canvas/当前asset readiness；独立原生DICOM IPP/IOP/spacing加相机投影核对每层固定7点，共63点，最大误差 `4.263256414560601e-14` CSS px，原容差0.5 CSS px不变。这里只证明单切片FrozenBaseline/64展示链，未覆盖完整Series、切片顺序、3D、任意crop/resample或新算法；没有重算模型，也不建立科研提升或临床有效性。259条步骤事件包含STARTED/PASS和辅助元数据，不误称259项独立测试；66条静态请求记录均HTTP200，page_errors为空。
+
+原始收据 `.local/demo64-technical-r88-20261014-03/acceptance.json` SHA `02377afccc9cd0a71f7b53cf93d0895baa85d2ac03c96eed0a6d0dc1f5504b7e`；实际验收8.254969917秒、父调用8.574972583秒，分别低于140/180秒预算。退出收据 `services/restore-exit.json` SHA `bd9913e047b5e0cbb33a6a8c6d500e5a7f693f3af7aef822763156b314d89feb`：browser_closed=true，cleanup_errors=[]，自有服务35622/35623/35624均exit -15，恢复父35618和driver35614均exit0，五个已知PID退出后均未列出。源DB不变，Worker未启动，model_calls/new Jobs/外部请求/截图/视频/trace/像素导出均0；只清理本次自有进程。
+
+完整私有索引 `/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/r76-48h-20261013/approved-r89-cache-demo64-20261014/INT_EXECUTION_INDEX_V1.json` SHA `820bb019bd785f4e882d01d35bb5961c5da38f4e2d2d7af0bdd712f30f8aab94`，记录许可、源码/运行时、精确argv、日志SHA、原始验收/退出及对账结果。stdout SHA `3c1fb99e39566844c2bf76477eb90cb5ba1b8736e0f2644520a68052f7e600ce`，stderr为空/SHA `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。受保护收据及配置保留本地，不提交患者影像、患者空间细节或凭据。
+
+本次一次许可已消费，不自动重试。旧v16/DB/对象/dist、A/B/C、GT-v1及旧两次失败收据保持；旧版回退范围不扩大。**人工目视NOT_RUN；最终三次演练计数0；医院用途NOT_APPROVED；录屏/播放NOT_RUN且未批准；医院最终冻结NOT_RUN。** 三个历史Result流程不是最后三次演练。仅增量更新本清单及两份工程文档并本地提交，无push/部署/state writer/待决表修改；最终是否PASS/CONDITIONAL PASS/NO-GO由钟佳桦批准，总控统一汇总。
