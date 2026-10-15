@@ -1361,3 +1361,16 @@ scientific/readout/runner/supervisor/driver和slot均SUCCESS，真实ADMITTED ch
 监督3.322033250秒/恢复3.328654666秒，41样本，采样RSS峰696025088 bytes、最低free fraction约0.56、swap增0、最大父间隔0.099830958秒。保留1条启动期telemetry缺样（原15秒grace内），不声称绝对峰/无缺样；CPU thermal测量未记录。累计输出预留35200040<64MiB、errors为空、STOP不存在、stdout/stderr0 bytes；自有组退出/设备恢复事件、三已知PID退出与原cpu/mps/serial锁空闲核对完成，未向未知进程发信号。原24源码/21runtime和旧R77/CLI失败收据/STOP/5F/归档dispatch SHA均保全，旧actual=null不回填。
 
 本次科学权限已消费，不补用余下4F或重跑。负责人明确人工另约，MVP所有服务/浏览器/显示/演练/录制0，人工NOT_RUN、演练0、医院冻结NOT_RUN；仅必要原文档及双日志本地提交，无push/状态writer/总控两表修改，由主控读取实际索引汇总。
+
+
+## 2026-10-15｜R92独立R18研究产物消费者与数值页｜工程/元数据完成，医学空间NOT_RUN
+
+原INTEGRATION工作树/codex/epi-next-integration-20261009，起点HEAD `0ac9a2ac11f91814b8a9b294e2b2c7098a76911a`，tracked/untracked初始干净、原ignored研究资产保留。全文核验负责人R92 SHA5614adac…；权威revision91/ad29d070…与writer COMMITTED一致/pending0，只读未写。无可用独立QA代理，本线完成有界实现与验证。
+
+新增r18_research_artifact.py、独立research_review CLI/HTML及生成fixture/测试，不改旧前端/接口/SLICE验证器。按ENC实际R92_R18_SLICE_CONTRIBUTIONS_V1适配，不要求另一生产schema；只读已明确转交贡献JSON94cb4bc0…与成功cache JSONfe19d5f8…，严格record/source_group/context/feature/geometry/split/label join，60组绑定整bag模型输入hash+原8native_Z，不伪造逐片hash。raw/8加数另加bias与bias-included component均值两种单位分开；signed保留，正半轴仅显示；tie按R91 Normal/argmax-first，固定FP64策略c72df980…/1e-8+1e-10，拒绝caller大tol。
+
+实际生成私有规范化JSON和真实静态数值HTML，但未打开真实页面。60组120 logits元数据算术重建最大误差7.105427357601002e-15；3来源弱标签错分均COVID，专家切片标签UNKNOWN，不重算分类成绩、不作病灶结论。现GAP [8,512,1,1,1]无空间图，CAM NOT_RUN，拒绝reshape伪图；新head R91 5c003668…与旧case3 E2分链。当前输入SHA是whole-bag模型输入，不是native CT；个体DICOM身份映射未导出，6 NONCONFORMANT/54 NOT_EVALUATED不重评。
+
+生成回归20 tests PASS0.06s；webapp-testing静态file页面桌面/390宽度6项交互检查PASS，单位切换/正负与正半轴/错分/等logit/缺项/追溯均覆盖，浏览器关闭、页面异常/外部请求0、无img/canvas/iframe，截图仅GENERATED。真实页面浏览NOT_RUN，不启动任何服务；本线模型调用/数组/权重/CT/医学图读取0。正式每次消费2个JSON（额外cache1），初次及受影响代码最终发布分别读取同两文件，字段核查也读同一贡献JSON；JSON算术属于实际计算，不称“没有计算”。
+
+契约及完整正常分支/0F预算与缺口在research/next-hospital-20261014/reports/r92_integration/CONSUMER_CONTRACT_V1.md；源码提交后RESULT_INDEX登记实际commit与产物SHA。真实逐组数值/HTML只存`.local/r92-research-review-20261015-01`，不进Git。原MVP66/候选197源引用全部MATCH，不启动MVP/真实浏览器/录屏，不新建worktree/queue/Job，不跨树写、不push或改总控state/两表。未来CAM/标签/新留出等请求由主控统一，人工另约、医院冻结NOT_RUN。
