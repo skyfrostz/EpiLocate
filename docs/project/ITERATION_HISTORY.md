@@ -1337,3 +1337,27 @@ E2-R直接继承原纠正增量SHA `69730c02f5b8798180059e835eb10a40c15162c653b3
 MVP继承实际PASS_TECHNICAL_ONLY，不重跑；当前candidate a7d3cc…的197source/21dist/23runtime及Chrome6引用逐项MATCH，原3SOP/3历史Result/9层不扩大。复用既有LOCAL_MVP_ONLY本机许可支持同一负责人目视/内部三次流程，不重新申请整个本地医学方案；仍按总控“先准备”不启动，人工结果由实际操作员填写。更新原FINAL_ACCEPTANCE_PREPARATION与逐例清单，给出现有持续serve入口精确命令、新且未创建的4个run-directory、实际动态URL/私有登录配置读取方式、启动15秒检查与Ctrl-C/自有服务退出流程，建议人工10分钟/每次演练5分钟；现有serve无自动会话watchdog，明确由操作员计时退出，不称headless入口或自动监督。普通联网/Wi-Fi/HTTPS/投屏不加部署审批，受众/素材传播仍按有效用途；录屏改可选、不作阻断，未制作。
 
 核查索引 `.local/e2-r-readout-r79-20261013/r91-preparation-audit-v1.json` SHA `1b7c49d884dcbe0d06a077828975331862bab098f8b0122ee69d6ba0af78b0c8`。本轮只有元数据/已有保存JSON核对和文档，真实数组/权重/DB/患者像素未读，无服务/浏览器/演练/录制/模型启动。人工NOT_RUN、完整演练0、医院外部用途未批准、最终冻结NOT_RUN；不倒填10月14日，不宣称临床验证。提交检查采用显式base与diff check；无push，由总控读取原会话汇总，不跨会话发消息。
+
+
+## 2026-10-15｜R91新负责人批准后E2-R行政启动准备｜未执行
+
+原INTEGRATION工作树/codex/epi-next-integration-20261009，准备起点HEAD `df58f20ce21ee2f58aa502c242f67677d824ac15`。独立read_thread核验主控直接userMessage `01a13b48-92dd-7d60-87a7-21ccf0fc648a` 对两项精确增量批准，owner message SHA1d05a47c…/itemized owner bdb752a4…；E2纠正增量69730c02…及原9ae5…/f16169a…/24源/21runtime/Mask与5F JSON元数据一致，原14F计划/18上限/0B更新/CPU1/120秒/RSS5-6GiB/64MiB及停止机制不变。旧task/job无slot或输出，沿用身份，无新task、队列、dispatch时间窗口、共享queue写入或模型调用；真实payload校验留给admitted原加载器。R18优先，本轮不消费科学额度。
+
+在原批准目录INT_E2_R前缀内创建兼容scope view/new owner confirmation、必要新admission与派发/release模板及once launcher，原科研源码/协议不改。行政V1的compact摘要编码被固定recovery校验拒绝，保留V1及失败收据；V2用原canonical_json正确编码后只读validation PASS，不扩大scope。活跃admission SHA `b5cad416745de9a5e4e4f8192449e47e65b5eefdd010a82e7f9e88645f71c217`；派发模板 `bd2859be0461992a9ad2e69c049ec0e8a4579a81fdcbd8d95dabe6e458abd708` 仍DRAFT无窗口，不能执行。
+
+pre-index `/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/r76-48h-20261013/approved-r91-head-e2-20261015/INT_E2_R_PRE_EXECUTION_INDEX_V1.json` SHA `372768910edca806dde9b3fbcc89133d4042ffa67fd7351ec351c7ca3bb3ac8e`，PREPARED_WAITING_CHIEF_RELEASE。独立wrapper源码SHA `aebba5b3a6c3399d5ef29d5b8ddfbc40eb77c6d27039f26ab3bb336c0bf1c872`，按原生成器的新dispatch绝对binding/原窗口核对，仅在实际主控release后独占claim再Popen一次。未知结果留null并拒绝重提、不发进程信号；driver exit0不冒充科学PASS。3项生成替身测试PASS0.02秒、默认check-only实际exit0/model_calls0/queue_writes0/slot_createdfalse、原strict dispatch元数据兼容核对用内存非reserved窗口，均非真实科学运行；旧生成测试/技术PASS直接继承。
+
+本轮真实final dispatch、release、LAUNCH_ATTEMPT、原task slot/science/supervision output均不存在。负责人明确“本轮先完成科研准备，人工验收另约”；MVP服务/浏览器/显示/演练/录制0，人工NOT_RUN、演练0、医院冻结NOT_RUN。必要原README/人工说明与双日志收口，本地提交；不push，不改总控state/两表或新建worktree/queue。主控读取本会话后审阅，另发R18退出后的唯一release才可启动E2-R。
+
+
+## 2026-10-15｜R91 E2-R唯一纠正调用实际完成｜SUCCESS / 非临床验证
+
+继上节pre-index快照后，主控核验R18 train100/eval2 SUCCESS及6个父子PID退出/原锁可用，再单独给出唯一E2 release。独立核验exit证明9b7848a8…、新dispatch aa42b22e…、release ac66d045…与pre-index37276891…，原窗口/精确binding校验通过；绑定once launcher仅提交一次，无自动重试、warmup或预算扩张。实际执行日期2026-10-15；旧job目录名20261013仅身份，不改日期或医院冻结记录。
+
+scientific/readout/runner/supervisor/driver和slot均SUCCESS，真实ADMITTED child6484、driver6475、wrapper6465。actual14F/0B/0更新/extra_autograd0，durable预留14F与actual收据一致；16对象=4历史兼容重用+12新读出，另2adapter check，max_abs0、unrun为空。原case3/epoch3604/cell43/模型和输入、硬面积5/10/20%/固定等模型面积随机、原keep/remove不变。
+
+实际索引 `/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/r76-48h-20261013/approved-r91-head-e2-20261015/INT_E2_R_EXECUTION_INDEX_V1.json` SHA `fea074c735ce8470e438a0598d0e81f15e96661f28e0e843487e0532b8196c59`。raw readout SHAf273f093…、机制摘要SHA12272900…含原始与扰动logits/模型与native面积/6组配对差值，均私有本地不入Git。完整软Mask保留margin接近原始而单peak保留变化大；ranked keep三面积均保留更多固定目标margin，remove5%较随机drop小、10/20%较大，混合结果不称普遍改善。等面积是模型网格，native面积/形状碎片度并非匹配；固定一个随机seed、adaptive case3/epoch，不是独立定位测试，不修改旧CPF1/3或标注对象0/10，临床有效性NOT_ESTABLISHED。
+
+监督3.322033250秒/恢复3.328654666秒，41样本，采样RSS峰696025088 bytes、最低free fraction约0.56、swap增0、最大父间隔0.099830958秒。保留1条启动期telemetry缺样（原15秒grace内），不声称绝对峰/无缺样；CPU thermal测量未记录。累计输出预留35200040<64MiB、errors为空、STOP不存在、stdout/stderr0 bytes；自有组退出/设备恢复事件、三已知PID退出与原cpu/mps/serial锁空闲核对完成，未向未知进程发信号。原24源码/21runtime和旧R77/CLI失败收据/STOP/5F/归档dispatch SHA均保全，旧actual=null不回填。
+
+本次科学权限已消费，不补用余下4F或重跑。负责人明确人工另约，MVP所有服务/浏览器/显示/演练/录制0，人工NOT_RUN、演练0、医院冻结NOT_RUN；仅必要原文档及双日志本地提交，无push/状态writer/总控两表修改，由主控读取实际索引汇总。
