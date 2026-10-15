@@ -1,0 +1,129 @@
+{
+  "schema": "EPI_NEXT_INT_CHIEF_HANDOFF_V2",
+  "date": "2026-10-16",
+  "evidence_type": "ACTUAL_INDEX_PLUS_SPEC_NOT_EXECUTION_APPROVAL",
+  "worktree": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+  "branch": "codex/epi-next-integration-20261009",
+  "code_HEAD": "6514dbf733ea18cd78a121f52a5664197842e8b0",
+  "package_commit": "RESOLVE_FROM_GIT_HISTORY_AND_HANDOFF_MESSAGE",
+  "authority": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/EPI_NEXT_PHASE2_DELIVERY_STATE.json",
+    "sha256": "471157999c6ba6e3eecc8257d8f3e351dca1437be42886c212a7b8b4d7e608e7",
+    "bytes": 196787,
+    "revision": 106,
+    "writer_last_committed_match": true,
+    "event_sha256": "7cf52e2ef8e907ea9dafe1b03f53267ca8eba2c91556f380fdab0695574dbf62",
+    "state_writes": 0
+  },
+  "execution_and_receipt_references": [
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/r76-48h-20261013/approved-r89-cache-demo64-20261014/INT_EXECUTION_INDEX_V1.json",
+      "sha256": "820bb019bd785f4e882d01d35bb5961c5da38f4e2d2d7af0bdd712f30f8aab94",
+      "bytes": 10472
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-technical-r88-20261014-03/acceptance.json",
+      "sha256": "02377afccc9cd0a71f7b53cf93d0895baa85d2ac03c96eed0a6d0dc1f5504b7e",
+      "bytes": 95487
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/reports/r92_integration/RESULT_INDEX_V1.json",
+      "sha256": "e777d6afc6694c961ff7a1fc2cc32d6600a522c0ecfae88a0ed54b45a7b3aeb5",
+      "bytes": 7990
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/reports/r103_integration/RESULT_INDEX_V1.json",
+      "sha256": "d8fbd8d5a8c5cdc8304391bb6abeb3b93042acd833e35e9a8b57d5a63caa4b36",
+      "bytes": 11037
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-technical-r88-20261014-03/services/restore-exit.json",
+      "sha256": "bd9913e047b5e0cbb33a6a8c6d500e5a7f693f3af7aef822763156b314d89feb",
+      "bytes": 275
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-candidate-r88-20261014/frozen-candidate-v3.json",
+      "sha256": "a7d3cc77d17d4bf44fd45b80ea44b35472faa3a1e2c31f8b93a18eeb6b818da0",
+      "bytes": 49897
+    }
+  ],
+  "R103_source_commit": "6df3dd8124707dc09126f41152edd3c3358ba66c",
+  "latest_synthetic_receipt": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/literature_review_20261016/checks/INT_SERIAL_TEST_RESULT_V1.json",
+    "sha256": "f5aafbd47eb1ee6b3ce1d391d4a052120c3e6d0cfd28590b88c3c518060d3abb",
+    "bytes": 1363
+  },
+  "latest_research_index": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/literature_review_20261016/evidence/INT_COMPACT_INDEX_V1.json",
+    "sha256": "0610e84a71ff1f8e8e8e5137b4b99a95fed792b02add1698f7051b56a6d5cc6b",
+    "bytes": 16312
+  },
+  "documents": [
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261016-chief-handoff/README.md",
+      "sha256": "42af9465f1bfbac5159409e0b5924d2ac915eaf595cd06c080d09b5b26e56633",
+      "bytes": 4063
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261016-chief-handoff/ACCEPTANCE_RECORD_TEMPLATE.md",
+      "sha256": "d0134d2a1c311a0d12c239c028349167538f37690d39159c752b3e147e6cb584",
+      "bytes": 6410
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261015-chief-handoff/ACCEPTANCE_STEPS.md",
+      "sha256": "c2900e314a4366a373e86f9bfbb837281b5f0c78a7178d53069f1b8ac3b25220",
+      "bytes": 5271
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261011-real-mvp-acceptance-v16/FINAL_ACCEPTANCE_PREPARATION_20261014.md",
+      "sha256": "4b55e41cd3a40a1a4a5fad1ca3f873b6e09515a3ab9f25016f28e81df0d029f3",
+      "bytes": 18109
+    }
+  ],
+  "technical_status": "PASS_TECHNICAL_ONLY_INHERITED",
+  "default_algorithm": null,
+  "human_visual": "DEFERRED_BY_OWNER_NOT_RUN",
+  "final_rehearsals": {
+    "status": "NOT_RUN",
+    "completed_count": 0
+  },
+  "recording": {
+    "status": "OPTIONAL_NOT_PRODUCED",
+    "qualified_count": 0,
+    "path": null,
+    "sha256": null,
+    "playback": "NOT_RUN",
+    "switch_test": "NOT_RUN"
+  },
+  "hospital_approval": "NOT_APPROVED",
+  "hospital_freeze": "NOT_RUN",
+  "recipient_thread": "01a138ed-90ba-7311-822e-9b48e7363f59",
+  "recipient_role": "首席算法工程师，经现有总控汇总",
+  "final_approver": "钟佳桦",
+  "unfinished": [
+    "人工目视未运行。",
+    "同配置三次连续完整演练未运行。",
+    "备用录屏可选；未制作、播放或切换验收。",
+    "医院素材/受众/用途与默认算法及最终批准待负责人决定。",
+    "R103医学配对/评价schema及输入与head追溯缺项见原索引。",
+    "新研究模块仅合成验证，真实体数据/跨库与临床效果未验证。"
+  ],
+  "current_round_execution": {
+    "medical_payload_reads": 0,
+    "model_calls": 0,
+    "services_started": 0,
+    "medical_pages_opened": 0,
+    "rehearsals": 0,
+    "recordings": 0,
+    "old_command_retry": false,
+    "authority_writes": 0
+  },
+  "checks": {
+    "referenced_indices_receipts_and_candidate_hashes": "MATCH",
+    "R103_source_and_test_log_bindings": "MATCH",
+    "new_19_test_plan_and_source_bindings": "MATCH",
+    "full_legacy_asset_closure_rehash": "NOT_RUN"
+  },
+  "new_execution_authorized": false,
+  "protected_data_attached": false
+}

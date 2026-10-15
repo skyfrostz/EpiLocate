@@ -1796,3 +1796,16 @@ R103源码与报告已本地提交 `6df3dd8124707dc09126f41152edd3c3358ba66c`；
 INT先保存TEST_PLAN/READY，未自行跑测试。总控按计划SHAe4bf086c12aaa767f14003fb150a4479260c488e5725d6b44b85db2be3d366bd串行运行新增19项，PASS_GENERATED_ONLY；外层0.218677s、采样峰值RSS47,939,584B，pytest19 passed in0.06s，精确来源为私有checks/INT_SERIAL_TEST_RESULT_V1.json及日志，测试后源码/计划SHA MATCH。旧57/58/旧8未重跑，医学载荷/模型/医学页/服务/演练/录屏0。仅语法、PDF/文件、文档核查由INT自行进行；不再重跑测试。
 
 未完成与下一步：MedSAM补充未取得；WeakMedSAM许可、paper/code的prompt网格/编码次数/归一化差异未实测消解；真实reference/数据权重SHA/预处理与预训练重叠仍需总控/DATA交付。Inf-Net只是一条BLOCKED前置候选，最多2例×固定8片/16F、0训练，不是批准或可执行新请求。像素评价与临床结果NOT_RUN；原技术PASS/人工DEFERRED与医院冻结NOT_RUN保留。最终交付索引位于私有evidence/INT_COMPACT_INDEX_V1.json，绑定完整本地提交及文件SHA；不跨线程发信，不push/merge/deploy/写state。
+
+
+## 2026-10-16｜INT执行索引交首席及最终人工验收记录准备
+
+负责人本会话明确要求把本次执行索引、Git SHA、验收摘要与未完成项交首席汇总，并继续准备人工目视、三次最终演练及备用录屏；未获对应批准不执行。此为新的明确交接授权，先前文献任务“不跨线程发信”的当时边界不被改写。复用现有总控，不创建会话、队列、allowlist或并行状态。
+
+工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`、分支 `codex/epi-next-integration-20261009`；交接前代码HEAD `6514dbf733ea18cd78a121f52a5664197842e8b0`，起始tracked/untracked为空，ignored本地资产保持。权威revision106 SHA `471157999c6ba6e3eecc8257d8f3e351dca1437be42886c212a7b8b4d7e608e7`与writer最后COMMITTED匹配；仅只读观察，不调用writer或声称完成新的reconcile。
+
+新增 `hospital-release/20261016-chief-handoff/` README、manifest及实际记录模板，复用10月15日详细步骤而不改UI/运行时。模板包含共用批准/版本/素材/设备绑定、三例逐层目视、三个同配置独立完整流程、可选录屏全片播放/切换、停止/回退及最终负责人决定；所有实际项NOT_RUN/null，演练计数0，不预造记录。不复用已消费execute命令；未知事务先对账，未知进程不终止。
+
+核对原demo64执行索引SHA `820bb019bd785f4e882d01d35bb5961c5da38f4e2d2d7af0bdd712f30f8aab94`、技术收据 `02377afccc9cd0a71f7b53cf93d0895baa85d2ac03c96eed0a6d0dc1f5504b7e`、退出收据及V3 candidate均MATCH，维持PASS_TECHNICAL_ONLY；未重新核对全部旧资产闭包。R103索引SHA `d8fbd8d5a8c5cdc8304391bb6abeb3b93042acd833e35e9a8b57d5a63caa4b36`及其源码/测试日志绑定MATCH；保留历史C JSON曾内嵌CAM/mask的访问说明。本轮19项合成PASS来自总控已存收据（SHA `f5aafbd47eb1ee6b3ce1d391d4a052120c3e6d0cfd28590b88c3c518060d3abb`），未重跑测试。补齐私有INT_COMPACT_INDEX_V1.json（SHA `0610e84a71ff1f8e8e8e5137b4b99a95fed792b02add1698f7051b56a6d5cc6b`），仅收口原文献/合成结果，四篇元数据/正文哈希、15问结构、下载预算与测试计划源码核对PASS。
+
+本次新增真实影像/数组/权重访问、模型调用、医学页面/服务、演练/录制均0，不push/merge/deploy、不更新权威状态。人工DEFERRED_BY_OWNER_NOT_RUN、最终演练0、录屏OPTIONAL_NOT_PRODUCED、医院批准NOT_APPROVED、冻结NOT_RUN；默认算法null，最终由钟佳桦决定。本包完整提交SHA及实际发送结果由交接消息绑定；文档同步检查与diff检查后再提交，仅记录本次真实结果。
