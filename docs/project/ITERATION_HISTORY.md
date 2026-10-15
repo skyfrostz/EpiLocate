@@ -1374,3 +1374,12 @@ scientific/readout/runner/supervisor/driver和slot均SUCCESS，真实ADMITTED ch
 生成回归20 tests PASS0.06s；webapp-testing静态file页面桌面/390宽度6项交互检查PASS，单位切换/正负与正半轴/错分/等logit/缺项/追溯均覆盖，浏览器关闭、页面异常/外部请求0、无img/canvas/iframe，截图仅GENERATED。真实页面浏览NOT_RUN，不启动任何服务；本线模型调用/数组/权重/CT/医学图读取0。正式每次消费2个JSON（额外cache1），初次及受影响代码最终发布分别读取同两文件，字段核查也读同一贡献JSON；JSON算术属于实际计算，不称“没有计算”。
 
 契约及完整正常分支/0F预算与缺口在research/next-hospital-20261014/reports/r92_integration/CONSUMER_CONTRACT_V1.md；源码提交后RESULT_INDEX登记实际commit与产物SHA。真实逐组数值/HTML只存`.local/r92-research-review-20261015-01`，不进Git。原MVP66/候选197源引用全部MATCH，不启动MVP/真实浏览器/录屏，不新建worktree/queue/Job，不跨树写、不push或改总控state/两表。未来CAM/标签/新留出等请求由主控统一，人工另约、医院冻结NOT_RUN。
+
+
+## 2026-10-15｜INT向首席汇总与最终验收操作准备（未执行）
+
+分支 `codex/epi-next-integration-20261009`，工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`，开发前/代码基线 `1085db4de11f622398aaf63f5e8fe3a5db4ff700`；R92受测源码 `596ef5eab6c5eb267cfa67ffbec198122eab040a`。新增本地 `hospital-release/20261015-chief-handoff/`，只索引既有真实技术/JSON执行证据和SPEC步骤；交付提交可由本节Git历史及发给首席的完整SHA解析，不改变代码或医学资产。
+
+原R92索引SHA `e777d6afc6694c961ff7a1fc2cc32d6600a522c0ecfae88a0ed54b45a7b3aeb5`记录20项生成单测/6项生成页面检查、60组/120 logits元数据核对；不扩展为真实医学页面、空间CAM或临床验收。原64-only技术PASS单独保留。DATA commit `271b2203318602ea0839aa5e4f25a60fc8bae8a4`与固定新A请求 `2a776985783bbd3a9d8a1fdd9bc2a5f03f430b4a9ce807c0cfcad8ecedb8cd4f`的只读评审确认原A0/FD问题闭合；只给固定请求有范围工程结论，任意source_bindings check-only及未测CLI/queue限制保留，未执行A或重扫归档。
+
+本轮实际验证为六份报告引用哈希、105个Python源码与四个控制JSON绑定；2个.so、inventory/payload/真实资产未重新读取。交付步骤细化逐例目视、同配置三轮完整演练、可选视频录制/完整播放/回退，actual=null、演练0、医院默认未定、医院冻结NOT_RUN；对应批准前不启动。首席汇总、钟佳桦最终决定，日期不倒填。manifest触发文档检查要求，已同步本记录及工程日志；未推送/部署/更改总控状态。

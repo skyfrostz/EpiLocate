@@ -1,0 +1,61 @@
+{
+  "schema": "EPI_NEXT_INT_CHIEF_HANDOFF_V1",
+  "date": "2026-10-15",
+  "evidence_type": "ACTUAL_INDEX_PLUS_SPEC_NOT_EXECUTION_APPROVAL",
+  "worktree": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration",
+  "branch": "codex/epi-next-integration-20261009",
+  "baseline_HEAD": "1085db4de11f622398aaf63f5e8fe3a5db4ff700",
+  "R92_source_commit": "596ef5eab6c5eb267cfa67ffbec198122eab040a",
+  "R92_execution_index": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/reports/r92_integration/RESULT_INDEX_V1.json",
+    "sha256": "e777d6afc6694c961ff7a1fc2cc32d6600a522c0ecfae88a0ed54b45a7b3aeb5"
+  },
+  "R92_scope": {
+    "generated_tests": 20,
+    "generated_browser_checks": 6,
+    "real_JSON_groups": 60,
+    "real_logits": 120,
+    "real_medical_browser": "NOT_RUN",
+    "model_calls": 0
+  },
+  "ZIP_review": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/reports/r92_integration/ZIP_REBIND_ENGINEERING_REVIEW_V1.md",
+    "sha256": "ff797bb7d7145f33c0cf17c042d4b8fbc594a6276204e326f820cb50d6a73d66"
+  },
+  "documents": [
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261015-chief-handoff/README.md",
+      "sha256": "9a08db0bdcb1cd43269cd98676a53e54ea9d90b3feb98d1ab3e10fdb76e4d9e7"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/hospital-release/20261015-chief-handoff/ACCEPTANCE_STEPS.md",
+      "sha256": "c2900e314a4366a373e86f9bfbb837281b5f0c78a7178d53069f1b8ac3b25220"
+    }
+  ],
+  "default_algorithm": null,
+  "human_visual": "DEFERRED_BY_OWNER_NOT_RUN",
+  "final_rehearsals": {
+    "status": "NOT_RUN",
+    "completed_count": 0
+  },
+  "recording": {
+    "status": "OPTIONAL_NOT_PRODUCED",
+    "qualified_count": 0,
+    "path": null,
+    "sha256": null
+  },
+  "hospital_freeze": "NOT_RUN",
+  "hospital_approval": "NOT_APPROVED",
+  "recipient": "首席算法工程师，经现有总控汇总",
+  "final_approver": "钟佳桦",
+  "new_execution_authorized_by_this_package": false,
+  "protected_data_attached": false,
+  "demo64_execution_index": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-private/manifests/epi-next-phase2-coordinator/r76-48h-20261013/approved-r89-cache-demo64-20261014/INT_EXECUTION_INDEX_V1.json",
+    "sha256": "820bb019bd785f4e882d01d35bb5961c5da38f4e2d2d7af0bdd712f30f8aab94"
+  },
+  "demo64_acceptance": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/demo64-technical-r88-20261014-03/acceptance.json",
+    "sha256": "02377afccc9cd0a71f7b53cf93d0895baa85d2ac03c96eed0a6d0dc1f5504b7e"
+  }
+}
