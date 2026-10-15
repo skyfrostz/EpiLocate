@@ -1398,3 +1398,16 @@ scientific/readout/runner/supervisor/driver和slot均SUCCESS，真实ADMITTED ch
 未完成：DATA/LOC/ENC正式新版医学配对/评价schema待总控转交；未知schema拒绝，配对/临床/产品验收NOT_RUN，原技术PASS与人工DEFERRED/医院冻结NOT_RUN保持。文档同步和diff在交付前检查；代码完整提交SHA由本节Git历史及随后精确索引绑定，不预填执行或冻结。
 
 R103源码与报告已本地提交 `6df3dd8124707dc09126f41152edd3c3358ba66c`；新增单一 `research/next-hospital-20261014/reports/r103_integration/RESULT_INDEX_V1.json`，绑定实际JSON消费/20组160位置连接、45项生成测试、最终两页10项检查及生成截图SHA。未扩展执行范围；新增正式医学schema仍待交付，医院冻结NOT_RUN。
+
+
+## 2026-10-16｜INT文献深读与独立感染Mask空间研究接口
+
+原分支 `codex/epi-next-integration-20261009`、工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`，前HEAD `3e44dc33882393576029593bb5c13fb4e82856b5`。本轮负责人限定为公开文献/作者代码只读、原线独立模块及合成CPU工程；不得读新CT/标签payload/真实内嵌CAM数组、模型训练或新forward。当前state106 SHA471157999c6ba6e3eecc8257d8f3e351dca1437be42886c212a7b8b4d7e608e7与writer COMMITTED事件匹配，未写总状态。
+
+本地增量仅 `epilocate_next/infection_overlay_research_v1.py` 与新增 `qa/test_infection_overlay_research_v1.py`，原MVP/64-only、R18/CT-FM/Ridge/CPF及旧执行源码未改。独立几何元数据/数组函数明确ZYX/XYZ、RAS/LPS、mm、crop及7→224→native显示格中心、nearest resample coverage、同组同系列/网格绑定、完整/部分参考和GT提示门禁；不含真实file reader、模型或UI。显示格中心不能代替ResNet18特征lattice（名义stride32/offset0）或感受野边界。NIfTI1 sform-only/mm只是合成header兼容夹具，qform/NIfTI2/压缩/非仿射stack/跨库及真实体数据仍NOT_RUN，环境无nibabel，未安装依赖。
+
+按总控分配，INT只拥有论文02/06/07/15；全文PDF、分隔页文本/源信息、中文15问笔记、作者固定commit源码/issue审查、技术矩阵、像素协议和最多一条Inf-Net候选都保存在私有 `literature_review_20261016/` 分配子目录，未提交全文或外部源码到Git。四正文已读；MedSAM补充下载SSL/HTML门失败未读，Total补充文字已读、20图页仅概览未逐点数值重算。PDF含失败残留30,989,904B，单篇和本线预算均满足；不下载权重/影像数据集。完整身份、DOI、作者、year及许可/版本冲突记录于source.json/notes，作者reported不能当项目结果。重要发现：Inf-Net是pixel/edge监督，WeakMedSAM含新训练与提示亲和/伪标签U-Net，GT提示交互对照不等于自动定位，肺ROI不等于感染mask。
+
+INT先保存TEST_PLAN/READY，未自行跑测试。总控按计划SHAe4bf086c12aaa767f14003fb150a4479260c488e5725d6b44b85db2be3d366bd串行运行新增19项，PASS_GENERATED_ONLY；外层0.218677s、采样峰值RSS47,939,584B，pytest19 passed in0.06s，精确来源为私有checks/INT_SERIAL_TEST_RESULT_V1.json及日志，测试后源码/计划SHA MATCH。旧57/58/旧8未重跑，医学载荷/模型/医学页/服务/演练/录屏0。仅语法、PDF/文件、文档核查由INT自行进行；不再重跑测试。
+
+未完成与下一步：MedSAM补充未取得；WeakMedSAM许可、paper/code的prompt网格/编码次数/归一化差异未实测消解；真实reference/数据权重SHA/预处理与预训练重叠仍需总控/DATA交付。Inf-Net只是一条BLOCKED前置候选，最多2例×固定8片/16F、0训练，不是批准或可执行新请求。像素评价与临床结果NOT_RUN；原技术PASS/人工DEFERRED与医院冻结NOT_RUN保留。最终交付索引位于私有evidence/INT_COMPACT_INDEX_V1.json，绑定完整本地提交及文件SHA；不跨线程发信，不push/merge/deploy/写state。
