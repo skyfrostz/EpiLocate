@@ -1,0 +1,164 @@
+{
+  "MVP_human_visual": "DEFERRED_BY_OWNER_NOT_RUN",
+  "branch": "codex/epi-next-integration-20261009",
+  "clinical_validity": "NOT_ESTABLISHED",
+  "code_references": [
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/epilocate_next/r18_research_artifact.py",
+      "sha256": "1974d7236de1c857cddfd2f8de06ead2fa15a2eacbcc5a1eb56b1b0f712ef791"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/epilocate_next/r18_research_review.py",
+      "sha256": "7792b73ad5f1b02a3c7bc1e95001629c775d4cb53dcb3b80989e46f0d99c2ecd"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/epilocate_next/r18_research_review.html",
+      "sha256": "3111fb70b3bde77de9833b67d27f9215fd912f88d62bc8399bb654bd9321b123"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/r18_research_fixture.py",
+      "sha256": "3f40a7f2883222555946c42b980e89ec2c9f0c9085a8f0a3029e758c6c2ab8da"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/r18_research_browser.py",
+      "sha256": "463c9978fc4335cedc316314cf82bdadc516c5c4860a728c765bc19b4292e4e6"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/qa/test_r18_research_artifact.py",
+      "sha256": "3ecd882b42ead3f39f71e10a14c0632f236ac334805923955a68a4a5aa644985"
+    }
+  ],
+  "consumer_contract": {
+    "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/research/next-hospital-20261014/reports/r92_integration/CONSUMER_CONTRACT_V1.md",
+    "sha256": "0e445edde7c57d936aa1f39cf2387cf06c508468c0399d844218a762bc5a42df"
+  },
+  "final_rehearsals": 0,
+  "generated_validation": {
+    "browser_checks": {
+      "generated_and_eight_rows": "PASS",
+      "positive_display_never_reconstructs": "PASS",
+      "provenance_and_mobile_layout": "PASS",
+      "source_label_error_filter": "PASS",
+      "tie_missing_contribution_and_no_fake_cam": "PASS",
+      "weighted_vs_bias_included_component": "PASS"
+    },
+    "browser_closed": true,
+    "browser_report": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/r92-research-review-20261015-01/browser-generated-final/result.json",
+      "sha256": "4a60b964e35e900db7cd30cfceaf18a01b8a8629a7be36bff6e96dd8bc7c25e5"
+    },
+    "external_page_requests": 0,
+    "fixture": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/r92-research-review-20261015-01/generated-fixture.json",
+      "sha256": "c92cc941b356a7edbca6b2ab992569438c17e2c13d3685febaefabb8e8dda22b"
+    },
+    "page": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/r92-research-review-20261015-01/generated-review-final.html",
+      "sha256": "eedcbecaf57e06f30beb7d26103d9a594df6e4dc5002a5e74ebad70afb21c031"
+    },
+    "scope": "GENERATED_ONLY_NO_REAL_MEDICAL_BROWSER_OR_ASSET_ACCEPTANCE",
+    "screenshots": [
+      {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/r92-research-review-20261015-01/browser-generated-final/generated-desktop.png",
+        "sha256": "9fed023dd9bb6d1caafa70b224da3783bf19593ae536639c68d94da226013834"
+      },
+      {
+        "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/r92-research-review-20261015-01/browser-generated-final/generated-mobile.png",
+        "sha256": "e5c799ecef486efab45310d12da45a6a79eb9e5b218afd40abf2fb60ae5d0107"
+      }
+    ],
+    "services_started": 0,
+    "unit_log": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/r92-research-review-20261015-01/generated-validator-final.log",
+      "sha256": "6de8f653cf0c532273df70747e7087d29888c881fc218b02da2f52cfd02d4cf9"
+    },
+    "unit_seconds": 0.06,
+    "unit_tests": 20
+  },
+  "hospital_freeze": "NOT_RUN",
+  "preserved": {
+    "R91_consumed_jobs_rerun": false,
+    "demo64_candidate_source_refs_197": "MATCH",
+    "legacy_mvp_source_refs_66": "MATCH",
+    "legacy_protocol_or_UI_changed": false
+  },
+  "publication": "LOCAL_ONLY_NO_PUSH_NO_DEPLOY_NO_STATE_OR_CHIEF_TABLE_WRITES",
+  "real_inputs": [
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-encoder/.local/r92-encoder/R18_SLICE_CONTRIBUTIONS_V1.json",
+      "sha256": "94cb4bc0c769fda0c93a89602dc4f451eeabef5ae87729d76379dda149ea40d9"
+    },
+    {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-encoder/.local/resnet18-mil-v1/r88-rounding-cache-proposed-1/cache/cache-receipt.json",
+      "sha256": "fe19d5f8ad9fc99923abbfbd2edb0077874c4422b44531c08131e4d413457454"
+    }
+  ],
+  "real_outputs": {
+    "consumption_audit": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/r92-research-review-20261015-01/final-consumption-audit.json",
+      "sha256": "ca1d01f41fefe45d7b1a84f470baaf375a4267f2208dac3c1c375a40a3b24dbd"
+    },
+    "normalized_artifact": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/r92-research-review-20261015-01/R18_RESEARCH_ARTIFACT_V1.json",
+      "sha256": "308d6aa52e6aa74ceeaaf685cbf3b01ab2ca40647a81ef9ba33ece6c200422c8"
+    },
+    "static_metadata_page": {
+      "path": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration/.local/r92-research-review-20261015-01/real-r18-research-final.html",
+      "sha256": "d2a28665faa32adbf2d4f43774e20e04407f088872b65eabed310032e9fb3e36"
+    }
+  },
+  "real_scope": {
+    "CT_pixel_array_or_map_reads": 0,
+    "JSON_inputs_distinct": 2,
+    "NPZ_or_head_weight_array_reads": 0,
+    "field_inspection": "Same contribution JSON also read for schema/SHA discovery. No further source JSON read during final index; own derived outputs hashed only.",
+    "formal_consumption_runs": [
+      {
+        "cache_metadata_JSON_reads": 1,
+        "external_JSON_reads": 2,
+        "id": "initial-cli"
+      },
+      {
+        "cache_metadata_JSON_reads": 1,
+        "external_JSON_reads": 2,
+        "id": "final-publication-after-affected-code-fix"
+      }
+    ],
+    "max_abs_reconstruction_error": 7.105427357601002e-15,
+    "metadata_arithmetic": true,
+    "model_forward_backward_updates": 0,
+    "per_slice_input_hash": "NOT_EXPORTED_NOT_FABRICATED",
+    "real_browser_acceptance": "NOT_RUN",
+    "real_page_opened": false,
+    "saved_logits_checked": 120,
+    "source_groups": 60,
+    "source_identity_mapping": "NOT_EXPORTED; original6 NONCONFORMANT/54 NOT_EVALUATED not reclassified",
+    "source_label_error_category": "COVID",
+    "source_label_errors": 3,
+    "spatial_CAM": "NOT_RUN_GAP_ONLY",
+    "whole_bag_model_input_hash_bound": 60
+  },
+  "request_and_branches": {
+    "budget": {
+      "backward": 0,
+      "forward": 0,
+      "max_each_JSON_bytes": 4194304,
+      "queue_jobs": 0,
+      "services": 0,
+      "updates": 0
+    },
+    "current_metadata_access_gap": null,
+    "full_normal_branches_and_limits": "CONSUMER_CONTRACT_V1.md / 正常分支、预算与缺口",
+    "future_gaps": [
+      "ENC actual pre-GAP spatial features/CAM and exact mapping/target contract, plus chief-approved new forward request",
+      "Expert slice/pixel reference matching not yet done; labels UNKNOWN",
+      "Independent new holdout and CT-FM coverage requests handled by chief, not launched by INT"
+    ],
+    "merged_request_owner": "CHIEF",
+    "new_scientific_request_created": false
+  },
+  "schema": "EPI_NEXT_R92_INT_COMPACT_RESULT_INDEX_V1",
+  "source_commit": "596ef5eab6c5eb267cfa67ffbec198122eab040a",
+  "status": "ENGINEERING_AND_REAL_JSON_METADATA_DONE",
+  "worktree": "/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration"
+}
