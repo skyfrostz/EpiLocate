@@ -1781,3 +1781,5 @@ scientific/readout/runner/supervisor/driver和slot均SUCCESS，真实ADMITTED ch
 访问说明：C源JSON内嵌CAM/mask数组已随JSON解析，首轮字段发现读出过部分内嵌值；新adapter不访问/复制/计算/渲染该数组字段。不能写成完全未触及数组值。外部数组文件/CT/GT/权重读取0、模型调用0、医学页面/服务/人工演练/录屏0；正式消费未导入NumPy/Torch。没有重跑R102或旧技术任务，没有推送/部署。详细访问账本与复现入口见 `research/next-hospital-20261014/reports/r103_integration/CONSUMPTION_REPORT_V1.md`；精确源码与证据SHA由单一RESULT_INDEX_V1.json索引。
 
 未完成：DATA/LOC/ENC正式新版医学配对/评价schema待总控转交；未知schema拒绝，配对/临床/产品验收NOT_RUN，原技术PASS与人工DEFERRED/医院冻结NOT_RUN保持。文档同步和diff在交付前检查；代码完整提交SHA由本节Git历史及随后精确索引绑定，不预填执行或冻结。
+
+R103源码与报告已本地提交 `6df3dd8124707dc09126f41152edd3c3358ba66c`；新增单一 `research/next-hospital-20261014/reports/r103_integration/RESULT_INDEX_V1.json`，绑定实际JSON消费/20组160位置连接、45项生成测试、最终两页10项检查及生成截图SHA。未扩展执行范围；新增正式医学schema仍待交付，医院冻结NOT_RUN。
