@@ -1768,3 +1768,16 @@ scientific/readout/runner/supervisor/driver和slot均SUCCESS，真实ADMITTED ch
 检查：交付manifest被文档检查器归为engineering-change，首次因缺两日志返回FAIL，按要求补齐。最终文档检查和diff检查随提交前实际运行，交付消息给最终结果。无代码/协议/UI/旧MVP或DATA文件修改；旧失败收据、已消费任务及所有ignored资产保留。
 
 未完成：人工目视另约、三次最终演练0、可选录屏未制作/未播放；医院素材外部用途与冻结未批准；通用check-only任意source_bindings仍无路径/大小限制，INT未测CLI/dispatch/slot及完整运行时闭包。具体步骤/停止条件/回退见新交付包，获对应批准前不执行。只向首席传路径/哈希/摘要，不附受保护数据，不声明临床或医院通过。
+
+
+## 2026-10-15｜R103 INT真实元数据消费与研究接缝（无新医学执行）
+
+分支 `codex/epi-next-integration-20261009`，工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`，前HEAD `20a37701f44375af87b0767dd2593f9895ca7f1e`。负责人指令SHA `2bfd447ec957f980605e30b1e7f95d820e9d138435bf2e0f71c36942d702c137`已完整读取。INT负责接缝，总控汇总，钟佳桦最终决定；本次不写权威状态/批准。
+
+新增独立 `EPI_NEXT_RESEARCH_METADATA_V1` adapter/validator及生成数据预览，复用原R92 Strict/Reference/JSON reader和研究CLI；旧GAP-only/SLICE E2/F0契约及旧MVP/64资产不改。A标签结构保持mapping UNKNOWN/null分母；B20组/160位置空间声明与已有R92 scalar60组经ENC固定8片控制JSON连接20开发组、160位置MATCH；C Normal_SOURCE原argmax目标/19响应/未校准候选与D旧模型四格分别保留，不将空候选解释为无病灶。保留缺逐片输入SHA、C缺精确head及医学参考UNKNOWN。
+
+实际证据：四R102科学JSON源SHA核对及消费；ENC控制SHA02e1a3a0e45f95d225ed59735d2c5900ec80b15c69a3aa6b9228b086855e2f02、R92贡献源SHA94cb4bc0c769fda0c93a89602dc4f451eeabef5ae87729d76379dda149ea40d9；连接按group/head/geometry/fixed8/saved logits，不读取所引资产。45项定向测试PASS（25新+20原R92），两个最终生成页面各5项PASS、pageerror/外部请求0、浏览器已关闭。5份本地真实元数据输出按最终schema复验通过。
+
+访问说明：C源JSON内嵌CAM/mask数组已随JSON解析，首轮字段发现读出过部分内嵌值；新adapter不访问/复制/计算/渲染该数组字段。不能写成完全未触及数组值。外部数组文件/CT/GT/权重读取0、模型调用0、医学页面/服务/人工演练/录屏0；正式消费未导入NumPy/Torch。没有重跑R102或旧技术任务，没有推送/部署。详细访问账本与复现入口见 `research/next-hospital-20261014/reports/r103_integration/CONSUMPTION_REPORT_V1.md`；精确源码与证据SHA由单一RESULT_INDEX_V1.json索引。
+
+未完成：DATA/LOC/ENC正式新版医学配对/评价schema待总控转交；未知schema拒绝，配对/临床/产品验收NOT_RUN，原技术PASS与人工DEFERRED/医院冻结NOT_RUN保持。文档同步和diff在交付前检查；代码完整提交SHA由本节Git历史及随后精确索引绑定，不预填执行或冻结。

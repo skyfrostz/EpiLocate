@@ -1383,3 +1383,16 @@ scientific/readout/runner/supervisor/driver和slot均SUCCESS，真实ADMITTED ch
 原R92索引SHA `e777d6afc6694c961ff7a1fc2cc32d6600a522c0ecfae88a0ed54b45a7b3aeb5`记录20项生成单测/6项生成页面检查、60组/120 logits元数据核对；不扩展为真实医学页面、空间CAM或临床验收。原64-only技术PASS单独保留。DATA commit `271b2203318602ea0839aa5e4f25a60fc8bae8a4`与固定新A请求 `2a776985783bbd3a9d8a1fdd9bc2a5f03f430b4a9ce807c0cfcad8ecedb8cd4f`的只读评审确认原A0/FD问题闭合；只给固定请求有范围工程结论，任意source_bindings check-only及未测CLI/queue限制保留，未执行A或重扫归档。
 
 本轮实际验证为六份报告引用哈希、105个Python源码与四个控制JSON绑定；2个.so、inventory/payload/真实资产未重新读取。交付步骤细化逐例目视、同配置三轮完整演练、可选视频录制/完整播放/回退，actual=null、演练0、医院默认未定、医院冻结NOT_RUN；对应批准前不启动。首席汇总、钟佳桦最终决定，日期不倒填。manifest触发文档检查要求，已同步本记录及工程日志；未推送/部署/更改总控状态。
+
+
+## 2026-10-15｜R103 INT真实元数据消费与研究接缝（无新医学执行）
+
+分支 `codex/epi-next-integration-20261009`，工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`，前HEAD `20a37701f44375af87b0767dd2593f9895ca7f1e`。负责人指令SHA `2bfd447ec957f980605e30b1e7f95d820e9d138435bf2e0f71c36942d702c137`已完整读取。INT负责接缝，总控汇总，钟佳桦最终决定；本次不写权威状态/批准。
+
+新增独立 `EPI_NEXT_RESEARCH_METADATA_V1` adapter/validator及生成数据预览，复用原R92 Strict/Reference/JSON reader和研究CLI；旧GAP-only/SLICE E2/F0契约及旧MVP/64资产不改。A标签结构保持mapping UNKNOWN/null分母；B20组/160位置空间声明与已有R92 scalar60组经ENC固定8片控制JSON连接20开发组、160位置MATCH；C Normal_SOURCE原argmax目标/19响应/未校准候选与D旧模型四格分别保留，不将空候选解释为无病灶。保留缺逐片输入SHA、C缺精确head及医学参考UNKNOWN。
+
+实际证据：四R102科学JSON源SHA核对及消费；ENC控制SHA02e1a3a0e45f95d225ed59735d2c5900ec80b15c69a3aa6b9228b086855e2f02、R92贡献源SHA94cb4bc0c769fda0c93a89602dc4f451eeabef5ae87729d76379dda149ea40d9；连接按group/head/geometry/fixed8/saved logits，不读取所引资产。45项定向测试PASS（25新+20原R92），两个最终生成页面各5项PASS、pageerror/外部请求0、浏览器已关闭。5份本地真实元数据输出按最终schema复验通过。
+
+访问说明：C源JSON内嵌CAM/mask数组已随JSON解析，首轮字段发现读出过部分内嵌值；新adapter不访问/复制/计算/渲染该数组字段。不能写成完全未触及数组值。外部数组文件/CT/GT/权重读取0、模型调用0、医学页面/服务/人工演练/录屏0；正式消费未导入NumPy/Torch。没有重跑R102或旧技术任务，没有推送/部署。详细访问账本与复现入口见 `research/next-hospital-20261014/reports/r103_integration/CONSUMPTION_REPORT_V1.md`；精确源码与证据SHA由单一RESULT_INDEX_V1.json索引。
+
+未完成：DATA/LOC/ENC正式新版医学配对/评价schema待总控转交；未知schema拒绝，配对/临床/产品验收NOT_RUN，原技术PASS与人工DEFERRED/医院冻结NOT_RUN保持。文档同步和diff在交付前检查；代码完整提交SHA由本节Git历史及随后精确索引绑定，不预填执行或冻结。
