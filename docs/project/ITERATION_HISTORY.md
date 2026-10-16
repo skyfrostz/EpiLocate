@@ -1424,3 +1424,18 @@ INT先保存TEST_PLAN/READY，未自行跑测试。总控按计划SHAe4bf086c12a
 核对原demo64执行索引SHA `820bb019bd785f4e882d01d35bb5961c5da38f4e2d2d7af0bdd712f30f8aab94`、技术收据 `02377afccc9cd0a71f7b53cf93d0895baa85d2ac03c96eed0a6d0dc1f5504b7e`、退出收据及V3 candidate均MATCH，维持PASS_TECHNICAL_ONLY；未重新核对全部旧资产闭包。R103索引SHA `d8fbd8d5a8c5cdc8304391bb6abeb3b93042acd833e35e9a8b57d5a63caa4b36`及其源码/测试日志绑定MATCH；保留历史C JSON曾内嵌CAM/mask的访问说明。本轮19项合成PASS来自总控已存收据（SHA `f5aafbd47eb1ee6b3ce1d391d4a052120c3e6d0cfd28590b88c3c518060d3abb`），未重跑测试。补齐私有INT_COMPACT_INDEX_V1.json（SHA `0610e84a71ff1f8e8e8e5137b4b99a95fed792b02add1698f7051b56a6d5cc6b`），仅收口原文献/合成结果，四篇元数据/正文哈希、15问结构、下载预算与测试计划源码核对PASS。
 
 本次新增真实影像/数组/权重访问、模型调用、医学页面/服务、演练/录制均0，不push/merge/deploy、不更新权威状态。人工DEFERRED_BY_OWNER_NOT_RUN、最终演练0、录屏OPTIONAL_NOT_PRODUCED、医院批准NOT_APPROVED、冻结NOT_RUN；默认算法null，最终由钟佳桦决定。本包完整提交SHA及实际发送结果由交接消息绑定；文档同步检查与diff检查后再提交，仅记录本次真实结果。
+
+
+## 2026-10-16｜R108 INT医学评价几何与Inf-Net无权重研究接口
+
+负责人R108完整指令已读，原INT分支/worktree，前HEAD `d86097acfcd77652e384568cd63141e1864cf35f`；起始tracked/untracked干净，ignored原位保留。权威revision107 SHA `c58ec5fda876d04aa7601fb3febb8458680fb00798d900688560acc81cdb428f`与最后COMMITTED一致；INT不写状态。复用epilocate-project/Ponytail与既有Inf-Net审计，不扩展综述，不安装依赖。
+
+新增独立 `epilocate_next/r108_research_geometry.py` 和 `qa/test_r108_research_geometry.py`。NIfTI-1 header bytes支持大小端、qform/sform、qfac/quaternion、RAS/LPS与scaling元数据，q/s frame或世界坐标冲突明确拒绝；不读取路径/像素。轴置换flip、crop/resize中心及逆坐标、覆盖域和部分/未知参考状态供DATA/LOC使用；不复制DATA identity或LOC Dice实现。metadata grid允许大体积尺寸声明但不分配整卷数组，旧R107模块/上限不改；Inf-Net native数组适配仍限单片≤1,048,576像素。单位/类型/有效仿射门禁显式，无原HU证明不从窗化值反推。
+
+独立bundle区分CT/GT/CAM/E1/E2/B0/B1/InfNet的method/version/target/evidence/native grid/asset SHA，拒绝跨case混入、解释图混命名概率及临床声明；无MVP导入路径。Inf-Net只适配调用方生成的352² logits，经crop/resize双线性回native，保留原logits、candidate/coverage/编码SHA和runtime身份，域外UNKNOWN；无权重/网络/真实模型入口，许可/重叠/HU/预处理未确认及真实未授权分支BLOCKED。模型runtime=null，不伪报运行耗时/文件路径。已有Inf-Net是监督分割适配，不作为R18定位提升或原创。
+
+本机仅查已安装能力，nibabel未安装，未安装库。跨库生成NIfTI save/load/scaling往返已有条件测试，但当前预计skip，不得报告跨库通过。NIfTI2/ni1/gzip载荷、未知单位、非仿射stack、真实医学文件/整卷与临床评价仍未支持或NOT_RUN。旧R18/head/E1/E2/GT/MVP/数据库/64-only入口均不改，V4未执行。
+
+AST语法解析通过；静态枚举新增27cases（当前预计26可执行+1 nibabel条件skip）。尚未由INT运行/collect测试；已将精确TEST_PLAN/READY及源码SHA交总控统一串行验收。计划SHA `2b420453ccd368f3eb7a8a83d7aa13b45026010cb95dd685dec1c66b8643184b`，CPU1、全套60秒/RSS512MiB/输出2MiB。READY后源码冻结，不重跑旧32/57/58/8/19；测试结果须引用总控实际收据，不能从AST或准备状态推PASS。
+
+报告、源绑定与最终COMPACT_INDEX保存在私有 `r108-medical-localization-20261016/INT/`，本地完整代码提交SHA由索引绑定。真实Index/NPY/CT/GT/weights访问、模型前向/训练/优化、HTTP/下载/安装/远程GPU/医学服务或页面/医院/录屏均0。只总控最终统一登记；没有push/merge/deploy。交付前执行显式base文档同步与diff检查；医学参考验证、模型兼容性和医院冻结不由本包确立。
