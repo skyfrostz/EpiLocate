@@ -10,7 +10,7 @@
       <div class="card-heading"><div><h2>任务状态</h2><p>显示服务端确认的状态；查询暂停后可按原 Job ID 恢复。</p></div><span v-if="jobs.isPolling" class="live-indicator">自动刷新中</span></div>
       <div v-if="job?.status !== 'FAILED'" class="status-track" aria-label="任务状态"><span v-for="status in statuses" :key="status" :class="{ 'status-current': job?.status === status }" :aria-current="job?.status === status ? 'step' : undefined">{{ labels[status] }}</span></div>
       <div v-if="job" class="job-facts">
-        <div><span>任务类型</span><strong>{{ job.kind === 'PREDICTION' ? '分类预测' : '遮挡分析' }}</strong></div>
+        <div><span>任务类型</span><strong>{{ job.kind === 'ALGORITHM' ? '新算法任务' : job.kind === 'PREDICTION' ? '分类预测' : '遮挡分析' }}</strong></div>
         <div><span>病例 ID</span><RouterLink :to="`/cases/${encodeURIComponent(job.case_id)}`">{{ job.case_id }}</RouterLink></div>
         <div><span>已证实进度</span><strong>{{ safeProgress(job.progress) == null ? '服务端未提供' : `${safeProgress(job.progress)}%` }}</strong></div>
         <div><span>预计剩余</span><strong>{{ job.estimated_remaining_time_ms == null ? '服务端未提供' : `${Math.ceil(job.estimated_remaining_time_ms / 1000)} 秒` }}</strong></div>

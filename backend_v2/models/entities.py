@@ -173,7 +173,7 @@ class InferenceJob(Base):
     started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     updated_at: Mapped[datetime] = stamp()
-    __table_args__ = (ForeignKeyConstraint(["case_id", "requested_by_user_id"], ["cases.id", "cases.owner_user_id"]), ForeignKeyConstraint(["slice_id", "case_id"], ["slices.id", "slices.case_id"]), UniqueConstraint("id", "case_id"), UniqueConstraint("requested_by_user_id", "idempotency_key"), Index("ix_jobs_queue", "status", "next_attempt_at", "created_at"), CheckConstraint("kind IN ('PREDICTION','OCCLUSION')"), CheckConstraint("status IN ('CREATED','QUEUED','RUNNING','COMPLETED','FAILED')"), CheckConstraint("attempt_no >= 0 AND attempt_no <= max_attempts"), CheckConstraint("retry_count >= 0 AND retry_count <= 2"), CheckConstraint("max_attempts >= 1 AND max_attempts <= 3"))
+    __table_args__ = (ForeignKeyConstraint(["case_id", "requested_by_user_id"], ["cases.id", "cases.owner_user_id"]), ForeignKeyConstraint(["slice_id", "case_id"], ["slices.id", "slices.case_id"]), UniqueConstraint("id", "case_id"), UniqueConstraint("requested_by_user_id", "idempotency_key"), Index("ix_jobs_queue", "status", "next_attempt_at", "created_at"), CheckConstraint("kind IN ('PREDICTION','OCCLUSION','ALGORITHM')"), CheckConstraint("status IN ('CREATED','QUEUED','RUNNING','COMPLETED','FAILED')"), CheckConstraint("attempt_no >= 0 AND attempt_no <= max_attempts"), CheckConstraint("retry_count >= 0 AND retry_count <= 2"), CheckConstraint("max_attempts >= 1 AND max_attempts <= 3"))
 
 
 class JobAttempt(Base):
@@ -209,7 +209,7 @@ class InferenceResult(Base):
     asset_manifest: Mapped[list] = mapped_column(JSONType, default=list, server_default="[]")
     created_at: Mapped[datetime] = stamp()
     retention_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True, index=True)
-    __table_args__ = (ForeignKeyConstraint(["job_id", "case_id"], ["inference_jobs.id", "inference_jobs.case_id"]), CheckConstraint("source = 'LIVE_CASE'"))
+    __table_args__ = (ForeignKeyConstraint(["job_id", "case_id"], ["inference_jobs.id", "inference_jobs.case_id"]), CheckConstraint("source IN ('LIVE_CASE','SYNTHETIC','PRECOMPUTED')"))
 
 
 class Asset(Base):

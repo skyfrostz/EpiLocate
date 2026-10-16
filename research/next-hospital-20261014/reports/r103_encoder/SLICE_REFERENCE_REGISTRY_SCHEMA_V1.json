@@ -1,0 +1,308 @@
+{
+  "$defs": {
+    "reference": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "pattern": "^/",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "row": {
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mapping_status": {
+                "enum": [
+                  "PAIRED",
+                  "PARTIALLY_PAIRED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "effective_length",
+              "provenance"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "confirmed_positions": {
+          "items": {
+            "type": "boolean"
+          },
+          "maxItems": 8,
+          "minItems": 8,
+          "type": "array"
+        },
+        "effective_length": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "fixed8_labels": {
+          "items": {
+            "enum": [
+              0,
+              1,
+              null
+            ]
+          },
+          "maxItems": 8,
+          "minItems": 8,
+          "type": "array"
+        },
+        "fixed8_native_indices": {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "maxItems": 8,
+          "minItems": 8,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "mapping_status": {
+          "enum": [
+            "PAIRED",
+            "PARTIALLY_PAIRED",
+            "UNKNOWN",
+            "CONFLICT"
+          ]
+        },
+        "native_depth": {
+          "minimum": 8,
+          "type": "integer"
+        },
+        "native_geometry_reference": {
+          "$ref": "#/$defs/reference"
+        },
+        "native_tensor_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "properties": {
+            "extent_confirmed": {
+              "const": true
+            },
+            "extent_evidence": {
+              "$ref": "#/$defs/reference"
+            },
+            "index": {
+              "$ref": "#/$defs/reference"
+            },
+            "index_row_zero_based": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "label_file": {
+              "$ref": "#/$defs/reference"
+            },
+            "label_index_base": {
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "label_index_raw": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "label_version": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "member_mapping": {
+              "$ref": "#/$defs/reference"
+            },
+            "order_evidence": {
+              "$ref": "#/$defs/reference"
+            },
+            "ordering_confirmed": {
+              "const": true
+            },
+            "source_identity_confirmed": {
+              "const": true
+            },
+            "version_evidence": {
+              "$ref": "#/$defs/reference"
+            }
+          },
+          "required": [
+            "index",
+            "label_file",
+            "version_evidence",
+            "order_evidence",
+            "extent_evidence",
+            "member_mapping",
+            "index_row_zero_based",
+            "label_index_raw",
+            "label_index_base",
+            "label_version",
+            "ordering_confirmed",
+            "extent_confirmed",
+            "source_identity_confirmed"
+          ],
+          "type": "object"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "record_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "scan_reference_counts": {
+          "additionalProperties": false,
+          "properties": {
+            "negative": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "positive": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "unknown": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "positive",
+            "negative",
+            "unknown"
+          ],
+          "type": "object"
+        },
+        "source_diagnosis": {
+          "enum": [
+            "COVID-19",
+            "CAP",
+            "Normal"
+          ]
+        },
+        "source_group_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "split": {
+          "const": "val_classification"
+        }
+      },
+      "required": [
+        "record_id",
+        "source_group_id",
+        "source_diagnosis",
+        "split",
+        "native_depth",
+        "native_tensor_sha256",
+        "native_geometry_reference",
+        "fixed8_native_indices",
+        "mapping_status",
+        "reason",
+        "fixed8_labels",
+        "confirmed_positions",
+        "scan_reference_counts"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "Structural schema. Evaluator verifies exact IDs/unique original8/source bindings/confirmation-null semantics and native extent. Native PARTIALLY_PAIRED requires >=1 known native and >=1 unknown native; may have zero confirmed fixed8, which contributes no slice metrics. PAIRED requires full resolved native reference. NOT_RUN is rejected, not measured zero; UNKNOWN/CONFLICT are never negative.",
+  "properties": {
+    "consumer": {
+      "$ref": "#/$defs/reference"
+    },
+    "denominators": {
+      "additionalProperties": false,
+      "properties": {
+        "confirmed_positions": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "conflict_groups": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "paired_groups": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "partially_paired_groups": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "source_groups": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "unknown_groups": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "source_groups",
+        "paired_groups",
+        "partially_paired_groups",
+        "unknown_groups",
+        "conflict_groups",
+        "confirmed_positions"
+      ],
+      "type": "object"
+    },
+    "fixed8_control": {
+      "$ref": "#/$defs/reference"
+    },
+    "label_semantics": {
+      "type": "object"
+    },
+    "pairing_execution": {
+      "const": "EXECUTED"
+    },
+    "purpose": {
+      "const": "EVALUATION_ONLY"
+    },
+    "reference_scope": {
+      "const": "SLICE_INFECTION_NOT_PIXEL_MASK"
+    },
+    "rows": {
+      "items": {
+        "$ref": "#/$defs/row"
+      },
+      "maxItems": 20,
+      "minItems": 20,
+      "type": "array"
+    },
+    "schema": {
+      "const": "R103_SLICE_REFERENCE_REGISTRY_V1"
+    }
+  },
+  "required": [
+    "schema",
+    "purpose",
+    "reference_scope",
+    "consumer",
+    "fixed8_control",
+    "label_semantics",
+    "rows",
+    "denominators",
+    "pairing_execution"
+  ],
+  "title": "R103 strict20-development slice reference registry",
+  "type": "object"
+}

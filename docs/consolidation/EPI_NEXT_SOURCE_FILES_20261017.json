@@ -1,0 +1,897 @@
+{
+  "heads": {
+    "data-eval": [
+      "c9d751cf823ca9462741bc04f129512045d50818",
+      "e4df5065e9d12a9953f6ef189ad119599853c0a4"
+    ],
+    "encoder": [
+      "73ede0797016c022968ef239c8101df2da1d91f5",
+      "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb"
+    ],
+    "localization": [
+      "11ac87b91ea863a0f394aa53a9e3db6571691bc6",
+      "375169c230379f919b08ad298f916c68426491ae"
+    ],
+    "integration": [
+      "246cdd1884a59bf9c0dcb1f872a26802378488de",
+      "46b9d0e005b8016f8b9b233dde6d419b481b551c"
+    ]
+  },
+  "files": [
+    {
+      "path": "research/next-hospital-20261014/contracts/r108_medical_registry_v1.schema.json",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "a7ece0367e81dbdf984e053aaa327fe668a285d85112619544889f11703510c2",
+      "public_sha256": "1d27fe8762b4ce6dfd3ed946030b0ade59198e9c93d0733f559aa219f7f0af5f",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/archive_bound_ab_v2.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "a8dad727dc5fd282bf831fdd9ec07676b7182abb8d8e83aaa42935c00d102767",
+      "public_sha256": "a8dad727dc5fd282bf831fdd9ec07676b7182abb8d8e83aaa42935c00d102767",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/archive_identity_v2.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "c63c8ef5217ea31e0235aab9aedeb4c7912d0e456eaf4797d13d72d3af9f8a32",
+      "public_sha256": "c63c8ef5217ea31e0235aab9aedeb4c7912d0e456eaf4797d13d72d3af9f8a32",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/bounded_label_diagnostic_v4.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "3fe51d99da1041fa422f0c9cc3174d56560684dd30cba82517e3298b0ced163b",
+      "public_sha256": "3fe51d99da1041fa422f0c9cc3174d56560684dd30cba82517e3298b0ced163b",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/first_case_nifti_qa_v1.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "01916e23d63a78389dd429861f237896f36f505e6a210a14eed65b513783689e",
+      "public_sha256": "01916e23d63a78389dd429861f237896f36f505e6a210a14eed65b513783689e",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/first_case_qualification_v1.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "d02cf77ad2cf1749d4a7f909c21e95e1351c82e51486b783b60adbe0d16f1315",
+      "public_sha256": "5469aedc88d5d444d85a8e3087dfd9b0bd9c9a16c711a14722754b6a01ae395a",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/full_get_header_policy_v2.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "054c74e50f91a14ffc49f7cd3eb94285e858dc76dd2df770d7b48bd9e257e906",
+      "public_sha256": "054c74e50f91a14ffc49f7cd3eb94285e858dc76dd2df770d7b48bd9e257e906",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/label_pairing_diagnostics_v3.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "78b88bfacfd3bee6d8404b30e4d420b48816b6777872840bb286c418ef5738cf",
+      "public_sha256": "78b88bfacfd3bee6d8404b30e4d420b48816b6777872840bb286c418ef5738cf",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/medical_slice_registry_v2.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "67bb4247bd15d1a5e778d6b42229a89dc8f2677eb7b1640d12087c2bc4f7a1ae",
+      "public_sha256": "67bb4247bd15d1a5e778d6b42229a89dc8f2677eb7b1640d12087c2bc4f7a1ae",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r103_data_producer_v2.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "cc199e8ea78fa72228fa923b9569dbca8bf3307fab66ab1840f50b51a72c622c",
+      "public_sha256": "cc199e8ea78fa72228fa923b9569dbca8bf3307fab66ab1840f50b51a72c622c",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r108_medical_registry.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "49ae4a8f1ba54de8ae24c6be88593d8a3e4444a1fc4ac33a439db682fc21802e",
+      "public_sha256": "49ae4a8f1ba54de8ae24c6be88593d8a3e4444a1fc4ac33a439db682fc21802e",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r108_zip_structure.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "001f631b3f1df9845e9a0e4cf5c804590002c1a0fdbfb3c0decdf25b1159b395",
+      "public_sha256": "c5ba9ca749f934b01bdcd2ddfd69040fcc4ab97e12a07120bfc5a0f87d5bb708",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r111_full_acquire.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "23f110c0e221aa1049d46aad3a964d686c0331af47bfac3753bf31a2d31fd90e",
+      "public_sha256": "79e936c06063fe7e3c74af1eaac404db584ab63367178502f92e2919b15a89e1",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r92_label_read_entry.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "641dbf9b61f609326d6a8d0ea3edfce676a3a1bca249d8e03cf682b02c22a8b7",
+      "public_sha256": "641dbf9b61f609326d6a8d0ea3edfce676a3a1bca249d8e03cf682b02c22a8b7",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/resume_acquire_v1.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "9e31d70c38fef62d31caf00f798e099b50807721f3f42f2a10162654b98e58c4",
+      "public_sha256": "9e31d70c38fef62d31caf00f798e099b50807721f3f42f2a10162654b98e58c4",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/slice_evaluation_registry.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "97af06c32b09a0c79de2d9d64ebc6dc8247197201d006f89408faab4526735d8",
+      "public_sha256": "97af06c32b09a0c79de2d9d64ebc6dc8247197201d006f89408faab4526735d8",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_archive_bound_ab_v2.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "ff56b677b2828d3e3430635c0e79b9c1d4d1860d52155a5a2bce6a3c53e83b40",
+      "public_sha256": "ff56b677b2828d3e3430635c0e79b9c1d4d1860d52155a5a2bce6a3c53e83b40",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_archive_identity_v2.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "75128cf04eef20b892804b4bfbce9b0107d1030d2423958a3cf1aec18dcbf4a4",
+      "public_sha256": "75128cf04eef20b892804b4bfbce9b0107d1030d2423958a3cf1aec18dcbf4a4",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_bounded_label_diagnostic_v4.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "5853d605fddb60f5235b808b31f25abe37f91c703d920fb882cd6fc17931fd1a",
+      "public_sha256": "a1888a4dd9abd84336c6ece0d602e962b4d4f0bfd773dd822bf64b6b23b7344c",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_first_case_nifti_qa_v1.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "fcf74707a9870dcd3c315c20b61e8cfc5337e4296a9a559694a501e444431b20",
+      "public_sha256": "e1dce7e9b98e826f7b302496fda5c0b2d984939b38bf168b18358564f6f23843",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_first_case_qualification_v1.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "001c5b328c76d7af7148ee83eb8b04d7c2dc086b288c08be3837bedfe012c9ed",
+      "public_sha256": "935bb02b16ed5bba74439a9e4fc832640c0f5f4a7e025d46a638a26907144245",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_full_get_header_policy_v2.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "d19d5b40435275f102877844a8072c0c79d17f8e963902f5a741ae30c3fbe1d9",
+      "public_sha256": "d19d5b40435275f102877844a8072c0c79d17f8e963902f5a741ae30c3fbe1d9",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_label_pairing_diagnostics_v3.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "eac985ef4ebc2857744b44558d9d3c59fa6e0b1a9511522cddd8fe7d2f256982",
+      "public_sha256": "eac985ef4ebc2857744b44558d9d3c59fa6e0b1a9511522cddd8fe7d2f256982",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_medical_slice_registry_v2.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "b3c0defc074afed8a6c9202758ad2ee353afba33461ca9e57513d429ab9cdf98",
+      "public_sha256": "13ea490c57c8c52cffa548789504a2a669290a75082ba90111fde79bf0eadcef",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r103_data_producer_v2.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "0723074139a2553b53f893c59496078c652902513e4bea5611d3046eddf83583",
+      "public_sha256": "0723074139a2553b53f893c59496078c652902513e4bea5611d3046eddf83583",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r108_data_preparation.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "f4b06be873c77681fdc93835603b1a6d12eb661bf121808b4ab1d2cd89d85984",
+      "public_sha256": "8e58df0c0dca6f8ebc7b126f583979099cdfe0dc848748a83e8a0b2d8cb43924",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r111_full_acquire.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "828bdfb6a65b30815d8f0f6bce3d4ef7ee5e985b05dadaab17be24537036a00f",
+      "public_sha256": "811b84f79d1719c865a98d988abe1d37ed6ac23978b60623e105a29e4047d2c9",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r92_label_read_entry.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "7a6149243b1574b972885753f2ae4365d02722ca522eb0a588e8835ea9aa546a",
+      "public_sha256": "7a6149243b1574b972885753f2ae4365d02722ca522eb0a588e8835ea9aa546a",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_resume_acquire_v1.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "508b2c7289e298db4b120503e6c318e7f5bd218c4833535c803bfd96dbd61faa",
+      "public_sha256": "c48516ee6819e91249f5fc9f1d7964add32552b011ebfbf9ccdc5c76894eb381",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_slice_evaluation_registry.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "60f2310fa3e4426d6a2c915781b6ad84c9df2af3e31b531fb911a51db6ae2b96",
+      "public_sha256": "60f2310fa3e4426d6a2c915781b6ad84c9df2af3e31b531fb911a51db6ae2b96",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_zip_header_policy_r124.py",
+      "source_lane": "data-eval",
+      "source_commit": "e4df5065e9d12a9953f6ef189ad119599853c0a4",
+      "source_sha256": "8715a9ff192fbdfac056501fe1dfae4eb5466793bca64dcd4c9d7fe1fdf80d15",
+      "public_sha256": "8715a9ff192fbdfac056501fe1dfae4eb5466793bca64dcd4c9d7fe1fdf80d15",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/configs/resnet18_mil_candidate_v1.json",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "b0beb6b263046f0bda86624984f9411a0a456062baf7c28426870f5c5ebfe7ac",
+      "public_sha256": "a39e1333a8301cbfa33a5661f831e6a7544697ae3686b8623471393b8c611b28",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r103_eval_entry.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "2d1f8f92fff4214278bfe45cd78553feb86912a2762646d9f28272f9419ff644",
+      "public_sha256": "a37fa0911b9473c49a9280a59e4b082ced036027daaf94c6be00f4bb643a19d7",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r103_frozen_classifier.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "1994972f76218481ec41c74fbcf0fa683bdcd34db80b81e7bd6e3a713a331e92",
+      "public_sha256": "1994972f76218481ec41c74fbcf0fa683bdcd34db80b81e7bd6e3a713a331e92",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r103_slice_evaluation.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "1c96dee146f58a1d18ac21cd91e0e9b2e4448d1a9e75c7696d6585edc980cc5a",
+      "public_sha256": "1c96dee146f58a1d18ac21cd91e0e9b2e4448d1a9e75c7696d6585edc980cc5a",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r106_mil_scope_audit.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "1a2c3725c9d62c94b7a1034d87890c6ed59b6122f670141741fe3102303724bb",
+      "public_sha256": "1a2c3725c9d62c94b7a1034d87890c6ed59b6122f670141741fe3102303724bb",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r108_frozen_r18_adapter.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "fdd82c2eecc5d8a45514bc3fb5c968aeb49258989ffe30ac0f2492fed77bf177",
+      "public_sha256": "afce3a2581fa5d43deb8b5e0e829c8c097b12ac72f2ebe201d100dbea8a7b2bc",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r122_nifti_frozen_bridge.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "cfa40369d36669c0b3de44f23fa17d166a7d28b8c13638e5db985ae15190528c",
+      "public_sha256": "fa1ca778fcb9d1ccb2668943694eacc04460260f83d45a493cc19f1b08695f4b",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r92_bag_cam.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "08e12e9ad356b7c9ce903014abb2750cb842d496692f059b6202e2d873b21b37",
+      "public_sha256": "08e12e9ad356b7c9ce903014abb2750cb842d496692f059b6202e2d873b21b37",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r92_r18_contributions.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "0f2443892b82d9ee3d202fdc348d4a21f3e605bddcfdf42d1a70f9e077e069b3",
+      "public_sha256": "0f2443892b82d9ee3d202fdc348d4a21f3e605bddcfdf42d1a70f9e077e069b3",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r92_spatial_entry.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "b59b44f8891d4f3c4503062da235394a1a62f5fb5556a72d8ac13e03491b16a6",
+      "public_sha256": "b59b44f8891d4f3c4503062da235394a1a62f5fb5556a72d8ac13e03491b16a6",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/resnet18_mil_v1.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "1d0faf41f152a04c939a956c82b0d6c0f31bd25e78efa39d2d0292a8afcb4b9e",
+      "public_sha256": "ba7dd0f5e5cb42e4feb3571d056413aee611f9d418fc2bb7640298fe6e866fd0",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r103_data_consumer_seam.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "aab6fee02e775970199c93f0970b999bc8a5d7834325205b0ca9fe82fc525ee8",
+      "public_sha256": "96cbaf8fa3de6e6d0088736ee4ae1b390b3bba456b21422bbfee5a01583706d4",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r103_entry_and_holdout.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "09a6b96218ca88d93d66c91b73a5c752b96459d45b31a20967bb575980400ea5",
+      "public_sha256": "09a6b96218ca88d93d66c91b73a5c752b96459d45b31a20967bb575980400ea5",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r103_slice_evaluation.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "1d6489140aecf086bc640fc69a3e7796f1336eb2931a6e74e282ecb8edc088b8",
+      "public_sha256": "1d6489140aecf086bc640fc69a3e7796f1336eb2931a6e74e282ecb8edc088b8",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r106_mil_scope_audit.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "7a749756356fddf99c0a2a93ec4dbd632499529f2dd1ebab598e37e343c73c43",
+      "public_sha256": "7a749756356fddf99c0a2a93ec4dbd632499529f2dd1ebab598e37e343c73c43",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r108_frozen_r18_adapter.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "69f94bbaf11d702d800ff56f5176bd7296c550c67688c612e608508b38e5afdc",
+      "public_sha256": "69f94bbaf11d702d800ff56f5176bd7296c550c67688c612e608508b38e5afdc",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r122_nifti_frozen_bridge.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "ff7e82ff2b07cfd8a41e5319ca87091e5440d334e359bbe373dd76831f1ab6f4",
+      "public_sha256": "ff7e82ff2b07cfd8a41e5319ca87091e5440d334e359bbe373dd76831f1ab6f4",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r85_preprocessing_diagnostic.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "678d2d6acb479b552b22b23ff4f422ca23f85fe07d7063730c4b9c5ff303d3c0",
+      "public_sha256": "678d2d6acb479b552b22b23ff4f422ca23f85fe07d7063730c4b9c5ff303d3c0",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r88_resize_roundoff.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "52f99c145042609b82d91928e58b08fa5bc6fe1001597763f2b2a9eaa4267bb2",
+      "public_sha256": "52f99c145042609b82d91928e58b08fa5bc6fe1001597763f2b2a9eaa4267bb2",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r92_bag_cam.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "b7f1c80e894abc0149c7d1aa3797197a272cf2dfd768802cbb632ad554381400",
+      "public_sha256": "b7f1c80e894abc0149c7d1aa3797197a272cf2dfd768802cbb632ad554381400",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r92_contributions.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "51a4462a560b2080f2c07ac51bea1682149e9243dc94c9104620717ed452afb3",
+      "public_sha256": "51a4462a560b2080f2c07ac51bea1682149e9243dc94c9104620717ed452afb3",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r92_spatial_entry.py",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "d53060a1fbc40e09d351d870c5cf37cc203cbe7e1d0dd56172ed68ac86b5a5cb",
+      "public_sha256": "eca4dc1c3fb4faeccbc58d2c1f8a9c59f272bb5b19515648efe3729d4c0efdcf",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/configs/e2-area-constrained-r103-v1.json",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "3a37d599ebf6d56bdc0d5e94ff37a99f3a3810b8150a7e814b6f345d31b88f47",
+      "public_sha256": "999de33ffaaf3978b3b748d46ee28e5f4c9d352fa03b401721551224b26e6bdf",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/configs/r92-localization-v1.json",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "006b80a2fcf5dbbf8cf9ced4631819ca22dcc422f4855b60d9b08f13b644c112",
+      "public_sha256": "53d5129119ca0f3598a27915f8da2a390c9ff9d045a588600609c485e77f6895",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/bag_compare_r92.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "c26659394af3807fdb08dac87089d9a52b911d85ef531897d32ab9c8548e7a64",
+      "public_sha256": "c26659394af3807fdb08dac87089d9a52b911d85ef531897d32ab9c8548e7a64",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/conditional_bag_r92.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "470e824f39760b952845c5c959f5a26303c08e5bb0a0a73321f939ba602775cf",
+      "public_sha256": "470e824f39760b952845c5c959f5a26303c08e5bb0a0a73321f939ba602775cf",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/first_case_metrics_r122.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "2cffb7ec61e1c454b0ab23c7644ab1a675d1deb14130183dfcb2dcef354b776a",
+      "public_sha256": "960f8a4355583a52bd5195e9d24c408c77375f841a542866182e8fed44b2cc21",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/fourgrid_r92.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "b58d04b6bfb3ec6e6750f4eb19f6eea7120f5014a27bbd2597c26835dd6acfa9",
+      "public_sha256": "b58d04b6bfb3ec6e6750f4eb19f6eea7120f5014a27bbd2597c26835dd6acfa9",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/medical_localization_r108.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "107e443223bcadf9ccf252ebc1a634932998b355dc9bdfb12c46c3fc0a6a22ef",
+      "public_sha256": "107e443223bcadf9ccf252ebc1a634932998b355dc9bdfb12c46c3fc0a6a22ef",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r92_bag_provider.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "ba382e1dc4f35dda52565a8e2904e9a96ae830a5fbc9f3a0f550603dd7067d12",
+      "public_sha256": "ba382e1dc4f35dda52565a8e2904e9a96ae830a5fbc9f3a0f550603dd7067d12",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r92_entry.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "83963e7df3cefd8c25e761698a4d0ec689aef2aee8ade2bf2895d82671596462",
+      "public_sha256": "83963e7df3cefd8c25e761698a4d0ec689aef2aee8ade2bf2895d82671596462",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r92_fourgrid_provider.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "b2390eddc25c6abe5855fdb0ffce7a463d189f0a61b4c064af2466cbf1b4fc06",
+      "public_sha256": "b2390eddc25c6abe5855fdb0ffce7a463d189f0a61b4c064af2466cbf1b4fc06",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/r92_parent.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "152ec9c0f97118e4bf5c635bf4e55b61e5675c68f9dd5fe06edc04ba3795803f",
+      "public_sha256": "152ec9c0f97118e4bf5c635bf4e55b61e5675c68f9dd5fe06edc04ba3795803f",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/region_contract_r103.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "2524cf35fcd4af885ad83af53a48d19baf217f4a5d8ed96b8d3641b355234628",
+      "public_sha256": "2524cf35fcd4af885ad83af53a48d19baf217f4a5d8ed96b8d3641b355234628",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/epi_next/sparse_regions_lit20261016.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "f6f34ce7ab40fda98fa00660c908958819c263dc28d03cae39938abda165ca04",
+      "public_sha256": "f6f34ce7ab40fda98fa00660c908958819c263dc28d03cae39938abda165ca04",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_first_case_metrics_r122.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "24ccf47ee5e367d841ca1a06e45b22ff756a06daf1e68101e92c7c18470e4262",
+      "public_sha256": "59ea4aaf96ffab06e2787b390f51afb16d263e90bed1215dfb6574a194437702",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_medical_localization_r108.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "8a94e1ed6d638d88d5f4e3291e1bfa31788af46a14e32fdd46f032744b4c0883",
+      "public_sha256": "8a94e1ed6d638d88d5f4e3291e1bfa31788af46a14e32fdd46f032744b4c0883",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_r92_localization.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "c85c3b1c19876068f3095186fda1631411d712607ca83603e361782d88974d33",
+      "public_sha256": "c85c3b1c19876068f3095186fda1631411d712607ca83603e361782d88974d33",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_region_contract_r103.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "26205cf4f9b26925f1578ba249c74f7d705b98c869d9e4a59937e8601d483eb7",
+      "public_sha256": "26205cf4f9b26925f1578ba249c74f7d705b98c869d9e4a59937e8601d483eb7",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/tests/test_sparse_regions_lit20261016.py",
+      "source_lane": "localization",
+      "source_commit": "375169c230379f919b08ad298f916c68426491ae",
+      "source_sha256": "cc0517003bddf06164c293c26c8bcaefe35009ac57fe9cf49e27e9454b21d818",
+      "public_sha256": "cc0517003bddf06164c293c26c8bcaefe35009ac57fe9cf49e27e9454b21d818",
+      "sanitized": false
+    },
+    {
+      "path": "epilocate_next/infection_overlay_research_v1.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "c363e617bb0c849886c10e600f337de3d0a96a43b37bfd1be79303de30033197",
+      "public_sha256": "c363e617bb0c849886c10e600f337de3d0a96a43b37bfd1be79303de30033197",
+      "sanitized": false
+    },
+    {
+      "path": "epilocate_next/r103_research_metadata.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "7a24167e18ed53a7057dc8d79aefac546a2b49fa293a6deb3bd834f78a665396",
+      "public_sha256": "7a24167e18ed53a7057dc8d79aefac546a2b49fa293a6deb3bd834f78a665396",
+      "sanitized": false
+    },
+    {
+      "path": "epilocate_next/r103_research_review.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "1e77f64b59ba84c7813744448bb79e78a7e9ed88d5b4c07fbcec59ed2586c90a",
+      "public_sha256": "1e77f64b59ba84c7813744448bb79e78a7e9ed88d5b4c07fbcec59ed2586c90a",
+      "sanitized": false
+    },
+    {
+      "path": "epilocate_next/r108_research_geometry.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "d837298f96b79aaa7f51af9722cc18a93afebbca2c03a76b63673a28e7227e86",
+      "public_sha256": "d837298f96b79aaa7f51af9722cc18a93afebbca2c03a76b63673a28e7227e86",
+      "sanitized": false
+    },
+    {
+      "path": "epilocate_next/r122_spatial_overlay.html",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "55aaeb9ea35948fe0f33c5733d7606238ee6d5664d808338a962da45c656f2bb",
+      "public_sha256": "55aaeb9ea35948fe0f33c5733d7606238ee6d5664d808338a962da45c656f2bb",
+      "sanitized": false
+    },
+    {
+      "path": "epilocate_next/r122_spatial_overlay.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "bd348b6a0f4c5a4067c047adc866e0314aaae7e92ef1eae59aae5f71c070577a",
+      "public_sha256": "bd348b6a0f4c5a4067c047adc866e0314aaae7e92ef1eae59aae5f71c070577a",
+      "sanitized": false
+    },
+    {
+      "path": "epilocate_next/r18_research_artifact.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "1974d7236de1c857cddfd2f8de06ead2fa15a2eacbcc5a1eb56b1b0f712ef791",
+      "public_sha256": "9175c9ffa8458e47a623578c5494d8b4042276ecc4a364270d4549cf4dcc79a4",
+      "sanitized": true
+    },
+    {
+      "path": "epilocate_next/r18_research_review.html",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "3111fb70b3bde77de9833b67d27f9215fd912f88d62bc8399bb654bd9321b123",
+      "public_sha256": "3111fb70b3bde77de9833b67d27f9215fd912f88d62bc8399bb654bd9321b123",
+      "sanitized": false
+    },
+    {
+      "path": "epilocate_next/r18_research_review.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "e4bd0b23e2cac37f8ab551b995d4d5002ef3b2c07edb4c2ef3dcdf09830c1ab1",
+      "public_sha256": "e4bd0b23e2cac37f8ab551b995d4d5002ef3b2c07edb4c2ef3dcdf09830c1ab1",
+      "sanitized": false
+    },
+    {
+      "path": "qa/demo64_build.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "9136b47c990f574caef4922666621dd4d2ada87c6ea37edebe494c1c65e388eb",
+      "public_sha256": "9136b47c990f574caef4922666621dd4d2ada87c6ea37edebe494c1c65e388eb",
+      "sanitized": false
+    },
+    {
+      "path": "qa/demo64_diagnostics.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "42cfd71328bbf8ede3e53fb3fbeb12d8c5e38726420d82040132882c4c2fe956",
+      "public_sha256": "42cfd71328bbf8ede3e53fb3fbeb12d8c5e38726420d82040132882c4c2fe956",
+      "sanitized": false
+    },
+    {
+      "path": "qa/demo64_generated_production.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "0ddc90895f7bc7e922e1f1c293dc3651b9122b428b38835f2dad72686b86586d",
+      "public_sha256": "13d1ab55bb63085c0eea2f39c520d5316e87ea4280364e8ef4e64087f616ee8e",
+      "sanitized": true
+    },
+    {
+      "path": "qa/demo64_production_browser.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "a75f9c45dc7ada38b20f6a5196f1574a9a4d4fd8e03f3ad229ba054783e44897",
+      "public_sha256": "a75f9c45dc7ada38b20f6a5196f1574a9a4d4fd8e03f3ad229ba054783e44897",
+      "sanitized": false
+    },
+    {
+      "path": "qa/demo64_technical_v3.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "71c7bfb3d08cedb0169373e110233972cf0fac9665c635ecd2bcc9740f3b5205",
+      "public_sha256": "f1a93751919f98d2836a7b001e1772ae7aa087d8a8e428e37fecd29deae25586",
+      "sanitized": true
+    },
+    {
+      "path": "qa/local_mvp_demo64.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "8f7e44b81976f90bb484660d5bd8929b317fee23d6be57070d6840c56ba456c5",
+      "public_sha256": "8f7e44b81976f90bb484660d5bd8929b317fee23d6be57070d6840c56ba456c5",
+      "sanitized": false
+    },
+    {
+      "path": "qa/r103_research_browser.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "5b9d5f323cb5cbc00ec8fc26c816575c2f317620a80f6632d70010c4e414f15a",
+      "public_sha256": "5b9d5f323cb5cbc00ec8fc26c816575c2f317620a80f6632d70010c4e414f15a",
+      "sanitized": false
+    },
+    {
+      "path": "qa/r103_research_fixture.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "22745191f915578ecbdf3755e9a83f5bc3a6dc4d6ecc52bb7db6ebc106ae92a7",
+      "public_sha256": "22745191f915578ecbdf3755e9a83f5bc3a6dc4d6ecc52bb7db6ebc106ae92a7",
+      "sanitized": false
+    },
+    {
+      "path": "qa/r122_overlay_browser.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "2eba2037712333ce07685bad8b91917950b10d761a61ecca70695c3b7de69628",
+      "public_sha256": "2eba2037712333ce07685bad8b91917950b10d761a61ecca70695c3b7de69628",
+      "sanitized": false
+    },
+    {
+      "path": "qa/r18_research_browser.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "463c9978fc4335cedc316314cf82bdadc516c5c4860a728c765bc19b4292e4e6",
+      "public_sha256": "463c9978fc4335cedc316314cf82bdadc516c5c4860a728c765bc19b4292e4e6",
+      "sanitized": false
+    },
+    {
+      "path": "qa/r18_research_fixture.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "3f40a7f2883222555946c42b980e89ec2c9f0c9085a8f0a3029e758c6c2ab8da",
+      "public_sha256": "3f40a7f2883222555946c42b980e89ec2c9f0c9085a8f0a3029e758c6c2ab8da",
+      "sanitized": false
+    },
+    {
+      "path": "qa/test_demo64_v3.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "202c0c32fbc1909a1f1b8cb3b9c4b57597c77ab47b838118d964fc680f6da6a9",
+      "public_sha256": "202c0c32fbc1909a1f1b8cb3b9c4b57597c77ab47b838118d964fc680f6da6a9",
+      "sanitized": false
+    },
+    {
+      "path": "qa/test_infection_overlay_research_v1.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "4e4b3530431e8bbb1f939d81752bbe0ed73b5b7f45ebf5e2130c07691f0663cf",
+      "public_sha256": "4e4b3530431e8bbb1f939d81752bbe0ed73b5b7f45ebf5e2130c07691f0663cf",
+      "sanitized": false
+    },
+    {
+      "path": "qa/test_r103_research_metadata.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "bf453a6ad345ed9c535fe75fbd77690c4df26745e282096fe154402fe2458a4e",
+      "public_sha256": "bf453a6ad345ed9c535fe75fbd77690c4df26745e282096fe154402fe2458a4e",
+      "sanitized": false
+    },
+    {
+      "path": "qa/test_r108_research_geometry.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "a2eddefc6d43c0b0a95f875224f80bcb9d26595cdb501ea17e5b64a96a192caf",
+      "public_sha256": "a2eddefc6d43c0b0a95f875224f80bcb9d26595cdb501ea17e5b64a96a192caf",
+      "sanitized": false
+    },
+    {
+      "path": "qa/test_r112_nifti_crosslib.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "24358941c2b76d093ce9d017f749ae2c25065ba1bb10110003a54655f3dd15d6",
+      "public_sha256": "24358941c2b76d093ce9d017f749ae2c25065ba1bb10110003a54655f3dd15d6",
+      "sanitized": false
+    },
+    {
+      "path": "qa/test_r122_spatial_overlay.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "0afb1ee55dbecb2e613fde19e694eae07e5e9edb487b6a1e1f0d4c4428ccdbb9",
+      "public_sha256": "0afb1ee55dbecb2e613fde19e694eae07e5e9edb487b6a1e1f0d4c4428ccdbb9",
+      "sanitized": false
+    },
+    {
+      "path": "qa/test_r18_research_artifact.py",
+      "source_lane": "integration",
+      "source_commit": "46b9d0e005b8016f8b9b233dde6d419b481b551c",
+      "source_sha256": "3ecd882b42ead3f39f71e10a14c0632f236ac334805923955a68a4a5aa644985",
+      "public_sha256": "3ecd882b42ead3f39f71e10a14c0632f236ac334805923955a68a4a5aa644985",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/reports/r92_encoder/NUMERICAL_POLICY_V1.json",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "c72df9804d0efc340c30d17e495ec0e1df918689c9c9271439dcfbd7c6e8e30c",
+      "public_sha256": "c72df9804d0efc340c30d17e495ec0e1df918689c9c9271439dcfbd7c6e8e30c",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/reports/r103_encoder/HOLDOUT_PROTOCOL_V1.json",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "5165aacd72b986e47e04218fe8f43c451d4ce21b986d63a2b4f171f6d4c2ab5b",
+      "public_sha256": "5165aacd72b986e47e04218fe8f43c451d4ce21b986d63a2b4f171f6d4c2ab5b",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/reports/r103_encoder/REGISTRY_LATE_BINDING_CONTRACT_V1.json",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "c1aa3c8282b41fe03db983d70c0fd4ff2630a227d6ce29fd820104d3101372a6",
+      "public_sha256": "d0e53e75db88aed5ee6ceda4ec54e032fd5400f590519e151df32bfaaade3045",
+      "sanitized": true
+    },
+    {
+      "path": "research/next-hospital-20261014/reports/r103_encoder/SLICE_EVALUATION_PROTOCOL_V1.json",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "32fe19289c4205fce5b2ddae51e10798fd303f919d0fe2c540c29946d46b1cec",
+      "public_sha256": "32fe19289c4205fce5b2ddae51e10798fd303f919d0fe2c540c29946d46b1cec",
+      "sanitized": false
+    },
+    {
+      "path": "research/next-hospital-20261014/reports/r103_encoder/SLICE_REFERENCE_REGISTRY_SCHEMA_V1.json",
+      "source_lane": "encoder",
+      "source_commit": "f8b9cc474da814c721b0ef7dc4708b24b1e5d6fb",
+      "source_sha256": "316d4790a267b63ff2f740e8d28cf1713dca4bc1af471badd56a386f569d88cb",
+      "public_sha256": "316d4790a267b63ff2f740e8d28cf1713dca4bc1af471badd56a386f569d88cb",
+      "sanitized": false
+    }
+  ],
+  "excluded": [
+    "research/next-hospital-20261014/reports/ARCHIVE_IDENTITY_AND_AB_RETRY_PREPARATION_20261015.md",
+    "research/next-hospital-20261014/reports/DATA_PUBLIC_EVIDENCE_AND_DIAGNOSTIC_PREPARATION_20261016.md",
+    "research/next-hospital-20261014/reports/NEW_A_AB_EXECUTION_RESULT_20261015.md",
+    "research/next-hospital-20261014/reports/R103_AB_NEXT_SINGLE_REQUEST_PREPARATION_20261016.md",
+    "research/next-hospital-20261014/reports/R103_A_EXECUTION_AND_NEXT_DIAGNOSTICS_20261016.md",
+    "research/next-hospital-20261014/reports/R103_DATA_VERSION_INDEX_AND_REFERENCE_PREPARATION_20261016.md",
+    "research/next-hospital-20261014/reports/R108_DATA_STRUCTURE_AND_REGISTRY_PREPARATION_20261016.md",
+    "research/next-hospital-20261014/reports/R111_FULL_ACQUISITION_PREPARATION_20261016.md",
+    "research/next-hospital-20261014/reports/R112_FAILURE_AND_HEADER_POLICY_V2_PREPARATION_20261016.md",
+    "research/next-hospital-20261014/reports/R112_HEADER_POLICY_V2_ACTUAL_FAILURE_20261016.md",
+    "research/next-hospital-20261014/reports/R112_HEADER_POLICY_V2_MANUAL_RETRY_RESULT_20261016.md",
+    "research/next-hospital-20261014/reports/R112_MANUAL_RETRY_02_STALE_FAILURE_20261016.md",
+    "research/next-hospital-20261014/reports/R112_RESUME_ACTUAL_SUCCESS_20261016.md",
+    "research/next-hospital-20261014/reports/R112_RESUME_PREPARATION_20261016.md",
+    "research/next-hospital-20261014/reports/R122_FIRST_CASE_ACTUAL_FAILURE_20261016.md",
+    "research/next-hospital-20261014/reports/R122_FIRST_CASE_QUALIFICATION_PREPARATION_20261016.md",
+    "research/next-hospital-20261014/reports/R124_ZIP_CONTAINER_MINIMAL_FIX_20261016.md",
+    "research/next-hospital-20261014/reports/R125_FIRST_CASE_ACTUAL_REJECT_20261016.md",
+    "research/next-hospital-20261014/reports/R92_A_DATA_SINGLE_EXECUTION_RESULT_20261015.md",
+    "research/next-hospital-20261014/reports/R92_DATA_MAPPING_PREPARATION_20261015.md",
+    "research/next-hospital-20261014/reports/r103_encoder/FIXED8_REFERENCE_CONSUMPTION_REVIEW_20261016.md",
+    "research/next-hospital-20261014/reports/r103_encoder/HOLDOUT_PROTOCOL_V1.json",
+    "research/next-hospital-20261014/reports/r103_encoder/README.md",
+    "research/next-hospital-20261014/reports/r103_encoder/REGISTRY_LATE_BINDING_CONTRACT_V1.json",
+    "research/next-hospital-20261014/reports/r103_encoder/SLICE_EVALUATION_PROTOCOL_V1.json",
+    "research/next-hospital-20261014/reports/r103_encoder/SLICE_REFERENCE_REGISTRY_SCHEMA_V1.json",
+    "research/next-hospital-20261014/reports/r88_resize_repair/GENERATED_VALIDATION_V1.json",
+    "research/next-hospital-20261014/reports/r88_resize_repair/REPAIR_REPORT_V1.md",
+    "research/next-hospital-20261014/reports/r88_resize_repair/ROUNDING_POLICY_SPEC_V1.md",
+    "research/next-hospital-20261014/reports/r91_p0_preparation/README.md",
+    "research/next-hospital-20261014/reports/r91_p0_preparation/REAL_HEAD_RESULT_20261015.md",
+    "research/next-hospital-20261014/reports/r92_encoder/B_RECOVERY_BINDING_20261015.md",
+    "research/next-hospital-20261014/reports/r92_encoder/B_TRUE_SPATIAL_ACTUAL_RESULT_20261015.md",
+    "research/next-hospital-20261014/reports/r92_encoder/CONTRIBUTION_SCHEMA_V1.md",
+    "research/next-hospital-20261014/reports/r92_encoder/CTFM_COVERAGE_CANDIDATE_V1.json",
+    "research/next-hospital-20261014/reports/r92_encoder/NUMERICAL_POLICY_V1.json",
+    "research/next-hospital-20261014/reports/r92_encoder/README.md",
+    "research/next-hospital-20261014/reports/r103/LOC_R103_REGION_PROTOCOL_V1.md",
+    "research/next-hospital-20261014/reports/r103/MEDICAL_EVALUATION_INTAKE_CHECKLIST_V1.md",
+    "research/next-hospital-20261014/reports/r92/CD_REAL_EXECUTION_CLOSEOUT_V1.md",
+    "research/next-hospital-20261014/reports/r92/C_REAL_EXECUTION_RESULT_V1.md",
+    "research/next-hospital-20261014/reports/r92/LOC_R92_PREPARATION_V1.md",
+    "research/next-hospital-20261014/reports/r103_integration/CONSUMPTION_REPORT_V1.md",
+    "research/next-hospital-20261014/reports/r103_integration/RESULT_INDEX_V1.json",
+    "research/next-hospital-20261014/reports/r92_integration/CONSUMER_CONTRACT_V1.md",
+    "research/next-hospital-20261014/reports/r92_integration/RESULT_INDEX_V1.json",
+    "research/next-hospital-20261014/reports/r92_integration/ZIP_REBIND_ENGINEERING_REVIEW_V1.md",
+    "research/next-hospital-20261014/scripts/prepare_r103_region_metadata.py",
+    "research/next-hospital-20261014/scripts/prepare_r92_requests.py"
+  ]
+}

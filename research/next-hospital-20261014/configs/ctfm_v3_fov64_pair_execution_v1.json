@@ -1,0 +1,92 @@
+{
+  "artifact_kind": "PREPARED_NOT_AUTHORIZATION",
+  "calls": {
+    "backward": 0,
+    "cpu": 1,
+    "mps": 1,
+    "repeats": 0,
+    "retry": false,
+    "warmup": 0
+  },
+  "checkpoint_path": "PRIVATE_BINDING_REQUIRED/model.safetensors",
+  "checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "feature_shape": [
+    1,
+    512,
+    4,
+    4,
+    4
+  ],
+  "head_training": false,
+  "output": "PRIVATE_BINDING_REQUIRED/attempt-1",
+  "proposal_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "queue_root": "PRIVATE_BINDING_REQUIRED/epi-next-device-queue",
+  "real_execution_in_this_preparation": false,
+  "resources": {
+    "child_sampling_target_seconds": 0.02,
+    "estimated_input_and_two_output_bytes": 1310720,
+    "free_metric": "memory_pressure -Q System-wide memory free percentage",
+    "max_swap_increase_bytes": 1073741824,
+    "minimum_free_percent": 20,
+    "monitored_metrics_not_added": true,
+    "mps_driver_monitored_target_bytes": 6442450944,
+    "mps_driver_pre_stop_bytes": 5368709120,
+    "parent_sampling_target_seconds": 0.05,
+    "peak_resource_and_runtime": "UNMEASURED for full-FOV64 variant; previous64center evidence is contextual only",
+    "per_case_deadline_seconds": 120,
+    "positive_mps_allocator_bytes": 5368709120,
+    "recovery_seconds": 2,
+    "request_grace_seconds": 0.25,
+    "rss_monitored_target_bytes": 6442450944,
+    "rss_pre_stop_bytes": 5368709120,
+    "sampled_peaks_not_absolute": true,
+    "task_asset_limit_bytes": 16777216,
+    "telemetry_max_gap_seconds": 0.25,
+    "term_grace_seconds": 0.75,
+    "torch_startup_in_total_seconds": 15,
+    "total_deadline_seconds": 180,
+    "total_delivery_limit_bytes": 67108864
+  },
+  "schema": "CTFM_V3_FOV64_PAIR_EXECUTION_CONFIG_V1",
+  "selection": {
+    "case_allowlist": "same approved train case1 only; no fresh raw DICOM/native HU/header/labels/GT read",
+    "case_index": 1,
+    "data_delivery_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "input_QA_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "rule": "original DATA ordinal1 prospectively fixed; no feature/GT/label outcome selection",
+    "source_input_path": "PRIVATE_BINDING_REQUIRED/case_1_input.npy",
+    "source_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "source_ledger_path": "PRIVATE_BINDING_REQUIRED/case_1_ledger.json",
+    "source_ledger_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "shape": [
+    1,
+    1,
+    64,
+    64,
+    64
+  ],
+  "spec": {
+    "device": "mps",
+    "job_id": "ctfm-v3-fullseries64-pair-01",
+    "max_backward": 0,
+    "max_forward": 2,
+    "owner": "ENCODER",
+    "per_case_seconds": 120,
+    "recovery_seconds": 2,
+    "request_grace_seconds": 0.25,
+    "task_key": "CTFM-V3-ONECASE-FULLSERIES64-PAIR",
+    "telemetry_max_gap_seconds": 0.25,
+    "telemetry_startup_seconds": 15,
+    "term_grace_seconds": 0.75,
+    "timeout_seconds": 180
+  },
+  "supervisor_output_root": "PRIVATE_BINDING_REQUIRED/supervisor",
+  "tolerance": {
+    "atol": 0.001,
+    "max_absolute_error": 0.001,
+    "mean_absolute_error": 0.0001,
+    "rtol": 0.0001
+  },
+  "public_template_only": true
+}

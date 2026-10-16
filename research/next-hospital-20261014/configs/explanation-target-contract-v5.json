@@ -1,0 +1,52 @@
+{
+  "schema": "EPI_NEXT_EXPLANATION_TARGET_CONTRACT_V5",
+  "version": 5,
+  "request_fields": {
+    "explanation_target": {
+      "policy": "ORIGINAL_ARGMAX_FIXED or DECLARED_FIXED",
+      "declared_class": "required integer class index; never silently replaced"
+    },
+    "prediction_scope": "SLICE (current LOC handlers); BAG requires a separately bound bag predictor and perturbation protocol",
+    "class_labels": "ordered model class names; source disease semantics require explicit provenance",
+    "source_label": "null if unknown; otherwise {class_id, label, scope, provenance_sha256}; never inferred from prediction or copied from CASE/BAG to SLICE",
+    "model_binding": "exact model, preprocessing, adapter SHA-256 and task version; different model is a different experiment",
+    "loss_definition": "exact optimization and descriptive metric definitions below"
+  },
+  "result_fields": {
+    "explanation_target": "request fields plus resolved_class; declared_class must equal resolved_class",
+    "predicted_class": "argmax ORIGINAL logits, first class index on ties; may differ from DECLARED_FIXED explanation target",
+    "prediction_scope": "the scope actually computed by f(x)",
+    "source_label": "request source reference retained verbatim or null; independent of prediction",
+    "class_labels": "request ordered names retained verbatim",
+    "loss_definition": "request definitions retained verbatim"
+  },
+  "loss_definition": {
+    "optimization_objective": "ALL_LOGITS",
+    "consistency": "Ls=sum_c((f_c(X_stage_baseline)-f_c(masked_X_stage))^2); unnormalized squared logits",
+    "sparsity": "Lm=mean(abs(M)); coarse continuous parameter weights, not binary FOV area",
+    "total": "Ls+lambda*Lm; original per-run HSPIConfig lambda",
+    "cpf": "strict Ls<alpha AND Lm<beta; select maximum top1-top2 M gap, earliest feasible epoch then first flat argmax; no new positive-gap gate",
+    "response_metric": "FIXED_TARGET_LOGIT_MARGIN",
+    "margin": "logit[resolved_class]-max(logit[other classes]); target fixed from original input for every perturbation",
+    "margin_drop": "original_margin-perturbed_margin",
+    "probability": "stable softmax(logits)[resolved_class]; model response, not lesion probability",
+    "probability_drop": "original_probability-perturbed_probability",
+    "readout_fidelity": "sum_c((original_logits_c-readout_logits_c)^2); descriptive float64 reconstruction from saved float32 logits, not a new CPF selection"
+  },
+  "rejection": [
+    "declared_class differs from actual resolved_class under selected policy",
+    "persisted target, prediction_scope, labels, source_label or loss_definition differs from validated result",
+    "nonfinite logits, class count mismatch, unknown policy or absent required declaration",
+    "CASE/BAG source label presented as SLICE truth",
+    "3D head substituted for 2D f(x), or BAG logits substituted for SLICE logits"
+  ],
+  "new_2d_predictor": {
+    "input": "finite float32 scalar [1,1,H,W], model-specific preprocessing bound separately; current legacy path H=W=224",
+    "output": "finite raw [1,C] SLICE logits with ordered class map; current LOC core C=2",
+    "gradient": "eval mode; parameters frozen but autograd through input/Mask enabled during optimization; no enclosing no_grad/inference_mode or detach",
+    "bag_limit": "mean-logit MIL BAG training label does not establish slice lesion/class truth; current E1/E2 may describe its versioned slice response only; bag explanation needs a separate fixed bag/aggregation/perturbation contract",
+    "comparison": "same E1 grids 16/32/64, same E2 original CPF/loss; per-model fidelity only; absolute logit loss across differently calibrated models is not classification/localization performance"
+  },
+  "legacy": "P1/5F and old target0/actual1 bindings immutable; compatible raw logits reusable under explicit source/input/model/preprocessing checks; correction is a new sidecar/result version, never an overwrite",
+  "authority": "SOURCE_ONLY_CONTRACT_NOT_MEDICAL_EXECUTION_AUTHORIZATION"
+}

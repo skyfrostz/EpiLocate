@@ -1,0 +1,49 @@
+{
+  "schema": "EPI_NEXT_V2_PENDING_COMPUTE_CANDIDATE",
+  "status": "PREPARED_NOT_AUTHORIZATION",
+  "existing_scope_only": "3train patients, same 3 fixed slices; no additional labels, GT candidate generation, training or remote compute",
+  "fixed_slice_lock_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "prepared_delivery_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "E1_freeze_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "device": "cpu",
+  "cpu_threads": 1,
+  "max_rss_bytes": 6442450944,
+  "automatic_retries": 0,
+  "real_execution_requires": "separate exact coordinator execution lock and schedule",
+  "id": "E1-FILL",
+  "only_factor_changed": "replacement image: constant0 vs Gaussian blur of same prepared image",
+  "patch_sizes": [
+    16,
+    32,
+    64
+  ],
+  "grid": "frozen disjoint clipped tiles",
+  "fixed_target": 1,
+  "min_response": 0,
+  "blur": {
+    "kernel_size": [
+      21,
+      21
+    ],
+    "sigma": [
+      5.0,
+      5.0
+    ],
+    "padding": "reflect",
+    "mixed_fraction": 1.0,
+    "domain": "prepared scalar before RGB/ImageNet normalization",
+    "GT_parameter_selection": false
+  },
+  "frozen_constant_baseline": "reuse immutable run2, no repeat",
+  "expected_new_forwards": 792,
+  "forward_formula": "3*(261 occluded +1 baseline +2 adapter agreement)",
+  "max_new_forwards": 792,
+  "max_backward_calls": 0,
+  "soft_timeout_seconds_total": 120,
+  "selection": "same DATA native FOV reliable 5/10/20pct floor budgets and C-order ties",
+  "density_changes": false,
+  "threshold_changes": false,
+  "interpretation": "blur sensitivity diagnostic, not normal tissue or clinical causal intervention",
+  "public_template_only": true
+}

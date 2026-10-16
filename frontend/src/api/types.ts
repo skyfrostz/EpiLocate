@@ -1,7 +1,8 @@
+import type { ApplicationRequest, ApplicationResult } from './next-algorithm'
 /** Public fields fixed by Backend API Contract v2.0 Freeze. */
 export type CaseStatus = 'CREATED' | 'READY' | 'EXPIRED' | 'DELETING'
 export type JobStatus = 'CREATED' | 'QUEUED' | 'RUNNING' | 'COMPLETED' | 'FAILED'
-export type JobKind = 'PREDICTION' | 'OCCLUSION'
+export type JobKind = 'PREDICTION' | 'OCCLUSION' | 'ALGORITHM'
 
 export interface ApiErrorBody {
   code: string
@@ -117,7 +118,7 @@ export interface PredictionJob {
 
 export interface HeatmapLayer {
   asset_id: string
-  layer_kind: 'CANDIDATE_RESPONSE' | 'CANDIDATE_TOP10' | 'COMPARISON_GRID'
+  layer_kind: 'CANDIDATE_RESPONSE' | 'CANDIDATE_TOP10' | 'COMPARISON_GRID' | 'OPTIMIZED_INPUT_MASK' | 'HSPI_CPF_GAP' | 'HSPI_CPF_PSMI_PATCH_SUPPORT' | 'HSPI_PSMI_WHOLE_PATCH_SUPPORT' | 'SIGNED_FEATURE_CONTRIBUTION' | 'BASE_IMAGE'
   width: number
   height: number
   coordinate_space: 'ALGORITHM_224' | 'COMPARISON_14' | 'RAW_PIXEL_EDGE'
@@ -144,6 +145,8 @@ export interface ScaleSummary {
 }
 
 export interface ResultAsset {
+  sha256?: string
+  size_bytes?: number
   asset_id: string
   layer_kind: string
   width: number
@@ -153,13 +156,15 @@ export interface ResultAsset {
 }
 
 export interface ResultRecord {
+  application?: ApplicationResult
+  application_request?: ApplicationRequest
   result_id: string
   job_id: string
   case_id: string
   slice_id: string
   kind: JobKind
-  contract_version: '2.0'
-  source: 'LIVE_CASE'
+  contract_version: '2.0' | 'next-1'
+  source: 'LIVE_CASE' | 'SYNTHETIC' | 'PRECOMPUTED'
   status: 'COMPLETED'
   model_id: string
   model_version: string

@@ -22,7 +22,9 @@ from backend_v2.models.entities import Asset, Case, InferenceJob, InferenceResul
 from backend_v2.auth.credentials import authenticate_user
 from backend_v2.services import cases as case_service
 from backend_v2.services import jobs as job_service
-from backend_v2.services.common import aware, fail, iso, now, valid_key
+from backend_v2.services import algorithms as algorithm_service
+from epilocate_next.contracts import ApplicationRequest
+from backend_v2.services.common import aware, digest, fail, iso, now, valid_key
 from backend_v2.services.storage import ObjectStore
 
 
@@ -280,6 +282,22 @@ def create_prediction(body: JobCreate, idempotency_key: str | None = Header(None
     return _create_job(body, "PREDICTION", idempotency_key, db, user)
 
 
+@app.post("/api/v2/jobs/algorithm", status_code=202)
+def create_algorithm(body: ApplicationRequest, idempotency_key: str | None = Header(None), db: Session = Depends(get_db), user: User = Depends(current_user)):
+    if not getattr(app.state, 'next_algorithms_enabled', False):
+        fail('ALGORITHM_APPLICATION_DISABLED', 503)
+    if digest(body.model_dump(mode='json')) not in getattr(app.state, 'next_algorithm_request_digests', set()):
+        fail('ALGORITHM_REQUEST_NOT_BOUND', 403)
+    try:
+        job = algorithm_service.create_algorithm_job(db, user, body.model_dump(mode='json'), valid_key(idempotency_key), getattr(app.state, 'next_algorithm_input_resolver', None))
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        job = algorithm_service.create_algorithm_job(db, user, body.model_dump(mode='json'), valid_key(idempotency_key), getattr(app.state, 'next_algorithm_input_resolver', None))
+        db.commit()
+    return {'job_id': job.public_id, 'case_id': body.input.case_id, 'status': job.status, 'status_url': f'/api/v2/jobs/{job.public_id}'}
+
+
 @app.post("/api/v2/jobs/occlusion", status_code=202)
 def create_occlusion(body: OcclusionCreate, idempotency_key: str | None = Header(None), db: Session = Depends(get_db), user: User = Depends(current_user)):
     return _create_job(body, "OCCLUSION", idempotency_key, db, user, body.protocol_id, body.scales)
@@ -330,6 +348,11 @@ def result_detail(result_id: str, db: Session = Depends(get_db), user: User = De
     # URL.  Direct signed URLs contain private object keys and are reserved for
     # the Worker input path or server-side storage operations.
     body.update({"result_id": result_id, "job_id": job.public_id, "status": "COMPLETED", "created_at": iso(result.created_at), "provenance": {"input_sha256": sl.source_sha256, "checkpoint_sha256": result.result_json["model_version"], "preprocessing_version": result.result_json["preprocessing_version"], "protocol_id": result.result_json["protocol_id"]}, "scale_summaries": result.result_json.get("scale_summaries", []), "cross_scale": result.result_json.get("cross_scale", []), "assets": [{"asset_id": x.asset_id, "layer_kind": x.layer_kind, "width": x.width, "height": x.height, "coordinate_space": x.coordinate_space, "media_type": x.media_type, "asset_url": f"/api/v2/results/{result_id}/assets/{x.asset_id}"} for x in asset_rows]})
+    if job.kind == 'ALGORITHM':
+        body['provenance']['input_sha256'] = job.request_json['algorithm_input']['sha256']
+        body['provenance']['display_sha256'] = sl.source_sha256
+        for descriptor, row in zip(body['assets'], asset_rows):
+            descriptor.update(sha256=row.sha256, size_bytes=row.size_bytes)
     return body
 
 
@@ -386,7 +409,8 @@ def worker_claim(body: Claim, idempotency_key: str | None = Header(None), db: Se
         key = uuid.UUID(idempotency_key or "")
     except ValueError:
         fail("INVALID_CLAIM")
-    response = job_service.claim_job(db, worker, key, body.available_capacity, [x.model_dump() for x in body.supported_model_versions], ObjectStore().signed_get)
+    response = job_service.claim_job(db, worker, key, body.available_capacity, [x.model_dump() for x in body.supported_model_versions], ObjectStore().signed_get,
+                                  application_worker=worker.node_id in getattr(app.state, 'next_algorithm_worker_ids', set()))
     db.commit()
     return response if response else Response(status_code=204)
 
@@ -423,3 +447,21 @@ async def worker_result(manifest: str = Form(...), assets: list[UploadFile] | No
 @app.post("/api/v2/workers/jobs/{job_id}/result")
 async def worker_result_by_job(job_id: str, manifest: str = Form(...), assets: list[UploadFile] | None = File(None, alias="assets[]"), db: Session = Depends(get_db), worker: WorkerNode = Depends(current_worker)):
     return await _submit(manifest, assets, db, worker, job_id)
+
+
+class ApplicationReceiptQuery(Strict):
+    worker_id: str
+    attempt_id: uuid.UUID
+    submission_digest: str = Field(pattern=r'^[a-f0-9]{64}$')
+
+@app.post('/api/v2/workers/jobs/{job_id}/receipt')
+def application_receipt(job_id: str, body: ApplicationReceiptQuery, db: Session = Depends(get_db), worker: WorkerNode = Depends(current_worker)):
+    job = db.scalar(select(InferenceJob).where(InferenceJob.public_id == job_id))
+    attempt = db.get(JobAttempt, body.attempt_id)
+    if body.worker_id != worker.node_id or not job or job.kind != 'ALGORITHM' or not attempt or attempt.job_id != job.id or attempt.worker_node_id != worker.id:
+        fail('JOB_NOT_FOUND', 404)
+    if attempt.submission_digest is None:
+        fail('SUBMISSION_NOT_ACCEPTED', 409)
+    if not hmac.compare_digest(attempt.submission_digest, body.submission_digest):
+        fail('RESULT_CONFLICT', 409)
+    return attempt.accepted_response_json

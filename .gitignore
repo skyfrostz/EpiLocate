@@ -44,6 +44,7 @@ logs/
 .venv-p0/
 backend_v2/.local/
 .local/
+hospital-release/
 
 # Vue Frontend v1 build and local tooling
 frontend/node_modules/

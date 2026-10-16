@@ -1,0 +1,22 @@
+{
+  "schema": "R103_FROZEN_HOLDOUT_PROTOCOL_V1",
+  "status": "NOT_READY_DATA_LIST_UNBOUND_NOT_RUN",
+  "classifier": "exact frozen R91 backbone/head/preprocessing/runtime identity capsule; no training/calibration/threshold or model selection",
+  "cohorts": ["INTERNAL_SAME_SOURCE_HOLDOUT","EXTERNAL_CROSS_SOURCE_VALIDATION"],
+  "combine_cohorts": false,
+  "planned_N": null,
+  "class_denominators": null,
+  "eligibility": "DATA locks source groups before any predictions; no original60 or training/validation/explanation-method-selection use; source/hash duplicate and known patient overlap audit, source-label semantics, license and bound native HU/geometry QA required",
+  "K": 8,
+  "sample_rule": "floor((j+.5)*native_Z/8), original once-fixed rule; no reference/model-driven selection",
+  "threshold": 0.5,
+  "tie": "Normal_SOURCE",
+  "metrics": ["AUROC positive-vs-negative pair concordance,ties.5,undefined unless both classes", "AP grouped-score noninterpolated,undefined without positives", "accuracy", "balanced_accuracy only with both source classes", "sensitivity", "specificity", "TN/FP/FN/TP", "source category denominators", "all raw two-class logits/probabilities/predictions"],
+  "sampling_unit": "source group, not8 independent patients; patient independence and pretraining overlap remain actual audited statuses",
+  "proposed_call_formula_not_execution_authority": {"backbone_batches":"N once", "slice_positions":"8*N", "frozen_numpy_affine":"N", "metric_evaluation":"one fixed pass", "backward":0,"updates":0,"warmup":0,"retry":false},
+  "request_status": "No executable exact new-case evaluation request until N/list/labels/input identities/code adapter and resources are bound. This is a versioned frozen protocol, not broad approval of arbitrary new groups.",
+  "budget_gaps": ["DATA exact cohort list/SHA and category counts", "new-case native bytes/geometry QA and use permissions", "source/patient/training/pretraining overlap qualification", "complete independent adapter source closure and exact N-derived CPU/runtime/resource limits", "new owner/admission/exclusive original-queue dispatch"],
+  "normal_branch": "all identities/eligibility/permissions pass -> one approved fixed evaluation -> preserve complete positive/negative results, then stop. Any failure stops; no cohort/threshold/model change or retry based on outcomes.",
+  "actual_new_native_reads":0,
+  "actual_model_calls":0
+}

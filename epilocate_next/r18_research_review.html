@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>R18 · 病例级贡献研究</title>
+<style>
+:root{color-scheme:light;--ink:#24394b;--muted:#536576;--line:#ced8e1;--paper:#fff;--bg:#f1f5f9;--accent:#2452a0;--positive:#246e63;--negative:#a34a63}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1050px;margin:28px auto;padding:0 24px 48px}h1{font-family:Charter,"Iowan Old Style",serif;font-size:27px;margin:6px 0}h2{font-size:18px;margin:24px 0 8px}.eyebrow{font-weight:650;color:var(--accent);letter-spacing:.04em}.notice{padding:12px 16px;border-left:4px solid var(--accent);background:var(--paper)}.muted{color:var(--muted)}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin:22px 0 12px}label{display:inline-flex;align-items:center;gap:8px}select{max-width:100%;font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:4px;background:white;color:var(--ink)}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.readout{background:var(--paper);padding:16px;border:1px solid var(--line)}.formula{font:14px/1.8 ui-monospace,"SFMono-Regular",Menlo,monospace;overflow-wrap:anywhere}.table-scroll{overflow:auto;background:var(--paper);border:1px solid var(--line)}table{border-collapse:collapse;width:100%;min-width:700px;text-align:right;font-variant-numeric:tabular-nums}caption{text-align:left;padding:12px 16px;color:var(--muted)}th,td{padding:10px 14px;border-top:1px solid var(--line)}th:first-child,td:first-child{text-align:left}thead{background:#e9eff5}td.axis-cell{width:225px}.axis{position:relative;width:200px;height:15px;background:linear-gradient(to right,transparent calc(50% - .5px),#7c8fa0 50%,transparent calc(50% + .5px))}.bar{position:absolute;top:3px;height:9px}.empty{border:1px dashed #a3b4c4;padding:18px;background:#f7f9fc}.provenance{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.7 ui-monospace,Menlo,monospace}summary{cursor:pointer;padding:8px 0}footer{margin-top:24px;font-size:13px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:600px){main{margin:16px auto;padding:0 14px 28px}.controls{align-items:flex-start;flex-direction:column}h1{font-size:23px}}
+</style>
+<main>
+<header><div class="eyebrow" id="kind">研究工具 · PRECOMPUTED / BAG</div><h1>病例分数，由哪八片组成？</h1><p class="muted">冻结 R18 的粗切片贡献。来源标签不等于切片病灶标签，正 component 不是感染片预测。</p></header>
+<p class="notice" id="evidence">生成数据交互验证；没有真实 CT、空间图或临床验收。</p>
+<div class="controls"><label>来源组 <select id="group" aria-label="来源组"></select></label><label><input type="checkbox" id="errors">只看来源标签错分</label><label>量的定义 <select id="unit" aria-label="量的定义"><option value="weighted">BAG 加数 · raw / 8</option><option value="component">片组件 · 含 bias</option></select></label><label>间隔显示 <select id="display" aria-label="间隔显示"><option value="signed">signed · 保留正负</option><option value="positive">正半轴派生 · max(signed, 0)</option></select></label></div>
+<section id="summary" class="readout" aria-live="polite"></section>
+<p id="signed-note" class="muted">重建始终使用 signed 贡献和有效 bias。正半轴只改变间隔列的显示，不能重建原始 logits。</p>
+<div id="components" class="table-scroll"><table><caption id="unit-note">每行是 dot(a, fᵢ) / 8 的 BAG 加数，求和后另加有效 bias。</caption><thead><tr><th>bag 位置 / 原生索引</th><th>类别 0</th><th>类别 1</th><th>固定 target 间隔</th><th>负 ← 0 → 正</th></tr></thead><tbody id="rows"></tbody></table></div>
+<p id="component-missing" class="empty" hidden></p>
+<h2>空间 CAM</h2><div id="spatial" class="empty"></div>
+<h2>来源与绑定</h2><details><summary>查看输入、head、标准化、geometry 与固定 target</summary><pre id="provenance" class="provenance"></pre></details>
+<footer>只读独立研究页，旧 MVP 保持原版本。病例/来源组是汇总单位；单片扰动的 BAG logit 变化为组件变化的 1/8，平方损失为 1/64，不能直接套用旧 SLICE CPF 阈值。ENC 的保存特征投影是已发生的 NumPy 计算，0 backbone forward 不表示没有计算。路径与 SHA 为元数据声明，本工具不读取或验证所引用资产。</footer>
+</main>
+<script id="artifact" type="application/json">__ARTIFACT_JSON__</script>
+<script>
+'use strict';
+const artifact = JSON.parse(document.getElementById('artifact').textContent);
+const el = id => document.getElementById(id);
+const number = x => Number(x).toFixed(6);
+el('kind').textContent='研究工具 · '+artifact.evidence+' / PRECOMPUTED / BAG';
+el('evidence').textContent=artifact.evidence==='GENERATED'?'生成数据交互验证；没有真实 CT、空间图或临床验收。':'真实预计算数值元数据；不显示 CT 或医学空间图，不是临床有效性验证。';
+function fillGroups(){
+  const previous=el('group').value;
+  const cases=artifact.cases.filter(c=>!el('errors').checked||(c.source_label!==null&&c.predicted_class!==c.source_label));
+  el('group').replaceChildren(...cases.map(c=>new Option(c.source_group,c.source_group)));
+  if(cases.some(c=>c.source_group===previous))el('group').value=previous;
+  show();
+}
+function show(){
+  const c=artifact.cases.find(c=>c.source_group===el('group').value);
+  el('rows').replaceChildren();
+  if(!c){el('summary').textContent='当前筛选没有来源组。';el('components').hidden=true;el('component-missing').hidden=true;el('spatial').textContent='NOT_RUN · 没有可选来源组。';el('provenance').textContent='';return;}
+  const t=c.target.class_id,other=c.target.contrast_class;
+  const margin=c.bag_logits[t]-c.bag_logits[other];
+  const state=c.source_label===null?'来源标签 UNKNOWN':c.source_label===c.predicted_class?'与来源标签一致':'来源标签错分（非切片 GT）';
+  const heading=document.createElement('strong');heading.textContent=c.source_group+' · '+c.split+' · '+c.source_category+' · '+state;
+  const scores=document.createElement('div');scores.className='formula';scores.textContent='BAG logits ['+c.bag_logits.map(number).join(', ')+'] · 预测类别 '+c.predicted_class+' · 固定 target '+t+' margin '+number(margin);
+  const reconstruction=document.createElement('div');reconstruction.className='formula';
+  const gap=document.createElement('div');gap.className='muted';gap.textContent=c.input_binding_status==='NOT_EXPORTED_IN_PRODUCER_JSON'?'输入追溯缺项：上游未导出输入 SHA，仅有 feature + geometry 引用；未补造 hash。':c.input_binding_status==='BAG_HASH_AND_NATIVE_INDICES'?'已绑定整 bag 预处理模型输入 SHA + 八个原生索引；不是逐片 hash。':'';
+  const values=c.slice_class_dot_products;
+  if(values){const z=[0,1].map(k=>artifact.model.effective_bias[k]+values.reduce((s,v)=>s+v[k]/8,0));reconstruction.textContent='signed 重建 ['+z.map(number).join(', ')+'] · 有效 bias ['+artifact.model.effective_bias.map(number).join(', ')+'] · ENC 预锁容差 atol '+artifact.declared_reconstruction_atol+' / rtol '+artifact.declared_reconstruction_rtol;}
+  else reconstruction.textContent='切片贡献 '+c.contribution_status+' · 只显示已保存预测，不补造贡献。';
+  el('summary').replaceChildren(heading,scores,reconstruction,gap);
+  el('components').hidden=!values;el('component-missing').hidden=!!values;el('component-missing').textContent='贡献 '+c.contribution_status+'：等待匹配此输入与 head 的 ENC JSON 交付。';
+  const isComponent=el('unit').value==='component';el('unit-note').textContent=isComponent?'片组件 = raw + 有效 bias；八片均值 = BAG 分数。正组件不是感染片预测。':'BAG 加数 = raw / 8；八片求和后另加有效 bias。';
+  if(values){const converted=values.map(v=>[0,1].map(k=>isComponent?v[k]+artifact.model.effective_bias[k]:v[k]/8));const signed=converted.map(v=>v[t]-v[other]);const limit=Math.max(...signed.map(Math.abs),1e-12);converted.forEach((v,i)=>{
+    const row=document.createElement('tr');const m=el('display').value==='positive'?Math.max(signed[i],0):signed[i];
+    [String(i)+' / '+c.native_slice_indices[i],number(v[0]),number(v[1]),number(m)].forEach(text=>{const cell=document.createElement('td');cell.textContent=text;row.append(cell);});
+    const cell=document.createElement('td');cell.className='axis-cell';const axis=document.createElement('div');axis.className='axis';axis.setAttribute('aria-label','贡献 '+number(m));const bar=document.createElement('span');bar.className='bar';const width=Math.abs(m)/limit*50;bar.style.width=width+'%';bar.style.left=(m<0?50-width:50)+'%';bar.style.background=m<0?'var(--negative)':'var(--positive)';axis.append(bar);cell.append(axis);row.append(cell);el('rows').append(row);
+  });}
+  el('spatial').textContent=c.spatial.status==='AVAILABLE'?'AVAILABLE · 仅空间产物元数据；本工具不读取或渲染任何医学图。':'空间图 '+c.spatial.status+' · '+c.spatial.reason+'。现有 GAP [8,512,1,1,1] 不是空间特征，不可 reshape 成热图。';
+  el('provenance').textContent=JSON.stringify({evidence:artifact.evidence,mode:artifact.mode,prediction_scope:artifact.prediction_scope,producer_version:artifact.producer_version,producer_reference:artifact.producer_reference,producer_compute_counts:artifact.producer_compute_counts,upstream_frozen_ref:artifact.upstream_frozen_ref,model:artifact.model,source_group:c.source_group,identity_status:c.identity_status,input:c.input,input_binding_status:c.input_binding_status,bag_input_sha256:c.bag_input_sha256,cache_metadata:c.cache_metadata,feature:c.feature,geometry:c.geometry,native_slice_indices:c.native_slice_indices,slice_input_sha256:c.slice_input_sha256,target:c.target,predictions:artifact.predictions_ref,contributions:artifact.contributions_ref,numeric_policy:artifact.policy_ref,spatial:c.spatial,patient_independence:artifact.patient_independence,pretraining_overlap:artifact.pretraining_overlap},null,2);
+}
+el('group').addEventListener('change',show);el('errors').addEventListener('change',fillGroups);el('display').addEventListener('change',show);el('unit').addEventListener('change',show);fillGroups();
+</script>
+</html>

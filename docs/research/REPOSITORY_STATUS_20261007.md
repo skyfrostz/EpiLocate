@@ -1,5 +1,7 @@
 # EpiLocate research status (2026-10-07)
 
+Latest EPI-NEXT aggregate update: [EPI-NEXT status (2026-10-14)](EPI_NEXT_STATUS_20261014.md). This dated page remains the record of the earlier Stage B decision.
+
 This page records the public, aggregate status of the research code included in the application mainline. It does not replace the frozen research records. The repository includes code and synthetic tests, but not private checkpoints, patient-level evidence, or the complete D10 capture package.
 
 | Work | Current conclusion | Boundary |

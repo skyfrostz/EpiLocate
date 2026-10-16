@@ -1,0 +1,115 @@
+{
+  "F0": {
+    "effective_bias": "b_c - sum_f W_cf*mean_f/scale_f",
+    "fp32_control_tolerance": {
+      "atol": 0.0001,
+      "rtol": 1e-05
+    },
+    "identity": "mean_q C_c(q)+effective_bias_c=raw logit_c",
+    "medical_encoder_calls": 0,
+    "reconstruction_tolerance": {
+      "atol": 1e-10,
+      "rtol": 1e-12
+    },
+    "relu": false,
+    "semantics": "coarse source-class contribution, not lesion probability/segmentation and not 2D E2",
+    "signed_contribution": "C_c(q)=sum_f W_cf/scale_f * feature_f(q)"
+  },
+  "canonical_input": {
+    "contract": {
+      "path": "PRIVATE_BINDING_REQUIRED/research_import_contract_v2.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "encoder_authority": "CPU_IMPORT_AUDIT_ONLY_PENDING_ENCODER_APPROVAL is not encoder/training permission; new bound chief approval/dispatch mandatory",
+    "no_gt_fields": true,
+    "publication": "DATA unique consumer_records export; geometry_ledger and cross_group_duplicate_audit use DATA names; no ENC manifest/split generator",
+    "qa_location": "GEOMETRY_QA/complete_selected_stack/duplicate audit at consumer; PIXEL_QA/RESCALE_QA/PROVENANCE_BOUND also verified in SHA-bound DATA research-ledger.json",
+    "required_semantics": [
+      "archive/source version and complete asset SHA",
+      "source-subject/split-group keys and aliases from DATA",
+      "source diagnosis provenance and task_label",
+      "DATA train_weak / val_classification only",
+      "only RESEARCH_READY_SOURCE_DEFINED_EXPLORATORY; LIMITED_SINGLE_FRAME/QUARANTINED forbidden",
+      "pixel HU/geometry/complete-Series QA passed before training",
+      "native HU float32 volume and native-to-LPS geometry ledger references, or DATA agreed bound prepared full-FOV64 publication",
+      "access approval identity and intended classification use",
+      "known cross-split group conflicts false; known duplicate content reconciled",
+      "source DICOM identity status preserved independently; no repair/fabricated UID"
+    ]
+  },
+  "classification_unit": "one DATA-locked source-subject/split-group, one complete selected Series, one vector",
+  "data_manifest_owner": "DATA-EVAL",
+  "head": {
+    "batch": "full training split",
+    "checkpoint": "final update100, no validation selection",
+    "evaluation_dtype": "float64 promotion of final float32 checkpoint; no retraining",
+    "learning_rate": 0.001,
+    "optimizer": "torch.optim.AdamW",
+    "positive_logit_target": 1,
+    "seed": 17,
+    "standardization": "train-only population mean/std floor1e-6",
+    "threshold": 0.5,
+    "tie_policy": "Normal at probability=.5",
+    "training_dtype": "float32",
+    "updates": 100,
+    "weight_decay": 0.0001
+  },
+  "label_rule": {
+    "CAP": 1,
+    "COVID-19": 1,
+    "Normal": 0
+  },
+  "owner": "ENCODER",
+  "planned_counts": {
+    "train_weak": {
+      "CAP": 10,
+      "COVID-19": 10,
+      "Normal": 20
+    },
+    "val_classification": {
+      "CAP": 5,
+      "COVID-19": 5,
+      "Normal": 10
+    }
+  },
+  "real_execution": "NOT RUN; separate bounded approval/dispatch required; prior ended grants cannot be reused",
+  "representation": {
+    "coverage": "COMPLETE_SELECTED_SERIES_FULL_FOV",
+    "crop": "NONE",
+    "dtype": "float32",
+    "gap512": [
+      1,
+      512
+    ],
+    "gap_dtype": "float64 spatial mean of saved float32 features",
+    "geometry": "native/model/LPS forward/inverse ledger, original shape/spacing/extent and effective spacing",
+    "resample": "voxel-edge-preserving area average after existing HU clip/scale",
+    "save_separately": true,
+    "shape": [
+      1,
+      1,
+      64,
+      64,
+      64
+    ],
+    "small_lesion_retention": "UNVALIDATED",
+    "spatial_features": [
+      1,
+      512,
+      4,
+      4,
+      4
+    ]
+  },
+  "schema": "CTFM_RESEARCH_PIPELINE_INTERFACE_V4",
+  "source_group_semantics": {
+    "accept": "DATA-locked publisher source-subject group, including explicit limitations",
+    "conflict_policy": "known/conflicting groups crossing split -> reject; no silent downgrade/count reduction",
+    "cross_directory_duplicate_status": "retain DATA status including NOT_FULLY_EXCLUDED",
+    "never_infer": "folder uniqueness or source group lock proves real patient independence",
+    "patient_independence_status": "UNKNOWN; source directory grouping is exploratory and never clinical patient VERIFIED"
+  },
+  "state": "INTERFACE_IMPLEMENTED_GENERATED_VALIDATION_REAL_NOT_RUN",
+  "task": "COVIDCTMD_SOURCE_CASE_WEAK_BINARY_V1",
+  "public_template_only": true
+}

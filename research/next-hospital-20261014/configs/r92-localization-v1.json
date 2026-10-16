@@ -1,0 +1,125 @@
+{
+  "bag_compare": {
+    "K": 8,
+    "adam_lr": 0.01,
+    "backward": 9,
+    "cpf": "NOT_CALIBRATED_NOT_APPLIED",
+    "encoder_samples": 53,
+    "forward": 46,
+    "gap_atol": 1e-05,
+    "gap_rtol": 1e-06,
+    "grid": 7,
+    "initialization": 0.5,
+    "lambda_sparse": 1.0,
+    "logits_atol": 0.0001,
+    "logits_rtol": 1e-05,
+    "loss": "K2_COMPONENT_LS_R92_V1",
+    "member_rule": "first original sampled member (position0), no GT/score selection",
+    "model_device": "cpu",
+    "output_bytes": 67108864,
+    "patch": 64,
+    "percentages": [
+      5,
+      10,
+      20
+    ],
+    "saved_atol": 1e-08,
+    "saved_rtol": 1e-10,
+    "seconds": 120,
+    "selection": "FIXED_POST_UPDATE8_MASK_NO_CPF",
+    "steps": 8,
+    "target_policy": "ORIGINAL_ARGMAX_FIXED",
+    "threads": 1,
+    "updates": 8
+  },
+  "engineering_budgets_not_optimized": true,
+  "evaluation": {
+    "P1_CPF": "1/3 unchanged",
+    "P1_partial_polygon_hits": "0/10 unchanged",
+    "P2_P3": "NOT_RUN",
+    "clinical_validity": "NOT_ESTABLISHED",
+    "expert_reference": "UNKNOWN_NOT_READ",
+    "partial_RICORD_GT": "not eligible for this new R18 source until original K8/native reference mapping and separate permission",
+    "reliable_candidates": "empty unless independently calibrated rule later approved; present outputs diagnostic only",
+    "unannotated": "UNKNOWN",
+    "unsampled": "NOT_EVALUATED_NOT_NEGATIVE"
+  },
+  "fourgrid": {
+    "A": "S soft inside + soft outside",
+    "B": "S*P soft inside + zero outside",
+    "C": "P hard inside + zero outside",
+    "D": "S*(1-P)+P hard inside + soft outside",
+    "domain": "preserve exterior valid support",
+    "fill": "scalar0 before original RGB normalization",
+    "interaction": "C-B-D+A; also report (D-A)-(C-B) with opposite sign; descriptive nonadditivity, not independent causal contributions",
+    "paths": [
+      "B-A outside removal at soft inside",
+      "C-B hardening at zero outside",
+      "D-A hardening at soft outside",
+      "C-D outside removal at hard inside"
+    ],
+    "target": "ORIGINAL_ARGMAX_FIXED class1"
+  },
+  "limits": {
+    "BAG_COMPARE": {
+      "backward": 9,
+      "encoder_samples": 53,
+      "forward": 46,
+      "head_aggregations": 47,
+      "head_updates": 0,
+      "output_bytes": 67108864,
+      "rss_pre_stop_bytes": 5368709120,
+      "rss_supervision_bytes": 6442450944,
+      "seconds": 120,
+      "updates": 8
+    },
+    "FOURGRID": {
+      "backward": 0,
+      "encoder_samples": 4,
+      "forward": 4,
+      "head_aggregations": 0,
+      "head_updates": 0,
+      "output_bytes": 67108864,
+      "rss_pre_stop_bytes": 5368709120,
+      "rss_supervision_bytes": 6442450944,
+      "seconds": 120,
+      "updates": 0
+    }
+  },
+  "loss_versions": {
+    "CPF": "no old alpha/beta copied, no calibrated reliability rule yet",
+    "K2_COMPONENT_LS_R92_V1": "64*raw BAG Ls; single change equals unrounded component Ls; multiple changes contain cross terms, not sum of per-slice losses",
+    "RAW_BAG_LS_R92_V1": "sum_c((z_current_bag-z_perturbed_bag)^2)"
+  },
+  "normal_branches": {
+    "BAG_COMPARE": [
+      "verify exact new admitted CPU child and all source/runtime/input/head/cache bindings",
+      "load only fixed first validation source and original8 slices, selected cache and frozen head; no backbone warmup",
+      "one batch8 encoder baseline and actual pre-GAP CAM capture; compare GAP/cache/FP64 bag/signedCAM with prelocked tolerances/envelope",
+      "one batch1 unmasked conditional adapter check; one batch1 input-gradient forward + one reverse",
+      "16 single-member 64-pixel tiled E1 remove forwards, signed margin drop map",
+      "8 single-member E2-inspired forwards +8 reverses+8 Mask-only Adam updates, fixed post-update8 Mask, no inherited CPF",
+      "one final soft-Mask keep forward; 18 forwards CAM/E1/E2 x5/10/20% xkeep/remove on same valid support/fill/fixed target",
+      "persist signed7x7 class/margin maps, effective bias, raw/K2 losses, all controls and actual counts; stop, no adaptive extension"
+    ],
+    "FOURGRID": [
+      "verify exact new admitted child and immutable oldcase3 binding",
+      "load case3-only prepared image/valid/model_tensor, exact old model/preprocessing/savedMask; verify A/C input and mask byte hashes before any forward",
+      "two original baseline adapter checks (numpy and tensor), compare to saved original, no retry",
+      "reuse exact saved A=S and C=P; encode B=S*P and D=S*(1-P)+P once each",
+      "save both path effects and interaction on two raw logits/fixedtarget margin/probability; no optimization"
+    ]
+  },
+  "schema": "R92_LOC_SCIENTIFIC_CONFIG_V1",
+  "status": "PRESPECIFIED_NOT_AUTHORITY",
+  "translations": {
+    "count": 5,
+    "gt_selection": false,
+    "method": "rigid integer translation of identical shape on MODEL grid",
+    "missing": "no wrap, crop, rescale or padding; missing if fewer5 placements",
+    "positions": "all whole-shape placements entirely inside valid, exclude original, PCG64 seed17 permutation",
+    "seed": 17,
+    "status": "PROTOCOL_AND_GENERATED_ONLY_NO_REAL_FORWARDS"
+  },
+  "public_template_only": true
+}

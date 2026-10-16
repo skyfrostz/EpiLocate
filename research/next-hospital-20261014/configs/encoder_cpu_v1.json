@@ -1,0 +1,44 @@
+{
+  "experiment_id": "EPI-NEXT-ENCODER-CPU-v1",
+  "evidence_type": "SYNTHETIC_NUMERIC_ONLY",
+  "device": "cpu",
+  "head": {
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "epochs": 100,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001
+  },
+  "patient_weighting": "one_equal_loss_per_patient",
+  "selection_rule": "fixed_final_epoch_no_validation_selection",
+  "training_labels": "REQUIRES_VERIFIED_TARGET_DEFINITION_BEFORE_REAL_TRAINING",
+  "ctfm_model_revision": "527b0d1c262b433396c85ff2de84c427b26945a1",
+  "ctfm_code_revision": "f58c89a75ff0270ba6e339027e40bf04a221735d",
+  "weights_sha256": null,
+  "pretraining_overlap_status": "unknown",
+  "real_three_case_smoke": "NOT RUN",
+  "real_f0": "NOT RUN",
+  "candidate_resource_trial_only": {
+    "isotropic_spacing_mm": 2,
+    "tile_dhw": [
+      96,
+      160,
+      160
+    ],
+    "batch_size": 1
+  },
+  "input_orientation_model_card": "SPL",
+  "intensity_hu_range": [
+    -1024,
+    2048
+  ],
+  "intensity_output_range": [
+    0,
+    1
+  ],
+  "spatial_stride_offset": "UNVERIFIED_REQUIRES_REAL_ENCODER_AND_GEOMETRY_QC",
+  "public_template_only": true
+}
