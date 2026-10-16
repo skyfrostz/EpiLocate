@@ -1450,3 +1450,21 @@ AST语法解析通过；静态枚举新增27cases（当前预计26可执行+1 ni
 证据只为ENGINEERING_PASS合成工程。nibabel缺失的唯一条件case已skip，跨库仍NOT_RUN；公开NIfTI真实几何、医学载荷、实际HU/完整体数据及临床指标未验证。`geometry_coverage_report`始终identity_verified=False；调用者须提供DATA正式registry中CT/GT同病例/患者或来源组、Study/Series、输入/GT SHA、native geometry及reference extent/coverage绑定。shape或affine相同不能证明医学对象身份，INT不自行生成医学参考分母，LOC负责后续指标。
 
 真实Inf-Net许可/重叠/352预处理及HU门禁未解除；真实模型仍BLOCKED。此次真实数据/模型/网络下载/安装/医院/录屏/state写入均0，旧64-only/MVP及历史资产保持。私有COMPACT_INDEX追加实际总控收据和最终文档提交，准备态索引保留快照；只总控统一登记。文档检查及diff检查后本地提交，不push/merge/deploy。
+
+
+## 2026-10-16｜R112 INT隔离依赖与唯一跨库用例实际失败
+
+原INT工作树/分支，前HEAD `1393451a471fc1355804f2366138d0fb2f58a0b9`；总控在DATA任务finished后明确释放唯一CPU1/IO串行窗口。按已审计划SHA `16e552497c2ddea640ec46097e94df5d2f1c66c8c943e5b818fa3dbf7fb05f2e`一次执行，无自动重试/版本替换。仅固定官方PyPI2元数据GET+2wheel GET，正文3,348,198B，nibabel5.3.2和importlib_resources6.5.2经官方SHA/依赖核验后安装本线.local隔离target，不改共享.venv或R111绑定文件。wheel锁/命令/日志留私有R112/INTEGRATION目录，未提交第三方包。
+
+setup8.2910s、安装exit0。唯一原R108跨库node实际1FAILED/0skip，pytest0.28s、监控0.42406s、采样group RSS72,302,592B；总时9.10502s。RSS口径为自进程及采样进程组，非全树硬峰值。结果收据SHA `6f94917e8b6ac8f5817351d9dd4135699a8b8038f53e7ca123a003c3cf6423cc`、失败日志SHA `b372a84f79549ea68627132f865f002a10769822d86a15c447071454d823fede`；wrapper保存收据后exit0不等于pytest通过，实际test exit1。旧26项/其他全套未重跑，源码/测试不改。已马上向总控报告失败及串行窗口释放。
+
+失败位于qa/test_r108_research_geometry.py:187：初次affine与int16*slope/inter读值精确断言已过；再次保存后的affine一致，但未固定输出编码的int16再保存产生量化，scaled数组不完全相等。已只读安装源码analyze.py/arraywriters.py确认自动缩放路径；不额外跑诊断，不宣称实际最大误差、后续header断言或整个跨库PASS。后续最小建议为独立生成float64/identity scaling无损roundtrip，保留原失败、不降低容差；未实施或执行，须由总控另行安排新工程复验。
+
+R111请求/runtime/15源码/stdlib哈希MATCH；共享.venv 36,979文件stat清单前后一致，base无overlay仍无nibabel，旧MVP/64-only/历史Result不改。真实医学文件/权重/模型、医院/录屏0。跨库缺项更新为TEST_FAILED，真实医学几何/HU/CT-GT资格仍未验证；几何相同不能自行建立DATA身份分母。双日志及diff显式base检查后提交本轮材料；最终私有COMPACT_INDEX绑定执行/失败/依赖与文档SHA，不写权威state、不push/merge/deploy。
+
+
+### R112原失败的最小纠正准备（当前未运行）
+
+按总控后续指令，仅依据既有失败日志与库源码核查，新增独立 `qa/test_r112_nifti_crosslib.py`（SHA `24358941c2b76d093ce9d017f749ae2c25065ba1bb10110003a54655f3dd15d6`）。不修改原失败test、研究实现、R111/共享runtime。新case把重保存合同明确为float64+slope1/inter0，初始int16缩放和全部数组/affine/q/s元数据继续严格相等，不降低容差或医学门限。
+
+只做AST解析；精确单项计划 `CORRECTIVE_TEST_PLAN_V2.json` SHA `76d0ec1d4ca52388764e94234570a348099de338777165227ab86921cff1a376` 已交总控，CPU1/60秒/RSS512MiB/输出2MiB、0GET/0install、复用隔离包。当前ENC持有窗口，actual_test_runs=0，等待新串行窗口；不能将修正计划当已复验或覆盖原FAILED收据。冻结新test源码供总控审阅、排队，原医学资格仍未验证。
