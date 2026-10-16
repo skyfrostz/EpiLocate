@@ -1477,3 +1477,18 @@ R111请求/runtime/15源码/stdlib哈希MATCH；共享.venv 36,979文件stat清�
 源int16+slope2/inter-1024读取及新显式float64+slope1/inter0重保存后的数组/affine/q/s code/scaling/header均严格相等；没有放宽容差、医学阈值或修改原研究实现。仅GENERATED_EXPLICIT_FLOAT64_ONLY工程通过，原默认整数resave失败的test/收据/日志/生成文件保持FAILED且未重跑，不能改成整个历史跨库套件通过。真实公开NIfTI/医学身份/HU/体数据与医学评价资格仍NOT_VERIFIED。
 
 0GET/0install/0medical/0model，旧26项和其他历史全套未执行。隔离依赖不变；R111/解释器/源绑定MATCH，共享.venv stat清单前后相同，base仍无nibabel。自有测试进程结束后已立即向总控释放窗口。本次只补双日志及私有实际报告/index；显式base/range文档与diff检查后本地提交，不push/merge/deploy、不写状态。旧64-only/MVP/历史Result保持，医院冻结NOT_RUN；有界工作完成后停止，不扩展测试。
+
+
+## 2026-10-16｜R122 INT独立CT/Mask/CAM空间叠加准备与生成验收
+
+原工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`、分支 `codex/epi-next-integration-20261009`，前HEAD `d0fd275629c54adfcc31b90502a5125977dc8e89`，起始tracked/untracked干净、ignored保留。核对总控OWNER_SCOPE_RECORD和权威revision121 SHA `a1162e864809e0ca0f4251c931a25dd27d172234f590248876667d27e96410e4`/COMMITTED一致。真实首例001仍仅继承既有元数据；未扫描ZIP、重哈希全包、读取成员或体素。沿用epilocate-project/Ponytail及webapp-testing的必要合成检查，不扩大产品UI。
+
+先交DATA可复用的R112隔离nibabel5.3.2/importlib_resources6.5.2 runtime描述（SHA `04b2d12eed52ecd932703fe2d741167d1a320b9260dfadc42b4aa1bc84c9e0ef`）：准确解释器/PYTHONPATH、依赖399文件逐项SHA与闭包 `8f9760eb3a708b24e2d6ca4581f52bffbf3f53c151af712db49a7a94f127455c`。无安装/下载，不改共享环境；引用原明确float64合成PASS和整数resave失败边界，不授权真实成员访问。
+
+新增独立 `epilocate_next/r122_spatial_overlay.py`、小HTML模板、9case新单测及极小browser driver。只接生成NIfTI/in-memory契约，CLI无真实输入入口；复用R108 header/typed bundle与nibabel canonical重排，CT/GT/CAM在native同世界空间后才叠加。非对称fixture验证轴置换/翻转、反向Z、raw int16缩放、canonical<->native逆矩阵与display行翻转；UI显示raw/native/canonical/display、RAS/LPS与source/method/version/target/SHA/PASS/UNKNOWN。参考为合成医生Mask接口夹具，非真实医生判读；signed CAM非感染概率，缺CAM为UNKNOWN/null，几何不符不绘制，部分参考域外UNKNOWN。identity_verified=False，不建立医学分母，不改旧MVP/数据库/历史Result。
+
+按TEST_PLAN_V1 SHA `2695720bfb730d65ec7f03a11d96a84b88447cb8a45b6b2ca77c179c4b9d6075`，取得现有CPU/wave1.serial两锁独占窗口运行，9新单测PASS（pytest0.43s，监控0.5787067500059493s，采样monitor+后代RSS113,278,976B）。3必要UI断言的Chrome启动被512MiB cap停止（采样690,798,592B）；经总控仅browser资源计划V2 SHA `2071b4ef1b90f414442f2d01be91575457d3328d386ce3b579a8809361f64f74`将上限明确为1GiB后再启动一次，采样1,163,739,136B仍触cap停止。两次失败exit-9，分别7.4581s/3.5813s，原目录/收据/空日志全部保留。9单测未重跑；3UI标NOT_COMPLETED_RESOURCE_LIMIT，不能写界面PASS/3FAIL或医疗/空间失败。RSS为动态采样，非硬OS绝对峰值，预停线存在采样超调。
+
+只对本次PID/start身份匹配子进程清理，剩余=[]；两锁与窗口已立即释放交其他线。总控指示停止浏览器运行/探索，未第三次运行。静态HTML/JSON快照和新源码保留为实施证据，不是显示/医院验收。最终源/解释器/399隔离文件及旧MVP driver/V3 candidate控制引用SHA MATCH；医学影像资产本身未重新哈希或读取。无服务/安装/下载/模型/真实页面/截图录屏；浏览器没有完成完整请求观察，不能声称整浏览器背景网络为0。
+
+私有 `r122-first-case-qualification-preparation-20261016/INTEGRATION/` 保存runtime合同、输入契约、两计划、实际收据、报告与最终COMPACT_INDEX。提交只含本线四个新文件和双日志；显式base文档/diff检查后本地提交，不push/merge/写权威state。真实CT/GT身份、HU、参考完整性、真实CAM/模型与临床评价仍NOT_VERIFIED/NOT_RUN，旧64-only技术PASS和医院冻结NOT_RUN保持。当前有界任务收口后停止，不新增浏览器/产品或算法范围。
