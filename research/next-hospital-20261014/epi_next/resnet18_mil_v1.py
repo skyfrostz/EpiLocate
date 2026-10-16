@@ -21,9 +21,10 @@ from . import ctfm_research_pipeline_v4 as p
 from .ctfm_research_math_v4 import baselines, binary_metrics, probability
 
 IMAGENET_SHA = 'f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec'
-LOC_SHA = 'd852001e0db9d52844c900d81251a19b8afb20000b0b3429de11e80bf90b647c'
+LOC_SHA = '0000000000000000000000000000000000000000000000000000000000000000'
 LOC_PATH = str(_PUBLIC_ROOT / 'research/next-hospital-20261014/configs/explanation-target-contract-v5.json')
 CONFIG_PATH = Path(__file__).parents[1]/'configs/resnet18_mil_candidate_v1.json'
+RESIZE_ROUNDOFF_ATOL = 4 * 2**-23  # Absolute envelope at FP32 unit scale.
 
 
 def config():
@@ -81,6 +82,25 @@ def normalize_windowed(value):
     return (rgb-mean)/std
 
 
+def recover_resize_roundoff(value):
+    """Restore the window target only for bounded FP32 resize excursions."""
+    diagnostic = windowed_diagnostic(value)
+    failed = set(diagnostic['failed_predicates'])
+    if (failed - {'minimum', 'maximum'}
+            or diagnostic['finite_min'] < -RESIZE_ROUNDOFF_ATOL
+            or diagnostic['finite_max'] > 1 + RESIZE_ROUNDOFF_ATOL):
+        # Reuse the strict boundary's aggregate evidence and fail-closed error.
+        normalize_windowed(value)
+        raise p.Blocked('RESIZE_ROUNDOFF_RECOVERY_REJECTED')
+    lower = int((value < 0).sum()); upper = int((value > 1).sum())
+    summary = dict(policy='FP32_RESIZE_ABSOLUTE_4EPS_CLAMP_EXCURSIONS_V1',
+        absolute_tolerance=RESIZE_ROUNDOFF_ATOL,
+        finite_min_before=diagnostic['finite_min'], finite_max_before=diagnostic['finite_max'],
+        lower_corrected=lower, upper_corrected=upper,
+        max_absolute_correction=max(0., -diagnostic['finite_min'], diagnostic['finite_max']-1))
+    return (value.clamp(0,1) if lower or upper else value), summary
+
+
 def prepare_bag(row, meter, *, observe=None):
     """Consume QA-bound HU only. Never reapply slope/intercept or default units."""
     import torch
@@ -112,12 +132,15 @@ def prepare_bag(row, meter, *, observe=None):
     if observe: observe('selected_HU', selected)
     if not np.isfinite(selected).all():
         raise p.Blocked('NONFINITE_SELECTED_HU')
-    # Same numeric window/resize/channel/normalization as old src.preprocessing,
-    # using DATA's already validated HU instead of its permissive DICOM defaults.
+    # Keep the old window/resize/RGB/mean/std using DATA's validated HU.
+    # This independent R18 path adds explicit 4eps resize recovery below;
+    # it is not fully numerically equivalent to frozen src.preprocessing.
     scalar = torch.from_numpy(np.clip((selected+1350)/1500,0,1)).unsqueeze(1)
     if observe: observe('windowed_pre_resize', scalar)
     scalar = tf.resize(scalar,[224,224],interpolation=InterpolationMode.BILINEAR,antialias=True)
     if observe: observe('post_resize_pre_normalize', scalar)
+    scalar, roundoff = recover_resize_roundoff(scalar)
+    if observe: observe('resize_roundoff_recovery', roundoff)
     images = normalize_windowed(scalar)
     if observe: observe('imagenet_normalized', images)
     geometry = dict(schema='R18_MIL_SAMPLE_GEOMETRY_V1',native_shape_ZYX=list(native.shape),
@@ -125,7 +148,8 @@ def prepare_bag(row, meter, *, observe=None):
         coverage='eight uniform slice centers in complete selected Series; not all-slice inference',
         model_shape=[8,3,224,224],native_YX_per_model_pixel=[native.shape[1]/224,native.shape[2]/224],
         model_to_native_YX='(index+.5)*native_size/224-.5; nominal bilinear centers',
-        data_geometry_sha256=row['geometry_ledger']['sha256'],unit='HU_ALREADY_RESCALED_ONCE')
+        data_geometry_sha256=row['geometry_ledger']['sha256'],unit='HU_ALREADY_RESCALED_ONCE',
+        resize_roundoff=roundoff)
     return images,geometry
 
 

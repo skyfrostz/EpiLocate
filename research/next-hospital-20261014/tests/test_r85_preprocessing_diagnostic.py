@@ -29,14 +29,18 @@ def test_real_loader_legal_numeric_control(tmp_path):
     assert images.dtype==torch.float32 and images.device.type=='cpu' and images.min()<0
 
 
-def test_real_loader_reproduces_resize_range_failure(tmp_path):
-    with pytest.raises(p.Blocked) as exc:
-        m.prepare_bag(row(tmp_path,np.full((8,512,512),150,np.float32)),p.Meter('cache'))
-    d=exc.value.diagnostic
+def test_real_loader_records_and_recovers_resize_roundoff(tmp_path):
+    observed=[]
+    images,geo=m.prepare_bag(row(tmp_path,np.full((8,512,512),150,np.float32)),
+                             p.Meter('cache'),observe=lambda stage,x: observed.append((stage,x)))
+    d=m.windowed_diagnostic(dict(observed)['post_resize_pre_normalize'])
     assert d['failed_predicates']==['maximum']
     assert d['finite_max']==1.000000238418579
     assert d['shape']==[8,1,224,224] and d['nonfinite_count']==0
-    print(json.dumps(d,sort_keys=True))
+    assert geo['resize_roundoff']['upper_corrected']>0
+    assert geo['resize_roundoff']['max_absolute_correction']==2**-22
+    assert torch.isfinite(images).all()
+    print(json.dumps(dict(before=d,recovery=geo['resize_roundoff']),sort_keys=True))
 
 
 @pytest.mark.parametrize('kind',['rank','axes','dtype','nonfinite'])
@@ -70,7 +74,8 @@ def test_boundary_predicates_without_gpu(kind):
 def test_diagnostic_entry_uses_same_pipeline_and_records_stages(tmp_path):
     from epi_next.r18_preprocess_diagnostic import diagnose
     result=diagnose(row(tmp_path,np.full((8,512,512),150,np.float32)),p.Meter('cache'))
-    assert result['status']=='PREPROCESS_REJECTED' and result['diagnostic']['failed_predicates']==['maximum']
-    assert [s['stage'] for s in result['stages']]==['native_header','selected_HU','windowed_pre_resize','post_resize_pre_normalize']
+    assert result['status']=='PREPROCESS_PASS'
+    assert result['geometry']['resize_roundoff']['upper_corrected']>0
+    assert [s['stage'] for s in result['stages']]==['native_header','selected_HU','windowed_pre_resize','post_resize_pre_normalize','resize_roundoff_recovery','imagenet_normalized']
     assert result['weights_loaded']==result['model_calls']==result['cache_written']==0
     json.dumps(result,allow_nan=False)

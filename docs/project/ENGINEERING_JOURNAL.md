@@ -1318,3 +1318,10 @@ GPU/CUDA、生产部署、通用 spatial transform、3D 配准、临床有效性
 **限制：** 公开模板不继承旧批准；真实执行需按新源码 SHA 重新精确绑定。原公开历史的 S3 定位对象仍可达，最终发布审计须分别报告旧、新对象。实际源码提交与最终发布点见本轮 Git/PR 交付。
 
 **本轮公开源码实现提交：** `727d270a8079ed5a119a1c8f2d3e702ed205e498`。文件级来源与脱敏清单已核验；完整可达对象扫描无新增敏感命中，既有公开历史命中单独记录。
+
+
+## 2026-10-17｜R127 成果公开增量与科研状态更新
+
+在 `codex/epilocate-sanitized-status-20261014`，基于公开提交 `425a042ed0b32386a43cc4bc285a83b6db9fd7f4`，按文件导入四线 103 项已提交源码、生成测试和通用协议；固定来源完整 SHA 与逐文件哈希见 [增量清单](../consolidation/EPI_NEXT_SOURCE_FILES_20261017.json)。内部历史和私有执行证据不进入公开分支，R128 在途开发不混入本次快照。
+
+公开副本处理路径/私有绑定/下载端点，保留科研公式和门槛。DATA 314 distinct PASS、3 private-binding skips；ENCODER 131 PASS 与15 subtests；LOCALIZATION 53 distinct PASS；INTEGRATION104 PASS、1历史保存精度失败保持未解决且未重复执行。首次合成检查失败与修正边界见 [导入报告](../consolidation/EPI_NEXT_SOURCE_IMPORT_20261017.md)。未运行浏览器或真实科研任务，未部署。真实首例容器完整性通过，但CT空间单位资格REJECT、医学分母null、无Dice。负责人已授权本次普通GitHub推送；最终提交与远端核验由发布收据记录。

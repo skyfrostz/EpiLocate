@@ -24,7 +24,8 @@ def main():
     api = ['backend_v2/tests', 'session_gateway/tests', 'tests/test_worker/test_protocol.py',
            'qa/test_e2_corrected_argv.py', 'qa/test_demo64_driver_cleanup.py', 'qa/test_technical_evidence.py',
            'qa/test_e2_readout_launch.py', 'qa/test_e2_readout_lifecycle.py', 'qa/test_e2_readout_output.py']
-    groups = [('data', data), ('encoder-bootstrap', bootstrap), ('research', rest), ('api-worker-qa', api)]
+    groups = [('data-' + Path(path).stem, [path]) for path in data]
+    groups += [('encoder-bootstrap', bootstrap), ('research', rest), ('api-worker-qa', api)]
     if args.browser:
         groups.append(('browser', ['qa/test_demo64_readiness_browser.py']))
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1', OMP_NUM_THREADS='1', MKL_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1')
