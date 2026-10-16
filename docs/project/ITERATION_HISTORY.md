@@ -1468,3 +1468,12 @@ R111请求/runtime/15源码/stdlib哈希MATCH；共享.venv 36,979文件stat清�
 按总控后续指令，仅依据既有失败日志与库源码核查，新增独立 `qa/test_r112_nifti_crosslib.py`（SHA `24358941c2b76d093ce9d017f749ae2c25065ba1bb10110003a54655f3dd15d6`）。不修改原失败test、研究实现、R111/共享runtime。新case把重保存合同明确为float64+slope1/inter0，初始int16缩放和全部数组/affine/q/s元数据继续严格相等，不降低容差或医学门限。
 
 只做AST解析；精确单项计划 `CORRECTIVE_TEST_PLAN_V2.json` SHA `76d0ec1d4ca52388764e94234570a348099de338777165227ab86921cff1a376` 已交总控，CPU1/60秒/RSS512MiB/输出2MiB、0GET/0install、复用隔离包。当前ENC持有窗口，actual_test_runs=0，等待新串行窗口；不能将修正计划当已复验或覆盖原FAILED收据。冻结新test源码供总控审阅、排队，原医学资格仍未验证。
+
+
+## 2026-10-16｜R112明确float64编码的新单项实际通过
+
+原INT分支/worktree，文档收口前HEAD `84a73884fcc6335a5ca96f5e9af4b5865040179b`。总控确认DATA19项终止并释放新的唯一串行窗口后，按CORRECTIVE_TEST_PLAN_V2 SHA `76d0ec1d4ca52388764e94234570a348099de338777165227ab86921cff1a376`，只执行新增 `qa/test_r112_nifti_crosslib.py` 的1case一次。1 passed/0skip，pytest0.22s、监控0.35236637500929646s、采样group RSS73,285,632B（非绝对峰值或OS硬RSS保证），exit0/无stop。实际收据SHA `892359749dbc6eeffd1112fabd564329c9d5ab45fe775e8ea3af00ce1324de62`，完整命令/日志在私有R112/INTEGRATION目录，计划及源/日志SHA已核MATCH。
+
+源int16+slope2/inter-1024读取及新显式float64+slope1/inter0重保存后的数组/affine/q/s code/scaling/header均严格相等；没有放宽容差、医学阈值或修改原研究实现。仅GENERATED_EXPLICIT_FLOAT64_ONLY工程通过，原默认整数resave失败的test/收据/日志/生成文件保持FAILED且未重跑，不能改成整个历史跨库套件通过。真实公开NIfTI/医学身份/HU/体数据与医学评价资格仍NOT_VERIFIED。
+
+0GET/0install/0medical/0model，旧26项和其他历史全套未执行。隔离依赖不变；R111/解释器/源绑定MATCH，共享.venv stat清单前后相同，base仍无nibabel。自有测试进程结束后已立即向总控释放窗口。本次只补双日志及私有实际报告/index；显式base/range文档与diff检查后本地提交，不push/merge/deploy、不写状态。旧64-only/MVP/历史Result保持，医院冻结NOT_RUN；有界工作完成后停止，不扩展测试。
