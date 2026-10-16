@@ -1824,3 +1824,14 @@ INT先保存TEST_PLAN/READY，未自行跑测试。总控按计划SHAe4bf086c12a
 AST语法解析通过；静态枚举新增27cases（当前预计26可执行+1 nibabel条件skip）。尚未由INT运行/collect测试；已将精确TEST_PLAN/READY及源码SHA交总控统一串行验收。计划SHA `2b420453ccd368f3eb7a8a83d7aa13b45026010cb95dd685dec1c66b8643184b`，CPU1、全套60秒/RSS512MiB/输出2MiB。READY后源码冻结，不重跑旧32/57/58/8/19；测试结果须引用总控实际收据，不能从AST或准备状态推PASS。
 
 报告、源绑定与最终COMPACT_INDEX保存在私有 `r108-medical-localization-20261016/INT/`，本地完整代码提交SHA由索引绑定。真实Index/NPY/CT/GT/weights访问、模型前向/训练/优化、HTTP/下载/安装/远程GPU/医学服务或页面/医院/录屏均0。只总控最终统一登记；没有push/merge/deploy。交付前执行显式base文档同步与diff检查；医学参考验证、模型兼容性和医院冻结不由本包确立。
+
+
+## 2026-10-16｜R108 INT总控串行合成验收收口
+
+原INT工作树/分支不变，收口前HEAD及受测源提交 `a381e80af4bfffad5e42b1a36c2679e6ee3ba7b9`，工作树起始干净，ignored保留。本次只更新双日志及私有R108/INT报告/index，不改冻结源码/测试/旧依赖或其他线文件。
+
+总控实际INT_v1收据为 `r108-medical-localization-20261016/INT/CHIEF_TEST_RESULT_V1.json`，完整日志 `checks/INT_v1.log`（SHA `3da25762b1c8c17cbc101d0b65d9d654ae614fcae55dfdac8601e8c3f5422651`）。26 passed、1 skipped，pytest0.08s，监控0.2043562079925323s；采样进程组RSS最大47,284,224B，5次采样，不代表绝对峰值或OS硬RSS限制。exit0，无停止原因。计划SHA `2b420453ccd368f3eb7a8a83d7aa13b45026010cb95dd685dec1c66b8643184b`、三源码/解释器/日志绑定MATCH。INT未运行或collect测试，不重跑旧32/57/58/8/19。
+
+证据只为ENGINEERING_PASS合成工程。nibabel缺失的唯一条件case已skip，跨库仍NOT_RUN；公开NIfTI真实几何、医学载荷、实际HU/完整体数据及临床指标未验证。`geometry_coverage_report`始终identity_verified=False；调用者须提供DATA正式registry中CT/GT同病例/患者或来源组、Study/Series、输入/GT SHA、native geometry及reference extent/coverage绑定。shape或affine相同不能证明医学对象身份，INT不自行生成医学参考分母，LOC负责后续指标。
+
+真实Inf-Net许可/重叠/352预处理及HU门禁未解除；真实模型仍BLOCKED。此次真实数据/模型/网络下载/安装/医院/录屏/state写入均0，旧64-only/MVP及历史资产保持。私有COMPACT_INDEX追加实际总控收据和最终文档提交，准备态索引保留快照；只总控统一登记。文档检查及diff检查后本地提交，不push/merge/deploy。
