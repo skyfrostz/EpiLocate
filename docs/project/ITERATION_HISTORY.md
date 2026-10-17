@@ -1512,3 +1512,9 @@ R111请求/runtime/15源码/stdlib哈希MATCH；共享.venv 36,979文件stat清�
 原 INTEGRATION 分支/worktree，修改前完整 HEAD `f80d5143fae4782d1152777cdfb2c14fa36b5a88`，tracked/untracked 干净、ignored 保留。总控因用户将棋盘误认为马赛克 CT，要求最小文案修正。新 App/Viewport 显眼注明“棋盘测试影像（非真实CT）”，更新加载/病例/无障碍提示及操作文档；不改变 DICOM 合同或 scope，不生成假解剖影像、不接真实医学资产。原服务DB/凭据/影像身份、旧 bound 源码及旧构建不改，新静态 dist 原地重新构建供总控刷新。
 
 总控本轮委派报告鼠标绘制v1/刷新恢复/拖动编辑v2/撤回v3恢复v4/双tab v4后先存v5再409保留草稿已通过；这是总控观察，本线未独立重复。缩放平移/退出重登仍检查中，不宣告整体图形PASS、医院批准或冻结。仅文案适配不新增或重跑后端测试；实际新build、文档checker和diff检查结果见本轮私有补充收据及提交。保留新旧服务，不push、不写科研authority。
+
+### 2026-10-17｜棋盘测试影像工作区技术验收结论
+
+基于总控的真实浏览器收据 `ANNOTATION_BROWSER_ACCEPTANCE_V1.json`，独立棋盘 fixture 已完成绘制、版本保存/恢复、撤回/恢复、并发冲突保护、缩放平移重置、owner/observer 权限和重登恢复验证，结论为 `PASS_SYNTHETIC_CHECKERBOARD_ONLY`。这只证明当前本地技术闭环，不扩展为真实 CT、临床或医院证据。
+
+冲突后 discard confirm 自动化未完成，保留为 `NOT COMPLETED`。真实 CT 接入、真实模型结果、临床资格、医院展示、连续三次最终演练、备用录屏和医院冻结仍为 `NOT RUN`/`NOT APPROVED`。后续任何医院版本决定必须另有批准的数据、模型和验收证据。

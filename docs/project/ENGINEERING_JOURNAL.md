@@ -1897,3 +1897,11 @@ R111请求/runtime/15源码/stdlib哈希MATCH；共享.venv 36,979文件stat清�
 原 INTEGRATION 分支/worktree，修改前完整 HEAD `f80d5143fae4782d1152777cdfb2c14fa36b5a88`，tracked/untracked 干净、ignored 保留。总控因用户将棋盘误认为马赛克 CT，要求最小文案修正。新 App/Viewport 显眼注明“棋盘测试影像（非真实CT）”，更新加载/病例/无障碍提示及操作文档；不改变 DICOM 合同或 scope，不生成假解剖影像、不接真实医学资产。原服务DB/凭据/影像身份、旧 bound 源码及旧构建不改，新静态 dist 原地重新构建供总控刷新。
 
 总控本轮委派报告鼠标绘制v1/刷新恢复/拖动编辑v2/撤回v3恢复v4/双tab v4后先存v5再409保留草稿已通过；这是总控观察，本线未独立重复。缩放平移/退出重登仍检查中，不宣告整体图形PASS、医院批准或冻结。仅文案适配不新增或重跑后端测试；实际新build、文档checker和diff检查结果见本轮私有补充收据及提交。保留新旧服务，不push、不写科研authority。
+
+### 2026-10-17｜棋盘标注浏览器闭环实际验收
+
+本条依据总控保存的 `AUDIT/ANNOTATION_BROWSER_ACCEPTANCE_V1.json`（SHA256 `9faaff5d93e888a195f3c9d3dd04061c94c5354898e278387e44d62aed0ce665`），不是本线重新操作。前一提交 `32113ef541e46d7209b4980c4f3cc39ef80cabb1` 已包含棋盘非真实 CT 文案；本次仅同步文档，开发前 HEAD 为该 SHA。
+
+总控完成 owner 登录、4 顶点 v1、刷新恢复、拖点 v2、撤回 v3、恢复 v4、双 tab v5/409 草稿保留、缩放、平移、重置、observer 403、owner 重登恢复 v5 和原生 LPS 详情。只读 DB 为 1 annotation head、5 revisions、5 events，事件 `CREATE/UPDATE/WITHDRAW/RESTORE/UPDATE`；`inference_jobs=0`、`worker_nodes=0`，CT SHA 不变，LPS 最大误差 0 mm。技术结论为 `PASS_SYNTHETIC_CHECKERBOARD_ONLY`。
+
+冲突后点击“重新载入”时的原生 discard confirm 自动化未完成，虽无已提交数据丢失且无草稿 reload 通过，仍保留该子项 `NOT COMPLETED`。真实 CT 接入、真实模型/临床资格、医院展示、三次演练、备用录屏、医院冻结均 `NOT RUN` 或 `NOT APPROVED`。证据图片 SHA 及未完成项见操作手册；本次不改代码、服务、数据库、凭据或科研 authority。
