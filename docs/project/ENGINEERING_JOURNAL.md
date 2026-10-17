@@ -1905,3 +1905,13 @@ R111请求/runtime/15源码/stdlib哈希MATCH；共享.venv 36,979文件stat清�
 总控完成 owner 登录、4 顶点 v1、刷新恢复、拖点 v2、撤回 v3、恢复 v4、双 tab v5/409 草稿保留、缩放、平移、重置、observer 403、owner 重登恢复 v5 和原生 LPS 详情。只读 DB 为 1 annotation head、5 revisions、5 events，事件 `CREATE/UPDATE/WITHDRAW/RESTORE/UPDATE`；`inference_jobs=0`、`worker_nodes=0`，CT SHA 不变，LPS 最大误差 0 mm。技术结论为 `PASS_SYNTHETIC_CHECKERBOARD_ONLY`。
 
 冲突后点击“重新载入”时的原生 discard confirm 自动化未完成，虽无已提交数据丢失且无草稿 reload 通过，仍保留该子项 `NOT COMPLETED`。真实 CT 接入、真实模型/临床资格、医院展示、三次演练、备用录屏、医院冻结均 `NOT RUN` 或 `NOT APPROVED`。证据图片 SHA 及未完成项见操作手册；本次不改代码、服务、数据库、凭据或科研 authority。
+
+### 2026-10-17｜旧 64-only `/mvp/` 合成标注入口桥接
+
+**工作树 / 分支：** `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`，`codex/epi-next-integration-20261009`。**开发前 HEAD：** `d787aa7c780f699b06328e430fe50a63e5558968`。
+
+新增 `qa/annotation_mvp_bridge.py` 和 `qa/test_annotation_mvp_bridge.py`，并在 `docs/frontend/ANNOTATION_WORKSPACE_V1.md` 记录固定目标、运行边界与回退方式。桥接仅在现有旧展示的 HTML 壳附加一个可访问入口，固定链接到 `https://localhost:57171/annotations/`；服务端仍拒绝新任务、上传、病例枚举和 Worker 路由，不改变冻结候选、dist、历史数据库或结果。链接明确标识合成工作区及棋盘测试影像（非真实 CT）。
+
+Chrome 当前打开的旧 64-only 历史结果页显示“医生标注”入口，链接目标为固定本机合成工作区；Tab 键可将焦点落到入口并显示可见焦点样式。当前 Chrome 扩展页未接受临时 viewport 覆盖，因此运行时窄屏布局未完成验证；窄屏 CSS 规则由桥接生成测试覆盖。合成标注此前的浏览器证据仍绑定 `AUDIT/ANNOTATION_BROWSER_ACCEPTANCE_V1.json`，其未完成的 discard confirm 子项保持 `NOT COMPLETED`。
+
+**限制：** 本变更不读取真实医学成员、不运行模型或创建 inference job，不进入医院展示、三次演练、录屏或临床验收。账号资料只留在权限受限的本地配置，不记录到代码、Git 或本日志。
