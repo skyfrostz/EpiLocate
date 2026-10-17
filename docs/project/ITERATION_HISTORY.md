@@ -1492,3 +1492,16 @@ R111请求/runtime/15源码/stdlib哈希MATCH；共享.venv 36,979文件stat清�
 只对本次PID/start身份匹配子进程清理，剩余=[]；两锁与窗口已立即释放交其他线。总控指示停止浏览器运行/探索，未第三次运行。静态HTML/JSON快照和新源码保留为实施证据，不是显示/医院验收。最终源/解释器/399隔离文件及旧MVP driver/V3 candidate控制引用SHA MATCH；医学影像资产本身未重新哈希或读取。无服务/安装/下载/模型/真实页面/截图录屏；浏览器没有完成完整请求观察，不能声称整浏览器背景网络为0。
 
 私有 `r122-first-case-qualification-preparation-20261016/INTEGRATION/` 保存runtime合同、输入契约、两计划、实际收据、报告与最终COMPACT_INDEX。提交只含本线四个新文件和双日志；显式base文档/diff检查后本地提交，不push/merge/写权威state。真实CT/GT身份、HU、参考完整性、真实CAM/模型与临床评价仍NOT_VERIFIED/NOT_RUN，旧64-only技术PASS和医院冻结NOT_RUN保持。当前有界任务收口后停止，不新增浏览器/产品或算法范围。
+
+
+## 2026-10-17｜独立合成单片医生多边形工作区
+
+原 INTEGRATION worktree `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`，分支 `codex/epi-next-integration-20261009`，开发前完整 HEAD `46b9d0e005b8016f8b9b233dde6d419b481b551c`。负责人选择医生多边形开发，总控委派本线新增独立产品入口；不是扩展 R122 医学资格、研究计算或医院批准。保留既有脏/ignored 现场，不写科研 authority、不 push。
+
+新增 `backend_v2/annotation_v1/`、`qa/annotation_workspace.py`、`annotation_workspace/` 及针对性测试/操作文档；复用原 User/Session Gateway，通过 owner/Origin/CSRF 控制写入。原生像素中心及服务端 LPS 绑定 Case/slice/Study/Series/SOP/FrameOfReference/CT SHA/几何 SHA+版本。绘制与编辑使用独立安装的 Cornerstone Core/Loader/Tools5.11.0 LINEAR SplineROI，不改旧 Viewer。SQLite 不可变修订/事件、expected_version CAS、operation_id 对账、128KiB 实际请求体、20标注/32修订原子额度；撤回与恢复追加版本，UNREVIEWED、不自动生成训练GT。
+
+实际验证：24 后端测试 PASS（pytest3.01s）；10 前端测试 PASS（vitest0.598s）；vue-tsc+Vite build PASS。涵盖越权、身份、非法轮廓、并发冲突和并发额度、不可变审计、刷新持久化、字节篡改、CSRF/localhost Cookie隔离、响应丢失、POST后读取失败及timeout待对账。前端测试使用查看器stub，不能替代实际鼠标绘制验收。构建保留codec fs/path/url外置及大chunk警告、Starlette弃用警告。
+
+新隔离合成DICOM/SQLite/TEST_STORAGE服务已在 loopback 启动，新host使用localhost避免覆盖旧127.0.0.1 Cookie。实际HTTPS/API静态200/登录200/未认证401/缺CSRF403/Job404，CT SHA和绑定匹配；图形验收前新DB无Job/Worker/标注。首轮统计误查workers表，已纠正为worker_nodes；保留失败说明，无标注或AI写入。凭据只在0600私有配置，不进入Git/报告。总控实际浏览器遇到CERT_AUTHORITY_INVALID，须用户亲自处理证书；当前图形验收 `BLOCKED_BY_USER_CERT_HANDOFF`，未记PASS，不自行绕过。
+
+旧64-only服务继续运行；冻结197源码/23runtime/21dist全部MATCH，原DB SHA不变。工程操作与回退详见 `docs/frontend/ANNOTATION_WORKSPACE_V1.md`；实际URL、父子PID、测试转录、资产与源码哈希、最终完整提交SHA保存在私有版本化交付索引。仅生成影像，无医学成员读取、模型、Job、Worker、训练或录屏；医院真实目视/最终三演练/备用录屏/临床有效性/医院冻结均未由本轮建立。当前缺项为总控图形绘制/拖动/刷新/退出重登验收；新旧服务保留以便继续。
