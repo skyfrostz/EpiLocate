@@ -1912,6 +1912,6 @@ R111请求/runtime/15源码/stdlib哈希MATCH；共享.venv 36,979文件stat清�
 
 新增 `qa/annotation_mvp_bridge.py` 和 `qa/test_annotation_mvp_bridge.py`，并在 `docs/frontend/ANNOTATION_WORKSPACE_V1.md` 记录固定目标、运行边界与回退方式。桥接仅在现有旧展示的 HTML 壳附加一个可访问入口，固定链接到 `https://localhost:57171/annotations/`；服务端仍拒绝新任务、上传、病例枚举和 Worker 路由，不改变冻结候选、dist、历史数据库或结果。链接明确标识合成工作区及棋盘测试影像（非真实 CT）。
 
-Chrome 当前打开的旧 64-only 历史结果页显示“医生标注”入口，链接目标为固定本机合成工作区；Tab 键可将焦点落到入口并显示可见焦点样式。当前 Chrome 扩展页未接受临时 viewport 覆盖，因此运行时窄屏布局未完成验证；窄屏 CSS 规则由桥接生成测试覆盖。合成标注此前的浏览器证据仍绑定 `AUDIT/ANNOTATION_BROWSER_ACCEPTANCE_V1.json`，其未完成的 discard confirm 子项保持 `NOT COMPLETED`。
+Chrome 当前打开的旧 64-only 历史结果页显示“医生标注”入口，链接目标为固定本机合成工作区；Tab 键可将焦点落到入口并显示可见焦点样式。当前 Chrome 扩展页未接受临时 viewport 覆盖，因此运行时窄屏布局未完成验证；生成测试仅断言媒体查询和焦点规则存在，不证明窄屏实际排版。合成标注此前的浏览器证据仍绑定 `AUDIT/ANNOTATION_BROWSER_ACCEPTANCE_V1.json`，其未完成的 discard confirm 子项保持 `NOT COMPLETED`。
 
 **限制：** 本变更不读取真实医学成员、不运行模型或创建 inference job，不进入医院展示、三次演练、录屏或临床验收。账号资料只留在权限受限的本地配置，不记录到代码、Git 或本日志。

@@ -1523,4 +1523,4 @@ R111请求/runtime/15源码/stdlib哈希MATCH；共享.venv 36,979文件stat清�
 
 在原 INTEGRATION 工作树 `/Users/skyfrost/Documents/Techniques/EpiLocate-worktrees/epi-next-integration`、分支 `codex/epi-next-integration-20261009` 上，基于 `d787aa7c780f699b06328e430fe50a63e5558968` 增加本机 HTML 桥接脚本和针对性生成测试。旧 `/mvp/` 页面现可打开已经独立验收的合成棋盘标注工作区；入口固定指向 `https://localhost:57171/annotations/`，显示“合成工作区”及“棋盘测试影像（非真实 CT）”。桥接沿用原只读候选和本地运行副本，不把历史 CT、历史模型结果、旧数据库或真实医学数据接入标注写入路径。
 
-入口只改变旧 edge 返回的 HTML 外壳；原候选 197 项源码、23 项 runtime 引用、21 个 dist 文件与冻结绑定匹配，原数据库 SHA 保持。新任务、上传、病例枚举及 Worker 路由仍拒绝。当前本机 Chrome 的历史结果页可见该入口，链接目标为固定 localhost 标注页；最终窄屏布局与键盘焦点验证按对应工程记录报告。该集成仍是本机演示便利入口，不构成真实 CT、临床或医院验收。
+入口只改变旧 edge 返回的 HTML 外壳；原候选 197 项源码、23 项 runtime 引用、21 个 dist 文件与冻结绑定匹配，原数据库 SHA 保持。新任务、上传、病例枚举及 Worker 路由仍拒绝。当前本机 Chrome 的历史结果页可见该入口，链接目标为固定 localhost 标注页，Tab 键可达且有可见焦点。代码声明了窄屏媒体查询，但真实窄屏视口下的布局验收尚未完成。该集成仍是本机演示便利入口，不构成真实 CT、临床或医院验收。
