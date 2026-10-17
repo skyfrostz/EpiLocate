@@ -1890,3 +1890,10 @@ R111请求/runtime/15源码/stdlib哈希MATCH；共享.venv 36,979文件stat清�
 新隔离合成DICOM/SQLite/TEST_STORAGE服务已在 loopback 启动，新host使用localhost避免覆盖旧127.0.0.1 Cookie。实际HTTPS/API静态200/登录200/未认证401/缺CSRF403/Job404，CT SHA和绑定匹配；图形验收前新DB无Job/Worker/标注。首轮统计误查workers表，已纠正为worker_nodes；保留失败说明，无标注或AI写入。凭据只在0600私有配置，不进入Git/报告。总控实际浏览器遇到CERT_AUTHORITY_INVALID，须用户亲自处理证书；当前图形验收 `BLOCKED_BY_USER_CERT_HANDOFF`，未记PASS，不自行绕过。
 
 旧64-only服务继续运行；冻结197源码/23runtime/21dist全部MATCH，原DB SHA不变。工程操作与回退详见 `docs/frontend/ANNOTATION_WORKSPACE_V1.md`；实际URL、父子PID、测试转录、资产与源码哈希、最终完整提交SHA保存在私有版本化交付索引。仅生成影像，无医学成员读取、模型、Job、Worker、训练或录屏；医院真实目视/最终三演练/备用录屏/临床有效性/医院冻结均未由本轮建立。当前缺项为总控图形绘制/拖动/刷新/退出重登验收；新旧服务保留以便继续。
+
+
+### 2026-10-17｜棋盘测试影像标识澄清
+
+原 INTEGRATION 分支/worktree，修改前完整 HEAD `f80d5143fae4782d1152777cdfb2c14fa36b5a88`，tracked/untracked 干净、ignored 保留。总控因用户将棋盘误认为马赛克 CT，要求最小文案修正。新 App/Viewport 显眼注明“棋盘测试影像（非真实CT）”，更新加载/病例/无障碍提示及操作文档；不改变 DICOM 合同或 scope，不生成假解剖影像、不接真实医学资产。原服务DB/凭据/影像身份、旧 bound 源码及旧构建不改，新静态 dist 原地重新构建供总控刷新。
+
+总控本轮委派报告鼠标绘制v1/刷新恢复/拖动编辑v2/撤回v3恢复v4/双tab v4后先存v5再409保留草稿已通过；这是总控观察，本线未独立重复。缩放平移/退出重登仍检查中，不宣告整体图形PASS、医院批准或冻结。仅文案适配不新增或重跑后端测试；实际新build、文档checker和diff检查结果见本轮私有补充收据及提交。保留新旧服务，不push、不写科研authority。

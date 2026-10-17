@@ -1,8 +1,8 @@
 <template>
  <div>
   <div class="view-controls"><button @click="setMode('polygon')" :disabled="!ready">多边形 / 编辑顶点</button><button @click="setMode('pan')" :disabled="!ready">平移</button><button @click="zoom(1.25)" :disabled="!ready">放大</button><button @click="zoom(.8)" :disabled="!ready">缩小</button><button @click="reset" :disabled="!ready">重置视图</button><span>{{ mode==='polygon'?'逐点单击，点击起点闭合；拖动顶点编辑':'拖动平移' }}</span></div>
-  <div ref="element" class="viewport" aria-label="合成 CT 多边形标注查看器" @contextmenu.prevent></div>
-  <p role="status">{{ ready?'合成单片 CT 已加载 · 原生像素中心坐标 · '+mode:'正在加载 Cornerstone 与合成 DICOM…' }}</p><p v-if="error" role="alert">{{ error }}</p>
+  <div ref="element" class="viewport" aria-label="棋盘测试影像（非真实CT）多边形标注查看器" @contextmenu.prevent></div>
+  <p role="status">{{ ready?'棋盘测试影像（非真实CT）已加载 · 原生像素中心坐标 · '+mode:'正在加载棋盘测试影像 DICOM（非真实CT）…' }}</p><p v-if="error" role="alert">{{ error }}</p>
  </div>
 </template>
 <script setup lang="ts">
@@ -48,7 +48,7 @@ watch([()=>props.revision,()=>props.resetKey],hydrate)
 onMounted(async()=>{
  try{
   const bytes=await props.file.arrayBuffer();const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join('')
-  if(hash!==props.ctSha)throw Error('CT 字节 SHA 不匹配，禁止标注')
+  if(hash!==props.ctSha)throw Error('测试 DICOM 字节 SHA 不匹配，禁止标注')
   ;({core,dicom,tools}=await imaging())
   if(disposed)return
   imageId=dicom.wadouri.fileManager.add(props.file);fileIndex=Number(imageId.split(':')[1])

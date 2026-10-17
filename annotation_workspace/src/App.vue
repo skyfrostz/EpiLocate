@@ -1,10 +1,10 @@
 <template>
 <main>
- <header><h1>EpiLocate · 医生标注工作区</h1><p>合成 CT 技术验证 · 与旧 64-only 面板独立 · 不运行 AI · 不自动形成训练 GT</p></header>
+ <header><h1>EpiLocate · 医生标注工作区</h1><p><strong>棋盘测试影像（非真实CT）</strong> · 用于标注与坐标验证 · 不运行 AI · 不自动形成训练 GT</p></header>
  <form v-if="!authenticated" @submit.prevent="login" class="login"><h2>本机合成账号登录</h2><label>账号<input v-model="username" autocomplete="username" required></label><label>密码<input v-model="password" autocomplete="current-password" type="password" required></label><button :disabled="busy">登录</button></form>
  <template v-else>
   <nav><span>已登录：{{ actor }}</span><button @click="logout" :disabled="busy">退出登录</button><button @click="reload" :disabled="busy">重新载入已保存标注</button></nav>
-  <p v-if="context">病例 {{ context.binding.case_id }} · {{ context.binding.geometry.width }}×{{ context.binding.geometry.height }} · 合成单片</p>
+  <p v-if="context">病例 {{ context.binding.case_id }} · {{ context.binding.geometry.width }}×{{ context.binding.geometry.height }} · 棋盘测试影像（非真实CT）</p>
   <div class="layout" v-if="file&&context">
    <section>
     <PolygonViewport :file="file" :geometry="context.binding.geometry" :ct-sha="context.binding.ct_sha256" :revision="selected" :reset-key="resetKey" @ready="viewerReady=true" @changed="changed" />
