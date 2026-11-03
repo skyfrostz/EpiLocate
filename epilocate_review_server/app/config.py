@@ -21,8 +21,8 @@ class Settings:
     database_path: Path
     bundle_path: Path
     environment: str = "production"
-    allowed_hosts: tuple[str, ...] = ("review.epilocate.cn", "localhost", "127.0.0.1", "testserver")
-    allowed_origins: tuple[str, ...] = ("https://review.epilocate.cn",)
+    allowed_hosts: tuple[str, ...] = ("review.example.invalid", "localhost", "127.0.0.1", "testserver")
+    allowed_origins: tuple[str, ...] = ("https://review.example.invalid",)
     session_hours: int = 8
     secure_cookies: bool = True
     trust_proxy_headers: bool = False
@@ -43,13 +43,13 @@ class Settings:
             item.strip()
             for item in os.getenv(
                 "EPILOCATE_ALLOWED_HOSTS",
-                "review.epilocate.cn,localhost,127.0.0.1,testserver",
+                "review.example.invalid,localhost,127.0.0.1,testserver",
             ).split(",")
             if item.strip()
         )
         origins = tuple(
             item.strip().rstrip("/")
-            for item in os.getenv("EPILOCATE_ALLOWED_ORIGINS", "https://review.epilocate.cn").split(",")
+            for item in os.getenv("EPILOCATE_ALLOWED_ORIGINS", "https://review.example.invalid").split(",")
             if item.strip()
         )
         return cls(

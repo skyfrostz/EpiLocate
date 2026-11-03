@@ -1,10 +1,10 @@
 # Backend API Contract — Phase 5 implementation
 
-**代码基线：** `4d717a3753ef307ab370adeafaf5a00da4dc7af9`，核对 `backend_v2/api/app.py`、`backend_v2/services/{cases,jobs,retention,storage}.py`、`backend_v2/models/entities.py`。本文件描述该提交的**已实现行为**，替代 [v2.0 设计冻结稿](backend_api_contract_v2_freeze.md) 作为前端联调依据；不是新协议提案。所有用户 API 位于同源 `/api/v2`，浏览器先经 [Session Gateway](session_gateway_contract_phase5.md)。Worker API 见 [Worker 与 Job 文档](worker_api_job_lifecycle_phase5.md)。
+**代码基线：** `4d717a3753ef307ab370adeafaf5a00da4dc7af9`，核对 `backend_v2/api/app.py`、`backend_v2/services/{cases,jobs,retention,storage}.py`、`backend_v2/models/entities.py`。本文件描述该提交的**已实现行为**，替代 v2.0 设计冻结稿（历史资料） 作为前端联调依据；不是新协议提案。所有用户 API 位于同源 `/api/v2`，浏览器先经 [Session Gateway](session_gateway_contract_phase5.md)。Worker API 见 [Worker 与 Job 文档](worker_api_job_lifecycle_phase5.md)。
 
 ## 身份、错误与版本边界
 
-Backend 用户路由接受服务端注入的 `Authorization: Bearer <user-token>`；浏览器只持有 Gateway 的 HttpOnly Cookie 和非保密 CSRF 值。Backend 的 `user_credentials` 只存 token SHA-256、到期与撤销状态。缺失、无效、过期、已撤销或停用用户均返回 `401 UNAUTHENTICATED`。不同所有者的 Case、Job、Result 统一按不可见资源返回 404。Worker Bearer 独立，不能访问用户路由。部署例子与路径配置见 [前端集成指南](frontend_integration_guide_phase5.md)，**MVP 测试域名和 `/mvp/` 不是永久 API 基址**。
+Backend 用户路由接受服务端注入的 `Authorization: Bearer <user-token>`；浏览器只持有 Gateway 的 HttpOnly Cookie 和非保密 CSRF 值。Backend 的 `user_credentials` 只存 token SHA-256、到期与撤销状态。缺失、无效、过期、已撤销或停用用户均返回 `401 UNAUTHENTICATED`。不同所有者的 Case、Job、Result 统一按不可见资源返回 404。Worker Bearer 独立，不能访问用户路由。部署例子与路径配置见 前端集成指南（历史资料），**MVP 测试域名和 `/mvp/` 不是永久 API 基址**。
 
 Backend 业务错误格式为 `{"code":"...","message":"...","retryable":false,"request_id":"uuid","details":{}}`；Pydantic 请求验证错误为 `422 INVALID_REQUEST`。Gateway 显式拒绝的请求只有 `{"code":"..."}`，其登录请求体 Schema 错误由 FastAPI 返回 `422 {"detail":[…]}`；转发的 Backend 错误原样保留。因此客户端必须先按 HTTP status 处理，优先读取可用的 `code`，其余字段均为可选。401 清空前端登录态并重新校验 Session；403 表示已认证但 Origin/CSRF 或 Worker 权限拒绝；404 不证明资源不存在；410 表示**有权访问的**输入或资产过期；409 表示幂等键、状态或租约冲突。网络超时不能当作 Job 失败。
 

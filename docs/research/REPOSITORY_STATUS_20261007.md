@@ -1,16 +1,10 @@
-# EpiLocate research status (2026-10-07)
+# 2026-10-07 冻结研究状态 · 公开摘要
 
-Latest EPI-NEXT aggregate update: [EPI-NEXT status (2026-10-14)](EPI_NEXT_STATUS_20261014.md). This dated page remains the record of the earlier Stage B decision.
+| 工作 | 当时结论 | 解释边界 |
+|---|---|---|
+| Stage 1 冻结验证 | 完成观察验证集的多尺度响应和跨尺度稳定性分析，并通过该阶段独立技术 QA。 | 候选间重叠不等于病灶参考重叠，数据来源混杂仍未排除。 |
+| D10 数值关口 | 在指定冻结实现、模型、RTX 3090 运行时与合成参照上通过。 | 不推广到其他硬件、模型或临床输入，也不改写历史 Phase 5 的失败。 |
+| 遮挡免疫训练第一轮 | 六次训练和评价完成，AUROC 下界门槛未过，主稳定性比较不可完整评价。 | 原方案结论不确定。 |
+| 第二轮首个随机种子 | A/B/C 主终点为 0.484635、null、0.500409。预设配对关口停止，另外两个种子与正式 bootstrap 未跑。 | C−A 的 0.015773 是一个种子的开发性差值。B−A 与 C−B 无法计算，不支持训练获益结论。 |
 
-This page records the public, aggregate status of the research code included in the application mainline. It does not replace the frozen research records. The repository includes code and synthetic tests, but not private checkpoints, patient-level evidence, or the complete D10 capture package.
-
-| Work | Current conclusion | Boundary |
-| --- | --- | --- |
-| Frozen Stage 1 validation | Complete; independent technical QA passed. | Observed-validation response and cross-scale stability analysis only. Candidate overlap is not lesion localization accuracy; metadata confounding remains unresolved. |
-| D10 numerical consistency gate | **D10_PASS** on the frozen synthetic reference and approved RTX 3090 runtime. | A bounded numerical reproducibility decision for the frozen implementation and checkpoint, not a result for other hardware, checkpoints, or clinical use. |
-| Stage B v1 | **INCONCLUSIVE** under its frozen development gate. | The six training and evaluation runs completed, but the AUROC lower confidence bound failed and the primary stability comparison was not evaluable. |
-| Stage B v2 first-seed A/B/C | All three evaluations completed for the same 28 observed-validation participants and 5,637 slices. A's primary stability endpoint was `0.4846353528`, B's was `null`, and C's was `0.5004087912`. The predeclared pair gate returned `BV2_PREDECLARED_NON_EVALUABLE_STOP`. | C minus A is a single-seed descriptive point estimate (`0.0157734384`). Formal B minus A and C minus B stability differences are not computable. The other two seeds and formal bootstrap were not run. No Stage B v2 benefit or pass claim follows. |
-
-The D10 tools under `scripts/research/` preserve their historical source and hash checks. `d10_lane_capture.py` requires the approved synthetic fixture, frozen implementation, private checkpoint, and specified hardware/runtime. `d10_frozen_bundle_retest.py` verifies a separately assembled historical package with pinned source hashes; it does not run against the changing mainline. The comparison tools consume reviewed numeric captures. Their included unit tests use synthetic fixtures or mocked execution, so passing them does not repeat the frozen D10 GPU audit.
-
-The Stage 1 runner and configuration are inherited unchanged from the Clinical Canvas application source; `tests/test_occlusion_runner.py` adds focused synthetic checks. The four D10 tools and their tests match the frozen D10 code at `d88cc36a5d557e7330787d93b096a60a6cfe7d21`. This summary reflects the Stage B v1 postmortem and the first-seed A/B/C decision recorded on 2026-10-07 at `a6a4283c87bf4b04a09fca8065f95bfbd8e22597`. These development results use collection proxy labels and do not establish diagnosis, lesion truth, clinical validity, or deployment acceptance.
+实验任务和分母随版本及数据来源而异。该日期的“Stage B”是遮挡免疫训练，与后来 P2 开发先导和同预算科学比较不同。[三尺度冻结协议](../occlusion_instability_protocol_v1.md) · [11 月项目审查](../review/PROJECT_REVIEW_20261103_ZH.md)

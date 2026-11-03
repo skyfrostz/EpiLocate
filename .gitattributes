@@ -1,0 +1,2 @@
+# Preserve the verified original bytes of the R168 source excerpt, including its final empty line.
+research/source-excerpts/r168-roi/source/backend_v2/roi/api.py whitespace=-blank-at-eof

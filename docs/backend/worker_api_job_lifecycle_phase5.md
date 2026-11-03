@@ -58,4 +58,4 @@ Worker 实际使用 `POST /workers/jobs/{job_id}/result`；Backend 也接受 `PO
 
 ## Phase 5 验证边界
 
-GPU-only Full-Chain MVP 的 CUDA Prediction 与 16/32/64 Occlusion、Result/Asset 存储和浏览器刷新功能已通过工程验证。固定 CPU/GPU **数值**一致性仍 **FAILED / OPEN**：最大派生偏差 `0.001049876`，容差 `0.0001`。这不改变 Worker 报文或 `LIVE_CASE` 结果 API 的功能通过结论，但禁止宣称 CPU/GPU 数值等价；详见 [Phase 5 验收报告](../phase5/gpu_full_chain_mvp_report.md)。
+GPU-only Full-Chain MVP 的 CUDA Prediction 与 16/32/64 Occlusion、Result/Asset 存储和浏览器刷新功能已通过工程验证。固定 CPU/GPU **数值**一致性仍 **FAILED / OPEN**：最大派生偏差 `0.001049876`，容差 `0.0001`。这不改变 Worker 报文或 `LIVE_CASE` 结果 API 的功能通过结论，但禁止宣称 CPU/GPU 数值等价；详见 Phase 5 验收报告（历史资料）。

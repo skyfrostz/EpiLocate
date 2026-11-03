@@ -5,13 +5,11 @@ import { useState } from 'react'
 import './index.css'
 import './responsive.css'
 
-const video = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260723_145606_ab143199-b593-4941-bb1b-9afca215416b.mp4'
-
-const images = [
-  'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260723_152456_65bd59eb-4e9c-4be8-82eb-2aadd5b91e03.png&w=1920&q=85',
-  'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260723_152522_96817909-a45f-4d68-9509-f399dda97419.png&w=1920&q=85',
-  'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260723_152537_150da197-35c4-483c-bd9e-ebcf9335a640.png&w=1920&q=85',
-  'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260723_152546_2e114d2c-293d-4c42-89e5-da7eddcfbfa3.png&w=1920&q=85',
+const panels = [
+  'linear-gradient(130deg, #171d1d, #425453)',
+  'linear-gradient(155deg, #1a2427, #46626b)',
+  'linear-gradient(115deg, #202024, #555247)',
+  'linear-gradient(145deg, #15231f, #555e44)',
 ]
 
 const cornerClasses = [
@@ -42,12 +40,12 @@ function SelectionHandles() {
 
 function App() {
   const [activeIndex, setActiveIndex] = useState(2)
-  const changeIndex = (direction: number) => setActiveIndex((index) => (index + direction + images.length) % images.length)
-  const counter = `${String(activeIndex + 1).padStart(2, '0')}/${String(images.length).padStart(2, '0')}`
+  const changeIndex = (direction: number) => setActiveIndex((index) => (index + direction + panels.length) % panels.length)
+  const counter = `${String(activeIndex + 1).padStart(2, '0')}/${String(panels.length).padStart(2, '0')}`
 
   return (
     <main className="viewport-scene relative h-screen w-full overflow-hidden bg-[#1a1a1a] text-white">
-      <video className="absolute inset-0 h-full w-full object-cover" src={video} autoPlay loop muted playsInline aria-hidden="true" />
+      <div className="absolute inset-0" style={{ background: panels[activeIndex] }} aria-hidden="true" />
 
       <div className="page-shell relative z-10 flex h-full flex-col justify-between p-5 md:p-12 lg:p-16">
         <header className="flex items-start justify-between">
@@ -91,9 +89,9 @@ function App() {
           <div className="frame-stack flex flex-col items-start gap-3 md:items-end md:gap-4">
             <div className="frame-counter font-meutas text-4xl leading-none md:text-7xl lg:text-8xl xl:text-[110px]" aria-live="polite">{counter}</div>
             <div className="frame-gallery scrollbar-hide flex gap-2 overflow-visible md:gap-2.5" aria-label="选择画面">
-              {images.map((src, index) => (
-                <button type="button" key={src} aria-label={`画面 ${index + 1}`} aria-pressed={index === activeIndex} onClick={() => setActiveIndex(index)} className="relative shrink-0 transition-all duration-300">
-                  <img src={src} alt="" className="frame-thumb h-14 w-14 object-cover md:h-20 md:w-20 lg:h-24 lg:w-24" />
+              {panels.map((background, index) => (
+                <button type="button" key={background} aria-label={`画面 ${index + 1}`} aria-pressed={index === activeIndex} onClick={() => setActiveIndex(index)} className="relative shrink-0 transition-all duration-300">
+                  <span aria-hidden="true" className="frame-thumb block h-14 w-14 md:h-20 md:w-20 lg:h-24 lg:w-24" style={{ background }} />
                   {index === activeIndex && <SelectionHandles />}
                 </button>
               ))}

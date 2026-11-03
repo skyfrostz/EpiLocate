@@ -81,7 +81,7 @@ def validate(q):
     for item in q['targets']:
         ref, m = item['archive'], item['member']; check_archive(ref)
         require(len(ref['stream_sha256']) == 64, 'SAVED_STREAM_SHA_REQUIRED')
-        require(m['name'] == 'coronacases_001.nii.gz' and m['compression'] in (0, 8), 'FIXED_MEMBER_REQUIRED')
+        require(m['name'] == 'synthetic_fixed_pair.nii.gz' and m['compression'] in (0, 8), 'FIXED_MEMBER_REQUIRED')
         require(0 <= m['header_offset'] < ref['bytes'] and 0 < m['compressed_bytes'] <= ref['bytes']
                 and 0 < m['uncompressed_bytes'] <= 100*1024**2, 'MEMBER_BOUNDS')
         paths.append(Path(ref['path']).absolute())
@@ -185,7 +185,7 @@ def localization_handoff(q, result, receipt_sha):
         technical_status=result['technical_status'], license_disposition=result['license_disposition'],
         evidence_type=('EXTERNALLY_VERIFIED_REFERENCE' if result['status'] == 'PASS' else 'REAL_SOURCE_NOT_YET_QUALIFIED')
             if q.get('schema') else 'GENERATED_ONLY',
-        case_id='coronacases_001', patient_group_id=evidence.get('patient_group_id'),
+        case_id='synthetic_fixed_pair', patient_group_id=evidence.get('patient_group_id'),
         patient_group_provenance=provenance(evidence.get('patient_binding')),
         patient_group_provenance_binding=evidence.get('patient_binding'),
         source_namespace=evidence.get('source_namespace', 'UNKNOWN'), source_version=evidence.get('source_version', 'UNKNOWN'),

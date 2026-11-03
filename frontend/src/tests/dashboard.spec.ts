@@ -37,6 +37,19 @@ describe('Dashboard real Case API page', () => {
     expect(wrapper.text()).not.toContain('总病例')
     wrapper.unmount()
   })
+  it('filters the six-record overview locally and switches view without reloading the API', async () => {
+    const read = vi.spyOn(apiClient, 'listCases').mockResolvedValue(response)
+    const wrapper = await render()
+    await flushPromises()
+    await wrapper.get('input[type=search]').setValue('second')
+    await wrapper.get('select').setValue('EXPIRED')
+    await wrapper.get('[aria-label="病例显示模式"]').findAll('button')[1]!.trigger('click')
+    await flushPromises()
+    expect(wrapper.findAll('.case-cards .case-link').map(link => link.text())).toEqual(['case_second'])
+    expect(read).toHaveBeenCalledTimes(1)
+    expect(wrapper.vm.$route.query).toEqual({ status:'EXPIRED', view:'cards' })
+    wrapper.unmount()
+  })
   it('distinguishes initial loading, empty response and failed refresh while retaining known data', async () => {
     let resolve!: (value: CaseListResponse) => void
     vi.spyOn(apiClient, 'listCases').mockImplementationOnce(() => new Promise(done => { resolve = done }))

@@ -1,0 +1,41 @@
+research_line,method_or_arm,metric,value,unit,denominator,evidence_scope,interpretation_limit
+FORMAL-BL-R18,frozen baseline,slice_AUROC,0.7600836468,proportion,5637 slices,已观察的集合代理标签验证集,标签与来源重合；不能解释为疾病诊断准确性
+FORMAL-BL-R18,frozen baseline,group_AUROC,0.7908163265,proportion,28 proxy groups,已观察的集合代理标签验证集,标签与来源重合；不能解释为疾病诊断准确性
+FORMAL-BL-R18,frozen baseline,group_sensitivity,0.4285714286,proportion,14 proxy-positive groups,已观察的集合代理标签验证集,标签与来源重合；不能解释为疾病诊断准确性
+Stage 1,16/32/64 px full grids,masked_positions,5264958,positions,5637 slices / 28 proxy groups,冻结观察验证集,遮挡位置为重复测量；无病灶真值
+Historical Stage B v2,A,primary_stability,0.4846353528,endpoint,28/28 evaluable groups,相同观察集、单个种子,B缺失按预定规则保留；其他种子及正式bootstrap未运行
+Historical Stage B v2,B,primary_stability,null,endpoint,27/28 evaluable groups,相同观察集、单个种子,B缺失按预定规则保留；其他种子及正式bootstrap未运行
+Historical Stage B v2,C,primary_stability,0.5004087912,endpoint,28/28 evaluable groups,相同观察集、单个种子,B缺失按预定规则保留；其他种子及正式bootstrap未运行
+EPI-NEXT classification,R18 MIL,AUROC,0.95,proportion,20 source groups,固定40训练组和20已观察验证组,患者独立性及预训练交叠未知
+EPI-NEXT classification,CT-FM original head,AUROC,0.45,proportion,20 source groups,固定40训练组和20已观察验证组,患者独立性及预训练交叠未知
+D5a,saved-response replay,mean_masked_positions,225.94,positions per slice,5637 slices / 28 proxy groups,已保存的开发响应,未搜到最大响应不表示医学漏诊；查询位置数不等于实测速度
+D5a,saved-response replay,dense_grid_positions,934,positions per slice,5637 slices / 28 proxy groups,已保存的开发响应,未搜到最大响应不表示医学漏诊；查询位置数不等于实测速度
+D5a,saved-response replay,fine_max_retained,4496,slices,5637 slices / 28 proxy groups,已保存的开发响应,未搜到最大响应不表示医学漏诊；查询位置数不等于实测速度
+D5a,saved-response replay,fine_max_missed,1141,slices,5637 slices / 28 proxy groups,已保存的开发响应,未搜到最大响应不表示医学漏诊；查询位置数不等于实测速度
+P2 offline replay,multi minus single,slices_selected,84,slices,28 proxy groups,每个既有代理组选3片；缓存查询,组差基于各组3片M16的中位数；未执行新的模型推理
+P2 offline replay,multi minus single,arm_input_attempts,168,slice-arm executions,84 slices x 2 arms,每个既有代理组选3片；缓存查询,组差基于各组3片M16的中位数；未执行新的模型推理
+P2 offline replay,multi minus single,group_positive,11,groups,28 paired proxy groups,每个既有代理组选3片；缓存查询,组差基于各组3片M16的中位数；未执行新的模型推理
+P2 offline replay,multi minus single,group_negative,10,groups,28 paired proxy groups,每个既有代理组选3片；缓存查询,组差基于各组3片M16的中位数；未执行新的模型推理
+P2 offline replay,multi minus single,group_ties,7,groups,28 paired proxy groups,每个既有代理组选3片；缓存查询,组差基于各组3片M16的中位数；未执行新的模型推理
+P2 offline replay,multi minus single,group_mean_paired_delta,-0.017612936307809184,probability difference,28 paired proxy groups,每个既有代理组选3片；缓存查询,组差基于各组3片M16的中位数；未执行新的模型推理
+P2 offline replay,multi minus single,group_median_paired_delta,0.0,probability difference,28 paired proxy groups,每个既有代理组选3片；缓存查询,组差基于各组3片M16的中位数；未执行新的模型推理
+P2 offline replay,multi minus single,model_calls,0,calls,168 slice-arm replays,每个既有代理组选3片；缓存查询,组差基于各组3片M16的中位数；未执行新的模型推理
+TECH-A,real technical smoke,queries_completed,102,score inputs,102 requested inputs,1个既用训练输入、1次技术执行,验证输入和调用计量；不计入开发pilot的任一臂
+TECH-A,real technical smoke,masked_inputs_constructed,100,masked inputs,100 planned masked inputs,1个既用训练输入、1次技术执行,验证输入和调用计量；不计入开发pilot的任一臂
+TECH-A,real technical smoke,batches_validated,15,forward batches,15 attempted batches,1个既用训练输入、1次技术执行,验证输入和调用计量；不计入开发pilot的任一臂
+P2 development pilot,two planned arms,arms_used,0,arms,2 planned arms / 1 input,开发技术输入,两臂均未运行；登记不产生主终点
+P2 development pilot,single parent,M16,null,probability difference,1 planned arm,NOT_RUN,未观测数值与测得零值不同
+P2 development pilot,multi parent,M16,null,probability difference,1 planned arm,NOT_RUN,未观测数值与测得零值不同
+P2 development pilot,multi minus single,paired_M16_delta,null,probability difference,1 planned pair,NOT_RUN,两臂均无真实端点
+P2 scientific Stage B,predeclared comparison,study_status,NOT_RUN_NOT_ADMITTED,status,cohort not yet bound,未来独立研究,样本与独立准入尚缺；本行没有效应估计
+R133,B0,native_Dice_at_5pct,0.127335,proportion,1 public training case / 8 fixed planes,首个开发病例的固定K8平面、5%面积,B0/B1同CAM同参考；仅覆盖所选平面，不能估计全卷或人群效能
+R133,B1,native_Dice_at_5pct,0.0,proportion,1 public training case / 8 fixed planes,首个开发病例的固定K8平面、5%面积,B0/B1同CAM同参考；仅覆盖所选平面，不能估计全卷或人群效能
+R143,N8,mean_native_Dice_at_5pct,0.038141,proportion,12 internal development cases,掩膜派生空间监督头；固定K8域和5%面积,病例等权均值；不能归为纯类别标签弱监督
+R143,N16,mean_native_Dice_at_5pct,0.055091,proportion,12 internal development cases,掩膜派生空间监督头；固定K8域和5%面积,病例等权均值；不能归为纯类别标签弱监督
+R143,N31,mean_native_Dice_at_5pct,0.058354,proportion,12 internal development cases,掩膜派生空间监督头；固定K8域和5%面积,病例等权均值；不能归为纯类别标签弱监督
+R162,fixed global threshold,mean_native_Dice,0.037958374418922254,proportion,12 exposed development cases,掩膜监督N31在另一开发队列的固定K8评价,均值和中位差反映不同方向；独立患者资格未确认
+R162,TopArea5%,mean_native_Dice,0.036822896867779016,proportion,12 exposed development cases,掩膜监督N31在另一开发队列的固定K8评价,均值和中位差反映不同方向；独立患者资格未确认
+R162,threshold minus TopArea5%,improved,4,cases,12 exposed development cases,掩膜监督N31在另一开发队列的固定K8评价,均值和中位差反映不同方向；独立患者资格未确认
+R162,threshold minus TopArea5%,worse,6,cases,12 exposed development cases,掩膜监督N31在另一开发队列的固定K8评价,均值和中位差反映不同方向；独立患者资格未确认
+R162,threshold minus TopArea5%,equal,2,cases,12 exposed development cases,掩膜监督N31在另一开发队列的固定K8评价,均值和中位差反映不同方向；独立患者资格未确认
+R162,threshold minus TopArea5%,median_paired_Dice_delta,-0.0016251391030513728,difference,12 exposed development cases,掩膜监督N31在另一开发队列的固定K8评价,均值和中位差反映不同方向；独立患者资格未确认

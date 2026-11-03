@@ -15,7 +15,7 @@
           <div class="card-heading"><div><h2 id="dashboard-cases-title">最近病例</h2><p>当前账号 · 保留服务端顺序</p></div><a-button :loading="loading" @click="loadCases">刷新</a-button></div>
           <p v-if="error" class="notice notice-error" role="alert">{{ error }}{{ observedAt ? ' 保留上次读取记录，可能已过期。' : '' }}</p>
           <div v-if="loading && !hasLoaded" class="empty-state compact" role="status">正在读取病例…</div>
-          <CaseTable v-else-if="items.length" :items="items" />
+          <CaseCollection v-else-if="items.length" :items="items" />
           <div v-else-if="hasLoaded && !error" class="empty-state"><div class="empty-symbol"><EpIcon name="cases" :size="24" /></div><h3>暂无病例</h3><p>创建匿名病例，上传已去标识的单切片 CT DICOM。</p><a-button :loading="creating" @click="createCase">新建病例</a-button></div>
           <div v-else-if="error" class="empty-state compact"><h3>病例无法读取</h3><p>检查网络和认证状态后点击“刷新”。</p></div>
           <div class="table-actions"><span>{{ nextCursor ? '还有更多病例' : '当前页记录' }}</span><RouterLink to="/cases">查看病例中心 →</RouterLink></div>
@@ -45,7 +45,7 @@ import { errorText } from '../api/errors'
 import type { CaseSummary } from '../api/types'
 import { isSessionCurrent, sessionEpoch } from '../auth/lifecycle'
 import { formatDate } from '../format'
-import CaseTable from '../components/CaseTable.vue'
+import CaseCollection from '../components/CaseCollection.vue'
 import EpIcon from '../components/EpIcon.vue'
 import EpStatus from '../components/EpStatus.vue'
 import { jobStatus, shortId } from '../domain/clinical'
