@@ -49,7 +49,7 @@ def index_audit(raw,label_rows,groups):
         if r['Diagnosis'].strip()!=group['source_diagnosis']:raise ValueError('INDEX_DIAGNOSIS_CONFLICT')
         matched.append({'source_group_id':gid,'Index_row':ordinal,'original_Label_Index':int(r['Label Index']),
                         'annotation_case_index':int(r['Label Index'])-base,'folder':folder})
-    corrected_rows=[int(r['Label Index'])-base for r in rows if r['Folder/ID'].strip() in ('P001','P006') and r['Diagnosis'].strip()=='COVID-19']
+    corrected_rows=[int(r['Label Index'])-base for r in rows if r['Folder/ID'].strip() in ('SYNTHETIC-SUBJECT-A','SYNTHETIC-SUBJECT-B') and r['Diagnosis'].strip()=='COVID-19']
     return {'base':base,'base_basis':'INFERENCE_UNIQUE_IN_RANGE_BASE_NOT_EXPLICIT_AUTHOR_STATEMENT',
             'gaps_preserved':True,'rows':len(rows),'matched':matched,'global_author_correction_rows':corrected_rows}
 
@@ -135,6 +135,9 @@ def validate(request,sha,approval=None):
 
 
 def produce(request,sha,approval=None,guard=None):
+    # Real request digests cannot use the redacted source map.
+    if sha != "GENERATED":
+        raise RuntimeError("PUBLIC_SNAPSHOT_SOURCE_BINDINGS_WITHHELD")
     validate(request,sha,approval)
     if approval is None:return {'status':'CHECK_ONLY_NO_REAL_LABEL_OR_HEADER_ACCESS'}
     metadata=ab.prior.read_bound(request['metadata']);groups=metadata['groups']
@@ -168,7 +171,7 @@ def produce(request,sha,approval=None,guard=None):
         selected=[x for x in audit['matched'] if next(g for g in groups if g['source_group_id']==x['source_group_id'])['split']=='val_classification']
         # Updated file is fixed/pinned, fetched once only if a matched registered
         # corrected subject is present; no open-ended discovery or fallback URL.
-        corrected=[x for x in audit['matched'] if x['folder'] in ('P001','P006')]
+        corrected=[x for x in audit['matched'] if x['folder'] in ('SYNTHETIC-SUBJECT-A','SYNTHETIC-SUBJECT-B')]
         updated=None
         if corrected and request['updated_policy']=='IF_REGISTERED_MATCHED_CORRECTED_SUBJECT':
             descriptor=request['pinned_files']['Slice-level-labels-updated-1.npy']
@@ -197,9 +200,9 @@ def produce(request,sha,approval=None,guard=None):
             extent=ab.prior.read_bound(proof)
             if extent.get('source_group_id')!=gid or extent.get('effective_native_count')!=g['depth']:
                 unresolved.append({'source_group_id':gid,'reason':'EXTENT_PROOF_CONFLICT'});continue
-            if match['folder'] in ('P001','P006') and updated is None:
+            if match['folder'] in ('SYNTHETIC-SUBJECT-A','SYNTHETIC-SUBJECT-B') and updated is None:
                 unresolved.append({'source_group_id':gid,'reason':'CORRECTED_VERSION_UNRESOLVED'});continue
-            matrix=updated if match['folder'] in ('P001','P006') else original
+            matrix=updated if match['folder'] in ('SYNTHETIC-SUBJECT-A','SYNTHETIC-SUBJECT-B') else original
             if matrix.shape[1]<g['depth']:
                 unresolved.append({'source_group_id':gid,'reason':'ARRAY_SHORTER_THAN_DECLARED_EXTENT'});continue
             ledger=ab.prior.read_bound(g['geometry_binding']);frames=ledger['frame_ledgers'];order=ledger['sorted_member_indices']
@@ -223,11 +226,11 @@ def produce(request,sha,approval=None,guard=None):
             member_mapping={'path':str(mapping_path),'sha256':mapping_sha}
             labels=[int(x) for x in matrix[match['annotation_case_index'],:g['depth']]]
             ev=dict(evidence,member_mapping=member_mapping,index_base=index_proof,row_extent=proof,index=request['cached_Index'],
-                    labels=receipt.get('updated_payload',request['cached_original_labels']) if match['folder'] in ('P001','P006') else request['cached_original_labels'],
+                    labels=receipt.get('updated_payload',request['cached_original_labels']) if match['folder'] in ('SYNTHETIC-SUBJECT-A','SYNTHETIC-SUBJECT-B') else request['cached_original_labels'],
                     label_version_resolved=True,order_policy='SLICE_LOCATION_DESCENDING')
             references.append(dict(match,source_diagnosis=g['source_diagnosis'],geometry_sha256=g['geometry_binding']['sha256'],
-                label_index_base=audit['base'],version_applicability='VERIFIED_CURRENT' if match['folder'] in ('P001','P006') else 'ORIGINAL_VERSION_EXPLICIT_SCOPE',
-                label_file_version='updated-1' if match['folder'] in ('P001','P006') else 'original-pinned',
+                label_index_base=audit['base'],version_applicability='VERIFIED_CURRENT' if match['folder'] in ('SYNTHETIC-SUBJECT-A','SYNTHETIC-SUBJECT-B') else 'ORIGINAL_VERSION_EXPLICIT_SCOPE',
+                label_file_version='updated-1' if match['folder'] in ('SYNTHETIC-SUBJECT-A','SYNTHETIC-SUBJECT-B') else 'original-pinned',
                 evidence=ev,labels_publisher_domain=labels,declared_valid_publisher_indices=list(range(g['depth'])),range_policy='EXPLICIT_PUBLISHER_EXTENT'))
         receipt['unresolved']=unresolved
         refs={'status':'EXECUTED' if references else 'NOT_RUN','rows':references}

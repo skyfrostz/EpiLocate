@@ -22,7 +22,7 @@ import pytest
 from epi_next import first_case_qualification_v1 as qualification
 
 
-MEMBER = 'coronacases_001.nii.gz'
+MEMBER = 'synthetic_fixed_pair.nii.gz'
 SHAPE = (4, 5, 9)
 
 

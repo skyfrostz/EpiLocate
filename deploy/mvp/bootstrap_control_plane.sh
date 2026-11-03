@@ -6,6 +6,9 @@ if [[ ${EUID} -ne 0 ]]; then
   exit 1
 fi
 
+: "${EPILOCATE_PUBLIC_HOST:?Set the target public hostname before provisioning}"
+[[ ${EPILOCATE_PUBLIC_HOST} =~ ^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$ ]] || { echo "invalid public hostname" >&2; exit 1; }
+
 release_root=/opt/epilocate-mvp/current
 config_root=/etc/epilocate-mvp
 state_root=/var/lib/epilocate-mvp
@@ -63,7 +66,7 @@ SQL
     printf 'EPILOCATE_V2_LEASE_SECRET=%s\n' "${lease_secret}"
     printf 'EPILOCATE_V2_S3_BUCKET=%s\n' "${bucket}"
     printf 'EPILOCATE_V2_S3_ENDPOINT=http://127.0.0.1:59000\n'
-    printf 'EPILOCATE_V2_S3_PUBLIC_ENDPOINT=https://project.xbstu.com\n'
+    printf 'EPILOCATE_V2_S3_PUBLIC_ENDPOINT=https://%s\n' "${EPILOCATE_PUBLIC_HOST}"
     printf 'EPILOCATE_V2_S3_REGION=us-east-1\n'
     printf 'EPILOCATE_V2_S3_ADDRESSING_STYLE=path\n'
     printf 'EPILOCATE_V2_S3_SERVER_SIDE_ENCRYPTION=false\n'
@@ -78,7 +81,7 @@ fi
 if [[ ! -f ${config_root}/gateway.env ]]; then
   temporary=$(mktemp "${config_root}/.gateway.env.XXXXXX")
   {
-    printf 'EPILOCATE_GATEWAY_PUBLIC_ORIGIN=https://project.xbstu.com\n'
+    printf 'EPILOCATE_GATEWAY_PUBLIC_ORIGIN=https://%s\n' "${EPILOCATE_PUBLIC_HOST}"
     printf 'EPILOCATE_GATEWAY_BACKEND_ORIGIN=http://127.0.0.1:8890\n'
     printf 'EPILOCATE_GATEWAY_ACCOUNTS_FILE=%s/secrets/accounts.json\n' "${state_root}"
     printf 'EPILOCATE_GATEWAY_SESSIONS_FILE=%s/gateway/sessions.sqlite3\n' "${state_root}"

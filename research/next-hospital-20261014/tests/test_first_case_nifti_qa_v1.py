@@ -326,8 +326,8 @@ def test_generated_near_capacity_100m_voxels_is_streamed_within_RSS(tmp_path, re
             shutil.copyfileobj(src, dst, length=65536)
         archive_path = tmp_path/(role+'.zip')
         with zipfile.ZipFile(archive_path, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
-            archive.write(gz_path, 'coronacases_001.nii.gz')
-            info = archive.getinfo('coronacases_001.nii.gz')
+            archive.write(gz_path, 'synthetic_fixed_pair.nii.gz')
+            info = archive.getinfo('synthetic_fixed_pair.nii.gz')
         stat = archive_path.stat()
         targets.append(dict(role=role, archive=dict(path=str(archive_path), bytes=stat.st_size,
             device=stat.st_dev, inode=stat.st_ino, mtime_ns=stat.st_mtime_ns,

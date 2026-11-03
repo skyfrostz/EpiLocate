@@ -11,7 +11,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((items, value, inde
 const phase = args.phase || 'final'
 const base = args.url || process.env.FRONTEND_QA_URL || 'http://127.0.0.1:5198'
 const here = dirname(fileURLToPath(import.meta.url))
-const root = resolve(args.root || process.env.FRONTEND_QA_ROOT || (['/tmp', '/private/tmp'].includes(here) ? '/Users/skyfrost/.codex/worktrees/clinical-canvas-v1/infectious-ct-ai/frontend' : join(here, '..')))
+const root = resolve(args.root || process.env.FRONTEND_QA_ROOT || join(here, '..'))
 const fixturePath = name => join(root, '.local', name)
 
 assert(['127.0.0.1', 'localhost'].includes(new URL(base).hostname), 'QA must only target a local server')

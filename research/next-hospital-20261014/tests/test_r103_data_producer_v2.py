@@ -8,8 +8,8 @@ from test_archive_bound_ab_v2 import fixture,write
 
 
 def test_global_corrections_do_not_extend_registered_scope():
-    raw=b'Label Index,Diagnosis,Relative Path,Folder/ID\n0,COVID-19,COVID-19 Cases,P001\n1,COVID-19,COVID-19 Cases,P006\n2,CAP,CAP Cases,P001\n'
-    groups=[dict(source_subject_directory='COVID-19 Cases/P001',source_group_id='A',source_diagnosis='COVID-19')]
+    raw=b'Label Index,Diagnosis,Relative Path,Folder/ID\n0,COVID-19,COVID-19 Cases,SYNTHETIC-SUBJECT-A\n1,COVID-19,COVID-19 Cases,SYNTHETIC-SUBJECT-B\n2,CAP,CAP Cases,SYNTHETIC-SUBJECT-A\n'
+    groups=[dict(source_subject_directory='COVID-19 Cases/SYNTHETIC-SUBJECT-A',source_group_id='A',source_diagnosis='COVID-19')]
     audit=p.index_audit(raw,3,groups)
     assert audit['global_author_correction_rows']==[0,1] and len(audit['matched'])==1
     old=np.zeros((3,8),dtype='uint8');new=old.copy();new[1,0]=1
@@ -20,7 +20,7 @@ def test_global_corrections_do_not_extend_registered_scope():
 
 
 def test_ambiguous_base_and_duplicate_rejected():
-    raw=b'Label Index,Diagnosis,Relative Path,Folder/ID\n1,COVID-19,COVID-19 Cases,P001\n'
+    raw=b'Label Index,Diagnosis,Relative Path,Folder/ID\n1,COVID-19,COVID-19 Cases,SYNTHETIC-SUBJECT-A\n'
     assert p.index_audit(raw,3,[])['base'] is None
     with pytest.raises(ValueError,match='DUPLICATE_LABEL_INDEX'):p.index_audit(raw+raw.splitlines()[1]+b'\n',3,[])
 

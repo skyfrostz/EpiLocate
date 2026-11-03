@@ -1,26 +1,17 @@
-# EpiLocate Canonical Source Map
+# 源码分布与整合边界
 
-当前主线保留原公开 `main` 历史，并按文件导入独立 Clinical Canvas 快照 `117ce7a61c6bd8ba6893ecb83445d8647c9965a1`。下表的内部来源提交只是来源指针，不是新主线的祖先。目录保持原位；完整内部历史留在本地，详见 [Source Provenance](../handoff/SOURCE_PROVENANCE.md)。
+| 路径 | 实际职责 | 审查和修改时应遵守的边界 |
+|---|---|---|
+| `apps/landing/` | Welcome，React/Vite 欢迎页 | 独立构建；不提供病例管理、推理和登录会话。 |
+| `frontend/` | Vue 工作台、任务状态、空间响应和影像查看 | 用合成或测试资产验证几何、缩放、会话恢复与错误状态。 |
+| `session_gateway/` | 浏览器会话、请求代理和会话边界 | 后端用户与 Worker 凭据不直接交给前端。 |
+| `backend_v2/` | 病例、输入、任务、结果、资产、身份及数据库迁移 | 权限同时作用于结果与资产；后端不执行模型。 |
+| `worker/` | 独立计算、设备选择、任务协议与结果提交 | 固定模型、几何、预处理和数值容差；设备变化需另行验证。 |
+| `algorithm/`、`src/`、`configs/`、`scripts/` | 基线、数据处理、研究工具与配置 | 开放程序不包括其研究输入、模型或运行许可。 |
+| `research/next-hospital-20261014/`、`epilocate_next/` | 研究准备、协议、生成测试及工程实现 | 定义/检查器的存在不能代替合格参考、受控真实运行与独立准入。 |
+| `research/portable-p2/` | 可独立运行的分层查询路由 | 生成分数用于功能检查，只在已查询位置解释响应。 |
+| `research/source-excerpts/r168-roi/` | 可复核的 ROI 前后端和迁移摘录 | 该目录是独立交付内容；是否接入运行中的应用需由目标版本与测试证明。 |
+| `aid_site/`、`epilocate_review_server/`、`gradio_service/` | 展示站、历史人工复核、早期服务与原型 | 三者的账户、受众和用途与 AI 工作台分开。 |
+| `deploy/` | 部署配置和依赖示例 | 指向示例环境；参数清单不构成任何现网状态证明。 |
 
-| 组件 | 当前路径 | 本次来源 | 状态 |
-| --- | --- | --- | --- | --- |
-| Landing | `apps/landing/` | Clinical Canvas 快照；最早来自 Stage 1 备份的 `flow-fluidity/` | 源码纳入，未由本次部署 |
-| Vue AI Web | `frontend/` | Clinical Canvas `117ce7a`，另移植 `8a5928f` 的会话、超时、幂等、焦点行为 | 本地测试与浏览器验收见整合报告 |
-| Showcase | `aid_site/` | Clinical Canvas 快照 | 独立应用，保持原路径 |
-| Review | `epilocate_review_server/` | Clinical Canvas 快照 | 独立应用，保持原路径 |
-| Backend v2 | `backend_v2/` | Clinical Canvas 快照；任务幂等适配 `8a5928f` | API v2 与现有迁移不变 |
-| Session Gateway | `session_gateway/` | Clinical Canvas 快照 | 会话契约不变 |
-| AI Worker | `worker/` | Clinical Canvas 快照；安全诊断移植 `f548a62` | 无 GPU 运行验收 |
-| 研究工具 | `src/`, `scripts/`, `scripts/research/`, `configs/` | 冻结 Stage 1；D10 `d88cc36` 的四个离线工具及测试 | 仅公开工具，无私有检查点与逐患者证据 |
-| 部署模板 | `deploy/mvp/` | Clinical Canvas 快照 | 本次未部署 |
-| 项目文档 | `docs/` | Clinical Canvas 快照、当前研究状态及整合记录 | 历史证据保留原语境 |
-
-旧独立文档来源：`docs/backend-api-phase5-gpu-mvp` @ `4ae2e59ae144e273441884fa676e628a1944a689`，`docs/project-history-engineering-journal` @ `c312d3933f7fe83772542773ae1419a7af44d63c`，以及 `codex/repository-consolidation-v1` @ `f5438fe90dfa4895e0d49a1f688b7d2cd9df36a0`。这些已在 Clinical Canvas 文件快照中按文件纳入，不表示原分支整体合并。
-
-`algorithm/`、`src/`、`scripts/`、`configs/` 属于仍被调用或受冻结边界约束的研究/算法路径；`gradio_service/` 仍有运行依赖。它们在本轮规划中保留在仓库根目录，不列入自动归档。Landing 已按路径审计导入；研究数据、构建产物和本地环境未随之导入。
-
-本清单只描述代码来源。线上 `/mvp/`、GPU 节点、数据库和域名状态必须单独复核；Git 主线更新不构成部署证明。
-
-## 2026-10-14 EPI-NEXT 源码发布增量
-
-`research/next-hospital-20261014/`、`epilocate_next/` 及相应 Backend/Frontend/Worker/QA 增量按文件来自四条既有 EPI-NEXT 工作线。共享文件冲突按所属工作线当前实现解决，私有历史不并入公开祖先。来源提交、DATA 未提交源码快照、脱敏与回归范围见 [四线源码导入记录](EPI_NEXT_SOURCE_IMPORT_20261014.md)。该增量包含实验实现和生成测试，医院展示与真实科研执行仍受各自权限和绑定限制。
+历史整合采用按文件导入。较早规划中的 `services/` 等迁移目标不代表已迁移；应以仓库实际实现为准。[来源与公开范围](../handoff/SOURCE_PROVENANCE.md) · [模块验收手册](../engineering/PUBLIC_OPERATOR_GUIDE.md)

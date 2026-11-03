@@ -8,7 +8,7 @@ fixtures can exercise the contract but cannot establish real qualification.
 import numpy as np
 from . import medical_localization_r108 as core
 
-CASE_ID = 'coronacases_001'
+CASE_ID = 'synthetic_fixed_pair'
 ARCHIVES = dict(
     CT='0000000000000000000000000000000000000000000000000000000000000000',
     GT='0000000000000000000000000000000000000000000000000000000000000000')

@@ -11,7 +11,7 @@ fi
 repo_url=$1
 commit=$2
 destination=$3
-branch=handoff/pre-b-transfer-20260929
+branch=main
 
 if [[ ! $commit =~ ^[0-9a-f]{40}$ ]]; then
   echo "a full lowercase Git commit SHA is required" >&2
@@ -30,7 +30,7 @@ trap 'rm -rf -- "$staging"' EXIT
 git clone --quiet --no-checkout --single-branch --branch "$branch" -- "$repo_url" "$staging/repository"
 git -C "$staging/repository" cat-file -e "${commit}^{commit}"
 if ! git -C "$staging/repository" merge-base --is-ancestor "$commit" "refs/remotes/origin/${branch}"; then
-  echo "commit is not on the expected GitHub handoff branch" >&2
+  echo "commit is not on the expected main branch" >&2
   exit 1
 fi
 

@@ -1,11 +1,7 @@
-# EPI-NEXT status through the R127 closeout
+# 2026-10-17 研究多线源码整合 · 公开摘要
 
-This public summary supersedes the dated R18/no-result statements in the 2026-10-14 snapshot. It exposes no private execution manifests or medical assets.
+该次按文件导入数据资格、编码器、空间评价和系统集成源码、生成测试和通用协议。冻结的多实例分类器在已观察的 20 个来源组上记录 AUROC 0.95、AP 约 0.954、准确率 0.85。这是开发划分上的分类观察，未证明独立患者泛化或定位精度。
 
-The frozen R18 development validation recorded AUROC 0.95, AP approximately 0.954 and accuracy 0.85 on the existing observed 20-group validation cohort. This is not an independent test or clinical generalization claim. CT-FM and Ridge remain frozen; no new tuning or holdout selection follows from these results.
+当时固定来源的一次 CT/参考配对通过容器完整性检查，但未满足已知空间单位要求；没有形成合格的空间评价分母。程序具有映射、叠加与计算入口不能替代资格。后续不同来源确有固定 K8 限定范围的真实重叠结果，应按日期和队列另行解释。
 
-The fixed first CT/infection-reference pair passed ZIP/gzip integrity checks. The qualification entry rejected the CT at `KNOWN_SPATIAL_UNITS_REQUIRED`. The raw unit code, CT shape, dtype and scaling were not persisted before rejection; CT numeric scanning did not run. This does not establish file corruption or a proven unit-decoder defect. Pair geometry and fixed K8 remain unqualified, with medical denominator null. There is no first-case real R18 CAM or Dice/IoU result.
-
-The frozen signed-CAM, B0/B1 and research-overlay implementations exist. B0 is the first planned medical overlap route at fixed 5%, 10% and 20% K8 area after qualification and separately authorized CAM production. Unknown reference coverage is not normal background or a zero score. Real model calls, medical-array consumption, demonstration and recording require their applicable independent authorization; source publication is none of these.
-
-R128 concentrates on metadata-before-medical-rejection diagnostics, source HU and reference-extent evidence, and a new single fixed-pair request. At this publication checkpoint those new changes are in preparation, not part of the imported source snapshot. See the [source import and test boundaries](../consolidation/EPI_NEXT_SOURCE_IMPORT_20261017.md).
+源码发布检查包含四条线的生成输入，并有明确的私有条件跳过与一个已知整数存读不一致问题。实际测试数及范围见[工程日志](../project/ENGINEERING_JOURNAL.md)。后续工作和受限结论见[11 月审查](../review/PROJECT_REVIEW_20261103_ZH.md)。

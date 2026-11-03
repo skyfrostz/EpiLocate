@@ -8,7 +8,7 @@
 - 每个请求必须带 `X-Request-ID`（UUID）。服务器按其生成/回显请求追踪 ID；日志不能记录 Authorization、lease token、签名 URL、DICOM 内容或文件名。Worker 响应统一 `Cache-Control: no-store`。领取使用 POST，因为它会原子地使 Job 从 `QUEUED` 进入 `RUNNING`。
 - 标准错误体：`{"code":"STABLE_CODE","message":"脱敏说明","retryable":false,"request_id":"uuid","details":{}}`。`retryable` 是对**当前 HTTP 请求**能否安全重发的提示，不能代替 Job 的重试分类。认证和对象归属先于返回资源是否存在的细节。
 - 所有 `job_id/case_id/slice_id/worker_id` 均为匿名公共 ID。Worker 没有枚举其他 Case、结果或 Worker 的权限；领任务只授予该 Attempt 的输入读取和结果提交范围。输入签名 URL 最长有效 5 分钟，绑定私有对象、方法和有效期；不放在日志、持久结果或浏览器响应中。
-- v1 每节点最多一个 `RUNNING` Attempt。节点心跳间隔 15 秒，离线判定 45 秒，Job 租约 90 秒；以服务器时间为准。状态、重试与终态见 [backend_api_contract_v2_freeze.md](backend_api_contract_v2_freeze.md)。
+- v1 每节点最多一个 `RUNNING` Attempt。节点心跳间隔 15 秒，离线判定 45 秒，Job 租约 90 秒；以服务器时间为准。状态、重试与终态见 backend_api_contract_v2_freeze.md（历史资料）。
 
 ## 1. Register
 

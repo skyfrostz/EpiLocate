@@ -1,39 +1,10 @@
-# EpiLocate Handoff Status
+# 公开交付与证据说明
 
-**Public branch:** `handoff/pre-b-transfer-20260929`
-**Repository model:** independent sanitized Git root from an audited file tree; it does not contain the complete internal development history. See [SOURCE_PROVENANCE](SOURCE_PROVENANCE.md).
-**Evidence date:** 2026-09-29. This is an Engineering MVP, **Not Production · Not Clinical**.
+| 可交接的内容 | 接手后可以检查 | 仍需独立取得的证据 |
+|---|---|---|
+| 工作台、后端、网关、Worker 及契约 | 模块边界、接口语义、依赖、生成输入下的单测及历史工程验收条件 | 同一候选干净重建，目标环境完整推理、回滚、账户隔离与恢复 |
+| 冻结研究协议与聚合结果 | 指标定义、代理标签与身份边界、样本和位置总数、未运行或不可评状态 | 经批准的原始输入和版本、合格参考、独立患者确认性验证 |
+| 可移植 P2 与 ROI 摘录 | 预算约束、单父/多父算法和生成对照；ROI 版本与几何代码 | 同输入两臂真实先导；ROI 完整应用接入、迁移链及端到端验收 |
+| 静态生成原型、图表、工程记录 | 内部结果展示方式、交互思路和工程演进 | 正向真实推理、医生评价与科研结论按各自原件判断 |
 
-## Release gates
-
-| Gate | Status | Evidence or remaining work |
-| --- | --- | --- |
-| Source-tree reconciliation | PASS | The original 434 candidate payload files were compared byte for byte before documented snapshot changes. Final reconciliation: 416 unchanged, 17 intentionally changed, one excluded image-object manifest, one added provenance file. |
-| Word documents | PASS | All pages of three sanitized copies were visually reviewed in native Word print-quality PDFs: Handoff 8, Redesign 7, API 16. Package metadata, relationships, hidden text, media, and linkable patterns were checked. |
-| Secret / PHI and DICOM | PASS for published candidate | All reachable objects through application commit `649b0c665971cfefcc67509849947b2d3f7e49c7` were scanned: one root, 529 objects, 429 unique blobs, three expanded Word files, one byte-reproduced synthetic DICOM, 55 other images, zero blocking findings. The final commit's complete pre-push scan is recorded as external release evidence. Every later commit requires another scan **before** push. |
-| GitHub sanitized Handoff branch | PASS | Only `handoff/pre-b-transfer-20260929` was ordinary-pushed; no internal refs or sensitive ancestors were published through this branch. |
-| Fresh GitHub clone | PASS | The application commit `649b0c6` passed Landing `npm ci`/build, Vue 36 tests/build, Backend/Gateway/Worker/docs 51 passed and 2 skipped, 148 local Markdown links, and matching `SOURCE_COMMIT`. The final published SHA requires and receives a separate clean-clone record outside this self-referential Git document. |
-| ECS `/welcome/` and Git-based candidate release | PASS | ECS exported from GitHub and built Landing/Vue. `SOURCE_COMMIT` and Backend/Gateway/Sweeper process working directories matched the deployed release SHA; `/welcome/`, `/mvp/`, Review root, and health endpoint responded. Desktop and mobile browser review passed after the Welcome CSP fix. The final published SHA is checked against runtime `SOURCE_COMMIT` in external release evidence. |
-| GPU AI Node | **TEMPORARILY OFFLINE / INTENTIONALLY RELEASED** | The owner released the instance on purpose. This is not a new system failure. Do not retry its old SSH endpoint. |
-| GPU architecture | **PREVIOUSLY VALIDATED** | Earlier GPU-only functional E2E PASS remains historical evidence. It does not establish current availability or CPU/GPU numerical equivalence. |
-| Final Git-based GPU E2E | **PENDING GPU RE-PROVISION** | Pause GPU Worker deployment, GPU `SOURCE_COMMIT` validation, synthetic GPU E2E, and CUDA runtime revalidation until the owner supplies a new SSH host and port. Rebuild from the final Handoff Git SHA and then run synthetic E2E. |
-| Frontend redesign branch | LOCAL PREPARATION; REMOTE PENDING GPU | Point the local `feature/frontend-redesign-phase5` ref to the final sanitized Handoff commit. Ordinary-push only after the remaining final GPU gate passes. |
-
-## GPU rebuild requirements retained
-
-- RTX 3090-class CUDA node; PyTorch `2.4.0+cu121` and pinned Worker dependencies.
-- `pylibjpeg==2.1.0` and `pylibjpeg-libjpeg==2.4.0`.
-- Verified FrozenBaseline checkpoint SHA-256: `548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734`.
-- Do not substitute an ECS CPU Worker for final GPU acceptance. Do not rewrite historical GPU E2E PASS, FrozenBaseline, or CPU/GPU tolerance.
-
-## Known open issues
-
-- CPU/GPU numerical consistency: **FAIL / OPEN**. Observed maximum derived difference `0.0010498762130737305` exceeds fixed `0.0001` tolerance.
-- Frontend failed-job UX and safe Worker traceback context: **OPEN**.
-- Production hardening and independent backup/restore exercise: **INCOMPLETE**.
-- External Landing media usage rights and long-term availability: **OPEN**.
-- Vue dependency audit reported nine advisories (three moderate, six high); triage remains **OPEN**.
-
-## Public snapshot boundary
-
-Restricted medical images and incident evidence, object-level image download manifests, research data, model weights, databases and object-store contents, credentials, logs, caches, virtual environments, and uncommitted research outputs are outside this repository. The complete internal Git history remains local for internal evidence. This public branch begins at a new root and must not be described as the complete development history.
+工作台的历史验收、生成演示、历史回放、受控模型执行和已部署服务分别标注。请先读[项目上下文](../project/PROJECT_CONTEXT.md)、[源码图](../consolidation/SOURCE_MAP.md)及[工程验收手册](../engineering/PUBLIC_OPERATOR_GUIDE.md)。[来源说明](SOURCE_PROVENANCE.md)解释独立快照与既有工程历史之间的关系。发布资料不含逐例证据、真实医疗文件、可直接访问的服务配置或私有恢复原件。

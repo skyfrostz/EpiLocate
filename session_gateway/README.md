@@ -16,7 +16,7 @@ The account file contains password hashes and absolute paths to Backend token fi
 Set these process environment variables:
 
 ```text
-EPILOCATE_GATEWAY_PUBLIC_ORIGIN=https://project.xbstu.com
+EPILOCATE_GATEWAY_PUBLIC_ORIGIN=https://app.example.invalid
 EPILOCATE_GATEWAY_BACKEND_ORIGIN=http://127.0.0.1:8890
 EPILOCATE_GATEWAY_ACCOUNTS_FILE=/secure/accounts.json
 EPILOCATE_GATEWAY_SESSIONS_FILE=/private/sessions.sqlite3

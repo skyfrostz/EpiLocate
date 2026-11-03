@@ -31,4 +31,4 @@ Gateway 显式拒绝的请求错误体仅为 `{"code":"STABLE_CODE"}`，响应 `
 
 ## 当前部署示例，非 API 契约
 
-Phase 5 MVP 测试入口是 `https://project.xbstu.com/mvp/`，不是正式生产环境。Nginx 现将 `/mvp/` 提供 Vue SPA，将同源根路径 `/auth/` 和浏览器 `/api/v2/` 指向 Gateway，将 `/api/v2/workers/` 单独指向 Backend。应用部署到其他域名或子路径时，配置 public origin、Vite base、反向代理路由；不要在组件中写死此测试域名。Worker 直达 Backend 的 HTTPS origin，不经过浏览器 Session Gateway。
+Phase 5 MVP 测试入口是 `https://app.example.invalid/mvp/`，不是正式生产环境。Nginx 现将 `/mvp/` 提供 Vue SPA，将同源根路径 `/auth/` 和浏览器 `/api/v2/` 指向 Gateway，将 `/api/v2/workers/` 单独指向 Backend。应用部署到其他域名或子路径时，配置 public origin、Vite base、反向代理路由；不要在组件中写死此测试域名。Worker 直达 Backend 的 HTTPS origin，不经过浏览器 Session Gateway。

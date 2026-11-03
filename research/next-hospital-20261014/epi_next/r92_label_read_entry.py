@@ -164,6 +164,9 @@ def parse_index(raw,semantics,groups):
 
 
 def run(request, request_sha, approval=None, guard=None):
+    # Real request digests cannot use the redacted source map.
+    if request_sha != "GENERATED_SHA":
+        raise RuntimeError("PUBLIC_SNAPSHOT_SOURCE_BINDINGS_WITHHELD")
     if (request['schema']!='R92_DATA_LABEL_READER_EXECUTABLE_V1'
             or request['caps']!=(AB_CAPS if request['semantics'] is None else CAPS)):
         raise ValueError('EXACT_REQUEST_REQUIRED')
@@ -233,7 +236,7 @@ def run(request, request_sha, approval=None, guard=None):
             for original in audit['rows']:
                 group=dict(original);gid=group['source_group_id']
                 if (gid not in lookup or group['task_label']!=1
-                        or group['source_subject_directory'].rsplit('/',1)[-1] in ('P001','P006')):
+                        or group['source_subject_directory'].rsplit('/',1)[-1] in ('SYNTHETIC-SUBJECT-A','SYNTHETIC-SUBJECT-B')):
                     accepted.append(build_registry([group],[],[],evidence));continue
                 try:
                     if time.monotonic()-start>900:raise old.GuardError('HEADER_PHASE_WALL_LIMIT')

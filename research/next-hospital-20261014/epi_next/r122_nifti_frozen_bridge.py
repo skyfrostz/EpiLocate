@@ -21,7 +21,7 @@ LATE_BOUND_REFS = (
     'task_admission', 'exclusive_dispatch',
 )
 FIRST_CAM_FIXED = dict(
-    case='coronacases_001', member_name='coronacases_001.nii.gz',
+    case='synthetic_fixed_pair', member_name='synthetic_fixed_pair.nii.gz',
     CT_archive_sha256='0000000000000000000000000000000000000000000000000000000000000000',
     Mask_archive_sha256='0000000000000000000000000000000000000000000000000000000000000000',
     model_identity=frozen.FROZEN_IDENTITY,

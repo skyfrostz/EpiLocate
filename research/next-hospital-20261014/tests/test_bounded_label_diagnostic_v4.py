@@ -10,9 +10,9 @@ def binding(path,raw):
 
 
 def request(tmp_path):
-    meta=binding(tmp_path/'meta.json',json.dumps({'groups':[dict(source_group_id='GEN',source_subject_directory='COVID-19 Cases/P001',source_diagnosis='COVID-19')]}).encode())
+    meta=binding(tmp_path/'meta.json',json.dumps({'groups':[dict(source_group_id='GEN',source_subject_directory='COVID-19 Cases/SYNTHETIC-SUBJECT-A',source_diagnosis='COVID-19')]}).encode())
     f=io.BytesIO();np.save(f,np.zeros((3,8),dtype='uint8'))
-    q=dict(schema=d.SCHEMA,caps=d.CAPS,spec=dict(task_key='GENERATED-NEW-DIAGNOSTIC-V4',max_forward=0,max_backward=0),source_bindings=[],runtime_sha256=d.provenance.prior.old.sha(sys.executable),package_versions={},metadata=meta,output_root=str(tmp_path/'output'),cache={'Index':binding(tmp_path/'Index.csv',b'Label Index,Diagnosis,Relative Path,Folder/ID\n1,COVID-19,COVID-19 Cases,P001\n'),'original':binding(tmp_path/'generated.bin',f.getvalue())})
+    q=dict(schema=d.SCHEMA,caps=d.CAPS,spec=dict(task_key='GENERATED-NEW-DIAGNOSTIC-V4',max_forward=0,max_backward=0),source_bindings=[],runtime_sha256=d.provenance.prior.old.sha(sys.executable),package_versions={},metadata=meta,output_root=str(tmp_path/'output'),cache={'Index':binding(tmp_path/'Index.csv',b'Label Index,Diagnosis,Relative Path,Folder/ID\n1,COVID-19,COVID-19 Cases,SYNTHETIC-SUBJECT-A\n'),'original':binding(tmp_path/'generated.bin',f.getvalue())})
     owner=dict(schema='BOUNDED_LABEL_CACHE_DIAGNOSTIC_APPROVAL_V4',status='APPROVED_NEW_SCOPE',request_sha256='GENERATED',permit_exact_cache_read=True,permit_HTTP=False,permit_headers=False,permit_pixels=False,permit_models=False,permit_archive_body=False,retry=False)
     return q,owner
 
