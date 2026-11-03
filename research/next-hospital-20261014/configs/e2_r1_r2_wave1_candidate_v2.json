@@ -1,0 +1,73 @@
+{
+  "schema": "EPI_NEXT_V2_PENDING_COMPUTE_CANDIDATE",
+  "status": "PREPARED_NOT_AUTHORIZATION",
+  "existing_scope_only": "3train patients, same 3 fixed slices; no additional labels, GT candidate generation, training or remote compute",
+  "fixed_slice_lock_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "prepared_delivery_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "E1_freeze_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "device": "cpu",
+  "cpu_threads": 1,
+  "max_rss_bytes": 6442450944,
+  "automatic_retries": 0,
+  "real_execution_requires": "separate exact coordinator execution lock and schedule",
+  "id": "E2-R1-R2",
+  "grids": [
+    [
+      7,
+      7
+    ]
+  ],
+  "stages": 1,
+  "initial_mask": 0.5,
+  "optimizer": {
+    "name": "Adam",
+    "learning_rate": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0,
+    "amsgrad": false
+  },
+  "lambda_candidates": [
+    0.1,
+    1.0
+  ],
+  "max_steps_per_trajectory": 1000,
+  "checkpoint_steps": [
+    100,
+    300,
+    1000
+  ],
+  "gradient_telemetry_steps": [
+    1,
+    100,
+    300,
+    1000
+  ],
+  "similarity_threshold": 0.005,
+  "sparsity_threshold": 0.08,
+  "min_peak_gap": 0.0,
+  "loss_similarity": "sum of squared differences over ALL logits",
+  "loss_sparse": "mean abs of trainable coarse mask",
+  "input_domain": "N(m*x), raw scalar replacement0",
+  "expected_network_forwards": 6006,
+  "network_formula": "3cases*2lambda*(1baseline+1000masked)",
+  "expected_backward_calls": 6000,
+  "expected_autograd_grad_calls": 48,
+  "total_expected_reverse_calls": 6048,
+  "reverse_formula": "6trajectories*(1000loss.backward+4sampled_steps*2autograd.grad)",
+  "max_network_forwards": 7000,
+  "max_reverse_calls": 10000,
+  "soft_timeout_seconds_total": 900,
+  "checkpoint_policy": "save exact mask/Adam/RNG/config at100/300/1000; no automatic continuation; prefix1..100 equality required for lambda.1",
+  "single_scale_only": true,
+  "PSMI": "NOT_APPLICABLE_SINGLE_SCALE",
+  "HIERARCHY": "NOT_RUN",
+  "partial_status": "PARTIAL_BUDGET; best_so_far only; incomplete trajectory cannot claim globally selected CPF",
+  "real_probe_policy": "none outside fixed baseline/trajectory; finite-difference controls are synthetic only",
+  "classifier_parameters_and_buffers": "hash before/after; eval and frozen; no changes allowed",
+  "public_template_only": true
+}

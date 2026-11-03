@@ -1,0 +1,44 @@
+{
+  "experiment_id": "EPI-NEXT-CTFM-MPS-SYNTHETIC-v1",
+  "evidence_type": "REAL_PRETRAINED_ENCODER_SYNTHETIC_INPUT",
+  "checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "seed": 17,
+  "dtype": "float32",
+  "input": "torch.linspace(0,1,D*H*W).reshape(1,1,D,H,W)",
+  "compatibility_shape_dhw": [
+    32,
+    32,
+    32
+  ],
+  "tolerance": {
+    "max_absolute_error": 0.001,
+    "mean_absolute_error": 0.0001,
+    "atol": 0.001,
+    "rtol": 0.0001
+  },
+  "tolerance_scope": "new FP32 synthetic CT-FM gate; does not modify frozen research tolerance",
+  "definition_status": "UNEXECUTED_PROSPECTIVE_DRAFT_NOT_APPLIED_TO_ATTEMPT_1",
+  "execution_requires_coordinator_dispatch": true,
+  "warmup_runs": 1,
+  "inference_runs": 3,
+  "fallback": "strict_disabled",
+  "resource_shapes_dhw": [
+    [
+      64,
+      64,
+      64
+    ]
+  ],
+  "child_timeout_seconds": 120,
+  "rss_limit_bytes": 6442450944,
+  "mps_driver_limit_bytes": 6442450944,
+  "mps_allocator_fraction": 0.32,
+  "minimum_available_system_bytes": 4294967296,
+  "max_swap_increase_bytes": 1073741824,
+  "sampling_interval_seconds": 0.05,
+  "preflight_volume_scale_factor": 1.5,
+  "remote_rtx_3090": "PAUSED",
+  "real_data": "V2_ALLOWLIST_RELEASED_LOCAL_CPU_MPS_ALLOWED_VOLUME_AND_SPATIAL_LEDGER_PENDING",
+  "head_training": "BLOCKED_PENDING_REAL_INPUT_TRUSTED_LABELS_AND_TRAINING_SCOPE",
+  "public_template_only": true
+}

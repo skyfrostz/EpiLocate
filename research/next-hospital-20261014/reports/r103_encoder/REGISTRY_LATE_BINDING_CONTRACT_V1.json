@@ -1,0 +1,40 @@
+{
+  "DATA_contract_reference": null,
+  "allowed_late_fields": "Only actual registry content SHA and completed run control receipt SHAs; no alternate producer request, code commit/source list, output path or old A permission can be supplied by late-binding receipt",
+  "authentication_limit": "SHA is integrity not same-UID authentication; trusted explicit owner approval and chief dispatch remain necessary",
+  "authority": "NEW ENC owner and dispatch bind exact scientific request AND concrete registry_binding SHA; independent admission binds both and new owner SHA; source/request/budget cannot change",
+  "before_producer_locked": "Execution deliberately rejects. This contract must be filled from the final exact DATA request before freezing a runnable ENC request; no arbitrary future registry/commit accepted.",
+  "expected_normal_reference_status": "NOT_RUN_NULL_DENOMINATORS",
+  "immutable_before_owner_approval": [
+    "exact new R103 DATA producer request path/SHA",
+    "exact producer source commit and complete source closure SHA",
+    "fixed development20 registry path",
+    "fixed successful science receipt path/schema/status and request/output field paths",
+    "new DATA approval schema and exact new request binding",
+    "exact producer job/task and supervisor/finished paths"
+  ],
+  "invalid_binding": "fail closed before registry consumption; no repair, trial pairing, retry or model call",
+  "medical_evaluation_ready": false,
+  "no_payload_read_in_preparation": true,
+  "producer_extent_policy": "Fixed exact A request has immutable empty extent_proofs,0 header/archive reads and version/index audit only. No positive reference path. New reference-producing A version and new ENC contract/request approval are required; late receipts cannot add proofs.",
+  "producer_lock": null,
+  "producer_phase_scope": "VERSION_INDEX_AUDIT_ONLY",
+  "registry_schema": "R103_SLICE_REFERENCE_REGISTRY_V1",
+  "registry_view": "exact original20 development groups including unresolved rows; DATA full60 registry remains separate",
+  "resolution_exact_fields": [
+    "schema",
+    "scientific_request_sha256",
+    "registry",
+    "producer_science_receipt",
+    "producer_owner_approval",
+    "producer_supervisor_receipt",
+    "producer_slot_finished"
+  ],
+  "resolution_schema": "R103_DATA_REGISTRY_BINDING_V1",
+  "schema": "R103_REGISTRY_LATE_BINDING_CONTRACT_V1",
+  "scientific_request_immutable": true,
+  "scientific_start_condition": "Same frozen DATA request completed with >=1 confirmed development position. Null/zero -> B NOT_RUN before registry read/queue admission. No backfilled proof may expand A.",
+  "validation": "Committed producer sources and fixed producer request SHA, success science receipt binds request and registry, new producer owner binds same request, original supervisor SUCCESS/slot complete and finished child exit0; then admitted evaluation child may read registry JSON",
+  "public_template_only": true,
+  "status": "UNBOUND_PUBLIC_TEMPLATE_NOT_EXECUTABLE"
+}

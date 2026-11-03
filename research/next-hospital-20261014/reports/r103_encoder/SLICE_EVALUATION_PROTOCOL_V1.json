@@ -1,0 +1,59 @@
+{
+  "AP": "within-group noninterpolated average precision with equal-score thresholds grouped; no positives undefined, all positives=1; never substitute for undefined AUROC",
+  "AUROC": "within-group positive-vs-negative pair concordance; ties=.5; undefined if either class absent",
+  "BAG_semantics": "component_i=beta+a dot f_i; BAG logits=mean_i component_i. Raw weighted terms exclude bias. Changing one actual image with other7 fixed changes BAG logits by component_delta/8 and squared full-logit loss by1/64. Conditional single-slice response is not a region independently explaining an entire CT.",
+  "K": 8,
+  "aggregation": "macro mean of defined per-group metrics, with defined/undefined source-group denominators; no pooled160-slice inferential accuracy, CI or independent-patient claim",
+  "declared_target": {
+    "class_id": 1,
+    "policy": "DECLARED_FIXED"
+  },
+  "distribution": "retain per-position scores/reference status, within-group positive/negative count/mean/median/min/max and ordering; no cross-group threshold fit",
+  "forbidden": [
+    "training",
+    "slice reselection",
+    "ROI selection",
+    "threshold tuning",
+    "registry chosen by prediction",
+    "pixel localization claim",
+    "automatic R102 replay"
+  ],
+  "mechanism": "Known-reference sampling omission only if paired original8 all negative and resolved scan reference has positives; low feature/aggregation/lesion mechanisms remain hypotheses, no forced assignment",
+  "medical_reference": "SLICE_INFECTION_NOT_PIXEL_MASK",
+  "original_target": "ORIGINAL_ARGMAX_FIXED from saved original BAG prediction; Normal class0 responses must not be called infection maps; aggregate original targets separately by class0/class1",
+  "partial_denominator": "Native PARTIALLY_PAIRED means at least1 confirmed native position and incomplete native reference. Only confirmed fixed8 positions enter separate secondary analysis; zero confirmed fixed8 positions are excluded while native status is preserved. Top2 requires >=2 confirmed fixed8 positions; never interpreted as top2 of all8 or merged with primary.",
+  "primary_denominator": "PAIRED groups with all8 confirmed and full native reference extent resolved; each source group has equal weight",
+  "primary_score": "INFECTION_MARGIN_COMPONENT",
+  "random_reference": {
+    "per_group_seed": "SHA256('R103_RANDOM_V1:10317:'+source_group_id) first8 bytes interpreted big endian",
+    "rankings_per_group": 1,
+    "same_denominator": true,
+    "seed": 10317,
+    "selection": "one permutation of exactly the same confirmed positions; no search/selection"
+  },
+  "ranking_ties": "descending score, then ascending native Z index; never medical label",
+  "schema": "R103_SLICE_EVALUATION_PROTOCOL_V1",
+  "scope": "Original observed-development20 source groups, original K8 only; saved JSON contributions, no feature/CT/weight/model read",
+  "score_identity_tolerance": {
+    "atol": 1e-08,
+    "rtol": 1e-10
+  },
+  "secondary_score": "INFECTION_CLASS1_COMPONENT_LOGIT",
+  "status": "PRELOCKED_BEFORE_MEDICAL_REFERENCE_CONSUMPTION",
+  "strata": [
+    "source diagnosis",
+    "saved BAG source-label/prediction relation",
+    "original3 COVID FN posthoc only"
+  ],
+  "threshold": 0.5,
+  "top_k": 2,
+  "top_k_metrics": [
+    "number of positive references in top2",
+    "any positive hit",
+    "precision_at2",
+    "recall_at2 only when positives exist"
+  ],
+  "top_k_rationale": "Fixed two leading positions (25% of the original8), chosen before any medical labels; not selected by GT or observed performance",
+  "unknown_conflict": "never negative, never included in metric denominators; all20 groups must remain in registry with explicit status/reason",
+  "version": "1.0"
+}

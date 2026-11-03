@@ -1,0 +1,166 @@
+{
+  "schema": "E2_FOLLOWUP_PROPOSAL_V5",
+  "profile": "P2_R76_CASE3_TWO_SCALES_TWO_STAGES",
+  "authority": "NOT_AUTHORIZED",
+  "execution_status": "NOT_RUN",
+  "entry": "epi_next.e2_handler_v5.run_prepared_e2",
+  "core_config": {
+    "adam_betas": [
+      0.9,
+      0.999
+    ],
+    "adam_eps": 1e-08,
+    "adapter_policy": "{\"input_domain\":\"frozen prepared scalar CT before RGB normalization\",\"input_hw\":[224,224],\"mask_domain\":\"before normalization\",\"normalization\":\"repeat scalar RGB then subtract [.485,.456,.406] divide [.229,.224,.225]\",\"support_policy\":\"E2-CT: preserve outside valid_support; optimization differs from literal E2-REF over full image\"}",
+    "align_corners": false,
+    "alpha": 0.005,
+    "beta": 0.08,
+    "epsilon": 1,
+    "grids": [
+      7,
+      10
+    ],
+    "image_size": [
+      224,
+      224
+    ],
+    "lam": 1.0,
+    "lr": 0.01,
+    "masking_policy": "preserve_exterior",
+    "mode": "E2-CT",
+    "reference_grid": 7,
+    "stages": 2,
+    "steps": 10000,
+    "tie_policy": "earliest_feasible_epoch_then_first_flat_argmax",
+    "zeta": 0.5
+  },
+  "core_config_sha256": "4da9df5f377e2f7380fab74d28e5fdf6d4817707ad4bbfa0fe50d39c9a7dcec6",
+  "input_binding": {
+    "input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "valid_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "model_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "preprocessing_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "model_adapter_sha256": "0debca405ff9ed247fff95548b8ebeab54c11fbaebb07b04849ac853f9b86e50"
+  },
+  "target_contract": {
+    "schema": "EPI_NEXT_EXPLANATION_TARGET_CONTRACT_V5",
+    "prediction_scope": "SLICE",
+    "explanation_target": {
+      "policy": "ORIGINAL_ARGMAX_FIXED",
+      "declared_class": 1
+    },
+    "class_labels": [
+      "model_class_0",
+      "model_class_1"
+    ],
+    "source_label": null,
+    "model_binding": {
+      "model_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "preprocessing_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "model_adapter_sha256": "0debca405ff9ed247fff95548b8ebeab54c11fbaebb07b04849ac853f9b86e50",
+      "task_version": "FrozenBaseline_2D_SLICE_P1"
+    },
+    "loss_definition": {
+      "optimization_objective": "ALL_LOGITS",
+      "consistency": "Ls=sum_c((f_c(X_stage_baseline)-f_c(masked_X_stage))^2); unnormalized squared logits",
+      "sparsity": "Lm=mean(abs(M)); coarse continuous parameter weights, not binary FOV area",
+      "total": "Ls+lambda*Lm; original per-run HSPIConfig lambda",
+      "cpf": "strict Ls<alpha AND Lm<beta; select maximum top1-top2 M gap, earliest feasible epoch then first flat argmax; no new positive-gap gate",
+      "response_metric": "FIXED_TARGET_LOGIT_MARGIN",
+      "margin": "logit[resolved_class]-max(logit[other classes]); target fixed from original input for every perturbation",
+      "margin_drop": "original_margin-perturbed_margin",
+      "probability": "stable softmax(logits)[resolved_class]; model response, not lesion probability",
+      "probability_drop": "original_probability-perturbed_probability",
+      "readout_fidelity": "sum_c((original_logits_c-readout_logits_c)^2); descriptive float64 reconstruction from saved float32 logits, not a new CPF selection"
+    }
+  },
+  "contract_sha256": "d852001e0db9d52844c900d81251a19b8afb20000b0b3429de11e80bf90b647c",
+  "source_binding": {
+    "core_sha256": "10d71a6390094b578d6b41d593b03a850841451adc61cb97ae68c4f198bebede",
+    "dependency_gate": "current INT dependency/guard lock must be frozen at dispatch; historical SHA does not reauthorize ended P1",
+    "device": "cpu",
+    "dtype": "float32",
+    "historical_supervisor_dependency_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "module_sha256": {
+      "epi_next/e2_handler_v4.py": "062eff4e476280f0f415380d4a0c2bf1e5a2598a31869c7374ba39dd34ff168b",
+      "epi_next/e2_request_v4.py": "b961fbd9ec539d723aa43634e508a4ca227ab1efe86781fa103b1cc1e0debde4",
+      "epi_next/first_real_e1_e2.py": "ea8eae318e62edaa436c8b40dc5619fc25743ab6b502e11a8d7320b06d9fe802",
+      "epi_next/hspi.py": "6607afb02580d1775ed60c02b2e528f07dafab1bc38490be44c17fd37665fc2b",
+      "epi_next/hspi_core_v3.py": "10d71a6390094b578d6b41d593b03a850841451adc61cb97ae68c4f198bebede",
+      "epi_next/localization.py": "f2ac48f799c677cd6508550f19a840f96bb7516da6691de729d2fad7ed78a57d",
+      "epi_next/preprocessed_localization.py": "eccb61b8094c4ab0109d07eacc2e65688c66d714bf6ff19cb7679fa52eff30c4",
+      "epi_next/verification_vnext.py": "fd1d35d1ecd50517b88f2e0cda061f6f15c4bab4803d495ff49bfb87473a6567",
+      "scripts/analyze_p1_mask_v4.py": "c918086c76d6e5745ee5b770bf738a02ddafffe134f2a6d1c63a3e242347f8c0",
+      "scripts/review_p1_retry_v8.py": "e485fe874ef87bb48f0d2eb773dfbcf8d7c690793e6a6dc0ea58b95ba24b7526",
+      "scripts/run_e2_handler_synthetic_v4.py": "28f2f67afd13a4360aba44ce669396ce88eae8c97d60539bfc4cc3d781cd8863",
+      "epi_next/target_contract_v5.py": "30e8e85976ed02311baedd0887768c04d19f031140408a4096cdf020a96444ac",
+      "epi_next/e2_handler_v5.py": "1f2a9be296db87dec1505d9920facab5d6711df71c17ee5c063487af894cb290",
+      "epi_next/e2_readout_v5.py": "0ce27bae836bf9e2ca0f74deabdd127c012b0f233db69339e4cd8cf155b468b5",
+      "epi_next/e2_readout_request_v5.py": "cbcb9e9d9ca3f8ba73be110dbfd12fb49ddca09e1f5ab14d5bfa034b1516a4da",
+      "configs/explanation-target-contract-v5.json": "d852001e0db9d52844c900d81251a19b8afb20000b0b3429de11e80bf90b647c"
+    },
+    "numpy": "2.4.6",
+    "prior_P1_runtime_metadata": "final-readiness-v8.json SHA 3b6afda47c6c58852a9400e3e0ba6162877aa0be77be6b1b8a7017bf9497d801; same package versions",
+    "python_version": "3.11.15",
+    "threads": 1,
+    "torch": "2.14.0",
+    "torchvision": "0.29.0"
+  },
+  "reuse_payload_canonical_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "cost": {
+    "new_branches": 3,
+    "new_baseline_forward": 3,
+    "mask_forward": 30000,
+    "adapter_check_forward": 2,
+    "maximum_forward": 30005,
+    "backward": 30000,
+    "optimizer_updates": 30000,
+    "extra_autograd": 0,
+    "restore": 0,
+    "retry": 0,
+    "audit_replay": 0
+  },
+  "reuse": {
+    "case_index": 3,
+    "selected_epoch": 3604,
+    "grid7_stage1": "verified terminal selection only; same 10000-step branch semantics; no mixed-step optimizer restore",
+    "new_branches": [
+      [
+        7,
+        2
+      ],
+      [
+        10,
+        1
+      ],
+      [
+        10,
+        2
+      ]
+    ],
+    "two_adapter_checks": "counted before core entry, same explicit one-call adapters; failure stops without optimization"
+  },
+  "limits": {
+    "device": "cpu",
+    "threads": 1,
+    "global_seconds_loading_to_cleanup": 1800,
+    "per_branch_seconds": 600,
+    "output_bytes": 67108864,
+    "rss_pre_stop_bytes": 5368709120,
+    "rss_supervision_bytes": 6442450944
+  },
+  "stop_rules": {
+    "CPF": "unchanged strict Ls<.005 AND Lm<.08; full feasible set max gap/earliest epoch/first flat argmax",
+    "PSMI": "whole reference patch; any stage of grid10 supplies at most 1 other-scale vote; retain only >=epsilon1",
+    "empty": "no feasible mask => no stage patch, downstream stage skipped; no reliable final vote => NO_RELIABLE_RESPONSE",
+    "budget": "PARTIAL_BUDGET/PARTIAL_VOTES, provisional candidates; no retry or threshold relaxation"
+  },
+  "prerequisites": [
+    "actual E2-R full result frozen, including failure/negative result",
+    "chief selects this unique followup over historical P2/E2-Q; not simultaneous",
+    "classification/data pipeline not preempted and exclusive slot free",
+    "exact new approval plus INT source/runtime/dependency/guard/loader binding"
+  ],
+  "evaluation": "same existing partial-reference budgets, no GT selection; adaptive case3, not independent test",
+  "status": "PROPOSAL_ONLY; P2/P3 not executed; no entitlement from R76",
+  "public_template_only": true
+}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ case.case_id }} Viewer | EpiLocate Review{% endblock %}
+{% block body_class %}viewer-page{% endblock %}
+{% block content %}
+<main class="viewer-shell" id="series-viewer" data-case-id="{{ case.case_id }}" data-return-url="{{ return_url|default('/review/' ~ case.case_id) }}">
+  <header class="viewer-toolbar">
+    <a class="button button-dark" href="{{ return_url|default('/review/' ~ case.case_id) }}">&larr; 返回复核</a>
+    <div class="viewer-title"><span>{{ case.case_id }}</span><b>完整 Series Viewer</b></div>
+    {% if candidates|length > 1 %}
+    <label class="sync-toggle"><input type="checkbox" id="sync-viewers" checked><span>同步浏览</span></label>
+    {% endif %}
+  </header>
+
+  <section class="viewer-grid viewer-count-{{ candidates|length }}">
+    {% for candidate in candidates %}
+    <article class="viewer-pane" data-pane-index="{{ loop.index0 }}" data-series-uid="{{ candidate.series_uid }}">
+      {% set viewer_alias = '对照项（不可选）' if candidate.selectable == false else candidate.alias|default('候选 ' ~ candidate.display_position|default('A'), true) %}
+      <header><div><span>{{ viewer_alias }}</span><b>{{ candidate.slice_count }} 帧</b></div><code>{{ candidate.series_uid }}</code></header>
+      <div class="slice-stage" tabindex="0" aria-label="{{ viewer_alias }} 切片浏览器">
+        <span class="orientation orientation-top">A</span><span class="orientation orientation-bottom">P</span>
+        <span class="orientation orientation-left">R</span><span class="orientation orientation-right">L</span>
+        <img class="slice-image" alt="当前 CT 切片">
+        <div class="slice-loading">载入切片...</div>
+      </div>
+      <div class="viewer-controls">
+        <button class="icon-button previous-frame" type="button" aria-label="上一帧" title="上一帧">&larr;</button>
+        <label class="frame-slider-label"><span class="sr-only">当前帧</span><input class="frame-slider" type="range" min="1" max="{{ candidate.frame_asset_ids|length }}" value="1"></label>
+        <button class="icon-button next-frame" type="button" aria-label="下一帧" title="下一帧">&rarr;</button>
+        <output class="frame-counter"><b>1</b> / {{ candidate.frame_asset_ids|length }}</output>
+      </div>
+      <ol class="asset-list" hidden>
+        {% for asset_id in candidate.frame_asset_ids %}<li data-asset-id="{{ asset_id }}"></li>{% endfor %}
+      </ol>
+    </article>
+    {% endfor %}
+  </section>
+  <footer class="viewer-help">方向键浏览切片；同步模式按归一化位置对齐左右 Series。固定肺窗 C=-600 / W=1500，不用于临床诊断。</footer>
+</main>
+{% endblock %}
+{% block scripts %}<script src="/static/viewer.js?v=1" defer></script>{% endblock %}

@@ -1,0 +1,44 @@
+{
+  "schema": "R77_R18_SLICE_LOCALIZATION_SCIENTIFIC_PROTOCOL_V1",
+  "status": "PRESPECIFIED_SOURCE_ONLY_NOT_EXECUTION_AUTHORITY",
+  "scope": "Future new R18 LOC explains SLICE model response; no BAG disease-decision explanation and no slice infection truth",
+  "encoder_snapshot": {
+    "head": "cdcd673c9c679939d8d411094bc007b17edd231c",
+    "source": "epi_next/resnet18_mil_v1.py",
+    "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "config": "configs/resnet18_mil_candidate_v1.json",
+    "config_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "aggregation": "eight fixed sampled slice features -> mean -> fixed train-standardized affine head",
+    "sampling": "floor((j+0.5)*native_Z/8), j=0..7; no GT/model selection",
+    "classification_scope": "BAG source category; Normal=0, COVID-19/CAP=1; not slice infection labels"
+  },
+  "loc_target_contract_sha256": "d852001e0db9d52844c900d81251a19b8afb20000b0b3429de11e80bf90b647c",
+  "current_adapter": {
+    "entry": "ENC build_slice_predictor(backbone, head)",
+    "input": "one finite prepared FP32 scalar [1,1,224,224]; exact bound preprocessing before model-specific RGB normalization",
+    "output": "raw FP32 [1,2] SLICE response logits; frozen parameters/eval mode, input gradient retained",
+    "source_label": null,
+    "admission_projection": "ENC slice_contract is a helper summary, not a direct LOC validator payload: build full EPI_NEXT_EXPLANATION_TARGET_CONTRACT_V5 metadata; map verified adapter_sha256 to model_adapter_sha256; include schema, prediction_scope=SLICE, class_labels, source_label=null, model_binding, explanation_target and exact loss_definition; validate before any model call",
+    "truth_limit": "bag training label and input differentiability do not establish slice discrimination or lesion localization"
+  },
+  "eight_slice_algebra": {
+    "conditions": "same frozen affine head, train-only mu/sigma, unchanged seven slices and fixed bag; z_i denotes unrounded slice logits under same head",
+    "bag": "z_bag=(1/8)*sum_i z_i",
+    "single_slice_change": "delta_bag=delta_slice/8",
+    "ALL_LOGITS_squared_difference": "Ls_bag=sum_c(delta_bag_c^2)=Ls_slice/64",
+    "precision": "mathematical affine identity; ENC bag FP64 path and returned slice FP32 cast need separately bound numerical tolerance if ever compared; no new computation here",
+    "probability": "softmax probability differences do not follow a fixed 1/8 rule",
+    "prohibition": "BAG must not inherit old SLICE alpha/CPF rates and claim improvement from loss dilution; multiplying by 64 alone does not make different models/calibrations scientifically comparable"
+  },
+  "future_admission_and_evaluation": {
+    "execution": "separate exact E1/E2 comparison approval required; bind final100 head, standardization, class map, preprocessing, adapter, data/geometry and all F/B/update/time/output budgets including adaptation checks; none granted here",
+    "target": "fix ORIGINAL_ARGMAX_FIXED or DECLARED_FIXED before calls; declared must equal resolved, DECLARED_FIXED may differ from prediction; report original/perturbed predicted class separately",
+    "matching": "prelock same approved inputs/valid FOV, E1 16/32/64 grids, fill, area budgets, ties and same E2 core/CPF/Ls/Lm definitions; distinct per-model targets/calibration retained; no direct cross-model absolute logit-loss ranking",
+    "interpretation": "SLICE CPF feasibility is an optimization-process statistic, not disease recognition or localization performance; report null candidates and all failures",
+    "reference": "source-group BAG classification evaluation remains separate; no slice accuracy from bag labels. Localization reference requires independently authorized matching slice annotations and fixed area budgets; unannotated remains UNKNOWN, not automatically FP",
+    "BAG_future": "a different versioned predictor/perturbation protocol must fix bag members, aggregation, target, loss scale, alpha/beta/lambda, budgets and evaluation before outcomes; current LOC v5 rejects BAG substitution",
+    "anti_selection": "freeze these scope/scale/evaluation rules before new classifier evaluation; do not choose a favorable explanation protocol, thresholds, cases or seeds from future validation results"
+  },
+  "independence": "E2-R uses its unchanged FrozenBaseline case3 request independently of new R18 training/evaluation. This protocol grants no new E1/E2 calls; P1 frozen, P2/P3 paused.",
+  "public_template_only": true
+}

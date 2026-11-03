@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-kicker"><span>06 / 接口说明</span><span>API CONTRACT / V1</span></div>
+<section class="page-intro"><span class="eyebrow"><span class="eyebrow-line"></span> VERSIONED FOR FUTURE INTEGRATION</span><h1>接口先定义，<br><span class="accent-text">业务待接入。</span></h1><p>所有业务接口均须登录。能力查询可用；影像提交、任务、结果与反馈统一返回 <code>NOT_CONNECTED</code>，不读取或保存业务载荷。</p></section>
+<div class="api-summary"><span>BASE PATH <strong>/api/v1</strong></span><span>AUTH <strong>站点会话</strong></span><span>STATE <strong>NOT_CONNECTED</strong></span></div>
+<section class="api-table-wrap"><table class="api-table"><thead><tr><th>方法</th><th>路径</th><th>用途</th><th>当前状态</th></tr></thead><tbody><tr><td>GET</td><td><code>/capabilities</code></td><td>能力状态与 CSRF 令牌</td><td>可用</td></tr><tr><td>POST</td><td><code>/images</code></td><td>影像提交</td><td>未接入</td></tr><tr><td>POST</td><td><code>/analysis-tasks</code></td><td>创建分析任务</td><td>未接入</td></tr><tr><td>GET</td><td><code>/analysis-tasks/{task_id}</code></td><td>查询任务状态</td><td>未接入</td></tr><tr><td>GET</td><td><code>/results/{result_id}</code></td><td>查询结果</td><td>未接入</td></tr><tr><td>POST</td><td><code>/doctor-feedback</code></td><td>提交医生反馈</td><td>未接入</td></tr></tbody></table></section>
+<section class="api-detail-grid"><article><span class="section-index">AUTHENTICATION</span><h2>登录与请求保护</h2><p>使用安全 Cookie 会话。修改类请求需在 <code>X-CSRF-Token</code> 请求头中提供由能力查询返回的令牌；未登录返回 <code>401</code>。</p></article><article><span class="section-index">PLACEHOLDER RESPONSE</span><h2>统一占位状态</h2><pre>{
+  "code": "NOT_CONNECTED",
+  "status": "NOT_CONNECTED",
+  "capability": "image_submission",
+  "message": "该能力尚未接入…"
+}</pre><p>业务接口当前返回 HTTP 503。请求正文不会被业务处理。</p></article></section>
+<section class="note-panel"><span class="note-icon">↳</span><div><h3>完整契约</h3><p>版本化 OpenAPI 文档可在登录后访问 <a href="/api/v1/openapi.json">/api/v1/openapi.json ↗</a>。影像元数据、阶段与状态、定位区域、解释信息和医生修正记录的类型定义见交付源码中的接口文档。</p></div></section>
+{% endblock %}

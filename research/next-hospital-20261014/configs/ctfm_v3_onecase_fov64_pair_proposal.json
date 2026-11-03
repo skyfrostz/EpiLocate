@@ -1,0 +1,167 @@
+{
+  "F1": "HSPI-inspired3D research only; NOT IMPLEMENTED/NOT RUN; not complete3D-HSPI",
+  "approval_preconditions": [
+    "Explicit approval of this new task_key/data purpose and2-call/180s global scope; not old remaining23calls",
+    "INTEGRATION/chief valid external recovery reconciliation of oldUNKNOWN slot without forging oldchild cleanup; existingUNKNOWN currently blocks all new execution",
+    "Final pinned shared supervisor selected by chief; exact runner/config/command source binding reviewed before dispatch",
+    "Dedicated2-call runner and local generated/mocked boundary tests completed before real access; old24-call128 runner must not be invoked with alternate config",
+    "Final64 input/ledger frozen before first model call; DATA independent saved-input geometry QA required for completed engineering smoke",
+    "Actual startuppressure free>=20% and swap baseline; exclusive serial CPU/MPS ownership",
+    "Positive allocator fraction, strict unsupported-op fail, no fallback bypass",
+    "Any incomplete final recovery keeps newslotUNKNOWN; no retry/relaunch"
+  ],
+  "artifact_kind": "SPEC_PROPOSAL_NOT_AUTHORIZATION",
+  "artifacts": [
+    "bound64 normalizedinput.npy + input/source SHA",
+    "half-voxel model64/native/LPS ledger + independent geometry QA",
+    "CPU and MPS full FP32 features",
+    "both whole-Series GAP512 vectors, no logits/head",
+    "complete tensor errors and cold timings",
+    "fsynced attempt/network-enter/return journal",
+    "actual compute-child driver/tensor + supervisor RSS/free/swap timestamps",
+    "cleanup measurements + completion + parent own-group exit/recovery receipt"
+  ],
+  "calls": {
+    "adapter_failed_attempts_included": true,
+    "automatic_retry": false,
+    "backward": 0,
+    "children_restarts_cannot_reset": true,
+    "cpu_calls": 1,
+    "hidden_model_probes": 0,
+    "max_actual_network_entries_global": 2,
+    "max_reserved_forward_global": 2,
+    "mps_calls": 1,
+    "old_Wave1_budget_carryover": 0,
+    "order": [
+      "CPU_SINGLE_UNWARMED",
+      "MPS_SINGLE_UNWARMED"
+    ],
+    "resume_old_job": false,
+    "stop_after_first_failure": true,
+    "timed_repeats": 0,
+    "warmups": 0
+  },
+  "execution_enabled": false,
+  "head_training": "NOT AUTHORIZED/NOT RUN",
+  "implementation": {
+    "frozen_loader_source": {
+      "path": "research/next-hospital-20261014/epi_next/encoder.py",
+      "sha256": "fa990c17c3d3a781d401b1efd5ce7c4f0edd5ebec4e5e9150bc49caeeee8780c"
+    },
+    "implemented_offline_helpers": {
+      "path": "research/next-hospital-20261014/epi_next/encoder_offline_review_v3.py",
+      "sha256": "ac577448f8d29e971a84569a174b8b57b75da0ad4c4e77c5a7940702f6b3fe86"
+    },
+    "new_real_runner": "NOT IMPLEMENTED; must configure a dedicated exact2 schedule, preserve no retry and bind all source before requesting dispatch",
+    "real_command": "NOT PREPARED/NOT EXECUTED; proposal has no executable model CLI",
+    "reuse_design": [
+      "existing loader/extract",
+      "ChildGuard durable2budget + begin_case/end_case + complete",
+      "existing full_compare",
+      "ActualMpsTelemetry/cleanup semantics from immutable Wave1source, isolated package"
+    ]
+  },
+  "job_id": "NOT_ASSIGNED_UNTIL_APPROVAL",
+  "model": {
+    "checkpoint_path": "PRIVATE_BINDING_REQUIRED/model.safetensors",
+    "checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "cpu_threads": 1,
+    "dtype": "float32",
+    "expected_output_shape": [
+      1,
+      512,
+      4,
+      4,
+      4
+    ],
+    "fast_math": "0",
+    "parameters_changed": false,
+    "revision": "527b0d1c262b433396c85ff2de84c427b26945a1",
+    "seed": 17,
+    "strict_fallback": "0"
+  },
+  "numerics": {
+    "atol": 0.001,
+    "comparison_uses_complete_tensor": true,
+    "finite_fp32_required": true,
+    "full_output_pair_count": 1,
+    "max_absolute_error": 0.001,
+    "mean_absolute_error": 0.0001,
+    "performance_claim": "cold/first-call latency only; no warmed benchmark, no reproducibility or3case claim",
+    "rtol": 0.0001
+  },
+  "preprocess": {
+    "derived_spacing_spl_mm": [
+      4.35546875,
+      6.25,
+      6.25
+    ],
+    "kind": "deterministic2x2x2 cell average of saved normalized128cube, FP64 sum thenFP32 output",
+    "mathematical_equivalence": "two-stage area integrals over nested cells equivalent in exact arithmetic; actual savedFP32 input adds roundoff, independent probe threshold6e-8 on generated controls only; do not assume native CT re-encoding equivalence",
+    "model64_to_model128": "q128=2*q64+0.5 eachaxis; compose bound128 model_to_native",
+    "orientation": "SPL",
+    "padding": "NONE_NEW; native padding UNKNOWN",
+    "patch_crop": "NONE",
+    "repeat_hu_normalization": false,
+    "shape": [
+      1,
+      1,
+      64,
+      64,
+      64
+    ],
+    "small_target_information_loss": "UNVALIDATED, additional attenuation expected from averaging; generated one voxel peak1->0.125 is control, not lesion evidence",
+    "support": "entire approved selectedSeries voxel-edge FOV"
+  },
+  "priority": "OPTIONAL_INDEPENDENT_NOT_HSPI_P1_PREREQUISITE",
+  "purpose": "one lowest-cost full-approved-Series encoder feasibility and completeCPU-MPS pair, not classification or clinical accuracy",
+  "remote_RTX3090": "PAUSED",
+  "resources": {
+    "child_sampling_target_seconds": 0.02,
+    "estimated_input_and_two_output_bytes": 1310720,
+    "free_metric": "memory_pressure -Q System-wide memory free percentage",
+    "max_swap_increase_bytes": 1073741824,
+    "minimum_free_percent": 20,
+    "monitored_metrics_not_added": true,
+    "mps_driver_monitored_target_bytes": 6442450944,
+    "mps_driver_pre_stop_bytes": 5368709120,
+    "parent_sampling_target_seconds": 0.05,
+    "peak_resource_and_runtime": "UNMEASURED for full-FOV64 variant; previous64center evidence is contextual only",
+    "per_case_deadline_seconds": 120,
+    "positive_mps_allocator_bytes": 5368709120,
+    "recovery_seconds": 2,
+    "request_grace_seconds": 0.25,
+    "rss_monitored_target_bytes": 6442450944,
+    "rss_pre_stop_bytes": 5368709120,
+    "sampled_peaks_not_absolute": true,
+    "task_asset_limit_bytes": 16777216,
+    "telemetry_max_gap_seconds": 0.25,
+    "term_grace_seconds": 0.75,
+    "torch_startup_in_total_seconds": 15,
+    "total_deadline_seconds": 180,
+    "total_delivery_limit_bytes": 67108864
+  },
+  "risks": [
+    "whole-FOV64 doubles128 spacing and may erase small evidence",
+    "previous64 center execution does not predict fullFOV64 numerical/clinical behavior",
+    "two calls only do not establish warm speed/stability/generalization",
+    "CPU backend/workspace unidentified;8x shape reduction is SPEC, cannot promise resourcePASS",
+    "UNKNOWN oldslot must be reconciled independently; no bypass with newjob",
+    "no reliable approvedcase labels/negativecohort/headtraining; UNKNOWN3 retained"
+  ],
+  "schema": "CTFM_INDEPENDENT_EXPERIMENT_PROPOSAL_V3",
+  "selection": {
+    "case_allowlist": "same approved train case1 only; no fresh raw DICOM/native HU/header/labels/GT read",
+    "case_index": 1,
+    "data_delivery_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "input_QA_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "rule": "original DATA ordinal1 prospectively fixed; no feature/GT/label outcome selection",
+    "source_input_path": "PRIVATE_BINDING_REQUIRED/case_1_input.npy",
+    "source_input_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "source_ledger_path": "PRIVATE_BINDING_REQUIRED/case_1_ledger.json",
+    "source_ledger_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "status": "PROPOSED_NOT_AUTHORIZED",
+  "task_key": "CTFM-V3-ONECASE-FULLSERIES64-PAIR",
+  "public_template_only": true
+}

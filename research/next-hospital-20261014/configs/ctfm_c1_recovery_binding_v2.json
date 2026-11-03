@@ -1,0 +1,113 @@
+{
+  "authority_references": {
+    "administrative_decision": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/ADMINISTRATIVE_RECOVERY_DECISION_20261010_V1.json"
+    },
+    "conditional_approval": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/V3_CONDITIONAL_APPROVAL_RECEIPT_20261010_V1.json"
+    },
+    "consolidated_proposal": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/NEXT_HSPI_EXPERIMENT_REQUEST_V3_CONSOLIDATED.json"
+    },
+    "old_started": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/started.json"
+    },
+    "old_supervisor_receipt": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/supervisor-receipt.json"
+    },
+    "original_command": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/CTFM_V3_FOV64_PAIR_COMMAND_V1.json"
+    },
+    "original_source_binding": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/ctfm_v3_fov64_pair_binding_v1.json"
+    },
+    "owner_recovery_approval": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/OWNER_ADMINISTRATIVE_RECOVERY_APPROVAL_20261010_V1.json"
+    },
+    "r0_result": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/result.json"
+    }
+  },
+  "base_encoder_commit": "37176e81fc12ec012d057709690c56b123a3bad8",
+  "config_path": "PRIVATE_BINDING_REQUIRED/ctfm_v3_fov64_pair_execution_v1.json",
+  "config_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "integration_delivery_commit": "e7ffcdf2c3a0b7489bc5e83c01fc5903a5f221ca",
+  "schema": "CTFM_C1_RECOVERY_READINESS_BINDING_V2",
+  "source_sha256": {
+    "encoder.py": "fa990c17c3d3a781d401b1efd5ce7c4f0edd5ebec4e5e9150bc49caeeee8780c",
+    "encoder_ctfm_mps_smoke.py": "fd669f3ea2e85d6a1b6c51c062f95b26008c2cf30564259f24248202ab80210e",
+    "encoder_fov64_pair.py": "665c9c2efef0acaf44d047d70ab176af6d309697fbe68bd99c4153691d820201",
+    "encoder_fov64_recovery.py": "9e11b0dd1fc40e646eb3bad82b5eee6346f2c1c42710bf5fbed37ee6aa790bbb",
+    "encoder_offline_review_v3.py": "ac577448f8d29e971a84569a174b8b57b75da0ad4c4e77c5a7940702f6b3fe86",
+    "encoder_real_input.py": "6947b12836f137e35e7ae66cb3671c3e2b351806652a685d7d230b6af702eb78",
+    "encoder_real_smoke.py": "404af02b081cc968136d307c7e570f0f7cce0ef4f127f36e2f3b4c029aad7f00",
+    "encoder_volume_dry_run.py": "322e18465b7a4a90634667e124ba7622ac0e528f550c4476561a98a123ae91b0",
+    "encoder_volume_guard.py": "206cd55a2840622486a3635a864ac732b5335c4bc4a4380616c7a0ef4fb3eb9b",
+    "encoder_volume_runner.py": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "spec_path": "PRIVATE_BINDING_REQUIRED/ctfm_v3_fov64_pair_spec_v1.json",
+  "spec_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "state": "PREPARATION_NOT_DISPATCH",
+  "supervisor_bundle": {
+    "bundle_receipt": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/bundle_receipt.json"
+    },
+    "consumption_index": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/CONSUMPTION_INDEX.json"
+    },
+    "dependency_lock": {
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "path": "PRIVATE_BINDING_REQUIRED/dependency_lock.json"
+    },
+    "dependency_root": "PRIVATE_BINDING_REQUIRED/EPI-NEXT-shared-supervisor-recovery-v3",
+    "initializer_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "modules": {
+      "artifacts": {
+        "path": "PRIVATE_BINDING_REQUIRED/artifacts.py",
+        "sha256": "3ba97a3bc226991a3b15d144c34ef082f0bad14467aeef3af83f85a8bd31631c"
+      },
+      "contracts": {
+        "path": "PRIVATE_BINDING_REQUIRED/contracts.py",
+        "sha256": "2b67e80410672a7547d0d117db76d6f91a18b0f68822d08a1721891f5e42f9e5"
+      },
+      "coordinator_writer": {
+        "path": "PRIVATE_BINDING_REQUIRED/coordinator_writer.py",
+        "sha256": "b87111c88b5f14744c9570fb46b9f4f386e56a48e0957755e5a98c45e1fcd496"
+      },
+      "execution_lock": {
+        "path": "PRIVATE_BINDING_REQUIRED/execution_lock.py",
+        "sha256": "3e47a12e6b7bdb02ae1e1961fbadcfa13ecf2b2a2c1be7f54d56b136ad401d6f"
+      },
+      "geometry": {
+        "path": "PRIVATE_BINDING_REQUIRED/geometry.py",
+        "sha256": "5ef5ee0e0680d014034ee0ae206e707f70de848397f1611096d7b574e52db630"
+      },
+      "hospital_contract": {
+        "path": "PRIVATE_BINDING_REQUIRED/hospital_contract.py",
+        "sha256": "299d43d9c04662235770c23013342857c67afe424ef7ef29af2d352771a4922f"
+      },
+      "hospital_runtime": {
+        "path": "PRIVATE_BINDING_REQUIRED/hospital_runtime.py",
+        "sha256": "75b50d9e5d204e647906a3970dcd5f0163db9e216bc2bb4b572f3712c40bde3e"
+      },
+      "wave1_supervisor": {
+        "path": "PRIVATE_BINDING_REQUIRED/wave1_supervisor.py",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "package_path": "PRIVATE_BINDING_REQUIRED/epinext_wave1_supervisor_recovery_v3",
+    "source_git_sha": "c9f5369b7384f4e132365616f8b6f64b624dbea2"
+  },
+  "public_template_only": true
+}

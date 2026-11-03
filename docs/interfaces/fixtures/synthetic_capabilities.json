@@ -1,0 +1,12 @@
+{
+  "contract_version": "1.0",
+  "service_mode": "MOCK",
+  "capabilities": {
+    "mock_prediction": {"state": "available", "evidence": "B branch f153b9b P0", "result_source": "SYNTHETIC_FIXTURE"},
+    "real_baseline_prediction": {"state": "planned", "evidence": "Offline model exists; service adapter absent", "result_source": null},
+    "occlusion": {"state": "planned", "evidence": "Frozen offline validation; service adapter absent", "result_source": "FROZEN_VALIDATION"},
+    "robust_comparison": {"state": "planned", "evidence": "Model not trained", "result_source": null},
+    "lime": {"state": "planned", "evidence": "Method not implemented", "result_source": null},
+    "doctor_feedback": {"state": "planned", "evidence": "Storage and consent workflow not implemented", "result_source": null}
+  }
+}

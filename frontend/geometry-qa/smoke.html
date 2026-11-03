@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8" /><title>Synthetic pixel geometry fixture</title><style>body{font-family:sans-serif;margin:16px;background:#eef3f4}</style></head>
+<body><h1>Synthetic pixel geometry fixture</h1><div id="app"></div>
+<script type="module">
+import '/src/style.css'
+import { createApp, h, ref } from 'vue'
+import * as cornerstone from '@cornerstonejs/core'
+import { metaData, Enums as MetadataEnums } from '@cornerstonejs/metadata'
+import Viewer from '/src/viewer/CornerstoneSliceViewer.vue'
+const oriented = new URLSearchParams(location.search).has('oriented')
+const name = oriented ? 'geometry_synthetic_oriented_ct.dcm' : 'geometry_synthetic_ct.dcm'
+const response = await fetch('/.local/' + name)
+if (!response.ok) throw new Error('Run geometry-qa/create_fixture.py first')
+const file = new File([await response.blob()], name, { type: 'application/dicom' })
+const raster = document.createElement('canvas')
+raster.width = 224
+raster.height = 224
+const context = raster.getContext('2d')
+context.fillStyle = '#ff0000'
+for (const [x, y] of [[0, 0], [216, 0], [0, 216], [216, 216], [108, 108]]) context.fillRect(x, y, 8, 8)
+const layer = { asset_id: 'geometry-markers.png', layer_kind: 'CANDIDATE_RESPONSE', width: 224,
+  height: 224, coordinate_space: 'ALGORITHM_224', value_min: 0, value_max: 1,
+  origin: 'TOP_LEFT_PIXEL_EDGE', x_axis: 'RIGHT', y_axis: 'DOWN', display_interpolation_only: true }
+const overlay = { url: raster.toDataURL('image/png'), sliceId: 'slice_geometry', layer,
+  geometry: { rawWidth: 112, rawHeight: 80, modelWidth: 224, modelHeight: 224, rasterWidth: 224, rasterHeight: 224 } }
+const fixtureApp = createApp({ setup() {
+  const enabled = ref(true)
+  const opacity = ref(0.8)
+  window.__geometryFixture = { cornerstone, metaData, MetadataEnums, enabled, opacity, unmount: () => fixtureApp.unmount() }
+  return () => h('div', { class: 'result-image-panel' }, [
+    h('button', { onClick: () => enabled.value = !enabled.value }, 'toggle'),
+    h('input', { type: 'range', min: 0, max: 1, step: 0.1, value: opacity.value,
+      onInput: event => opacity.value = Number(event.target.value) }),
+    h(Viewer, { file, sliceId: 'slice_geometry', sliceWidth: 112, sliceHeight: 80,
+      overlay, overlayVisible: enabled.value, overlayOpacity: opacity.value }),
+  ])
+} })
+fixtureApp.mount('#app')
+</script></body></html>

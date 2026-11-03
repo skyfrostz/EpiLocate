@@ -1,0 +1,67 @@
+# Formal Rule-B ResNet-18 baseline protocol. This file is frozen before test evaluation.
+experiment_id: FORMAL-BL-R18-V1
+protocol_id: formal-resnet18-baseline-rule-b-v1
+seed: 20260925
+
+data:
+  split_dir: outputs/data/formal_split_rule_b_v1
+  train_csv: outputs/data/formal_split_rule_b_v1/train_manifest.csv
+  val_csv: outputs/data/formal_split_rule_b_v1/val_manifest.csv
+  test_csv: outputs/data/formal_split_rule_b_v1/test_manifest.csv
+  test_set_status: SEALED
+
+input:
+  unit: slice
+  patient_level_training: false
+
+preprocessing:
+  image_size: 224
+  window_center: -600
+  window_width: 1500
+  resize: bilinear_antialias_to_224x224
+  channel_policy: replicate_single_channel_to_rgb
+  normalization: ImageNet_ResNet18_DEFAULT_mean_std
+  augmentation: none
+
+model:
+  name: resnet18
+  pretrained: true
+  num_classes: 2
+  initialization: torchvision_ResNet18_Weights_DEFAULT_ImageNet
+  classification_head: Linear(512, 2)
+  class_index: {negative: 0, positive: 1}
+
+training:
+  loss: CrossEntropyLoss
+  optimizer: AdamW
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  batch_size: 8
+  epochs: 10
+  num_workers: 0
+  device: auto
+  early_stopping: false
+  checkpoint_selection: minimum_validation_loss
+  validation_only_for_selection: true
+
+reproducibility:
+  dataloader_seed: 20260925
+  worker_seed_policy: torch_worker_init_seed
+  cudnn_deterministic_policy: framework_default
+
+evaluation:
+  classification_threshold: 0.5
+  slice_metrics: [loss, accuracy, roc_auc, sensitivity, specificity, confusion_matrix]
+  patient_aggregation: mean_slice_probability
+  patient_prediction: positive_probability_ge_0.5
+  patient_metrics: [loss, accuracy, roc_auc, sensitivity, specificity, confusion_matrix]
+  test_policy: final_registered_evaluation_only_after_protocol_and_checkpoint_freeze
+
+tiny_overfit:
+  slice_count: 32
+  batch_size: 32
+  epochs: 50
+  learning_rate: 0.001
+  min_accuracy: 0.95
+  max_final_loss: 0.20
+  min_loss_reduction_fraction: 0.50

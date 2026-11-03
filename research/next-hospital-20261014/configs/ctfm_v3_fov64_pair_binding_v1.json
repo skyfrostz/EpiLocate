@@ -1,0 +1,44 @@
+{
+  "config_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "own_prior_checkpoint_forward_calls_added": 0,
+  "proposal_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "schema": "CTFM_V3_FOV64_PAIR_SOURCE_BINDING_V1",
+  "source_sha256": {
+    "encoder.py": "fa990c17c3d3a781d401b1efd5ce7c4f0edd5ebec4e5e9150bc49caeeee8780c",
+    "encoder_ctfm_mps_smoke.py": "fd669f3ea2e85d6a1b6c51c062f95b26008c2cf30564259f24248202ab80210e",
+    "encoder_fov64_pair.py": "665c9c2efef0acaf44d047d70ab176af6d309697fbe68bd99c4153691d820201",
+    "encoder_offline_review_v3.py": "ac577448f8d29e971a84569a174b8b57b75da0ad4c4e77c5a7940702f6b3fe86",
+    "encoder_real_input.py": "6947b12836f137e35e7ae66cb3671c3e2b351806652a685d7d230b6af702eb78",
+    "encoder_real_smoke.py": "404af02b081cc968136d307c7e570f0f7cce0ef4f127f36e2f3b4c029aad7f00",
+    "encoder_volume_dry_run.py": "322e18465b7a4a90634667e124ba7622ac0e528f550c4476561a98a123ae91b0",
+    "encoder_volume_guard.py": "206cd55a2840622486a3635a864ac732b5335c4bc4a4380616c7a0ef4fb3eb9b",
+    "encoder_volume_runner.py": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "spec_path": "PRIVATE_BINDING_REQUIRED/ctfm_v3_fov64_pair_spec_v1.json",
+  "spec_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "state": "FIXED_PREPARATION_NOT_APPROVAL",
+  "supervisor_bundle": {
+    "dependency_root": "PRIVATE_BINDING_REQUIRED/EPI-NEXT-shared-supervisor-v2",
+    "dependency_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "files": {
+      "artifacts.py": "3ba97a3bc226991a3b15d144c34ef082f0bad14467aeef3af83f85a8bd31631c",
+      "contracts.py": "2b67e80410672a7547d0d117db76d6f91a18b0f68822d08a1721891f5e42f9e5",
+      "coordinator_writer.py": "b87111c88b5f14744c9570fb46b9f4f386e56a48e0957755e5a98c45e1fcd496",
+      "execution_lock.py": "0000000000000000000000000000000000000000000000000000000000000000",
+      "geometry.py": "5ef5ee0e0680d014034ee0ae206e707f70de848397f1611096d7b574e52db630",
+      "hospital_contract.py": "299d43d9c04662235770c23013342857c67afe424ef7ef29af2d352771a4922f",
+      "hospital_runtime.py": "75b50d9e5d204e647906a3970dcd5f0163db9e216bc2bb4b572f3712c40bde3e",
+      "wave1_supervisor.py": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "import_manifest_path": "PRIVATE_BINDING_REQUIRED/imports.json",
+    "import_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "initializer_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "package_path": "PRIVATE_BINDING_REQUIRED/epinext_wave1_supervisor_v2",
+    "preserved_E1_failed_receipt_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "resource_revision_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "schema": "EPI-NEXT-WAVE1-SUPERVISOR-BUNDLE-2",
+    "source_commit": "2ba7068662efc6004797ccc76144e0faa0229c22",
+    "source_dirty": false
+  },
+  "public_template_only": true
+}

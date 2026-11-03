@@ -1,0 +1,538 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:epilocate:r108:medical-registry:v1",
+  "title": "Metadata contract only; no actual medical payload verified",
+  "type": "object",
+  "required": [
+    "schema",
+    "purpose",
+    "cases"
+  ],
+  "properties": {
+    "schema": {
+      "const": "R108_MEDICAL_REGISTRY_V1"
+    },
+    "purpose": {
+      "const": "development_evaluation"
+    },
+    "cases": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "required": [
+          "case_id",
+          "source",
+          "patient",
+          "license",
+          "image",
+          "gt",
+          "geometry",
+          "fixed_k8",
+          "overlap",
+          "access",
+          "prior_use",
+          "local_use",
+          "failures"
+        ],
+        "properties": {
+          "source": {
+            "type": "object",
+            "required": [
+              "dataset_id",
+              "version",
+              "official_split",
+              "metadata_binding"
+            ],
+            "properties": {
+              "dataset_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "official_split": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "metadata_binding": {
+                "$ref": "#/$defs/binding"
+              }
+            }
+          },
+          "patient": {
+            "type": "object",
+            "required": [
+              "status",
+              "group_id",
+              "evidence"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "VERIFIED",
+                  "UNKNOWN",
+                  "CONFLICT",
+                  "FAILED"
+                ]
+              },
+              "group_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          "license": {
+            "type": "object",
+            "required": [
+              "status",
+              "identifier",
+              "evidence"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "CLEARED",
+                  "UNKNOWN",
+                  "CONFLICT",
+                  "FAILED"
+                ]
+              },
+              "identifier": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          "access": {
+            "type": "object",
+            "required": [
+              "status",
+              "evidence"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "AUTHORIZED",
+                  "UNKNOWN",
+                  "CONFLICT",
+                  "FAILED"
+                ]
+              },
+              "evidence": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          "overlap": {
+            "type": "object",
+            "required": [
+              "status",
+              "evidence"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "CLEARED",
+                  "KNOWN_OVERLAP",
+                  "UNKNOWN",
+                  "CONFLICT",
+                  "FAILED"
+                ]
+              },
+              "evidence": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "by_method": {
+                "type": "object",
+                "maxProperties": 32,
+                "additionalProperties": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "evidence"
+                  ],
+                  "properties": {
+                    "status": {
+                      "enum": [
+                        "CLEARED",
+                        "KNOWN_OVERLAP",
+                        "UNKNOWN",
+                        "CONFLICT",
+                        "FAILED"
+                      ]
+                    },
+                    "evidence": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/$defs/binding"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "image": {
+            "type": "object",
+            "required": [
+              "binding",
+              "hu_status",
+              "evidence"
+            ],
+            "properties": {
+              "binding": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "hu_status": {
+                "type": "string",
+                "enum": [
+                  "NATIVE_HU_VERIFIED",
+                  "WINDOWED_0_255",
+                  "UNKNOWN",
+                  "CONFLICT",
+                  "FAILED"
+                ]
+              },
+              "evidence": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          "gt": {
+            "type": "object",
+            "required": [
+              "binding",
+              "extent",
+              "coverage_domain",
+              "unannotated_is_background",
+              "expert_status",
+              "author_source",
+              "labels",
+              "evidence"
+            ],
+            "properties": {
+              "binding": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "extent": {
+                "type": "string",
+                "enum": [
+                  "COMPLETE",
+                  "PARTIAL",
+                  "UNKNOWN",
+                  "CONFLICT",
+                  "FAILED"
+                ]
+              },
+              "coverage_domain": {
+                "enum": [
+                  "FULL_NATIVE_VOLUME",
+                  "SELECTED_NATIVE_PLANES",
+                  "UNKNOWN"
+                ]
+              },
+              "unannotated_is_background": {
+                "const": false
+              },
+              "expert_status": {
+                "enum": [
+                  "SOURCE_REPORTED",
+                  "VERIFIED",
+                  "UNKNOWN"
+                ]
+              },
+              "author_source": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "labels": {
+                "type": "array",
+                "maxItems": 64,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "value",
+                    "raw_class",
+                    "medical_category"
+                  ],
+                  "properties": {
+                    "value": {
+                      "type": "integer"
+                    },
+                    "raw_class": {
+                      "type": "string"
+                    },
+                    "medical_category": {
+                      "enum": [
+                        "INFECTION",
+                        "LUNG",
+                        "OTHER",
+                        "UNKNOWN"
+                      ]
+                    }
+                  }
+                }
+              },
+              "evidence": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          "geometry": {
+            "type": "object",
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "VERIFIED",
+                  "UNKNOWN",
+                  "CONFLICT",
+                  "FAILED"
+                ]
+              },
+              "axis_order": {
+                "const": "ZYX_TO_LPS_MM"
+              },
+              "shape_zyx": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "spacing_zyx_mm": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "affine_lps_mm": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "qa_binding": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "transform_binding": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ct_gt_native_grid_equal": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            }
+          },
+          "fixed_k8": {
+            "type": "object",
+            "required": [
+              "native_z",
+              "preprocess_binding"
+            ],
+            "properties": {
+              "native_z": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "minItems": 8,
+                "maxItems": 8,
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "preprocess_binding": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/binding"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          "prior_use": {
+            "type": "object",
+            "required": [
+              "training",
+              "development"
+            ],
+            "properties": {
+              "training": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "development": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            }
+          },
+          "case_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "local_use": {
+            "const": "development"
+          },
+          "failures": {
+            "type": "array",
+            "maxItems": 64,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "binding": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  },
+  "description": "Python validator additionally checks fixedK8/native affine/spacing and evidence gates. UNKNOWN/failed records retained; medical denominator remains null. Overlap UNKNOWN/KNOWN_OVERLAP is disclosed by method for descriptive development; it does not block qualified identity/HU/geometry/reference claims and never establishes independent test eligibility.",
+  "public_template_only": true
+}

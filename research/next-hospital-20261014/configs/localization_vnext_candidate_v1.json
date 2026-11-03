@@ -1,0 +1,63 @@
+{
+  "configuration_status": "PENDING_CHIEF_ALGORITHM_CONFIRMATION",
+  "scope": "LOCALIZATION_ALGORITHM_ONLY",
+  "date": "2026-10-09",
+  "E1": {
+    "target_source": "EXTERNALLY_FIXED_TASK_DEFINITION",
+    "patch_sizes": [
+      16,
+      32,
+      64
+    ],
+    "fill_source": "DATA_APPROVED_MODEL_INPUT_BASELINE",
+    "min_response": 0.0,
+    "max_model_calls": 1025,
+    "timeout_seconds": 120.0
+  },
+  "E2": {
+    "grids": [
+      [
+        4,
+        4
+      ],
+      [
+        7,
+        7
+      ]
+    ],
+    "stages": 1,
+    "epochs": 100,
+    "learning_rate": 0.01,
+    "mask_weight": 0.1,
+    "similarity_threshold": 0.005,
+    "sparsity_threshold": 0.08,
+    "min_peak_gap": 0.0,
+    "initial_mask": 0.5,
+    "benchmark_scale": 0,
+    "min_other_scale_support": 1,
+    "max_model_calls": 202,
+    "timeout_seconds": 120.0
+  },
+  "F1": {
+    "stages": 3,
+    "max_extra_evaluations": 32,
+    "timeout_seconds": 120.0,
+    "random_probes": 2,
+    "seed": 20261009,
+    "scales_mm": [
+      16.0,
+      32.0,
+      64.0
+    ],
+    "min_response": 0.0
+  },
+  "evaluation_candidate_budget": "AWAITING_COORDINATOR_FREEZE_NOT_DEFINED_HERE",
+  "real_execution_status": "BLOCKED_BY_DATA_HANDOFF",
+  "real_F1_status": "BLOCKED_UNVERIFIED_CASE_CLASSIFIER",
+  "device": "cpu",
+  "MPS": "SCHEDULED_BY_COORDINATOR_ENCODER_ONLY",
+  "remote_GPU": "PAUSED",
+  "timeout_enforcement": "BETWEEN_FORWARDS",
+  "parameters_optimized": false,
+  "public_template_only": true
+}

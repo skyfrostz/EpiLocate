@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-kicker"><span>04 / 评测计划</span><span>VALIDATION PLAN</span></div>
+<section class="page-intro"><span class="eyebrow"><span class="eyebrow-line"></span> METRICS BEFORE RESULTS</span><h1>明确怎样验证，<br><span class="accent-text">不预设验证结论。</span></h1><p>以下均为计划采用的指标和评价方式。本站没有发布模型性能、临床效果或任何已完成的评测结果。</p></section>
+<div class="evaluation-legend"><span><i class="legend-plan"></i>计划指标</span><span><i class="legend-done"></i>已完成结果：暂无</span></div>
+<section class="metrics-grid" aria-label="计划评测指标">
+  <article><span>01 / CLASSIFICATION</span><h2>分类性能</h2><p>AUC、准确率、敏感度、特异度</p><small>计划在公开数据集与获准的医院验证数据上分别计算。</small></article>
+  <article><span>02 / ROBUSTNESS</span><h2>遮挡鲁棒性</h2><p>预测一致性、置信度波动</p><small>比较不同遮挡比例和位置的分类变化。</small></article>
+  <article><span>03 / STABILITY</span><h2>粗定位稳定性</h2><p>跨尺度区域一致性、重复试验稳定性</p><small>观察候选区域的重叠与漂移。</small></article>
+  <article><span>04 / LOCALIZATION</span><h2>精细定位</h2><p>Dice、IoU、Pointing Game</p><small>以医生手工勾画为评价依据；比较粗定位与 LIME 精细化。</small></article>
+  <article><span>05 / CLINICAL</span><h2>解释一致性</h2><p>临床逻辑一致性评分</p><small>计划通过医生盲评、问卷或访谈评价。</small></article>
+  <article><span>06 / USABILITY</span><h2>交互可用性</h2><p>修正完成率、耗时、主观可用性</p><small>计划记录医生试用过程和反馈。</small></article>
+  <article><span>07 / ENGINEERING</span><h2>工程性能</h2><p>单例推理耗时、模块响应时间、系统体积</p><small>待真实算法接入后在本地部署环境实测。</small></article>
+</section>
+<section class="validation-panel"><div><span class="section-index">HOSPITAL VALIDATION / CONDITIONAL</span><h2>医院验证有明确前提</h2><p>合作医院脱敏影像的外部验证，仅在取得授权、通过伦理审批并实际获得数据后开展。医生标注只用于定位评价，不参与弱监督训练。本站目前不接收真实影像。</p></div><span class="conditional">前提未满足 · 尚未开展</span></section>
+{% endblock %}

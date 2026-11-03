@@ -1,0 +1,64 @@
+{
+  "schema": "E2_BOUNDED_RECOVERY_PROTOCOL_CANDIDATE_V1",
+  "status": "PROPOSED_NOT_RUN_REQUIRES_SEPARATE_COORDINATOR_LOCK",
+  "basis_telemetry_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "E1_freeze_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "case_and_slice_lock_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "C1": {
+    "only_factor_changed": "epochs 100 to 1000",
+    "epochs": 1000,
+    "checkpoints": [
+      100,
+      300,
+      1000
+    ],
+    "grids": [
+      [
+        4,
+        4
+      ],
+      [
+        7,
+        7
+      ]
+    ],
+    "stages": 1,
+    "learning_rate": 0.01,
+    "mask_weight": 0.1,
+    "similarity_threshold": 0.005,
+    "sparsity_threshold": 0.08,
+    "initial_mask": 0.5,
+    "min_peak_gap": 0,
+    "benchmark_scale": 0,
+    "min_other_scale_support": 1,
+    "max_model_calls_per_slice": 2002,
+    "max_total_model_calls": 6006,
+    "timeout_seconds_per_slice": 240,
+    "max_total_wall_seconds": 720,
+    "rss_limit_bytes": 6442450944,
+    "device": "cpu",
+    "threads": 1,
+    "seed": 20261009,
+    "first_100_epochs_exact_match_required": true,
+    "automatic_retries": 0
+  },
+  "S1": {
+    "status": "CONDITIONAL_NOT_LOCKED",
+    "gate": "stable inspectable CPF and separate lock",
+    "only_factor_changed": "one additional scale 5 or 6, one experiment per lock",
+    "three_grid_1000_epoch_formula_total_calls": 9009
+  },
+  "H1": {
+    "status": "CONDITIONAL_NOT_LOCKED",
+    "gate": "first-stage CPF and independent mapping reliable; costs locked after C1",
+    "only_factor_changed": "stages 1 to at most 3",
+    "two_grid_three_stage_1000_epoch_formula_total_calls": 18018,
+    "infeasible_first_stage": "STOP_NO_FORCED_REPEAT"
+  },
+  "evaluation": "same fixed development slices, native FOV, reliable 5/10/20 percent pixel budgets, deterministic ties and partial GT strata; DATA independent only",
+  "nonzero_candidates_required": false,
+  "GT_generation_access": false,
+  "training": false,
+  "remote_GPU": false,
+  "public_template_only": true
+}

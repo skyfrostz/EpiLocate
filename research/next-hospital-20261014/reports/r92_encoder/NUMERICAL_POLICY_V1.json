@@ -1,0 +1,19 @@
+{
+  "schema": "R92_NUMERICAL_POLICY_V1",
+  "status": "SPEC_PRELOCKED_BEFORE_REAL_ARRAY_READS",
+  "date": "2026-10-15",
+  "reference": "R91 evaluation: FP32 slice GAP cast FP64 before K8 mean; saved FP32 head parameters promoted FP64; affine head evaluated FP64",
+  "saved_fp64_logits": {"atol": 1e-8, "rtol": 1e-10},
+  "generated_fp32_reference": {"atol": 1e-4, "rtol": 1e-5},
+  "future_spatial_fp32_gap": {"atol": 1e-5, "rtol": 1e-6},
+  "future_spatial_logits": {"atol": 1e-4, "rtol": 1e-5},
+  "future_spatial_logit_check": "Both absolute/relative gate and reported FP32 pooling roundoff envelope; no hidden residual correction",
+  "scale_floor": 1e-6,
+  "rule": "abs(observed-reference) <= atol + rtol*abs(reference), every element",
+  "failure": "Stop on first real reconstruction or identity failure, retain partial audit; never loosen after observing real differences",
+  "generated_validation": "Fixed seed17 FP32-representative arrays, constant channels at scale floor, cancellation, FP64 expanded vs direct affine, FP32 reference roundoff and conservative gamma_n error envelope; finite generated domain only, not universal proof",
+  "CAM": "Signed class and margin maps plus separate effective bias; positive display maps never used to reconstruct logits",
+  "expert_slice_labels": "UNKNOWN",
+  "prediction_threshold": 0.5,
+  "clinical_validity": "NOT ESTABLISHED"
+}

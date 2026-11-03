@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-kicker"><span>03 / 系统规划</span><span>SYSTEM ARCHITECTURE</span></div>
+<section class="page-intro"><span class="eyebrow"><span class="eyebrow-line"></span> FIVE MODULES / ZERO LIVE DATA</span><h1>先规划流程，<br><span class="accent-text">再接入能力。</span></h1><p>五个模块对应研究方法的工程承载。当前仅实现项目展示与接口占位；各业务模块均未接入。</p></section>
+<div class="system-status"><span class="status-pulse"><span></span> 当前：展示网站已上线</span><span>影像与算法：未接入</span><span>业务数据：不接收、不保存</span></div>
+<section class="module-list">
+  <article class="module-row"><div class="module-index">01</div><div><h2>影像预处理</h2><p>规划 DICOM / NIfTI 解析、窗宽窗位、重采样、归一化与质量控制。</p></div><span class="module-state">未接入</span></article>
+  <article class="module-row"><div class="module-index">02</div><div><h2>分类与遮挡分析</h2><p>规划图像级或病例级标签分类，以及多尺度分块遮挡前后的预测变化分析。</p></div><span class="module-state">未接入</span></article>
+  <article class="module-row"><div class="module-index">03</div><div><h2>逐级稳定粗定位</h2><p>规划逐级缩小候选区域，并比较不同遮挡尺度与重复实验下的定位稳定性。</p></div><span class="module-state">未接入</span></article>
+  <article class="module-row"><div class="module-index">04</div><div><h2>LIME 精细定位与解释</h2><p>规划在粗定位先验范围内分析局部贡献，细化候选区域边界并呈现解释依据。</p></div><span class="module-state">未接入</span></article>
+  <article class="module-row"><div class="module-index">05</div><div><h2>临床交互</h2><p>规划医生对定位区域的确认、圈改、增删和反馈记录。</p></div><span class="module-state">未接入</span></article>
+</section>
+<section class="workbench-card"><div><span class="section-index">DEMO WORKBENCH</span><h2>演示工作台 · 待开放</h2><p>真实数据、可复现算法、相应授权及伦理流程具备后，再开放影像分析与医生交互。当前不会展示模拟诊断结果。</p></div><span class="locked-tag">LOCKED / 未开放</span></section>
+{% endblock %}

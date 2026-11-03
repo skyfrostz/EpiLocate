@@ -1,0 +1,177 @@
+{
+  "controls": {
+    "HSPI_peak": "same R102 R18 fixed8-step coarse Mask argmax whole nearest cell, 2new keep/remove calls; not old classifier case3 mask",
+    "final_candidate": "three final soft keep and six exact hard keep/remove calls; all methods same conditional BAG and support",
+    "fixed_random": "single seed17 PCG64 permutation of ascending valid flat indices, nested5/10/20 prefixes, six new keep/remove calls",
+    "random_inference": "one fixed pixel permutation and at most5 translations are descriptive controls, no significance claim",
+    "reused_R102": "same model/input/target/function/fill/ties, all saved CAM/E1-64 and E2 ranked5/10/20 keep/remove plus original/soft baseline; identity mismatch stops no fresh fallback",
+    "same_shape": "five rigid valid-domain translations per final area, seed17, no replacement/wrap/crop/shape or perimeter change; fewer legal placements => exact missing count and fewer calls"
+  },
+  "endpoints": {
+    "calibration": "no alpha/beta copied; no new reliability threshold fitted to development GT",
+    "engineering": "exact area, finite traces, all prelocked controls/missingness, verified actual counts and recovered slot; failed/timeout/partial preserved",
+    "medical": "NOT_ELIGIBLE absent legally paired pixel reference; no reliable lesion claim or inference from empty candidates",
+    "scientific": "paired signed difference in raw and K2 loss vs same-area R102 hard readout, margin/probability keep/remove; report all3 areas incl worse/no change",
+    "success_not_required": "no effect or worse is a valid scientific outcome, not permission to add steps"
+  },
+  "hypothesis": "Directly optimizing the actual fixed-cardinality hard keep input may reduce same-function output loss versus post-hoc thresholding of R102 continuous Mask, at identical prelocked areas/steps; no medical success implied.",
+  "infection_branch": {
+    "class_id": 1,
+    "count_plan": null,
+    "current_C": "original predictedclass0; existing raw logits already distinguish target semantics without another backbone call; no new real evaluation run this turn",
+    "fixed_input_rule": "no selecting a different source after seeing target response; retain original declared cohort and denominator",
+    "intent": "COVID+CAP source-category response, not per-slice infection truth",
+    "medical_evaluation": "requires DATA exact same case/series/SOP/native-Z/geometry pixel reference; slice0/1 insufficient",
+    "new_controls": "Never reuse Normal CAM/E1 regions as infection regions. Class1 re-ranking from saved maps/logits is a new derived analysis; hard keep/remove needs separately budgeted new forwards/complete entry. Not performed or declared executable here.",
+    "nonpositive_baseline": "contract remains valid diagnostic, but do not optimize/register it as positive infection evidence; abstain with NONPOSITIVE_MODEL_RESPONSE, no replacement case",
+    "policy": "DECLARED_FIXED",
+    "status": "SPEC_SEPARATE_NOT_AUTOMATIC_M0_RENAME"
+  },
+  "limits": {
+    "P2_P3": false,
+    "device": "cpu",
+    "engineering_not_optimized": true,
+    "max_backward": 24,
+    "max_bag_aggregations": 74,
+    "max_encoded_samples": 80,
+    "max_forward": 73,
+    "max_mask_updates": 24,
+    "model_updates": 0,
+    "output_bytes": 67108864,
+    "retry": 0,
+    "rss_pre_stop_bytes": 5368709120,
+    "rss_supervision_bytes": 6442450944,
+    "seconds": 120,
+    "threads": 1
+  },
+  "losses": {
+    "CPF": "NOT_INHERITED_NOT_CALIBRATED",
+    "component": "K2_COMPONENT_LS_R103_V1=64*raw for one changed member; delta_component=8*delta_bag",
+    "multiple_changes": "sum changed unrounded component deltas divided8; squared loss contains cross terms, not sum per-slice losses",
+    "raw": "RAW_BAG_LS_R103_V1=sum of both actual BAG logit differences squared",
+    "reliable_candidates": []
+  },
+  "method": "E2-AREA-CONSTRAINED-CANDIDATE",
+  "normal_branch": {
+    "baseline": {
+      "backward": 0,
+      "forward": 2,
+      "samples": 9
+    },
+    "counts_full": {
+      "backward": 24,
+      "bag_aggregations": 74,
+      "encoded_samples": 80,
+      "forward": 73,
+      "mask_updates": 24,
+      "model_updates": 0
+    },
+    "counts_no_valid_translations": {
+      "backward": 24,
+      "bag_aggregations": 44,
+      "encoded_samples": 50,
+      "forward": 43,
+      "mask_updates": 24,
+      "model_updates": 0
+    },
+    "counts_scope": "ONLY M0 ORIGINAL_ARGMAX_FIXED target0 with same-input/same-target saved controls; unavailable for new infection target",
+    "final_soft_and_hard": {
+      "forward": 9,
+      "samples": 9
+    },
+    "no_padding_or_retry": "never add calls to fill absent translations; record actual batch sample sizes separately from F and affine aggregation",
+    "optimization": {
+      "backward": 24,
+      "forward": 24,
+      "mask_updates": 24,
+      "samples": 24
+    },
+    "peak": {
+      "forward": 2,
+      "samples": 2
+    },
+    "random_pixel": {
+      "forward": 6,
+      "samples": 6
+    },
+    "translations": {
+      "forward": "2*sum available counts, each0..5",
+      "samples": "same"
+    }
+  },
+  "primary_branch": {
+    "E2_init": 0.5,
+    "area_cardinality": "floor(valid_pixels*percent/100), stable descending value then ascending row-major index",
+    "areas": [
+      5,
+      10,
+      20
+    ],
+    "claim_limit": "changes hard-forward objective/area constraint/surrogate as a method bundle; cannot separately attribute each ingredient without another prespecified ablation",
+    "compute_fairness": "three independent8-step area masks cost24 updates versus one R1028-step soft mask; no total-compute-matched or efficiency superiority claim",
+    "eligibility": "source/runtime/cache/input exact-match plus finite baseline/gradient; no membership substitution",
+    "final_selection": "fixed post-update8, report every area; no best checkpoint/area/seed or GT selection",
+    "gradient": "biased straight-through surrogate: forward exact hard h, backward identity through soft; explicitly not derivative of discrete top-k",
+    "hard_forward": "h_k(upsample(M)); no spill outside valid; scalar0 fill before same RGB normalization, valid exterior preserved",
+    "id": "M0_NORMAL_FUNCTION_FIDELITY",
+    "input_rule": "same original first val source in frozen consumer order and original K8 member0 as R102 C, never replace by GT/prediction/pretty map",
+    "medical_intent": "NORMAL_MODEL_RESPONSE",
+    "objective": "K^2 * sum_c((z_current_bag - z_bag_with_changed_input(h_k))^2), K8; no Lm penalty because hard area enforced exactly",
+    "optimizer": {
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "lr": 0.01,
+      "mask_updates": 8,
+      "model_updates": 0,
+      "name": "Adam"
+    },
+    "parameterization": "original7x7 bounded continuous M, bilinear FP32 align_corners=false antialias=false",
+    "source_inputs": "R102 C exact frozen checkpoint/cache/member/input bindings only; new scientific quota required",
+    "steps_per_area": 8,
+    "target": "ORIGINAL_ARGMAX_FIXED; original C class0 Normal remains Normal"
+  },
+  "public_reference_pilot": {
+    "alternate_locked_count": null,
+    "alternate_max_groups": 3,
+    "alternate_selection": "first qualified source groups in publisher manifest order before predictions; no CT/mask access or downloads now",
+    "alternative": "public dense infection-reference cohort candidate such as prior COVID-19-20 proposal; metadata/permission/overlap/geometry/mask completeness unverified here",
+    "clinical_generalization": "not established; existing3 are development, distinct new external/reference cohort requires own source and overlap audit",
+    "current_locked_R18_RICORD_bags": 0,
+    "evaluation": "report all24 reference availability; evaluate only legal annotation-domain matches; unannotated/unsampled UNKNOWN; polygon count not3D lesion count",
+    "first_option": "existing3 RICORD development allowlist, build new R18 K8 using unchanged uniform rule, no P1 slice insertion",
+    "paired_pixel_count": 0,
+    "paired_pixel_count_scope": "confirmed pairs against current20 R18 groups only, not GT prevalence",
+    "selection": "all original3 cases, all24 fixed sampled positions; do not choose members by GT presence or predictions",
+    "status": "SPEC_IDENTITY_NOT_LOCKED"
+  },
+  "ready_state": {
+    "implemented": [
+      "metadata/target/reference eligibility validators",
+      "exact-area hard-forward and biased-STE loss kernels",
+      "count/sample validators and generated regression"
+    ],
+    "missing": [
+      "new itemized scientific approval/admission/dispatch",
+      "new optimizer entry and exact committed closure/runtime/input bindings before any execution request",
+      "DATA legal reference mapping for medical branch"
+    ],
+    "no_fake_command": "SPEC only, not a runnable real request; old R102 once quotas consumed",
+    "not_implemented": [
+      "approved real optimizer/loader/supervised run binding for this new scientific version"
+    ]
+  },
+  "relationship": "new scientific version, not unchanged HSPI, no old CPF or PSMI claim",
+  "schema": "E2_AREA_CONSTRAINED_CANDIDATE_R103_V1",
+  "status": "SPEC_NOT_EXECUTABLE_NOT_APPROVED",
+  "stopping": [
+    "source/runtime/input/cache/member/target/geometry mismatch",
+    "no new authorization or shared queue release",
+    "nonfinite logits/loss/gradient",
+    "call/sample/update/time/RSS/output limit",
+    "unknown actual count or monitor failure"
+  ],
+  "public_template_only": true
+}

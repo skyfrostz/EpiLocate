@@ -1,0 +1,27 @@
+{
+  "core_sha256": "10d71a6390094b578d6b41d593b03a850841451adc61cb97ae68c4f198bebede",
+  "dependency_gate": "current INT dependency/guard lock must be frozen at dispatch; historical SHA does not reauthorize ended P1",
+  "device": "cpu",
+  "dtype": "float32",
+  "historical_supervisor_dependency_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "module_sha256": {
+    "epi_next/e2_handler_v4.py": "062eff4e476280f0f415380d4a0c2bf1e5a2598a31869c7374ba39dd34ff168b",
+    "epi_next/e2_request_v4.py": "b961fbd9ec539d723aa43634e508a4ca227ab1efe86781fa103b1cc1e0debde4",
+    "epi_next/first_real_e1_e2.py": "ea8eae318e62edaa436c8b40dc5619fc25743ab6b502e11a8d7320b06d9fe802",
+    "epi_next/hspi.py": "6607afb02580d1775ed60c02b2e528f07dafab1bc38490be44c17fd37665fc2b",
+    "epi_next/hspi_core_v3.py": "10d71a6390094b578d6b41d593b03a850841451adc61cb97ae68c4f198bebede",
+    "epi_next/localization.py": "f2ac48f799c677cd6508550f19a840f96bb7516da6691de729d2fad7ed78a57d",
+    "epi_next/preprocessed_localization.py": "eccb61b8094c4ab0109d07eacc2e65688c66d714bf6ff19cb7679fa52eff30c4",
+    "epi_next/verification_vnext.py": "fd1d35d1ecd50517b88f2e0cda061f6f15c4bab4803d495ff49bfb87473a6567",
+    "scripts/analyze_p1_mask_v4.py": "c918086c76d6e5745ee5b770bf738a02ddafffe134f2a6d1c63a3e242347f8c0",
+    "scripts/review_p1_retry_v8.py": "e485fe874ef87bb48f0d2eb773dfbcf8d7c690793e6a6dc0ea58b95ba24b7526",
+    "scripts/run_e2_handler_synthetic_v4.py": "28f2f67afd13a4360aba44ce669396ce88eae8c97d60539bfc4cc3d781cd8863"
+  },
+  "numpy": "2.4.6",
+  "prior_P1_runtime_metadata": "final-readiness-v8.json SHA 3b6afda47c6c58852a9400e3e0ba6162877aa0be77be6b1b8a7017bf9497d801; same package versions",
+  "python_version": "3.11.15",
+  "threads": 1,
+  "torch": "2.14.0",
+  "torchvision": "0.29.0",
+  "public_template_only": true
+}

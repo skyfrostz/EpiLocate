@@ -1,0 +1,20 @@
+{
+  "protocol_id": "EPI-NEXT-HOSPITAL-20261014-v1",
+  "gpu_authorized": false,
+  "remote_execution_authorized": false,
+  "local_device": "cpu",
+  "cpu_threads_per_experiment": 1,
+  "gpu_queue_owner": "INTEGRATION_COORDINATOR",
+  "gpu_queue_status": "NOT_STARTED",
+  "protected_test_and_gt_access": false,
+  "clinical_upload_authorized": false,
+  "paid_resources_authorized": false,
+  "local_public_weight_download_max_bytes": 500000000,
+  "ctfm_synthetic_forward_timeout_seconds": 60,
+  "localization_max_stages": 3,
+  "localization_max_extra_calls": 32,
+  "localization_budget_seconds": 120,
+  "localization_budget_enforcement": "BETWEEN_FORWARDS",
+  "scheduled_future_execution": false,
+  "public_template_only": true
+}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-kicker"><span>01 / 项目概览</span><span>RESEARCH OVERVIEW</span></div>
+<section class="hero overview-hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="eyebrow-line"></span> PROJECT PROPOSAL · 2026</div>
+    <h1>从有限标注中，<br>寻找<span class="accent-text">可信的定位依据</span><span class="period">.</span></h1>
+    <p>面向基层医院的新发传染病影像智能辅助诊断系统。以图像级或病例级标签为起点，研究病灶区域的稳定定位、精细解释与医生反馈。</p>
+    <div class="hero-actions"><a class="button-primary" href="/route">探索技术路线 <span>↗</span></a><a class="text-link" href="/progress">查看项目节点 <span>→</span></a></div>
+  </div>
+  <div class="hero-visual" aria-label="概念图：由粗到细的区域研究流程，不代表真实影像或诊断结果">
+    <div class="visual-top"><span>RESEARCH MODEL / CONCEPT</span><span>FIG. 01</span></div>
+    <div class="scan-frame"><div class="scan-ring ring-a"></div><div class="scan-ring ring-b"></div><div class="scan-ring ring-c"></div><div class="scan-axis h"></div><div class="scan-axis v"></div><div class="scan-grid"></div><div class="scan-focus"><span>01</span></div></div>
+    <div class="visual-bottom"><span>COARSE → FINE → REVIEW</span><span>概念示意 / 非影像结果</span></div>
+  </div>
+</section>
+<section class="stat-strip" aria-label="项目范围"><div><strong>03</strong><span>核心研究阶段</span></div><div><strong>05</strong><span>规划中的系统模块</span></div><div><strong>06</strong><span>周实施计划</span></div><div><strong>00</strong><span>已接入影像与算法</span></div></section>
+<section class="section-block">
+  <div class="section-heading"><div><span class="section-index">THE QUESTION / 01</span><h2>研究从哪里开始？</h2></div><p>新发传染病暴发早期，影像可以快速积累，但精细病灶标注难以同步获得。项目关注有限标签下的可解释定位。</p></div>
+  <div class="challenge-grid"><article><span class="card-index">A / 标注约束</span><h3>有数据，少精标</h3><p>研究以图像级或病例级类别标签作为训练信号，医生精细勾画仅用于后续定位评价。</p></article><article><span class="card-index">B / 定位稳定性</span><h3>区域需要经得起扰动</h3><p>分析不同分块遮挡尺度与位置下的预测变化，研究更稳定的逐级粗定位。</p></article><article><span class="card-index">C / 临床理解</span><h3>依据应能被质疑与修正</h3><p>呈现区域贡献和解释链条，并在具备条件后支持医生确认、圈改与反馈。</p></article></div>
+</section>
+<section class="feature-banner"><div><span class="section-index">CURRENT STATE / 2026</span><h2>现在呈现的是研究蓝图。</h2><p>本网站展示方案、接口契约与验证计划。影像、模型、诊断结果及演示工作台尚未接入。</p></div><a href="/system" class="round-link" aria-label="查看系统规划">↗</a></section>
+{% endblock %}

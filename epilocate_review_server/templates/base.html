@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="csrf-token" content="{{ csrf_token|default('') }}">
+  <title>{% block title %}EpiLocate Review{% endblock %}</title>
+  <link rel="stylesheet" href="/static/app.css?v=1">
+  {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  {% if user %}
+  <header class="app-header">
+    <a class="brand" href="{% if user.role == 'admin' %}/admin{% else %}/review{% endif %}" aria-label="EpiLocate Review 首页">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+      <span><b>EpiLocate</b><small>Series review / RICORD</small></span>
+    </a>
+    <div class="header-actions">
+      <span class="account"><span class="account-dot" aria-hidden="true"></span>{{ user.username }}</span>
+      <form method="post" action="/logout">
+        <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+        <button class="button button-quiet button-small" type="submit">退出</button>
+      </form>
+    </div>
+  </header>
+  {% endif %}
+
+  {% block content %}{% endblock %}
+
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

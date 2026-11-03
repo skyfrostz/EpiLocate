@@ -1,0 +1,690 @@
+openapi: 3.1.0
+info:
+  title: EpiLocate algorithm service contract
+  version: 1.0.0-p0
+  description: >-
+    P0 单切片 DICOM Baseline/Stage 1 已接入本机算法服务；多切片、NIfTI、
+    Robust、粗定位、LIME 和反馈仍未实现。PNG/JPEG Mock 仅保留 v0.1 兼容入口。
+    所有 example ID 均为 synthetic fixture；真实结果须查 source。
+servers:
+  - url: http://127.0.0.1:8000
+    description: B 分支本机调试服务；真实影像不得在未授权环境上传
+tags:
+  - name: Cases
+  - name: Analysis
+  - name: Provenance
+  - name: Future
+paths:
+  /api/v1/capabilities:
+    get:
+      tags: [Provenance]
+      summary: 查询真实能力及来源
+      x-implementation-status: p0-real
+      responses:
+        '200':
+          description: 能力快照
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/CapabilityReport'}
+  /api/v1/cases:
+    post:
+      tags: [Cases]
+      summary: 创建去标识病例并上传 DICOM 序列或 NIfTI
+      x-implementation-status: p0-single-dicom-only
+      description: P0 仅接受一个已去标识 CT DICOM；多切片和 NIfTI 未实现。不得接受本机绝对路径。
+      parameters:
+        - {$ref: '#/components/parameters/IdempotencyKey'}
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [input_kind, files]
+              properties:
+                input_kind: {type: string, enum: [dicom_series, nifti]}
+                files:
+                  type: array
+                  items: {type: string, format: binary}
+      responses:
+        '202':
+          description: 解析任务已建立
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/CaseCreated'}
+        '400': {$ref: '#/components/responses/Error'}
+        '413': {$ref: '#/components/responses/Error'}
+        '415': {$ref: '#/components/responses/Error'}
+        '422': {$ref: '#/components/responses/Error'}
+  /api/v1/cases/{case_id}:
+    get:
+      tags: [Cases]
+      summary: 查询病例处理状态与质量检查
+      x-implementation-status: p0-real
+      parameters: [{$ref: '#/components/parameters/CaseId'}]
+      responses:
+        '200':
+          description: 病例
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Case'}
+        '404': {$ref: '#/components/responses/Error'}
+  /api/v1/cases/{case_id}/slices:
+    get:
+      tags: [Cases]
+      summary: 获取按轴位/实例顺序排列的切片
+      x-implementation-status: p0-single-slice
+      parameters: [{$ref: '#/components/parameters/CaseId'}]
+      responses:
+        '200':
+          description: 切片列表
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [case_id, slices]
+                properties:
+                  case_id: {type: string}
+                  slices: {type: array, items: {$ref: '#/components/schemas/Slice'}}
+        '404': {$ref: '#/components/responses/Error'}
+  /api/v1/slices/{slice_id}/preview:
+    get:
+      tags: [Cases]
+      summary: 授权获取脱敏、固定窗的影像预览
+      x-implementation-status: p0-real
+      parameters: [{$ref: '#/components/parameters/SliceId'}]
+      responses:
+        '200':
+          description: image/png；用 Slice.geometry 中的坐标说明叠加
+          content:
+            image/png:
+              schema: {type: string, format: binary}
+        '404': {$ref: '#/components/responses/Error'}
+  /api/v1/predictions:
+    post:
+      tags: [Analysis]
+      summary: 建立 Baseline 单切片或病例汇总预测
+      x-implementation-status: p0-slice-only
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/PredictionRequest'}
+      responses:
+        '202':
+          description: Job 已建立
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/JobAccepted'}
+        '422': {$ref: '#/components/responses/Error'}
+        '503': {$ref: '#/components/responses/Error'}
+  /api/v1/jobs/occlusion:
+    post:
+      tags: [Analysis]
+      summary: 建立遮挡分析任务
+      x-implementation-status: p0-real
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/OcclusionRequest'}
+      responses:
+        '202':
+          description: Job 已建立
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/JobAccepted'}
+        '422': {$ref: '#/components/responses/Error'}
+        '503': {$ref: '#/components/responses/Error'}
+  /api/v1/jobs/{job_id}:
+    get:
+      tags: [Analysis]
+      summary: 查询任务状态
+      x-implementation-status: design-extension-of-B-P0
+      parameters: [{$ref: '#/components/parameters/JobId'}]
+      responses:
+        '200':
+          description: Job 状态
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Job'}
+        '404': {$ref: '#/components/responses/Error'}
+  /api/v1/jobs/{job_id}/result:
+    get:
+      tags: [Analysis]
+      summary: 取已完成的分类、遮挡、对比或预留模块结果
+      x-implementation-status: design-extension-of-B-P0
+      parameters: [{$ref: '#/components/parameters/JobId'}]
+      responses:
+        '200':
+          description: 统一分析结果
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AnalysisResult'}
+        '404': {$ref: '#/components/responses/Error'}
+        '409': {$ref: '#/components/responses/Error'}
+  /api/v1/jobs/{job_id}/cancel:
+    post:
+      tags: [Analysis]
+      summary: 取消待运行或支持安全中断的任务
+      x-implementation-status: planned
+      parameters: [{$ref: '#/components/parameters/JobId'}]
+      responses:
+        '200':
+          description: Job 状态
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Job'}
+        '409': {$ref: '#/components/responses/Error'}
+  /api/v1/occlusion-results/{result_id}/positions:
+    get:
+      tags: [Analysis]
+      summary: 分页获取一张切片单尺度的遮挡位置与概率
+      x-implementation-status: p0-real
+      parameters:
+        - {name: result_id, in: path, required: true, schema: {type: string}}
+        - {name: scale, in: query, required: true, schema: {type: integer, enum: [16, 32, 64]}}
+        - {name: cursor, in: query, schema: {type: integer, minimum: 0}}
+        - {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 1000, default: 500}}
+      responses:
+        '200':
+          description: 遮挡位置页
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [result_id, scale, positions, next_cursor]
+                properties:
+                  result_id: {type: string}
+                  scale: {type: integer, enum: [16, 32, 64]}
+                  positions: {type: array, items: {$ref: '#/components/schemas/OcclusionPosition'}}
+                  next_cursor: {type: [integer, 'null']}
+  /api/v1/assets/{asset_id}:
+    get:
+      tags: [Analysis]
+      summary: 授权读取预览或响应图资产
+      x-implementation-status: p0-local-only
+      parameters:
+        - {name: asset_id, in: path, required: true, schema: {type: string}}
+        - {name: result_id, in: query, required: true, schema: {type: string}}
+      responses:
+        '200':
+          description: image/png 或 application/json；资产空间定义由结果中的 layer metadata 指定
+        '404': {$ref: '#/components/responses/Error'}
+  /api/v1/experiments/{experiment_id}/validation-summary:
+    get:
+      tags: [Provenance]
+      summary: 只读获取已冻结 validation 汇总与 QA
+      x-implementation-status: planned
+      parameters:
+        - {name: experiment_id, in: path, required: true, schema: {type: string}}
+      responses:
+        '200':
+          description: 历史正式验证统计；source=FROZEN_VALIDATION
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ExperimentSummary'}
+  /api/v1/comparisons:
+    post:
+      tags: [Future]
+      summary: 同病例同切片同配置的 Baseline/Robust 配对比较
+      x-implementation-status: planned-p1
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ComparisonRequest'}
+      responses:
+        '202':
+          description: 对比任务
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/JobAccepted'}
+        '501': {$ref: '#/components/responses/Error'}
+  /api/v1/jobs/coarse-localization:
+    post:
+      tags: [Future]
+      summary: 逐级稳定粗定位任务
+      x-implementation-status: planned-p1
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CoarseRequest'}
+      responses:
+        '202':
+          description: 方法实现并冻结后的任务
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/JobAccepted'}
+        '501': {$ref: '#/components/responses/Error'}
+  /api/v1/jobs/lime:
+    post:
+      tags: [Future]
+      summary: 基于已完成粗定位先验的 LIME 精细定位任务
+      x-implementation-status: planned-p2
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/LimeRequest'}
+      responses:
+        '202':
+          description: 方法实现并冻结后的任务
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/JobAccepted'}
+        '501': {$ref: '#/components/responses/Error'}
+  /api/v1/feedback:
+    post:
+      tags: [Future]
+      summary: 保存医生修正事件，不覆写模型原始结果
+      x-implementation-status: planned-p2
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/FeedbackRequest'}
+      responses:
+        '201':
+          description: 新增不可变反馈版本
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/FeedbackRecord'}
+        '501': {$ref: '#/components/responses/Error'}
+components:
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema: {type: string, minLength: 8, maxLength: 128}
+    CaseId: {name: case_id, in: path, required: true, schema: {type: string}}
+    SliceId: {name: slice_id, in: path, required: true, schema: {type: string}}
+    JobId: {name: job_id, in: path, required: true, schema: {type: string}}
+  responses:
+    Error:
+      description: 统一错误；算法响应不足通过 candidate_status 表达，不是 HTTP 错误
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/ApiError'}
+  schemas:
+    ApiError:
+      type: object
+      required: [code, message, retryable, request_id]
+      properties:
+        code:
+          type: string
+          enum: [UNSUPPORTED_FORMAT, IMAGE_PARSE_FAILED, PREPROCESSING_FAILED, MODEL_UNAVAILABLE, MPS_UNAVAILABLE, INFERENCE_FAILED, JOB_CANCELLED, RESULT_NOT_FOUND, NOT_IMPLEMENTED, NOT_CONNECTED, UNAUTHENTICATED, FORBIDDEN, IDEMPOTENCY_CONFLICT, INVALID_REQUEST]
+        message: {type: string}
+        retryable: {type: boolean}
+        request_id: {type: string}
+        details: {type: object, additionalProperties: true}
+    CapabilityReport:
+      type: object
+      required: [contract_version, service_mode, capabilities]
+      properties:
+        contract_version: {type: string, const: '1.0'}
+        service_mode: {type: string, enum: [MOCK, REAL, PRESENTATION]}
+        capabilities:
+          type: object
+          additionalProperties:
+            type: object
+            required: [state, evidence]
+            properties:
+              state: {type: string, enum: [available, planned, unavailable]}
+              evidence: {type: [string, 'null']}
+              result_source: {type: [string, 'null'], enum: [FROZEN_VALIDATION, LIVE_CASE, SYNTHETIC_FIXTURE, null]}
+    CaseCreated:
+      type: object
+      required: [case_id, job_id, status]
+      properties:
+        case_id: {type: string, example: SYNTHETIC-CASE-001}
+        job_id: {type: string, example: SYNTHETIC-JOB-001}
+        status: {type: string, const: PENDING}
+    Case:
+      type: object
+      required: [case_id, preprocessing_status, quality_checks, slice_count, source]
+      properties:
+        case_id: {type: string}
+        preprocessing_status: {type: string, enum: [PENDING, RUNNING, COMPLETED, FAILED]}
+        quality_checks: {type: array, items: {$ref: '#/components/schemas/QualityCheck'}}
+        slice_count: {type: integer, minimum: 0}
+        source: {type: string, enum: [LIVE_CASE, SYNTHETIC_FIXTURE]}
+    QualityCheck:
+      type: object
+      required: [code, status]
+      properties:
+        code: {type: string}
+        status: {type: string, enum: [PASS, WARN, FAIL, UNKNOWN]}
+        message: {type: [string, 'null']}
+    Slice:
+      type: object
+      required: [case_id, slice_id, index, geometry, preview_asset_id, preprocessing_status]
+      properties:
+        case_id: {type: string}
+        slice_id: {type: string}
+        index: {type: integer, minimum: 0}
+        geometry: {$ref: '#/components/schemas/ImageGeometry'}
+        preview_asset_id: {type: [string, 'null']}
+        preprocessing_status: {type: string, enum: [PENDING, COMPLETED, FAILED]}
+    ImageGeometry:
+      type: object
+      required: [raw_width, raw_height, algorithm_width, algorithm_height, coordinate_origin, x_axis, y_axis, raw_to_algorithm_edge_affine, pixel_spacing_mm, image_orientation_patient, image_position_patient, window_center, window_width]
+      properties:
+        raw_width: {type: integer, minimum: 1}
+        raw_height: {type: integer, minimum: 1}
+        algorithm_width: {type: integer, const: 224}
+        algorithm_height: {type: integer, const: 224}
+        coordinate_origin: {type: string, const: TOP_LEFT_PIXEL_EDGE}
+        x_axis: {type: string, const: RIGHT}
+        y_axis: {type: string, const: DOWN}
+        raw_to_algorithm_edge_affine:
+          type: array
+          minItems: 9
+          maxItems: 9
+          items: {type: number}
+          description: row-major 3x3；对像素边界坐标，x'=224/raw_width*x，y'=224/raw_height*y
+        pixel_spacing_mm:
+          type: [array, 'null']
+          items: {type: number, exclusiveMinimum: 0}
+          minItems: 2
+          maxItems: 2
+        image_orientation_patient:
+          type: [array, 'null']
+          items: {type: number}
+          minItems: 6
+          maxItems: 6
+        image_position_patient:
+          type: [array, 'null']
+          items: {type: number}
+          minItems: 3
+          maxItems: 3
+        window_center: {type: number, const: -600}
+        window_width: {type: number, const: 1500}
+    PredictionRequest:
+      type: object
+      required: [case_id, unit, model_id]
+      properties:
+        case_id: {type: string}
+        slice_id: {type: [string, 'null']}
+        unit: {type: string, enum: [slice, patient]}
+        model_id: {type: string, const: baseline_resnet18}
+      allOf:
+        - if: {properties: {unit: {const: slice}}}
+          then: {required: [slice_id]}
+    Prediction:
+      type: object
+      required: [prediction_id, case_id, unit, model_id, model_version, predicted_class, class_label, positive_probability, predicted_class_confidence, inference_status, inference_time_ms, preprocessing_version, source]
+      properties:
+        prediction_id: {type: string}
+        case_id: {type: string}
+        slice_id: {type: [string, 'null']}
+        unit: {type: string, enum: [slice, patient]}
+        aggregation: {type: [string, 'null'], enum: [mean_slice_probability, null]}
+        model_id: {type: string}
+        model_version: {type: string}
+        predicted_class: {type: integer, enum: [0, 1]}
+        class_label: {type: string, enum: [negative, positive]}
+        positive_probability: {type: number, minimum: 0, maximum: 1}
+        predicted_class_confidence: {type: number, minimum: 0, maximum: 1}
+        inference_status: {type: string, enum: [COMPLETED, FAILED]}
+        inference_time_ms: {type: integer, minimum: 0}
+        preprocessing_version: {type: string}
+        source: {type: string, enum: [LIVE_CASE, FROZEN_VALIDATION, SYNTHETIC_FIXTURE]}
+    OcclusionRequest:
+      type: object
+      required: [case_id, slice_id, model_id, scales, protocol_id]
+      properties:
+        case_id: {type: string}
+        slice_id: {type: string}
+        model_id: {type: string, const: baseline_resnet18}
+        scales:
+          type: array
+          items: {type: integer, enum: [16, 32, 64]}
+          minItems: 1
+          uniqueItems: true
+        protocol_id: {type: string, const: stage1-occlusion-instability-v1}
+    JobAccepted:
+      type: object
+      required: [job_id, case_id, status, status_url]
+      properties:
+        job_id: {type: string}
+        case_id: {type: string}
+        status: {type: string, const: PENDING}
+        status_url: {type: string}
+    Job:
+      type: object
+      required: [job_id, job_type, case_id, status, progress, processed_slices, total_slices, elapsed_time_ms, estimated_remaining_time_ms, error_code, error_message, created_at]
+      properties:
+        job_id: {type: string}
+        job_type: {type: string, enum: [CASE_PARSE, PREDICTION, OCCLUSION, COMPARISON, COARSE_LOCALIZATION, LIME]}
+        case_id: {type: string}
+        status: {type: string, enum: [PENDING, RUNNING, COMPLETED, FAILED, CANCELLED]}
+        progress: {type: number, minimum: 0, maximum: 1}
+        processed_slices: {type: integer, minimum: 0}
+        total_slices: {type: integer, minimum: 0}
+        elapsed_time_ms: {type: integer, minimum: 0}
+        estimated_remaining_time_ms: {type: [integer, 'null'], minimum: 0}
+        error_code: {type: [string, 'null']}
+        error_message: {type: [string, 'null']}
+        created_at: {type: string, format: date-time}
+        finished_at: {type: [string, 'null'], format: date-time}
+    OcclusionPosition:
+      type: object
+      required: [x, y, block_size, baseline_positive_probability, masked_positive_probability, prediction_flip, decision_confidence_drop, candidate_response]
+      properties:
+        x: {type: integer, minimum: 0, maximum: 223}
+        y: {type: integer, minimum: 0, maximum: 223}
+        block_size: {type: integer, enum: [16, 32, 64]}
+        baseline_positive_probability: {type: number, minimum: 0, maximum: 1}
+        masked_positive_probability: {type: number, minimum: 0, maximum: 1}
+        prediction_flip: {type: boolean}
+        decision_confidence_drop: {type: number, minimum: -1, maximum: 1}
+        candidate_response: {type: number, minimum: 0, maximum: 1}
+    HeatmapLayer:
+      type: object
+      required: [asset_id, layer_kind, width, height, coordinate_space, value_min, value_max, origin, x_axis, y_axis, display_interpolation_only]
+      properties:
+        asset_id: {type: string}
+        layer_kind: {type: string, enum: [CANDIDATE_RESPONSE, CANDIDATE_TOP10, COMPARISON_GRID, COARSE_REGION, LIME_REGION]}
+        width: {type: integer, minimum: 1}
+        height: {type: integer, minimum: 1}
+        coordinate_space: {type: string, enum: [ALGORITHM_224, COMPARISON_14, RAW_PIXEL_EDGE]}
+        value_min: {type: number}
+        value_max: {type: number}
+        origin: {type: string, const: TOP_LEFT_PIXEL_EDGE}
+        x_axis: {type: string, const: RIGHT}
+        y_axis: {type: string, const: DOWN}
+        display_interpolation_only: {type: boolean}
+    ScaleSummary:
+      type: object
+      required: [block_size, stride, fill, baseline_positive_probability, median_absolute_probability_change, flip_rate, candidate_status, candidate_area_fraction, response_layer, candidate_layer, comparison_grid_layer]
+      properties:
+        block_size: {type: integer, enum: [16, 32, 64]}
+        stride: {type: integer, enum: [8, 16, 32]}
+        fill: {type: number, const: 0.5}
+        baseline_positive_probability: {type: number, minimum: 0, maximum: 1}
+        median_absolute_probability_change: {type: number, minimum: 0, maximum: 1}
+        flip_rate: {type: number, minimum: 0, maximum: 1}
+        candidate_status: {type: string, enum: [valid, insufficient_positive_response]}
+        candidate_area_fraction: {type: [number, 'null'], minimum: 0, maximum: 1}
+        response_layer: {oneOf: [{$ref: '#/components/schemas/HeatmapLayer'}, {type: 'null'}]}
+        candidate_layer: {oneOf: [{$ref: '#/components/schemas/HeatmapLayer'}, {type: 'null'}]}
+        comparison_grid_layer: {oneOf: [{$ref: '#/components/schemas/HeatmapLayer'}, {type: 'null'}]}
+    CrossScaleMetric:
+      type: object
+      required: [scale_a, scale_b, spearman, top10_iou, dice, normalized_center_distance, normalized_l1, pearson]
+      properties:
+        scale_a: {type: integer, enum: [16, 32]}
+        scale_b: {type: integer, enum: [32, 64]}
+        spearman: {type: [number, 'null'], minimum: -1, maximum: 1}
+        top10_iou: {type: [number, 'null'], minimum: 0, maximum: 1}
+        dice: {type: [number, 'null'], minimum: 0, maximum: 1}
+        normalized_center_distance: {type: [number, 'null'], minimum: 0, maximum: 1}
+        normalized_l1: {type: [number, 'null'], minimum: 0}
+        pearson: {type: [number, 'null'], minimum: -1, maximum: 1}
+    Region:
+      type: object
+      required: [region_id, geometry, coordinate_space, valid, points]
+      properties:
+        region_id: {type: string}
+        geometry: {type: string, enum: [POLYGON, BOX]}
+        coordinate_space: {type: string, enum: [ALGORITHM_224, RAW_PIXEL_EDGE]}
+        valid: {type: boolean}
+        points:
+          type: array
+          items:
+            type: array
+            items: {type: number}
+            minItems: 2
+            maxItems: 2
+    FutureModule:
+      type: object
+      required: [status, method_version, model_id, stage, scale, regions, final_region, layer, runtime_ms]
+      properties:
+        status: {type: string, enum: [NOT_IMPLEMENTED, PENDING, RUNNING, COMPLETED, FAILED]}
+        method_version: {type: [string, 'null']}
+        model_id: {type: [string, 'null']}
+        stage: {type: [string, 'null']}
+        scale: {type: [integer, 'null']}
+        regions: {type: array, items: {$ref: '#/components/schemas/Region'}}
+        final_region: {oneOf: [{$ref: '#/components/schemas/Region'}, {type: 'null'}]}
+        layer: {oneOf: [{$ref: '#/components/schemas/HeatmapLayer'}, {type: 'null'}]}
+        runtime_ms: {type: [integer, 'null']}
+        input_coarse_result_id: {type: [string, 'null']}
+        levels:
+          type: array
+          items: {$ref: '#/components/schemas/CoarseLevel'}
+        contributions:
+          type: array
+          items:
+            type: object
+            required: [region_id, signed_contribution]
+            properties:
+              region_id: {type: string}
+              signed_contribution: {type: number}
+        boundary_region: {oneOf: [{$ref: '#/components/schemas/Region'}, {type: 'null'}]}
+    CoarseLevel:
+      type: object
+      required: [level, scale, status, valid, regions, layer]
+      properties:
+        level: {type: integer, minimum: 1}
+        scale: {type: integer, enum: [16, 32, 64]}
+        status: {type: string, enum: [PENDING, RUNNING, COMPLETED, FAILED]}
+        valid: {type: boolean}
+        regions: {type: array, items: {$ref: '#/components/schemas/Region'}}
+        layer: {oneOf: [{$ref: '#/components/schemas/HeatmapLayer'}, {type: 'null'}]}
+    CoarseRequest:
+      type: object
+      required: [case_id, slice_id, model_id, protocol_id]
+      properties:
+        case_id: {type: string}
+        slice_id: {type: string}
+        model_id: {type: string}
+        protocol_id: {type: string}
+    LimeRequest:
+      type: object
+      required: [case_id, slice_id, input_coarse_result_id, method_version]
+      properties:
+        case_id: {type: string}
+        slice_id: {type: string}
+        input_coarse_result_id: {type: string}
+        method_version: {type: string}
+    AnalysisResult:
+      type: object
+      required: [contract_version, result_id, case_id, slice_id, source, status, protocol_id, model_id, model_version, prediction, scale_summaries, cross_scale, coarse_localization, lime, provenance, qa_status]
+      properties:
+        contract_version: {type: string, const: '1.0'}
+        result_id: {type: string}
+        case_id: {type: string}
+        slice_id: {type: [string, 'null']}
+        source: {type: string, enum: [LIVE_CASE, FROZEN_VALIDATION, SYNTHETIC_FIXTURE]}
+        status: {type: string, enum: [COMPLETED, FAILED]}
+        protocol_id: {type: [string, 'null']}
+        model_id: {type: string}
+        model_version: {type: string}
+        prediction: {oneOf: [{$ref: '#/components/schemas/Prediction'}, {type: 'null'}]}
+        scale_summaries: {type: array, items: {$ref: '#/components/schemas/ScaleSummary'}}
+        cross_scale: {type: array, items: {$ref: '#/components/schemas/CrossScaleMetric'}}
+        coarse_localization: {$ref: '#/components/schemas/FutureModule'}
+        lime: {$ref: '#/components/schemas/FutureModule'}
+        clinical_explanation:
+          type: object
+          description: Stage 3 预留；未实现时 status=NOT_IMPLEMENTED 且 summary=null
+          properties:
+            status: {type: string, enum: [NOT_IMPLEMENTED, COMPLETED, FAILED]}
+            method_version: {type: [string, 'null']}
+            summary: {type: [string, 'null']}
+            evidence_region_ids: {type: array, items: {type: string}}
+        paired_model_results:
+          type: array
+          description: P1 对比；同一 case_id/slice_id/协议和遮挡设置的两个模型结果；尚未实现时为空数组
+          items:
+            type: object
+            required: [model_id, model_version, prediction, scale_summaries, cross_scale, provenance]
+            properties:
+              model_id: {type: string}
+              model_version: {type: string}
+              prediction: {$ref: '#/components/schemas/Prediction'}
+              scale_summaries: {type: array, items: {$ref: '#/components/schemas/ScaleSummary'}}
+              cross_scale: {type: array, items: {$ref: '#/components/schemas/CrossScaleMetric'}}
+              provenance: {type: object, additionalProperties: true}
+        provenance: {type: object, additionalProperties: true}
+        qa_status: {type: [string, 'null'], enum: [PASS, FAIL, NOT_RUN, null]}
+    ExperimentSummary:
+      type: object
+      required: [experiment_id, protocol_id, source, model_id, model_version, classification_metrics, occlusion_metrics, cross_scale_metrics, provenance, qa_status]
+      properties:
+        experiment_id: {type: string}
+        protocol_id: {type: string}
+        source: {type: string, const: FROZEN_VALIDATION}
+        model_id: {type: string}
+        model_version: {type: string}
+        classification_metrics: {type: object, additionalProperties: true}
+        occlusion_metrics: {type: object, additionalProperties: true}
+        cross_scale_metrics: {type: object, additionalProperties: true}
+        provenance: {type: object, additionalProperties: true}
+        qa_status: {type: string, enum: [PASS, FAIL, NOT_RUN]}
+    ComparisonRequest:
+      type: object
+      required: [case_id, slice_id, model_ids, protocol_id]
+      properties:
+        case_id: {type: string}
+        slice_id: {type: string}
+        model_ids:
+          type: array
+          prefixItems: [{const: baseline_resnet18}, {const: robust_resnet18}]
+          minItems: 2
+          maxItems: 2
+        protocol_id: {type: string, const: stage1-occlusion-instability-v1}
+    FeedbackRequest:
+      type: object
+      required: [case_id, slice_id, prediction_id, annotation_id, annotation_version, operation_type, reviewer_id, timestamp]
+      properties:
+        case_id: {type: string}
+        slice_id: {type: string}
+        prediction_id: {type: string}
+        annotation_id: {type: string}
+        annotation_version: {type: integer, minimum: 1}
+        original_region: {oneOf: [{$ref: '#/components/schemas/Region'}, {type: 'null'}]}
+        corrected_region: {oneOf: [{$ref: '#/components/schemas/Region'}, {type: 'null'}]}
+        operation_type: {type: string, enum: [CONFIRM, ADD, REMOVE, ADJUST]}
+        reviewer_id: {type: string, description: 匿名 reviewer ID；不可用姓名或账号直接展示}
+        feedback_text: {type: [string, 'null'], maxLength: 2000}
+        timestamp: {type: string, format: date-time}
+    FeedbackRecord:
+      allOf:
+        - {$ref: '#/components/schemas/FeedbackRequest'}
+        - type: object
+          required: [event_id, model_result_immutable, training_use]
+          properties:
+            event_id: {type: string}
+            model_result_immutable: {type: boolean, const: true}
+            training_use: {type: boolean, const: false}

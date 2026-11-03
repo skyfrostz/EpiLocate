@@ -1,0 +1,55 @@
+{
+  "experiment_id": "EPI-NEXT-CTFM-REAL-M2-v1",
+  "scope": "FP32 engineering feature consistency; no clinical equivalence",
+  "checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "data_delivery_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "synthetic_sizes": [
+    32,
+    64
+  ],
+  "real_patch_shape_spl": [
+    64,
+    64,
+    64
+  ],
+  "case_order": [
+    1,
+    2,
+    3
+  ],
+  "crop_rule": "floor((SPL_shape-64)/2) on each axis; no GT/model selection",
+  "orientation": "SPL",
+  "resampling": "NONE_NATIVE_SPACING",
+  "hu_clip": [
+    -1024,
+    2048
+  ],
+  "hu_scale": "(clip(HU)+1024)/3072",
+  "foreground_crop": "NOT_USED_DETERMINISTIC_GEOMETRIC_CENTER_VARIANT",
+  "padding_policy": "NO_NEW_PADDING_NO_INFERRED_MASK; preserve DATA unknown padding",
+  "dtype": "float32",
+  "seed": 17,
+  "cpu_threads": 1,
+  "warmup_runs_per_device": 1,
+  "timed_runs_per_device": 3,
+  "tolerance": {
+    "max_absolute_error": 0.001,
+    "mean_absolute_error": 0.0001,
+    "atol": 0.001,
+    "rtol": 0.0001
+  },
+  "comparison": "all full-output elements; all three paired timed runs must pass",
+  "mps_fallback_enabled": false,
+  "mps_fast_math": false,
+  "timeout_seconds_per_trial": 120,
+  "rss_limit_bytes": 6442450944,
+  "mps_driver_limit_bytes": 6442450944,
+  "sampling_seconds": 0.02,
+  "minimum_memory_free_percent": 20,
+  "max_swap_increase_bytes": 1073741824,
+  "native_roundtrip_tolerance_voxels": 1e-08,
+  "geometry_validation": "axis-aligned signed permutation, independent eight corners plus center sample and native-LPS inverse",
+  "f0_training": "NOT_AUTHORIZED",
+  "remote_paid_gpu": "NOT_AUTHORIZED",
+  "public_template_only": true
+}

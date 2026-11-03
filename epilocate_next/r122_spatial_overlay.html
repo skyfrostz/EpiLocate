@@ -1,0 +1,52 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+<title>合成 CT · 研究空间叠加</title>
+<style>body{margin:0;background:#f3f5f7;color:#243446;font:15px/1.6 system-ui}main{max-width:1000px;margin:auto;padding:24px}h1{font-size:24px}.notice,section{padding:16px;background:white;margin:12px 0}.notice{border-left:4px solid #315a89}canvas{width:min(100%,480px);height:auto;image-rendering:pixelated;background:#111;display:block}label{display:inline-block;margin:6px 18px 6px 0}table{border-collapse:collapse;width:100%;table-layout:fixed}td,th{padding:8px;border:1px solid #d4dce4;overflow-wrap:anywhere;text-align:left}pre{white-space:pre-wrap;overflow-wrap:anywhere}input[type=range]{max-width:180px}button{padding:5px 14px}#readout{min-height:100px}.legend{font-size:13px;color:#425971}</style>
+<main><h1>合成 CT · 研究空间叠加</h1>
+<p class="notice">GENERATED ONLY · 合成标注用于医生 Mask 接口测试；无真实患者、医生判读或模型推理。旧 MVP 独立保留。</p>
+<p id="qualification">医学资格 UNKNOWN；几何同空间 PASS 仅适用于合成输入，不证明 CT/GT 医学身份。</p>
+<section><div><label>canonical Z <input id="slice" type="range" min="0" step="1"><output id="slice-value"></output></label><button id="reset">重置显示</button></div>
+<label><input id="mask" type="checkbox" checked>合成参考 Mask</label><label><input id="cam" type="checkbox" checked>signed CAM</label><label>叠加透明度 <input id="opacity" type="range" min="0" max="1" step="0.05" value="0.55"></label>
+<canvas id="overlay" aria-label="纯合成同空间CT参考Mask与signed CAM"></canvas>
+<p class="legend">显示方向：左 L、右 R、上 A、下 P；canonical 仅轴重排/翻转，无插值重采样。红=合成参考；橙=正贡献、蓝=负贡献；CAM 不是感染概率。参考覆盖域外为 UNKNOWN。</p>
+<pre id="readout">在画面上移动，查看 display → canonical → native/raw → 世界坐标。</pre></section>
+<section><h2>图层来源与状态</h2><table><thead><tr><th>层</th><th>状态</th><th>来源 / 方法 / 目标</th></tr></thead><tbody id="layer-rows"></tbody></table></section>
+<section><h2>坐标与编码契约</h2><table><tbody id="coordinates"></tbody></table><details><summary>完整生成元数据</summary><pre id="metadata"></pre></details></section>
+<p>医学身份、真实 HU 和参考完整性仍需 DATA 正式 registry；shape/affine 相同不能自证配对。无真实导入、上传、模型或医院入口。</p></main>
+<script id="payload" type="application/json">__GENERATED_PAYLOAD__</script>
+<script>
+const payload=JSON.parse(document.getElementById('payload').textContent);
+const el=id=>document.getElementById(id), canvas=el('overlay'),ctx=canvas.getContext('2d');
+const [nx,ny,nz]=payload.coordinates.canonical.shape_xyz;
+canvas.width=nx;canvas.height=ny;el('slice').max=nz-1;el('slice').value=Math.floor(nz/2);
+for(const kind of ['CT','GT','CAM']){
+ const layer=payload.layers[kind],tr=document.createElement('tr');
+ for(const text of [kind,layer.status+' · '+layer.reason,layer.source?JSON.stringify(layer.source):'UNKNOWN · no asset']){const td=document.createElement('td');td.textContent=text;tr.append(td)}
+ tr.id='status-'+kind;el('layer-rows').append(tr);
+}
+for(const key of ['raw','native','canonical','display']){const tr=document.createElement('tr'),th=document.createElement('th'),td=document.createElement('td');th.textContent=key;td.textContent=JSON.stringify(payload.coordinates[key]);tr.append(th,td);el('coordinates').append(tr)}
+el('metadata').textContent=JSON.stringify({...payload,arrays:'Generated numeric arrays embedded; no external URLs',reference_coverage:'Explicit generated coverage embedded'},null,2);
+el('mask').disabled=payload.arrays.GT===null;el('cam').disabled=payload.arrays.CAM===null;
+el('mask').checked=!el('mask').disabled;el('cam').checked=!el('cam').disabled;
+function index(x,y,z){return(z*ny+y)*nx+x}
+function render(){
+ const z=Number(el('slice').value),opacity=Number(el('opacity').value),frame=ctx.createImageData(nx,ny);
+ el('slice-value').textContent=z;
+ const camValues=payload.arrays.CAM,scale=camValues?camValues.reduce((m,v)=>Math.max(m,Math.abs(v)),1):1;
+ for(let row=0;row<ny;row++)for(let col=0;col<nx;col++){
+  const i=index(col,ny-1-row,z),at=(row*nx+col)*4,gray=Math.max(0,Math.min(255,(payload.arrays.CT[i]+1100)/1100*255));
+  let rgb=[gray,gray,gray];
+  function blend(color,alpha){rgb=rgb.map((v,j)=>v*(1-alpha)+color[j]*alpha)}
+  if(el('mask').checked&&payload.arrays.GT&&payload.reference_coverage[i]&&payload.arrays.GT[i]===1)blend([240,45,70],opacity);
+  if(el('cam').checked&&camValues&&camValues[i]!==0)blend(camValues[i]>0?[255,165,20]:[30,100,255],opacity*Math.abs(camValues[i])/scale);
+  frame.data.set([...rgb,255],at);
+ }
+ ctx.putImageData(frame,0,0);
+}
+function multiply(matrix,point){return matrix.map(row=>row.reduce((s,v,i)=>s+v*point[i],0))}
+function coordinates(col,row,z){const canonical=[col,ny-1-row,z,1],native=multiply(payload.coordinates.native_from_canonical_xyz,canonical),ras=multiply(payload.coordinates.canonical.affine_ras_mm,canonical);return{display_column_row:[col,row],canonical_xyz:canonical.slice(0,3),native_xyz:native.slice(0,3),raw_storage_xyz:native.slice(0,3),world_RAS_mm:ras.slice(0,3),world_LPS_mm:[-ras[0],-ras[1],ras[2]]}}
+canvas.addEventListener('pointermove',event=>{const rect=canvas.getBoundingClientRect(),col=Math.max(0,Math.min(nx-1,Math.floor((event.clientX-rect.left)/rect.width*nx))),row=Math.max(0,Math.min(ny-1,Math.floor((event.clientY-rect.top)/rect.height*ny)));el('readout').textContent=JSON.stringify(coordinates(col,row,Number(el('slice').value)),null,2)});
+for(const id of ['slice','mask','cam','opacity'])el(id).addEventListener('input',render);
+el('reset').addEventListener('click',()=>{el('slice').value=Math.floor(nz/2);el('opacity').value=.55;el('mask').checked=!el('mask').disabled;el('cam').checked=!el('cam').disabled;render()});
+render();
+</script></html>

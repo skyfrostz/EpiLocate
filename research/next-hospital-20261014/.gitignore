@@ -1,0 +1,15 @@
+.local/
+reports/
+__pycache__/
+*.pyc
+*.npy
+*.npz
+*.dcm
+*.dicom
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.sqlite
+*.db

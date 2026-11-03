@@ -1,0 +1,16 @@
+{
+  "device": "mps",
+  "job_id": "ctfm-fov128-wave1-20261009-01",
+  "max_backward": 0,
+  "max_forward": 24,
+  "owner": "ENCODER",
+  "per_case_seconds": 120,
+  "recovery_seconds": 2,
+  "request_grace_seconds": 0.25,
+  "task_key": "CTFM-FULL-APPROVED-SERIES-FOV128-V2",
+  "telemetry_max_gap_seconds": 0.25,
+  "telemetry_startup_seconds": 15,
+  "term_grace_seconds": 0.75,
+  "timeout_seconds": 1200,
+  "public_template_only": true
+}

@@ -1,0 +1,126 @@
+{
+  "schema": "P2_REVISION_PROPOSAL_AFTER_P1_V8",
+  "authority": "NOT_AUTHORIZED",
+  "execution_status": "NOT_RUN",
+  "automatic_retry": false,
+  "original_P2": {
+    "path": "PRIVATE_BINDING_REQUIRED/hspi-v3-p2.json",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "P1_saved_review": {
+    "path": "PRIVATE_BINDING_REQUIRED/final-saved-review-v8-1.json",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "P1_data_index": {
+    "path": "PRIVATE_BINDING_REQUIRED/DATA_CONSUMPTION_INDEX_P1_V8.json",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "method": "E2-CT shared core with explicit P1 reference-stage result reuse; heterogeneous historical/new stage lengths",
+  "source_binding": {
+    "core_sha256": "10d71a6390094b578d6b41d593b03a850841451adc61cb97ae68c4f198bebede",
+    "binding_status": "SOURCE_FROZEN_NOT_AUTHORIZED",
+    "old_wave1_spi_sha256": "4a8d694ca17d1f78ed3fe2d28e99aba2e937e34e20fc89d14175559738b19200",
+    "offline_reader_sha256": "abfe9ecdb00fecc4177fe79192d459f4365e16b83b645aaa216ec6700db76dc7",
+    "profile_adapter_sha256": "7effb13a4152c44d0ccc9e8adf40fc8e4a89926c89df5c872f030d922787d37f"
+  },
+  "runtime_source_commit": "0b17c7aaff5081864c397ee1d6f697666f1574db",
+  "supervisor_dependency_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "runtime": {
+    "device": "cpu",
+    "threads": 1,
+    "remote_gpu": false,
+    "training": false,
+    "new_model_or_preprocess": false
+  },
+  "new_stage_configuration": {
+    "grid_sides": [
+      7,
+      10,
+      13
+    ],
+    "stages_per_scale_max": 2,
+    "steps_per_new_stage_max": 1000,
+    "initial_mask": 0.5,
+    "lr": 0.01,
+    "lambda": 1,
+    "alpha": 0.005,
+    "beta": 0.08,
+    "reference_grid": 7,
+    "epsilon": 2,
+    "Adam": {
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08
+    }
+  },
+  "limits": {
+    "global_and_single_case_seconds": 1800,
+    "new_branch_segment_seconds": 300,
+    "output_bytes": 67108864,
+    "terminal_reserve_bytes": 2097152,
+    "new_control_supervisor_runner_tmp_terminal_all_counted": true,
+    "rss_target_bytes": 6442450944,
+    "rss_pre_stop_bytes": 5368709120
+  },
+  "P1_reuse_policy": {
+    "select": "P1 full10000 feasible-set max gap, same-step full M; earliest tie",
+    "never_reuse": "last-step M or last-step logits as selected state",
+    "reconstruct_Omega": "one-hot inverse of argmax selected M, coarse exclusion; soft Omega*M and nearest residual both used",
+    "stage2_optimizer": "fresh .5/Adam, not P1 optimizer continuation",
+    "stage2_baseline": "fresh f(nearest(Omega)*X0) for EACH executed scale/stage; no cross-scale baseline cache",
+    "residual_class": "record fresh logits and class; do not label all later candidates as original disease evidence",
+    "binding": "P1 case/input/model/preprocess/source/dtype/target output refs verified; no same-config resume claim"
+  },
+  "PSMI": "Any-stage overlap per other scale, max1 vote per scale; keep whole grid7 patch; no forced support",
+  "candidate_evaluation_budget": "Already fixed protocol retained; confirm with chief/DATA before new generation; output max2 reference patches does not redefine evaluation budget",
+  "implementation_prerequisite": "New minimal stage-result reuse adapter/readiness is NOT_IMPLEMENTED_NOT_TESTED; existing P1 adapter/core alone does not authorize a P2 launcher",
+  "dispatch_prerequisites": [
+    "owner separately approves exact proposal/config SHA",
+    "chief freezes implementation/runtime/readiness/dependency and unique new dispatch",
+    "recovered shared serial/device gate; no UNKNOWN reset",
+    "existing same-case allowlist/slice/preprocessing/label definition unchanged",
+    "metadata/selection reuse and residual baseline generated check if implementation changes; no repeated whole suite"
+  ],
+  "failure": "Empty feasible set skips later stage of same scale; finite/full denominators retained; budget PARTIAL_BUDGET; mismatch/nonfinite FAILED; no automatic retry",
+  "GT_read_for_selection": false,
+  "clinical_validity": "NOT_ESTABLISHED",
+  "P3": "NOT_AUTHORIZED_NOT_RUN_UNCHANGED",
+  "profile": "P2_CASE1_FIXED_COMPONENT_REVISION_REQUEST",
+  "case_index": 1,
+  "selection": "Original prospective case_index1 preserved; no switch to case3",
+  "recommendation": "HOLD_FULL_PSMI_CLAIM; compute only if owner explicitly wants nonreference-scale components despite known empty reference",
+  "known_reference": {
+    "grid": 7,
+    "stage": 1,
+    "P1_observed": 10000,
+    "joint_feasible": 0,
+    "reuse_result": "NO_FEASIBLE_MASK",
+    "stage2": "SKIPPED_NO_REFERENCE_CANDIDATE",
+    "new_baseline_for_reused_stage": 0,
+    "minimum_Lm_observed": 0.13860011100769043,
+    "mathematical_lower_bound_claim": false
+  },
+  "new_branches": [
+    "grid10/stage1",
+    "grid10/stage2 only if stage1 feasible",
+    "grid13/stage1",
+    "grid13/stage2 only if stage1 feasible"
+  ],
+  "cost": {
+    "max_new_optimizer_steps": 4000,
+    "optimization_forward_max": 4000,
+    "fresh_residual_baselines_max": 4,
+    "P1_reused_baseline_validation_forwards": 1,
+    "new_branch_restore_events_max": 4,
+    "restore_validation_forwards_max": 8,
+    "pending_observation_replay_forwards_max": 4,
+    "global_forward_cap": 4017,
+    "global_backward_cap": 4000,
+    "extra_autograd": 0,
+    "no_restore_forward_max": 4005
+  },
+  "expected_scope": "At most3 declared scales but grid7 supplies no patch/stage2; not an executed3-scale2-stage full chain. No reference patch means PSMI cannot retain a reference patch even if grids10/13 succeed; report reason, do not alter reference/votes.",
+  "public_template_only": true
+}

@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}{{ case.case_id }} | EpiLocate Review{% endblock %}
+{% block body_class %}review-page{% endblock %}
+{% block content %}
+{% set form_locked = read_only or review.status == 'SUBMITTED' %}
+<main class="review-shell">
+  <aside class="case-track" aria-label="当前病例位置">
+    <span class="case-track-label">CASE</span>
+    {% for track_index in range(1, 14) %}<i class="{% if track_index == case.index|default(1) %}active{% elif track_index < case.index|default(1) %}passed{% endif %}"><span>{{ "%02d"|format(track_index) }}</span></i>{% endfor %}
+  </aside>
+  <nav class="case-nav" aria-label="病例导航">
+    <a class="button button-quiet button-small" href="/review">&larr; 返回队列</a>
+    <span>{{ case.index|default(1) }} / {{ case.total|default(13) }}</span>
+    <div>
+      {% if case.previous_id %}<a class="button button-quiet button-small" href="/review/{{ case.previous_id }}">上一例</a>{% endif %}
+      {% if case.next_id %}<a class="button button-quiet button-small" href="/review/{{ case.next_id }}">下一例</a>{% endif %}
+    </div>
+  </nav>
+
+  <header class="review-heading">
+    <div>
+      <p class="eyebrow">{{ case.case_type|replace('_', ' ') }}</p>
+      <h1>{{ case.case_id }}</h1>
+    </div>
+    <div class="save-indicator" id="save-indicator" data-state="saved" role="status">
+      <i aria-hidden="true"></i><span>{% if review.status == 'SUBMITTED' %}已提交{% elif review.version %}草稿已保存{% else %}尚未保存{% endif %}</span>
+    </div>
+  </header>
+
+  {% if read_only %}
+  <div class="message message-info">本例已进入只读状态。需要修改时，请由管理员重新开放复核。</div>
+  {% endif %}
+  {% if case.case_id == 'TIE-012' or case.duplicate_warning %}
+  <div class="message message-warning"><b>TIE-012 特别提示：</b>两套 Series 参数高度接近，可能为重复序列。没有稳定差异时应选择 DEFER。</div>
+  {% endif %}
+
+  <section class="candidate-rail candidate-count-{{ candidates|length }}" aria-label="Series 候选">
+    {% for candidate in candidates %}
+    {% if candidate.selectable == false %}{% set alias = '对照项（不可选）' %}{% else %}{% set alias = candidate.alias|default('候选 ' ~ candidate.display_position|default('A'), true) %}{% endif %}
+    <article class="candidate-panel{% if candidate.selectable == false %} candidate-context{% endif %}" data-candidate-uid="{{ candidate.series_uid }}">
+      <header class="candidate-head">
+        <div>
+          <p class="candidate-alias">{{ alias }}</p>
+          <h2>Kernel {{ candidate.convolution_kernel|default('&lt;MISSING&gt;', true) }}</h2>
+        </div>
+        {% if candidate.selectable != false %}<span class="selectable-mark">可选择</span>{% else %}<span class="context-mark">仅供对照 / 不可选择</span>{% endif %}
+      </header>
+
+      <div class="montage-frame">
+        <span class="orientation orientation-top">A</span><span class="orientation orientation-bottom">P</span>
+        {% if candidate.montage_asset_id %}
+        <img src="/media/{{ candidate.montage_asset_id }}" alt="{{ alias }} 固定肺窗代表层面" loading="eager">
+        {% else %}
+        <div class="image-placeholder">Montage 暂不可用</div>
+        {% endif %}
+      </div>
+
+      <dl class="metadata-grid">
+        <div><dt>层厚</dt><dd>{{ candidate.slice_thickness_mm }} mm</dd></div>
+        <div><dt>像素间距</dt><dd>{{ candidate.pixel_spacing_row_mm }} × {{ candidate.pixel_spacing_column_mm }} mm</dd></div>
+        <div><dt>覆盖</dt><dd>{{ candidate.coverage_mm }} mm</dd></div>
+        <div><dt>切片</dt><dd>{{ candidate.slice_count }}</dd></div>
+        <div class="metadata-wide"><dt>Description</dt><dd>{{ candidate.series_description|default('—', true) }}</dd></div>
+      </dl>
+
+      <details class="uid-details"><summary>查看 Series 标识</summary><code>{{ candidate.series_uid }}</code></details>
+      <div class="candidate-actions">
+        {% if candidate.selectable != false %}
+        <label class="candidate-choice">
+          <input type="radio" name="decision-picker" form="review-form" value="{{ 'INCLUDE_REVIEW_SERIES' if case.case_type == 'diagnostic_type_uncertain' else 'SELECT_ONE_CANDIDATE' }}" data-series-uid="{{ candidate.series_uid }}" {% if review.selected_series_uid == candidate.series_uid %}checked{% endif %} {% if form_locked %}disabled{% endif %}>
+          <span>{{ '纳入这套 Series' if case.case_type == 'diagnostic_type_uncertain' else '选择 ' ~ alias }}</span>
+        </label>
+        {% endif %}
+        <a class="button button-secondary" href="/review/{{ case.case_id }}/viewer{% if candidate.series_uid %}?series={{ candidate.series_uid|urlencode }}{% endif %}">打开完整 Series</a>
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+
+  <form class="review-form" id="review-form"
+        data-case-id="{{ case.case_id }}"
+        data-case-type="{{ case.case_type }}"
+        data-version="{{ review.version|default(0) }}"
+        data-draft-url="/api/reviews/{{ case.case_id }}/draft"
+        data-submit-url="/api/reviews/{{ case.case_id }}/submit"
+        data-reopen-url="/api/reviews/{{ case.case_id }}/reopen"
+        data-read-only="{{ 'true' if form_locked else 'false' }}">
+    <input type="hidden" name="version" value="{{ review.version|default(0) }}">
+
+    <section class="review-step observation-step">
+      <div class="step-heading"><span>01</span><div><h2>记录观察</h2><p>每一项只描述当前能确认的图像或 metadata 证据。</p></div></div>
+
+      {% if case.case_type == 'technical_tie' %}
+      <div class="observation-list">
+        {% set tie_obs = [
+          ('texture', '肺纹理清楚度', '小血管、细小结构与肺边缘，哪一侧更容易辨认？'),
+          ('noise', '图像噪声', '哪一侧颗粒与麻点更少，对肺纹理干扰更小？'),
+          ('artifact', '运动与其他伪影', '哪一侧运动双影、条纹或异常模糊更少？'),
+          ('coverage', '胸部覆盖', '哪一侧从肺尖到肺底的覆盖更完整？')
+        ] %}
+        {% for key, label, help in tie_obs %}
+        <fieldset class="observation-row" data-observation="{{ key }}">
+          <legend><b>{{ label }}</b><span>{{ help }}</span></legend>
+          <div class="segmented-control">
+            {% for value, text in [('A', 'A 更优'), ('B', 'B 更优'), ('SAME', '接近'), ('UNSURE', '不确定')] %}
+            <label><input type="radio" name="obs_{{ key }}" value="{{ value }}" {% if review.observations and review.observations.get(key) == value %}checked{% endif %} {% if form_locked %}disabled{% endif %}><span>{{ text }}</span></label>
+            {% endfor %}
+          </div>
+        </fieldset>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="observation-list">
+        {% set diag_obs = [
+          ('diag_coverage', '胸部覆盖', '完整 Series 是否基本覆盖肺尖到肺底？', '基本完整', '明显不完整'),
+          ('diag_artifact', '图像伪影', '运动、条纹或异常模糊是否处于可接受范围？', '可接受', '影响观察'),
+          ('diag_use', '整体用途', '结合图像与 metadata，是否可确认其为研究可用的诊断性胸部 CT？', '可以确认', '不能确认')
+        ] %}
+        {% for key, label, help, yes_text, no_text in diag_obs %}
+        <fieldset class="observation-row" data-observation="{{ key }}">
+          <legend><b>{{ label }}</b><span>{{ help }}</span></legend>
+          <div class="segmented-control segmented-three">
+            {% for value, text in [('YES', yes_text), ('NO', no_text), ('UNSURE', '不确定')] %}
+            <label><input type="radio" name="obs_{{ key }}" value="{{ value }}" {% if review.observations and review.observations.get(key) == value %}checked{% endif %} {% if form_locked %}disabled{% endif %}><span>{{ text }}</span></label>
+            {% endfor %}
+          </div>
+        </fieldset>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="recommendation" id="recommendation"
+           data-decision="{{ recommendation.decision|default('') }}"
+           data-series-uid="{{ recommendation.selected_series_uid|default('') }}"
+           data-reason="{{ recommendation.reason|default('') }}">
+        <div><span class="recommendation-label">建议</span><b id="recommendation-text">{{ recommendation.label|default('完成全部观察项后显示建议') }}</b><p>建议由规则生成，仅用于填表；不会自动保存或提交。</p></div>
+        <button class="button button-secondary" id="adopt-recommendation" type="button" {% if not recommendation.complete or recommendation.decision == 'PENDING' or form_locked %}disabled{% endif %}>采用建议</button>
+      </div>
+    </section>
+
+    <section class="review-step decision-step">
+      <div class="step-heading"><span>02</span><div><h2>确认决定</h2><p>选择结果后核对理由。选择候选时必须与实际 Series 对应。</p></div></div>
+      <div class="decision-options">
+        <label><input type="radio" name="decision-picker" value="EXCLUDE_PATIENT" {% if review.decision == 'EXCLUDE_PATIENT' %}checked{% endif %} {% if form_locked %}disabled{% endif %}><span><b>排除患者</b><small>候选均不适合作为研究输入</small></span></label>
+        <label><input type="radio" name="decision-picker" value="DEFER" {% if review.decision == 'DEFER' %}checked{% endif %} {% if form_locked %}disabled{% endif %}><span><b>DEFER</b><small>现有证据不足，暂缓决定</small></span></label>
+      </div>
+      <label class="field reason-field">
+        <span>复核理由</span>
+        <textarea name="reason" id="reason" rows="5" minlength="20" {% if form_locked %}readonly{% endif %}>{{ review.reason|default('') }}</textarea>
+        <small>写明覆盖、纹理、噪声、伪影、重建或重复等可复核证据。UID 顺序、标签和模型结果不能作为依据。</small>
+      </label>
+      <div class="evidence-checks">
+        <label><input type="checkbox" name="image_evidence_reviewed" {% if review.image_evidence_reviewed %}checked{% endif %} {% if form_locked %}disabled{% endif %}><span>已查看图像证据</span></label>
+        <label><input type="checkbox" name="metadata_evidence_reviewed" {% if review.metadata_evidence_reviewed %}checked{% endif %} {% if form_locked %}disabled{% endif %}><span>已核对 metadata</span></label>
+      </div>
+    </section>
+
+    <footer class="submit-dock">
+      <div><b id="draft-state">{% if review.version %}草稿版本 {{ review.version }}{% else %}尚无草稿{% endif %}</b><span>草稿自动保存；只有右侧按钮会提交最终复核。</span></div>
+      {% if review.status == 'SUBMITTED' and not read_only %}
+      <button class="button button-secondary" id="reopen-review" type="button">重新打开</button>
+      {% endif %}
+      <button class="button button-primary" id="submit-review" type="submit" {% if form_locked %}disabled{% endif %}>确认并提交本例</button>
+    </footer>
+  </form>
+</main>
+{% endblock %}
+{% block scripts %}<script src="/static/reviewer.js?v=4" defer></script>{% endblock %}

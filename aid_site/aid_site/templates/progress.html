@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-kicker"><span>05 / 项目进度</span><span>PROJECT SCHEDULE</span></div>
+<section class="page-intro"><span class="eyebrow"><span class="eyebrow-line"></span> SEPTEMBER — NOVEMBER 2026</span><h1>六周倒排，<br><span class="accent-text">逐步验证。</span></h1><p>下列时间与产出来自立项计划。本站不把计划节点标记为已完成成果；实际进展需由项目团队核实后更新。</p></section>
+<div class="progress-current"><div><span class="section-index">当前网站交付</span><h2>展示站点与占位接口</h2></div><span class="status-tag active-status">网站功能已实现 · 研究成果待核实</span></div>
+<section class="timeline" aria-label="计划时间节点">
+  <article><div class="timeline-date"><strong>W01</strong><span>9.21 – 9.27</span></div><div><h2>定题与准备</h2><p>复核三阶段路线，推进数据与伦理准备，设计分块遮挡实验。</p><small>计划产出：申报书修订稿、数据清单、分类基线与遮挡方案</small></div><span class="timeline-state">计划节点</span></article>
+  <article><div class="timeline-date"><strong>W02</strong><span>9.28 – 10.04</span></div><div><h2>遮挡扰动实验</h2><p>完成预处理与分类基线，分析不同尺度和位置下的定位失稳。</p><small>计划产出：遮挡扰动结果、失稳分析记录</small></div><span class="timeline-state">计划节点</span></article>
+  <article><div class="timeline-date"><strong>W03</strong><span>10.05 – 10.11</span></div><div><h2>稳定粗定位</h2><p>研究遮挡免疫鲁棒分类器，构建逐级分块掩码定位流程。</p><small>计划产出：稳定粗定位原型、阶段对比结果；设置核心路线检查点</small></div><span class="timeline-state">计划节点</span></article>
+  <article><div class="timeline-date"><strong>W04</strong><span>10.12 – 10.18</span></div><div><h2>LIME 精细化</h2><p>以粗定位为先验开展局部解释、边界细化与定位评测。</p><small>计划产出：精细定位结果、实验数据与对比图</small></div><span class="timeline-state">计划节点</span></article>
+  <article><div class="timeline-date"><strong>W05</strong><span>10.19 – 10.25</span></div><div><h2>临床解释与交互</h2><p>规划医生反馈交互与 Web 原型集成，在具备条件后开展试用。</p><small>计划产出：交互演示系统、医生反馈记录</small></div><span class="timeline-state">计划节点</span></article>
+  <article><div class="timeline-date"><strong>W06</strong><span>10.26 – 11.01</span></div><div><h2>综合评测与材料</h2><p>完成三阶段消融、综合评测与降级方案整理。</p><small>计划产出：实验报告、申报材料与演示材料</small></div><span class="timeline-state">计划节点</span></article>
+  <article><div class="timeline-date"><strong>END</strong><span>11.02 – 11.03</span></div><div><h2>院赛答辩</h2><p>按真实研究进展检验阶段成果。</p><small>计划产出：阶段成果检验</small></div><span class="timeline-state">计划节点</span></article>
+</section>
+<div class="progress-footnote">计划依据：2026 年 9 月 21 日版立项说明书。医院数据验证进度取决于授权、伦理审批与实际数据获取。</div>
+{% endblock %}

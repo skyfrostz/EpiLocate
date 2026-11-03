@@ -1,0 +1,138 @@
+{
+  "F0": "BLOCKED",
+  "F1": "BLOCKED",
+  "actual_model_execution": "NOT RUN",
+  "actual_real_encoder_calls": 0,
+  "alternative_shape_or_auto_window_sweep": false,
+  "backward_or_autograd_calls": 0,
+  "batch_size": 1,
+  "call_accounting": "count every entered network forward including warmup/failed calls; no uncounted model probe",
+  "case_count": 3,
+  "case_order": [
+    1,
+    2,
+    3
+  ],
+  "checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "child_seconds_per_case_including_loading": 120,
+  "coverage_dry_run_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "cpu_threads": 1,
+  "data_delivery_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "dtype": "float32",
+  "existing_loader_source_sha256": "fa990c17c3d3a781d401b1efd5ce7c4f0edd5ebec4e5e9150bc49caeeee8780c",
+  "expected3inputs_and18_features_fp32_bytes": 44040192,
+  "expected_full_output_comparisons": 9,
+  "expected_last_stage_shape": [
+    1,
+    512,
+    8,
+    8,
+    8
+  ],
+  "experiment_id": "CTFM-FULL-APPROVED-SERIES-FOV128-V2",
+  "freeze_all3_inputs_and_ledgers_before_first_forward": true,
+  "geometry_ledgers": [
+    {
+      "case_index": 1,
+      "path": "PRIVATE_BINDING_REQUIRED/case_1_volume_geometry.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "case_index": 2,
+      "path": "PRIVATE_BINDING_REQUIRED/case_2_volume_geometry.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "case_index": 3,
+      "path": "PRIVATE_BINDING_REQUIRED/case_3_volume_geometry.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "head_training": "NOT RUN",
+  "hu_clip": [
+    -1024,
+    2048
+  ],
+  "hu_scaling": "(clip(HU)+1024)/3072 before area averaging",
+  "max_actual_encoder_calls_total": 24,
+  "max_cpu_encoder_calls_total": 12,
+  "max_mps_encoder_calls_total": 12,
+  "max_swap_increase_bytes": 1073741824,
+  "minimum_memory_free_percent": 20,
+  "model_revision": "527b0d1c262b433396c85ff2de84c427b26945a1",
+  "mps_driver_limit_bytes": 6442450944,
+  "native_padding": "preserve DATA UNKNOWN; no inferred validity mask",
+  "new_input_padding": "NONE",
+  "no_new_data_labels_training_or_remote_permission": true,
+  "one_mps_owner": "ENCODER only after coordinator scheduling",
+  "orientation": "SPL",
+  "output_disk_outer_limit_bytes": 2147483648,
+  "output_dtype": "float32 lossless NPY; no compression/downcast assumption",
+  "patient_representation": "GAP of last-stage512 features; no head loaded/trained",
+  "per_case_encoder_calls": {
+    "cpu_timed": 3,
+    "cpu_warmup": 1,
+    "mps_timed": 3,
+    "mps_warmup": 1,
+    "total": 8
+  },
+  "physical_spacing_spl_mm_by_case": {
+    "1": [
+      2.177734375,
+      3.125,
+      3.125
+    ],
+    "2": [
+      2.859375,
+      2.9609375,
+      2.9609375
+    ],
+    "3": [
+      2.421875,
+      2.8125,
+      2.8125
+    ]
+  },
+  "preserve_mps_allocator_limit_bytes": 6442450944,
+  "prior_M2_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "remote_RTX3090": "PAUSED",
+  "resampling": "deterministic separable volume-cell area averaging to128cube, voxel-edge preserving; streaming planes",
+  "retries": 0,
+  "rss_limit_bytes": 6442450944,
+  "sampling_seconds": 0.02,
+  "schema": "CTFM_FOV128_INCREMENT_PROPOSAL_V2",
+  "scope_limitations": [
+    "anti-aliased downsampling can suppress small targets",
+    "anatomical thorax completeness UNKNOWN",
+    "RF469 is nominal convolution support, not clinical effective context",
+    "new input domain is an engineering variant, not validated clinical classification"
+  ],
+  "seed": 17,
+  "selection": "all3 existing cases in DATA order; no GT/response selection; no foreground or lesion crop",
+  "shape": [
+    1,
+    1,
+    128,
+    128,
+    128
+  ],
+  "status": "PROPOSED_NOT_AUTHORIZATION",
+  "stop_on": "first new-shape/operator/fallback/numeric/nonfinite/resource/monitor failure; preserve partial CPU/MPS receipts",
+  "strict_environment": {
+    "PYTORCH_ENABLE_MPS_FALLBACK": "0",
+    "PYTORCH_MPS_FAST_MATH": "0"
+  },
+  "support": "entire voxel-edge FOV of each existing approved selected Series; no new patient/Series",
+  "task_output_limit_bytes": 134217728,
+  "timeout": "check before launch/forward; supervisor may terminate only confirmed owned child; in-flight time recorded honestly",
+  "tolerance": {
+    "atol": 0.001,
+    "max_absolute_error": 0.001,
+    "mean_absolute_error": 0.0001,
+    "rtol": 0.0001
+  },
+  "unseen128_activation_peak_bytes": null,
+  "unseen128_runtime_seconds": null,
+  "wall_seconds_total_including_preprocessing_loading_and_reporting": 1200,
+  "public_template_only": true
+}

@@ -1,0 +1,188 @@
+{
+  "schema": "HSPI_REAL_EXPERIMENT_PROPOSAL_V3",
+  "authority": "NOT_AUTHORIZED",
+  "execution_status": "NOT_RUN",
+  "purpose": "prospective resource-bounded CT research proposal",
+  "method_mode": "E2-CT",
+  "shared_reference_core": "epi_next/hspi_core_v3.py",
+  "source_binding": {
+    "core_sha256": "10d71a6390094b578d6b41d593b03a850841451adc61cb97ae68c4f198bebede",
+    "binding_status": "SOURCE_FROZEN_NOT_AUTHORIZED",
+    "old_wave1_spi_sha256": "4a8d694ca17d1f78ed3fe2d28e99aba2e937e34e20fc89d14175559738b19200",
+    "offline_reader_sha256": "abfe9ecdb00fecc4177fe79192d459f4365e16b83b645aaa216ec6700db76dc7",
+    "profile_adapter_sha256": "7effb13a4152c44d0ccc9e8adf40fc8e4a89926c89df5c872f030d922787d37f"
+  },
+  "data_bindings": {
+    "allowlist_scope": "same original three Rule-B train patients,715 SOP; no expansion; only previously fixed slices",
+    "data_v3_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "prepared_delivery_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "slice_lock_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "baseline_preprocess_config_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "input_policy": {
+    "input_hw": [
+      224,
+      224
+    ],
+    "input_domain": "frozen prepared scalar CT before RGB normalization",
+    "normalization": "repeat scalar RGB then subtract [.485,.456,.406] divide [.229,.224,.225]",
+    "mask_domain": "before normalization",
+    "support_policy": "E2-CT: preserve outside valid_support; optimization differs from literal E2-REF over full image"
+  },
+  "algorithm": {
+    "mask_initial_value": 0.5,
+    "learning_rate": 0.01,
+    "lambda_weight": 1.0,
+    "alpha": 0.005,
+    "beta": 0.08,
+    "similarity": "sum of squared differences of all logits",
+    "sparsity": "full coarse grid mean(abs(M))",
+    "optimizer": {
+      "name": "Adam",
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "weight_decay": 0,
+      "amsgrad": false
+    },
+    "soft_interpolation": {
+      "mode": "bilinear",
+      "align_corners": false,
+      "antialias": false
+    },
+    "hard_interpolation": "nearest floor coordinates",
+    "cpf": "max top1-top2 gap over entire feasible set; strict Ls<alpha and Lm<beta; no positive-gap rejection",
+    "ties": "earliest equal-gap feasible iteration; lowest flat index for equal maxima",
+    "stage_baseline": "fresh residual baseline each scale/stage; Omega used twice",
+    "psmi": "whole reference patch; any-stage intersection; max one vote per other scale"
+  },
+  "runtime": {
+    "device": "cpu",
+    "mps_execution": "NOT_REQUESTED_IN_THESE_PROFILES; requires separate pinned validation/approval",
+    "threads": 1,
+    "automatic_retry": 0,
+    "remote_gpu": false,
+    "new_training": false,
+    "extra_diagnostic_autograd_calls": 0,
+    "protection": {
+      "inherit_semantics_revision_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "rss_target_bytes": 6442450944,
+      "rss_pre_stop_bytes": 5368709120,
+      "mps_driver_target_bytes": 6442450944,
+      "mps_driver_pre_stop_bytes": 5368709120,
+      "sampling_period_seconds": 0.1,
+      "max_telemetry_gap_seconds": 0.25,
+      "startup_telemetry_seconds": 15,
+      "request_grace_seconds": 0.25,
+      "term_grace_seconds": 0.75,
+      "recovery_observation_seconds": 2,
+      "sampled_peaks_only": true,
+      "blind_spots_and_exit_latency_reported": true
+    }
+  },
+  "stopping": {
+    "nonfinite": "FAILED preserve trace/checkpoint",
+    "no_feasible_mask": "NO_FEASIBLE_MASK for completed branch; skip later stages of that scale only; preserve actual denominators",
+    "no_support": "NO_MULTISCALE_SUPPORT only after declared required branches/votes evaluated",
+    "budget_or_memory_or_monitor_failure": "PARTIAL_BUDGET or FAILED monitor; best-so-far not full-plan optimum",
+    "residual_class_change": "record; do not reinterpret all later patches as original disease",
+    "slot_unknown": "BLOCKED no launch or reset",
+    "global_counter": "durable reserve/entered/completed, includes audits, failed/inflight calls and every restart; no reset",
+    "shutdown": "independent shared supervisor; only own newly-created processes; receipt plus exit/device recovery required"
+  },
+  "prerequisites": [
+    "explicit per-profile human approval and chief config SHA confirmation",
+    "valid formal same-three development/data delivery; no sealed data",
+    "current recovered CPU execution slot",
+    "hash-frozen source/adapter/model/input/runtime/supervisor lock",
+    "synthetic optimizer restoration and targeted shared-supervisor integration checks",
+    "prospective evaluator/candidate budget unchanged; independent GT evaluation after generation"
+  ],
+  "profile": "P2_REDUCED_COMPLETE_CORE",
+  "case_indices": [
+    1
+  ],
+  "selection": "prospective case_index1 from original manifest order, independent of performance",
+  "grid_sides": [
+    7,
+    10,
+    13
+  ],
+  "stages_per_scale": 2,
+  "max_steps_per_stage_scale": 1000,
+  "step_checkpoints": [
+    1000
+  ],
+  "reference_grid_side": 7,
+  "psmi_min_other_scale_votes": 2,
+  "scope": "reduced3-scale2-stage mechanism/cost experiment, not full paper profile",
+  "resume_policy": "at most one explicit approved restoration per branch; retain counters",
+  "cost": {
+    "max_updates": 6000,
+    "branch_baselines": 6,
+    "max_restore_events": 6,
+    "restore_validation_forwards": 12,
+    "global_forward_cap": 6024,
+    "global_reverse_cap": 6000,
+    "uninterrupted_forwards": 6006,
+    "uninterrupted_backwards": 6000,
+    "extra_autograd": 0,
+    "diagnostic_rule": "2 validation forwards per restored branch; none additional uninterrupted; at most1 additional pending-observation forward per restoration, charged separately",
+    "pending_observation_replay_forward_cap": 6
+  },
+  "limits": {
+    "global_stop_seconds": 1800,
+    "per_case_stop_seconds": 1800,
+    "per_segment_stop_seconds": 300,
+    "max_resume_events_per_branch": 1,
+    "output_bytes": 67108864
+  },
+  "core_config": {
+    "mode": "E2-CT",
+    "image_size": [
+      224,
+      224
+    ],
+    "grids": [
+      7,
+      10,
+      13
+    ],
+    "stages": 2,
+    "steps": 1000,
+    "zeta": 0.5,
+    "lr": 0.01,
+    "lam": 1.0,
+    "alpha": 0.005,
+    "beta": 0.08,
+    "reference_grid": 7,
+    "epsilon": 2,
+    "adam_betas": [
+      0.9,
+      0.999
+    ],
+    "adam_eps": 1e-08,
+    "align_corners": false,
+    "adapter_policy": "{\"input_domain\":\"frozen prepared scalar CT before RGB normalization\",\"input_hw\":[224,224],\"mask_domain\":\"before normalization\",\"normalization\":\"repeat scalar RGB then subtract [.485,.456,.406] divide [.229,.224,.225]\",\"support_policy\":\"E2-CT: preserve outside valid_support; optimization differs from literal E2-REF over full image\"}",
+    "masking_policy": "preserve_exterior",
+    "tie_policy": "earliest_feasible_epoch_then_first_flat_argmax"
+  },
+  "core_config_sha256": "15f3b78cdd547becda56b1066016145a2541068397f96ca846d000a80f534eb2",
+  "core_uninterrupted_cost_per_case": {
+    "baseline_forward": 6,
+    "mask_forward": 6000,
+    "forward": 6006,
+    "backward": 6000,
+    "extra_autograd": 0,
+    "optimizer_steps": 6000
+  },
+  "runner_entry": {
+    "offline": "python -m epi_next.hspi_profile_v3 --proposal research/next-hospital-20261014/configs/hspi-v3-p2.json",
+    "real": "NOT_IMPLEMENTED; approval+UNKNOWN-slot gates refuse execution",
+    "supervisor_seam": "epi_next.hspi_profile_v3.MeterBudget -> existing ComputeMeter -> ChildGuard/CounterLedger; generated tests only"
+  },
+  "public_template_only": true
+}

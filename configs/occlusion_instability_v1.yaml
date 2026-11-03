@@ -1,0 +1,75 @@
+status: FROZEN
+protocol_id: stage1-occlusion-instability-v1
+experiment_id: FORMAL-BL-R18-V1
+metadata_confounding_status: PRESENT_AND_UNRESOLVED
+baseline:
+  checkpoint: outputs/experiments/FORMAL-BL-R18-V1/training/best_model.pth
+  checkpoint_sha256: 548b39b9a799a4cbf56982c569d752c2e37ce4ac005089b0339a6194a3cad734
+  best_epoch: 2
+  checkpoint_selection: minimum_validation_loss
+data:
+  split_dir: outputs/data/formal_split_rule_b_v1
+  primary_manifest: outputs/data/formal_split_rule_b_v1/val_manifest.csv
+  primary_split: val
+  primary_patients: 28
+  primary_slices: 5637
+  development_fixture_split: train
+  test_set_status: SEALED
+preprocessing:
+  image_size: 224
+  window_center: -600
+  window_width: 1500
+  resize: bilinear_antialias
+  mask_stage: resized_grayscale_before_imagenet_normalization
+  fill: 0.5
+  augmentation: none
+masking:
+  block_sizes: [16, 32, 64]
+  strides: [8, 16, 32]
+  stride_rule: block_size_div_2
+  boundary_rule: valid_full_block_with_final_start_224_minus_block
+  coordinate_order: row_major
+  positions_per_scale: {"16": 729, "32": 169, "64": 36}
+  positions_per_slice: 934
+response:
+  threshold: 0.5
+  raw_fields: [logits, positive_probability, predicted_class]
+  signed_probability_drop: p0_minus_pg
+  absolute_probability_change: abs_p0_minus_pg
+  prediction_flip: baseline_class_neq_masked_class
+  position_variance: population_variance_over_positions
+  candidate:
+    baseline_class_probability: q0
+    masked_same_class_probability: qg
+    decision_confidence_drop: q0_minus_qg
+    candidate_response: max_q0_minus_qg_zero
+    epsilon_num: 1.0e-6
+    invalid_status: insufficient_positive_response
+    top_fraction: 0.10
+    zero_response_blocks_allowed: false
+patient_analysis:
+  primary_aggregation: slice_first
+  primary_unit: patient
+  probability_first: secondary_only
+  bootstrap:
+    unit: patient
+    resamples: 1000
+    seed: 20260925
+spatial:
+  slice_maps: true
+  patient_2d_fusion: false
+  comparison_grid: [14, 14]
+  projection: deterministic_area_average_pooling
+  cross_scale_primary_metric: spearman_rank_correlation
+  cross_scale_secondary_metrics: [top10_iou, dice, normalized_center_distance, normalized_l1, pearson]
+  scale_pass_fail_threshold: null
+execution:
+  batched_inference: true
+  model_eval: true
+  inference_mode: true
+  optimizer: false
+  backward: false
+  save_masked_images: false
+  raw_format: parquet
+  formal_validation_run: false
+  formal_test_run: false

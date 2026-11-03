@@ -1,0 +1,19 @@
+{
+  "experiment_id": "EPI-NEXT-CTFM-MPS-PHASE2-v1",
+  "sizes": [
+    32,
+    64
+  ],
+  "dtype": "float32",
+  "seed": 17,
+  "cpu_threads": 1,
+  "timeout_seconds_per_size": 120,
+  "rss_limit_bytes": 6442450944,
+  "mps_driver_limit_bytes": 6442450944,
+  "sampling_seconds": 0.02,
+  "relative_floor_fraction": 0.001,
+  "relative_absolute_floor": 1e-12,
+  "real_case_count": 0,
+  "numerical_acceptance": "NOT_ASSESSED_NO_PREDECLARED_THRESHOLD",
+  "public_template_only": true
+}

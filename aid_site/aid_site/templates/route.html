@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-kicker"><span>02 / 技术路线</span><span>RESEARCH PATH</span></div>
+<section class="page-intro"><span class="eyebrow"><span class="eyebrow-line"></span> THREE STAGES / ONE CONTINUOUS PATH</span><h1>由粗到细，<br><span class="accent-text">走向可解释。</span></h1><p>主线按稳定粗定位、LIME 精细化、临床解释与反馈依次推进。每一步都为下一步提供依据。</p></section>
+<section class="route-flow" aria-label="三阶段技术路线"><span>分块掩码逐级稳定粗定位</span><b>→</b><span>粗定位引导的 LIME 精细定位</span><b>→</b><span>临床逻辑解释与医生反馈</span></section>
+<section class="stage-list">
+  <article class="stage-card"><div class="stage-no">01 <small>STAGE ONE</small></div><div class="stage-main"><span class="status-tag">研究计划 · 尚未接入</span><h2>分块掩码逐级稳定粗定位</h2><p>在不同尺度和位置实施分块遮挡，分析分类置信度及关注区域随扰动的变化；进一步研究面向遮挡免疫的鲁棒分类器，再逐级缩小候选区域。</p><div class="stage-points"><span>遮挡失稳分析</span><span>鲁棒分类学习</span><span>稳定粗定位</span></div></div><div class="stage-figure mask-figure" aria-hidden="true"><div class="mask-grid">{% for i in range(16) %}<i class="mask-{{ i }}"></i>{% endfor %}</div><span>BLOCK MASK / COARSE</span></div></article>
+  <article class="stage-card"><div class="stage-no">02 <small>STAGE TWO</small></div><div class="stage-main"><span class="status-tag">研究计划 · 尚未接入</span><h2>粗定位引导的 LIME 精细定位</h2><p>将稳定粗定位区域作为先验，限定局部扰动与解释范围；用 LIME 分析候选区域对分类决策的贡献，探索病灶边界精细化。</p><div class="stage-points"><span>粗定位先验</span><span>局部贡献分析</span><span>边界精细化</span></div></div><div class="stage-figure lime-figure" aria-hidden="true"><div class="lime-square"><i></i><i></i><i></i></div><span>LIME / REFINEMENT</span></div></article>
+  <article class="stage-card"><div class="stage-no">03 <small>STAGE THREE</small></div><div class="stage-main"><span class="status-tag">研究计划 · 尚未接入</span><h2>临床逻辑解释与医生反馈</h2><p>组织关键区域及其贡献的解释证据，并规划医生确认、删除、补充和边界修正流程。反馈机制将在授权数据与业务实现具备后接入。</p><div class="stage-points"><span>解释证据</span><span>临床逻辑对齐</span><span>医生修正记录</span></div></div><div class="stage-figure review-figure" aria-hidden="true"><div class="review-lines"><i></i><i></i><i></i><i></i></div><span>CLINICAL REVIEW</span></div></article>
+</section>
+<section class="note-panel"><span class="note-icon">↳</span><div><h3>对照与降级方案</h3><p>Grad-CAM++ 配合成熟分类网络、肺区约束及三维平滑仅用于方法对照或进度受限时的降级展示，不与三阶段主线并列，也不作为核心方法有效性的唯一证据。</p></div></section>
+{% endblock %}
